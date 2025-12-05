@@ -9,7 +9,7 @@ package biblioteca.main;
  *
  * @author tommy
  */
-public class prova {
+public class Main {
 
     /**
      * @param args the command line arguments
