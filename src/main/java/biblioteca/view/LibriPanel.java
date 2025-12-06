@@ -30,7 +30,8 @@ public class LibriPanel {
     private final TextField campoAnno;
     private final TextField campoCopieTotali;
 
-    private final TableView<LibroRow> tabellaLibri;
+    // 👇 la tabella contiene semplicemente una lista di String per riga
+    private final TableView<ObservableList<String>> tabellaLibri;
 
     private final Button bottoneInserisci;
     private final Button bottoneModifica;
@@ -73,33 +74,47 @@ public class LibriPanel {
         // ===== tabella al centro =====
         tabellaLibri = new TableView<>();
 
-        TableColumn<LibroRow, String> colIsbn = new TableColumn<>("ISBN");
-        colIsbn.setCellValueFactory(data -> data.getValue().isbnProperty());
+        // Indici delle colonne nelle righe:
+        // 0 = ISBN, 1 = Titolo, 2 = Autori, 3 = Anno, 4 = Copie totali, 5 = Copie disp.
 
-        TableColumn<LibroRow, String> colTitolo = new TableColumn<>("Titolo");
-        colTitolo.setCellValueFactory(data -> data.getValue().titoloProperty());
+        TableColumn<ObservableList<String>, String> colIsbn = new TableColumn<>("ISBN");
+        colIsbn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(0)));
 
-        TableColumn<LibroRow, String> colAutori = new TableColumn<>("Autori");
-        colAutori.setCellValueFactory(data -> data.getValue().autoriProperty());
+        TableColumn<ObservableList<String>, String> colTitolo = new TableColumn<>("Titolo");
+        colTitolo.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(1)));
 
-        TableColumn<LibroRow, String> colAnno = new TableColumn<>("Anno");
-        colAnno.setCellValueFactory(data -> data.getValue().annoProperty());
+        TableColumn<ObservableList<String>, String> colAutori = new TableColumn<>("Autori");
+        colAutori.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(2)));
 
-        TableColumn<LibroRow, String> colCopieTot = new TableColumn<>("Copie totali");
-        colCopieTot.setCellValueFactory(data -> data.getValue().copieTotaliProperty());
+        TableColumn<ObservableList<String>, String> colAnno = new TableColumn<>("Anno");
+        colAnno.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(3)));
 
-        TableColumn<LibroRow, String> colCopieDisp = new TableColumn<>("Copie disp.");
-        colCopieDisp.setCellValueFactory(data -> data.getValue().copieDisponibiliProperty());
+        TableColumn<ObservableList<String>, String> colCopieTot = new TableColumn<>("Copie totali");
+        colCopieTot.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(4)));
+
+        TableColumn<ObservableList<String>, String> colCopieDisp = new TableColumn<>("Copie disp.");
+        colCopieDisp.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(5)));
 
         tabellaLibri.getColumns().addAll(
                 colIsbn, colTitolo, colAutori, colAnno, colCopieTot, colCopieDisp
         );
 
-        // dati FINTI giusto per vedere qualcosa
-        ObservableList<LibroRow> datiFinti = FXCollections.observableArrayList(
-                new LibroRow("9788800000001", "Programmazione in Java", "Rossi", "2020", "10", "7"),
-                new LibroRow("9788800000002", "Basi di Dati", "Verdi", "2019", "5", "2")
-        );
+        // ===== dati FINTI solo per vedere qualcosa (puoi anche toglierli) =====
+        ObservableList<ObservableList<String>> datiFinti = FXCollections.observableArrayList();
+
+        datiFinti.add(FXCollections.observableArrayList(
+                "9788800000001", "Programmazione in Java", "Rossi", "2020", "10", "7"
+        ));
+        datiFinti.add(FXCollections.observableArrayList(
+                "9788800000002", "Basi di Dati", "Verdi", "2019", "5", "2"
+        ));
+
         tabellaLibri.setItems(datiFinti);
 
         root.setCenter(tabellaLibri);
@@ -123,7 +138,7 @@ public class LibriPanel {
         return root;
     }
 
-    // Getter che ci torneranno utili più avanti con i controller
+    // Getter per la GUI (quando farai il controller)
 
     public String getCodiceIsbnInserito() { return campoIsbn.getText().trim(); }
     public String getTitoloInserito()     { return campoTitolo.getText().trim(); }
@@ -139,7 +154,7 @@ public class LibriPanel {
         campoCopieTotali.clear();
     }
 
-    public TableView<LibroRow> getTabellaLibri() {
+    public TableView<ObservableList<String>> getTabellaLibri() {
         return tabellaLibri;
     }
 
@@ -147,31 +162,4 @@ public class LibriPanel {
     public Button getBottoneModifica()  { return bottoneModifica; }
     public Button getBottoneElimina()   { return bottoneElimina; }
     public Button getBottoneCerca()     { return bottoneCerca; }
-
-    // classe interna per popolare la tabella
-    public static class LibroRow {
-        private final SimpleStringProperty isbn;
-        private final SimpleStringProperty titolo;
-        private final SimpleStringProperty autori;
-        private final SimpleStringProperty anno;
-        private final SimpleStringProperty copieTotali;
-        private final SimpleStringProperty copieDisponibili;
-
-        public LibroRow(String isbn, String titolo, String autori,
-                        String anno, String copieTotali, String copieDisponibili) {
-            this.isbn = new SimpleStringProperty(isbn);
-            this.titolo = new SimpleStringProperty(titolo);
-            this.autori = new SimpleStringProperty(autori);
-            this.anno = new SimpleStringProperty(anno);
-            this.copieTotali = new SimpleStringProperty(copieTotali);
-            this.copieDisponibili = new SimpleStringProperty(copieDisponibili);
-        }
-
-        public SimpleStringProperty isbnProperty()           { return isbn; }
-        public SimpleStringProperty titoloProperty()         { return titolo; }
-        public SimpleStringProperty autoriProperty()         { return autori; }
-        public SimpleStringProperty annoProperty()           { return anno; }
-        public SimpleStringProperty copieTotaliProperty()    { return copieTotali; }
-        public SimpleStringProperty copieDisponibiliProperty(){ return copieDisponibili; }
-    }
 }
