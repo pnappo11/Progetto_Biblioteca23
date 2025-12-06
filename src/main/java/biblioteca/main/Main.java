@@ -46,7 +46,7 @@ public class Main extends Application {
     // 2) MENU con 3 opzioni + logout piccolo
     private void mostraMenu(Stage stage) {
         // nome che appare nel "Benvenuto, ..."
-        MenuView menu = new MenuView("Mario Rossi");
+        MenuView menu = new MenuView("Bibliotecario");
         // oppure: MenuView menu = new MenuView("PasaCistopero");
 
         Scene menuScene = new Scene(menu.getRoot(), 500, 400);

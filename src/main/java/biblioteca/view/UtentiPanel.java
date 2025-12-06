@@ -24,15 +24,13 @@ import javafx.scene.layout.HBox;
  * @brief Pannello per la gestione dell'anagrafica utenti.
  *
  * Questa classe (View) fornisce l'interfaccia grafica per le operazioni create, read, update, delete
- * sugli utenti della biblioteca .
+ * sugli utenti della biblioteca.
  * È composta da un form di inserimento, una tabella riepilogativa e i comandi di azione.
- *
- * @author tommy
  */
 public class UtentiPanel {
 
     /**
-     * @brief Contenitore principale del layout .
+     * @brief Contenitore principale del layout.
      */
     private final BorderPane root;
 
@@ -48,8 +46,11 @@ public class UtentiPanel {
 
     /**
      * @brief Tabella per visualizzare la lista degli utenti.
+     *
+     * Ogni riga è rappresentata da una ObservableList<String> con questi indici:
+     * 0 = Matricola, 1 = Nome, 2 = Cognome, 3 = Email, 4 = Blacklist.
      */
-    private final TableView<UtenteRow> tabellaUtenti;
+    private final TableView<ObservableList<String>> tabellaUtenti;
 
     // ===== Pulsanti Azione =====
     private final Button bottoneInserisci;
@@ -61,9 +62,9 @@ public class UtentiPanel {
      * @brief Costruttore del pannello Utenti.
      *
      * Inizializza e assembla i componenti grafici:
-     * 1. **Top**: GridPane per l'inserimento dati (Matricola, Nome, Cognome, Email).
-     * 2. **Center**: TableView con le colonne configurate per mostrare i dettagli utente.
-     * 3. **Bottom**: HBox contenente i pulsanti (Inserisci, Modifica, Elimina, Cerca).
+     * 1. Top: GridPane per l'inserimento dati (Matricola, Nome, Cognome, Email).
+     * 2. Center: TableView con le colonne configurate per mostrare i dettagli utente.
+     * 3. Bottom: HBox contenente i pulsanti (Inserisci, Modifica, Elimina, Cerca).
      */
     public UtentiPanel() {
         root = new BorderPane();
@@ -96,30 +97,40 @@ public class UtentiPanel {
         // ===== tabella al centro =====
         tabellaUtenti = new TableView<>();
 
-        TableColumn<UtenteRow, String> colMatricola = new TableColumn<>("Matricola");
-        colMatricola.setCellValueFactory(data -> data.getValue().matricolaProperty());
+        // 0 = Matricola, 1 = Nome, 2 = Cognome, 3 = Email, 4 = Blacklist
 
-        TableColumn<UtenteRow, String> colNome = new TableColumn<>("Nome");
-        colNome.setCellValueFactory(data -> data.getValue().nomeProperty());
+        TableColumn<ObservableList<String>, String> colMatricola = new TableColumn<>("Matricola");
+        colMatricola.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(0)));
 
-        TableColumn<UtenteRow, String> colCognome = new TableColumn<>("Cognome");
-        colCognome.setCellValueFactory(data -> data.getValue().cognomeProperty());
+        TableColumn<ObservableList<String>, String> colNome = new TableColumn<>("Nome");
+        colNome.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(1)));
 
-        TableColumn<UtenteRow, String> colEmail = new TableColumn<>("Email");
-        colEmail.setCellValueFactory(data -> data.getValue().emailProperty());
+        TableColumn<ObservableList<String>, String> colCognome = new TableColumn<>("Cognome");
+        colCognome.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(2)));
 
-        TableColumn<UtenteRow, String> colBlacklist = new TableColumn<>("Blacklist");
-        colBlacklist.setCellValueFactory(data -> data.getValue().blacklistProperty());
+        TableColumn<ObservableList<String>, String> colEmail = new TableColumn<>("Email");
+        colEmail.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(3)));
+
+        TableColumn<ObservableList<String>, String> colBlacklist = new TableColumn<>("Blacklist");
+        colBlacklist.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(4)));
 
         tabellaUtenti.getColumns().addAll(
                 colMatricola, colNome, colCognome, colEmail, colBlacklist
         );
 
-        // Dati di prova
-        ObservableList<UtenteRow> datiFinti = FXCollections.observableArrayList(
-                new UtenteRow("0612700001", "Mario", "Rossi", "m.rossi@unisa.it", "No"),
-                new UtenteRow("0612700002", "Giulia", "Bianchi", "g.bianchi@unisa.it", "Sì")
-        );
+        // Dati di prova (puoi toglierli quando collegherai il controller/model)
+        ObservableList<ObservableList<String>> datiFinti = FXCollections.observableArrayList();
+        datiFinti.add(FXCollections.observableArrayList(
+                "0612700001", "Mario", "Rossi", "m.rossi@unisa.it", "No"
+        ));
+        datiFinti.add(FXCollections.observableArrayList(
+                "0612700002", "Giulia", "Bianchi", "g.bianchi@unisa.it", "Sì"
+        ));
         tabellaUtenti.setItems(datiFinti);
 
         root.setCenter(tabellaUtenti);
@@ -149,28 +160,9 @@ public class UtentiPanel {
 
     // --- Getter dei dati inseriti (Input) ---
 
-    /**
-     * @brief Recupera la matricola inserita nel form.
-     * @return La stringa della matricola pulita da spazi (trim).
-     */
     public String getMatricolaInserita() { return campoMatricola.getText().trim(); }
-
-    /**
-     * @brief Recupera il nome inserito.
-     * @return Il nome dell'utente (trim).
-     */
     public String getNomeInserito()      { return campoNome.getText().trim(); }
-
-    /**
-     * @brief Recupera il cognome inserito.
-     * @return Il cognome dell'utente (trim).
-     */
     public String getCognomeInserito()   { return campoCognome.getText().trim(); }
-
-    /**
-     * @brief Recupera l'email inserita.
-     * @return L'indirizzo email (trim).
-     */
     public String getEmailInserita()     { return campoEmail.getText().trim(); }
 
     /**
@@ -186,71 +178,13 @@ public class UtentiPanel {
 
     // --- Getter Componenti UI (per i Controller) ---
 
-    /**
-     * @brief Restituisce la tabella utenti.
-     * Permette al Controller di gestire la selezione delle righe o aggiornare la lista.
-     * @return L'oggetto TableView.
-     */
-    public TableView<UtenteRow> getTabellaUtenti() {
+    public TableView<ObservableList<String>> getTabellaUtenti() {
         return tabellaUtenti;
     }
 
-    /** @return Il bottone per inserire un nuovo utente. */
     public Button getBottoneInserisci() { return bottoneInserisci; }
-
-    /** @return Il bottone per modificare l'utente selezionato. */
     public Button getBottoneModifica()  { return bottoneModifica; }
-
-    /** @return Il bottone per eliminare l'utente selezionato. */
     public Button getBottoneElimina()   { return bottoneElimina; }
-
-    /** @return Il bottone per cercare utenti nel database. */
     public Button getBottoneCerca()     { return bottoneCerca; }
-
-
-    /**
-     * @brief Classe interna per il Data Model della tabella Utenti.
-     *
-     * Rappresenta una singola riga nella TableView.
-     */
-    public static class UtenteRow {
-        private final SimpleStringProperty matricola;
-        private final SimpleStringProperty nome;
-        private final SimpleStringProperty cognome;
-        private final SimpleStringProperty email;
-        private final SimpleStringProperty blacklist;
-
-        /**
-         * @brief Costruttore della riga utente.
-         *
-         * @param matricola Identificativo univoco (es. 06127...).
-         * @param nome Nome dell'utente.
-         * @param cognome Cognome dell'utente.
-         * @param email Indirizzo email istituzionale.
-         * @param blacklist Stato dell'utente (es. "Sì" se bloccato, "No" altrimenti).
-         */
-        public UtenteRow(String matricola, String nome, String cognome,
-                         String email, String blacklist) {
-            this.matricola = new SimpleStringProperty(matricola);
-            this.nome = new SimpleStringProperty(nome);
-            this.cognome = new SimpleStringProperty(cognome);
-            this.email = new SimpleStringProperty(email);
-            this.blacklist = new SimpleStringProperty(blacklist);
-        }
-
-        /** @return Property osservabile della matricola. */
-        public SimpleStringProperty matricolaProperty() { return matricola; }
-
-        /** @return Property osservabile del nome. */
-        public SimpleStringProperty nomeProperty()      { return nome; }
-
-        /** @return Property osservabile del cognome. */
-        public SimpleStringProperty cognomeProperty()   { return cognome; }
-
-        /** @return Property osservabile dell'email. */
-        public SimpleStringProperty emailProperty()     { return email; }
-
-        /** @return Property osservabile dello stato blacklist. */
-        public SimpleStringProperty blacklistProperty() { return blacklist; }
-    }
 }
+
