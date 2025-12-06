@@ -24,6 +24,12 @@ public class LoginView {
     public LoginView() {
         campoPassword = new PasswordField();
         bottoneLogin = new Button("Login");
+        bottoneLogin.setStyle(
+        "-fx-background-color: #00C853;" +  // verde
+        "-fx-text-fill: white;" +
+        "-fx-font-weight: bold;"
+        );
+
         etichettaMessaggio = new Label("");
 
         Label labelPassword = new Label("Password:");
