@@ -20,24 +20,68 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+/**
+ * @brief Pannello per la gestione del catalogo libri (Inventario).
+ *
+ * Questa classe rappresenta la "View" per le operazioni di create,read,update e delete sui libri.
+ * A differenza di altre implementazioni, questa versione utilizza una struttura
+ * dati generica (lista di stringhe) per rappresentare le righe della tabella.
+ *
+ * Struttura:
+ * - Top: Form di inserimento.
+ * - Center: Tabella riepilogativa.
+ * - Bottom: Pulsanti di controllo.
+ *
+ * @author tommy
+ */
 public class LibriPanel {
 
+    /**
+     * @brief Layout principale (BorderPane).
+     */
     private final BorderPane root;
 
+    // ===== Campi di Input =====
+    /** Campo per l'inserimento dell'ISBN. */
     private final TextField campoIsbn;
+    /** Campo per l'inserimento del Titolo. */
     private final TextField campoTitolo;
+    /** Campo per l'inserimento dell'Autore. */
     private final TextField campoAutore;
+    /** Campo per l'inserimento dell'Anno di pubblicazione. */
     private final TextField campoAnno;
+    /** Campo per l'inserimento delle Copie Totali. */
     private final TextField campoCopieTotali;
 
-    // 👇 la tabella contiene semplicemente una lista di String per riga
+    /**
+     * @brief Tabella per la visualizzazione dei libri.
+     *
+     * @note In questa implementazione, ogni riga non è un oggetto specifico,
+     * ma una ObservableList<String>. I dati sono acceduti tramite indice:
+     * - 0: ISBN
+     * - 1: Titolo
+     * - 2: Autore
+     * - 3: Anno
+     * - 4: Copie Totali
+     * - 5: Copie Disponibili
+     */
     private final TableView<ObservableList<String>> tabellaLibri;
 
+    // ===== Pulsanti Azione =====
     private final Button bottoneInserisci;
     private final Button bottoneModifica;
     private final Button bottoneElimina;
     private final Button bottoneCerca;
 
+    /**
+     * @brief Costruttore del pannello Libri.
+     *
+     * Inizializza l'interfaccia grafica:
+     * 1. Costruisce il form (GridPane) nella parte superiore.
+     * 2. Configura le colonne della TableView mappando gli indici della lista di stringhe.
+     * 3. Inserisce dei dati di esempio (mock data).
+     * 4. Crea la barra dei pulsanti nella parte inferiore.
+     */
     public LibriPanel() {
         root = new BorderPane();
 
@@ -74,9 +118,8 @@ public class LibriPanel {
         // ===== tabella al centro =====
         tabellaLibri = new TableView<>();
 
-        // Indici delle colonne nelle righe:
-        // 0 = ISBN, 1 = Titolo, 2 = Autori, 3 = Anno, 4 = Copie totali, 5 = Copie disp.
-
+        // Configurazione Colonne (Mapping per indice)
+        
         TableColumn<ObservableList<String>, String> colIsbn = new TableColumn<>("ISBN");
         colIsbn.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().get(0)));
@@ -105,7 +148,7 @@ public class LibriPanel {
                 colIsbn, colTitolo, colAutori, colAnno, colCopieTot, colCopieDisp
         );
 
-        // ===== dati FINTI solo per vedere qualcosa (puoi anche toglierli) =====
+        // ===== Dati Finti (Mock Data) =====
         ObservableList<ObservableList<String>> datiFinti = FXCollections.observableArrayList();
 
         datiFinti.add(FXCollections.observableArrayList(
@@ -134,18 +177,49 @@ public class LibriPanel {
         root.setBottom(bottoniBox);
     }
 
+    /**
+     * @brief Restituisce il nodo radice dell'interfaccia.
+     * @return L'oggetto Parent (BorderPane) da usare nella scena.
+     */
     public Parent getRoot() {
         return root;
     }
 
-    // Getter per la GUI (quando farai il controller)
+    // --- Getter per l'Input Utente ---
 
+    /**
+     * @brief Recupera l'ISBN inserito.
+     * @return Stringa senza spazi iniziali/finali.
+     */
     public String getCodiceIsbnInserito() { return campoIsbn.getText().trim(); }
+
+    /**
+     * @brief Recupera il titolo inserito.
+     * @return Stringa senza spazi iniziali/finali.
+     */
     public String getTitoloInserito()     { return campoTitolo.getText().trim(); }
+
+    /**
+     * @brief Recupera l'autore inserito.
+     * @return Stringa senza spazi iniziali/finali.
+     */
     public String getAutoreInserito()     { return campoAutore.getText().trim(); }
+
+    /**
+     * @brief Recupera l'anno inserito.
+     * @return Stringa senza spazi iniziali/finali.
+     */
     public String getAnnoInserito()       { return campoAnno.getText().trim(); }
+
+    /**
+     * @brief Recupera il numero di copie totali inserito.
+     * @return Stringa senza spazi iniziali/finali.
+     */
     public String getCopieTotaliInserite(){ return campoCopieTotali.getText().trim(); }
 
+    /**
+     * @brief Pulisce tutti i campi di testo del form.
+     */
     public void pulisciCampi() {
         campoIsbn.clear();
         campoTitolo.clear();
@@ -154,12 +228,25 @@ public class LibriPanel {
         campoCopieTotali.clear();
     }
 
+    // --- Getter Componenti UI (per il Controller) ---
+
+    /**
+     * @brief Restituisce la TableView.
+     * @return La tabella contenente liste di stringhe (ObservableList<String>).
+     */
     public TableView<ObservableList<String>> getTabellaLibri() {
         return tabellaLibri;
     }
 
+    /** @return Il bottone Inserisci. */
     public Button getBottoneInserisci() { return bottoneInserisci; }
+
+    /** @return Il bottone Modifica. */
     public Button getBottoneModifica()  { return bottoneModifica; }
+
+    /** @return Il bottone Elimina. */
     public Button getBottoneElimina()   { return bottoneElimina; }
+
+    /** @return Il bottone Cerca. */
     public Button getBottoneCerca()     { return bottoneCerca; }
 }

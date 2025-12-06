@@ -16,23 +16,54 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+/**
+ * @brief Pannello per la gestione delle operazioni di prestito.
+ *
+ * Questa vista permette agli operatori di:
+ * - Visualizzare l'elenco dei prestiti attivi e storici.
+ * - Registrare un nuovo prestito (associando Matricola e ISBN).
+ * - Registrare la restituzione di un libro.
+ * - Gestire lo stato di ritardo o blacklist degli utenti.
+ *
+ * La classe organizza i componenti in un layout BorderPane.
+ *
+ * @author tommy
+ */
 public class PrestitiPanel {
 
+    /**
+     * @brief Contenitore principale del pannello.
+     */
     private final BorderPane root;
 
+    // --- Campi del Form ---
     private final TextField campoMatricola;
     private final TextField campoIsbn;
     private final TextField campoDataPrevista;
 
+    /**
+     * @brief Tabella che visualizza i dati dei prestiti.
+     * Utilizza la classe interna PrestitoRow come modello dati.
+     */
     private final TableView<PrestitoRow> tabellaPrestiti;
 
+    // --- Bottoni Azione ---
     private final Button bottoneNuovoPrestito;
     private final Button bottoneRestituzione;
     private final Button bottoneBlacklist;
 
+    /**
+     * @brief Costruttore del pannello Prestiti.
+     *
+     * Inizializza il layout diviso in tre sezioni:
+     * 1. **Top**: Form (GridPane) per l'inserimento dei dati di prestito.
+     * 2. **Center**: TableView configurata con le colonne per visualizzare i dettagli.
+     * 3. **Bottom**: HBox contenente i pulsanti per le azioni principali.
+     */
     public PrestitiPanel() {
         root = new BorderPane();
 
+        // --- Inizializzazione Form (TOP) ---
         campoMatricola = new TextField();
         campoIsbn = new TextField();
         campoDataPrevista = new TextField();
@@ -54,8 +85,10 @@ public class PrestitiPanel {
 
         root.setTop(form);
 
+        // --- Inizializzazione Tabella (CENTER) ---
         tabellaPrestiti = new TableView<>();
 
+        // Configurazione delle colonne e binding con le proprietà di PrestitoRow
         TableColumn<PrestitoRow, String> colMatricola = new TableColumn<>("Matricola");
         colMatricola.setCellValueFactory(data -> data.getValue().matricolaProperty());
 
@@ -85,6 +118,7 @@ public class PrestitiPanel {
                 colDataInizio, colDataPrevista, colInRitardo
         );
 
+        // Dati di prova
         ObservableList<PrestitoRow> datiFinti = FXCollections.observableArrayList(
                 new PrestitoRow("0612700001", "Mario", "Rossi",
                         "9788800000001", "Programmazione in Java",
@@ -98,6 +132,7 @@ public class PrestitiPanel {
         root.setCenter(tabellaPrestiti);
         BorderPane.setMargin(tabellaPrestiti, new Insets(10));
 
+        // --- Inizializzazione Bottoni (BOTTOM) ---
         bottoneNuovoPrestito = new Button("Nuovo prestito");
         bottoneRestituzione = new Button("Registrare restituzione");
         bottoneBlacklist = new Button("Blacklist utente");
@@ -109,8 +144,15 @@ public class PrestitiPanel {
         root.setBottom(bottoniBox);
     }
 
+    /**
+     * @brief Restituisce il nodo radice dell'interfaccia.
+     * @return L'oggetto Parent (BorderPane) da inserire nella scena principale.
+     */
     public Parent getRoot() { return root; }
 
+    /**
+     * @brief Classe interna per la rappresentazione dei dati nella tabella.
+     */
     public static class PrestitoRow {
         private final SimpleStringProperty matricola;
         private final SimpleStringProperty nome;
@@ -121,6 +163,18 @@ public class PrestitiPanel {
         private final SimpleStringProperty dataPrevista;
         private final SimpleStringProperty inRitardo;
 
+        /**
+         * @brief Costruttore per creare una riga della tabella.
+         *
+         * @param matricola Matricola dell'utente.
+         * @param nome Nome dell'utente.
+         * @param cognome Cognome dell'utente.
+         * @param isbn Codice ISBN del libro.
+         * @param titolo Titolo del libro.
+         * @param dataInizio Data di inizio prestito (formato Stringa per semplicità).
+         * @param dataPrevista Data di scadenza prevista.
+         * @param inRitardo Stato del ritardo ("Sì"/"No").
+         */
         public PrestitoRow(String matricola, String nome, String cognome,
                            String isbn, String titolo,
                            String dataInizio, String dataPrevista, String inRitardo) {
@@ -134,14 +188,30 @@ public class PrestitiPanel {
             this.inRitardo = new SimpleStringProperty(inRitardo);
         }
 
+        // --- Metodi Property per il Binding JavaFX ---
+
+        /** @return Property osservabile per la matricola. */
         public SimpleStringProperty matricolaProperty() { return matricola; }
+        
+        /** @return Property osservabile per il nome. */
         public SimpleStringProperty nomeProperty() { return nome; }
+        
+        /** @return Property osservabile per il cognome. */
         public SimpleStringProperty cognomeProperty() { return cognome; }
+        
+        /** @return Property osservabile per l'ISBN. */
         public SimpleStringProperty isbnProperty() { return isbn; }
+        
+        /** @return Property osservabile per il titolo. */
         public SimpleStringProperty titoloProperty() { return titolo; }
+        
+        /** @return Property osservabile per la data di inizio. */
         public SimpleStringProperty dataInizioProperty() { return dataInizio; }
+        
+        /** @return Property osservabile per la data prevista. */
         public SimpleStringProperty dataPrevistaProperty() { return dataPrevista; }
+        
+        /** @return Property osservabile per lo stato di ritardo. */
         public SimpleStringProperty inRitardoProperty() { return inRitardo; }
     }
 }
-
