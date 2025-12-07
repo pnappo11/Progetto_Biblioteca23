@@ -1,14 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.model;
 
-/**
- *
- * @author tommy
- */
-public class Autenticazione {
-    
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class Autenticazione implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    private String passwordHash;
+
+    public Autenticazione() {
+    }
+
+    public boolean login(String passwordInserita) {
+    }
+
+    public void cambiaPassword(String vecchiaPassword, String nuovaPassword) {
+    }
+
+    public String getPasswordHash() {
+    }
+
+    public static String calcolaHash(String passwordChiaro) {
+    }
 }

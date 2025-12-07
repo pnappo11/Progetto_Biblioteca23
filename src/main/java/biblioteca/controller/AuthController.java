@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.controller;
 
-/**
- *
- * @author tommy
- */
+import biblioteca.model.Autenticazione;
+import biblioteca.view.LoginView;
+
 public class AuthController {
-    
+
+    private final Autenticazione bibliotecario;
+    private final LoginView loginView;
+    private final MainController mainController;
+
+    public AuthController(Autenticazione bibliotecario,
+                           LoginView loginView,
+                           MainController mainController) {
+    }
+
+    private void login(String passwordInserita) {
+    }
 }

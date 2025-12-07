@@ -23,7 +23,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+     private GestioneLibri gestioneLibri;
+    private GestioneUtenti gestioneUtenti;
+    private GestionePrestiti gestionePrestiti;
+    private Autenticazione bibliotecario;
+    
     @Override
     public void start(Stage primaryStage) {
         mostraLogin(primaryStage);
