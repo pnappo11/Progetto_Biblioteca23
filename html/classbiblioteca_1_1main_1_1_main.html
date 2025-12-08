@@ -91,6 +91,9 @@ $(function(){initNavTree('classbiblioteca_1_1main_1_1_main.html','','classbiblio
   <div class="headertitle"><div class="title">biblioteca.main.Main Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Classe principale dell'applicazione (Entry Point).  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for biblioteca.main.Main:</div>
 <div class="dyncontent">
@@ -100,14 +103,79 @@ Inheritance diagram for biblioteca.main.Main:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4a256808ee5aab84d8068ee766b821ac" id="r_a4a256808ee5aab84d8068ee766b821ac"><td class="memItemLeft" align="right" valign="top"><a id="a4a256808ee5aab84d8068ee766b821ac" name="a4a256808ee5aab84d8068ee766b821ac"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> (Stage primaryStage)</td></tr>
+<tr class="memitem:a4a256808ee5aab84d8068ee766b821ac" id="r_a4a256808ee5aab84d8068ee766b821ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a256808ee5aab84d8068ee766b821ac">start</a> (Stage primaryStage)</td></tr>
+<tr class="memdesc:a4a256808ee5aab84d8068ee766b821ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metodo di avvio dell'applicazione JavaFX.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a6b4b1750a0ddd839313c91106ef896d9" id="r_a6b4b1750a0ddd839313c91106ef896d9"><td class="memItemLeft" align="right" valign="top"><a id="a6b4b1750a0ddd839313c91106ef896d9" name="a6b4b1750a0ddd839313c91106ef896d9"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (String[] args)</td></tr>
+<tr class="memitem:a6b4b1750a0ddd839313c91106ef896d9" id="r_a6b4b1750a0ddd839313c91106ef896d9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b4b1750a0ddd839313c91106ef896d9">main</a> (String[] args)</td></tr>
+<tr class="memdesc:a6b4b1750a0ddd839313c91106ef896d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Punto di ingresso standard per applicazioni Java.  <br /></td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Classe principale dell'applicazione (Entry Point). </p>
+<p>Agisce come un "Router" di alto livello, decidendo quale schermata mostrare in base agli eventi (login effettuato, click su un bottone del menu, logout).</p>
+<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a6b4b1750a0ddd839313c91106ef896d9" name="a6b4b1750a0ddd839313c91106ef896d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b4b1750a0ddd839313c91106ef896d9">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.main.Main.main </td>
+          <td>(</td>
+          <td class="paramtype">String[]</td>          <td class="paramname"><span class="paramname"><em>args</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Punto di ingresso standard per applicazioni Java. </p>
+<p>Lancia il runtime JavaFX invocando il metodo <code><a class="el" href="">launch(String...)</a></code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>Argomenti da riga di comando. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4a256808ee5aab84d8068ee766b821ac" name="a4a256808ee5aab84d8068ee766b821ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a256808ee5aab84d8068ee766b821ac">&#9670;&#160;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.main.Main.start </td>
+          <td>(</td>
+          <td class="paramtype">Stage</td>          <td class="paramname"><span class="paramname"><em>primaryStage</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Metodo di avvio dell'applicazione JavaFX. </p>
+<p>Viene chiamato automaticamente dal launcher JavaFX. Imposta la prima schermata visibile, che è quella di Login.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">primaryStage</td><td>La finestra principale creata dal runtime JavaFX. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/main/<b>Main.java</b></li>
 </ul>

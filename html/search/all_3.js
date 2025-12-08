@@ -1,7 +1,24 @@
 var searchData=
 [
-  ['libricontroller_0',['LibriController',['../classbiblioteca_1_1controller_1_1_libri_controller.html',1,'biblioteca::controller']]],
-  ['libripanel_1',['LibriPanel',['../classbiblioteca_1_1view_1_1_libri_panel.html',1,'biblioteca.view.LibriPanel'],['../classbiblioteca_1_1view_1_1_libri_panel.html#a8b1c7de6dabe35b11c4eeb97376b6082',1,'biblioteca.view.LibriPanel.LibriPanel()']]],
-  ['libro_2',['Libro',['../classbiblioteca_1_1model_1_1_libro.html',1,'biblioteca::model']]],
-  ['loginview_3',['LoginView',['../classbiblioteca_1_1view_1_1_login_view.html',1,'biblioteca.view.LoginView'],['../classbiblioteca_1_1view_1_1_login_view.html#a92b71562a7d03a4e32236095938cd90d',1,'biblioteca.view.LoginView.LoginView()']]]
+  ['gestionelibri_0',['GestioneLibri',['../classbiblioteca_1_1model_1_1_gestione_libri.html',1,'biblioteca::model']]],
+  ['gestioneprestiti_1',['GestionePrestiti',['../classbiblioteca_1_1model_1_1_gestione_prestiti.html',1,'biblioteca::model']]],
+  ['gestioneutenti_2',['GestioneUtenti',['../classbiblioteca_1_1model_1_1_gestione_utenti.html',1,'biblioteca::model']]],
+  ['getannoinserito_3',['getAnnoInserito',['../classbiblioteca_1_1view_1_1_libri_panel.html#a741b040ab08cf4083d682a666c83c734',1,'biblioteca::view::LibriPanel']]],
+  ['getautoreinserito_4',['getAutoreInserito',['../classbiblioteca_1_1view_1_1_libri_panel.html#a41995d3b949e06559ce733059ef0a926',1,'biblioteca::view::LibriPanel']]],
+  ['getbottonecerca_5',['getBottoneCerca',['../classbiblioteca_1_1view_1_1_libri_panel.html#a231ec4587ddb6c539cedf098262ce08b',1,'biblioteca::view::LibriPanel']]],
+  ['getbottoneelimina_6',['getBottoneElimina',['../classbiblioteca_1_1view_1_1_libri_panel.html#afc0b7e0676c0f8a10c989cff9d44adb4',1,'biblioteca::view::LibriPanel']]],
+  ['getbottoneinserisci_7',['getBottoneInserisci',['../classbiblioteca_1_1view_1_1_libri_panel.html#a2d81e0927896d3df6912ff9f83d89568',1,'biblioteca::view::LibriPanel']]],
+  ['getbottonemodifica_8',['getBottoneModifica',['../classbiblioteca_1_1view_1_1_libri_panel.html#a4b069136bcc35da1eb40bbec5d9134b8',1,'biblioteca::view::LibriPanel']]],
+  ['getbtnlogout_9',['getBtnLogout',['../classbiblioteca_1_1view_1_1_main_frame.html#aa12d3a88ac227f706b700e1c97cb6f70',1,'biblioteca::view::MainFrame']]],
+  ['getbtnmenu_10',['getBtnMenu',['../classbiblioteca_1_1view_1_1_main_frame.html#a784cf1e0e76616d2e7ecbbc19ef0138e',1,'biblioteca::view::MainFrame']]],
+  ['getcodiceisbninserito_11',['getCodiceIsbnInserito',['../classbiblioteca_1_1view_1_1_libri_panel.html#ac0f392c890163d23186adbc838338820',1,'biblioteca::view::LibriPanel']]],
+  ['getcopietotaliinserite_12',['getCopieTotaliInserite',['../classbiblioteca_1_1view_1_1_libri_panel.html#abda9aca4c69621a5c5c2693d13570201',1,'biblioteca::view::LibriPanel']]],
+  ['getlibriview_13',['getLibriView',['../classbiblioteca_1_1view_1_1_main_frame.html#aa9f61f856516f7b0bb762371c25ff1b0',1,'biblioteca::view::MainFrame']]],
+  ['getpassword_14',['getPassword',['../classbiblioteca_1_1view_1_1_login_view.html#a1deb1ca8cbd0b60ae19ab1291be61cce',1,'biblioteca::view::LoginView']]],
+  ['getpasswordhash_15',['getPasswordHash',['../classbiblioteca_1_1model_1_1_autenticazione.html#ab279d57e018b33fc4664fff98d1a9312',1,'biblioteca::model::Autenticazione']]],
+  ['getprestitiview_16',['getPrestitiView',['../classbiblioteca_1_1view_1_1_main_frame.html#a9a830271a078fa9aaffe4d2a787fc684',1,'biblioteca::view::MainFrame']]],
+  ['getroot_17',['getRoot',['../classbiblioteca_1_1view_1_1_libri_panel.html#ad3e49f9ed69f70c17452f5c4c4ce461b',1,'biblioteca.view.LibriPanel.getRoot()'],['../classbiblioteca_1_1view_1_1_login_view.html#aadef5c8cdf237cbde86c039a30c0d127',1,'biblioteca.view.LoginView.getRoot()'],['../classbiblioteca_1_1view_1_1_main_frame.html#a657e65c9114bba9942020f4dc63f9f0a',1,'biblioteca.view.MainFrame.getRoot()'],['../classbiblioteca_1_1view_1_1_menu_view.html#a136e148cfc5c427a38c78e8b33fcfaf2',1,'biblioteca.view.MenuView.getRoot()'],['../classbiblioteca_1_1view_1_1_prestiti_panel.html#ab8056b6c5066b73a5d181c334ecf8aa7',1,'biblioteca.view.PrestitiPanel.getRoot()'],['../classbiblioteca_1_1view_1_1_utenti_panel.html#a61287b05d0c5cdabc9f80144de3478c1',1,'biblioteca.view.UtentiPanel.getRoot()']]],
+  ['gettabellalibri_18',['getTabellaLibri',['../classbiblioteca_1_1view_1_1_libri_panel.html#aa008f2df46173ac9fdab4695046295eb',1,'biblioteca::view::LibriPanel']]],
+  ['gettitoloinserito_19',['getTitoloInserito',['../classbiblioteca_1_1view_1_1_libri_panel.html#a4cfc7cb6a5a485a9808e3d864fd2103c',1,'biblioteca::view::LibriPanel']]],
+  ['getutentiview_20',['getUtentiView',['../classbiblioteca_1_1view_1_1_main_frame.html#a041cb8ce38025ac66e28b1d7bd63b618',1,'biblioteca::view::MainFrame']]]
 ];

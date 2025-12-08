@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['prestiticontroller_0',['PrestitiController',['../classbiblioteca_1_1controller_1_1_prestiti_controller.html',1,'biblioteca::controller']]],
-  ['prestitipanel_1',['PrestitiPanel',['../classbiblioteca_1_1view_1_1_prestiti_panel.html',1,'biblioteca.view.PrestitiPanel'],['../classbiblioteca_1_1view_1_1_prestiti_panel.html#affc08897a8c5b78b4e004b96df2ab975',1,'biblioteca.view.PrestitiPanel.PrestitiPanel()']]],
-  ['prestito_2',['Prestito',['../classbiblioteca_1_1model_1_1_prestito.html',1,'biblioteca::model']]],
-  ['puliscicampi_3',['pulisciCampi',['../classbiblioteca_1_1view_1_1_libri_panel.html#a29625aaf0a918d8d709e7d622182c2cd',1,'biblioteca.view.LibriPanel.pulisciCampi()'],['../classbiblioteca_1_1view_1_1_login_view.html#ab832e841c0b07deff4c55b0e33664061',1,'biblioteca.view.LoginView.pulisciCampi()'],['../classbiblioteca_1_1view_1_1_utenti_panel.html#ae3e0377c67f29d29a5f67a156cf62e13',1,'biblioteca.view.UtentiPanel.pulisciCampi()']]]
+  ['main_0',['Main',['../classbiblioteca_1_1main_1_1_main.html',1,'biblioteca.main.Main'],['../class_main.html',1,'Main']]],
+  ['main_1',['main',['../classbiblioteca_1_1main_1_1_main.html#a6b4b1750a0ddd839313c91106ef896d9',1,'biblioteca::main::Main']]],
+  ['maincontroller_2',['MainController',['../classbiblioteca_1_1controller_1_1_main_controller.html',1,'biblioteca::controller']]],
+  ['mainframe_3',['MainFrame',['../classbiblioteca_1_1view_1_1_main_frame.html',1,'biblioteca.view.MainFrame'],['../classbiblioteca_1_1view_1_1_main_frame.html#a63a67ffe7c5a541395310270cd64dd12',1,'biblioteca.view.MainFrame.MainFrame()'],['../classbiblioteca_1_1view_1_1_main_frame.html#a6b2e377d011ef0f1a223a723841d0b5c',1,'biblioteca.view.MainFrame.MainFrame(int tabIndex)']]],
+  ['menuview_4',['MenuView',['../classbiblioteca_1_1view_1_1_menu_view.html',1,'biblioteca.view.MenuView'],['../classbiblioteca_1_1view_1_1_menu_view.html#a36d5704e0df4273bbe030c6356db6517',1,'biblioteca.view.MenuView.MenuView()'],['../classbiblioteca_1_1view_1_1_menu_view.html#a78c57aa5d4825e8024505f5615c95c92',1,'biblioteca.view.MenuView.MenuView(String nomeBibliotecario)']]],
+  ['mostraerrore_5',['mostraErrore',['../classbiblioteca_1_1view_1_1_login_view.html#ad1e1a2ff10903eb53588445efc3b73f0',1,'biblioteca::view::LoginView']]]
 ];

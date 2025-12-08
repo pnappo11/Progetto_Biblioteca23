@@ -21,7 +21,6 @@ import javafx.scene.layout.BorderPane;
  * di gestione (Libri, Utenti, Prestiti) organizzate in schede (Tab).
  * Include anche una barra superiore di navigazione per tornare al Menu principale
  * o effettuare il Logout.
- *
  * @author tommy
  */
 public class MainFrame {

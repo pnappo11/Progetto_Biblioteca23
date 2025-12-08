@@ -62,7 +62,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('classbiblioteca_1_1controller_1_1_prestiti_controller.html','',''); });
+$(function(){initNavTree('classbiblioteca_1_1controller_1_1_prestiti_controller.html','','classbiblioteca_1_1controller_1_1_prestiti_controller-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -91,9 +91,93 @@ $(function(){initNavTree('classbiblioteca_1_1controller_1_1_prestiti_controller.
   <div class="headertitle"><div class="title">biblioteca.controller.PrestitiController Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Controller responsabile della gestione dei prestiti e delle restituzioni.  
+ <a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5ba6a8ff5bfcbed910400568f909e551" id="r_a5ba6a8ff5bfcbed910400568f909e551"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ba6a8ff5bfcbed910400568f909e551">PrestitiController</a> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a> gestionePrestiti, <a class="el" href="classbiblioteca_1_1view_1_1_prestiti_panel.html">PrestitiPanel</a> view, <a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a> archivio, <a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a> gestioneLibri, <a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a> gestioneUtenti, <a class="el" href="classbiblioteca_1_1controller_1_1_libri_controller.html">LibriController</a> libriController, <a class="el" href="classbiblioteca_1_1controller_1_1_utenti_controller.html">UtentiController</a> utentiController)</td></tr>
+<tr class="memdesc:a5ba6a8ff5bfcbed910400568f909e551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore del controller Prestiti.  <br /></td></tr>
+<tr class="memitem:ab816e9b6bf1a1485e5822f4d5d829ee7" id="r_ab816e9b6bf1a1485e5822f4d5d829ee7"><td class="memItemLeft" align="right" valign="top"><a id="ab816e9b6bf1a1485e5822f4d5d829ee7" name="ab816e9b6bf1a1485e5822f4d5d829ee7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>aggiornaDaModel</b> ()</td></tr>
+<tr class="memdesc:ab816e9b6bf1a1485e5822f4d5d829ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ricarica i dati nella vista prendendoli dal modello aggiornato. <br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<div class="textblock"><p>Controller responsabile della gestione dei prestiti e delle restituzioni. </p>
+<p>La classe <code class="JavaDocCode">PrestitiController</code> è il cuore operativo della biblioteca. A differenza degli altri controller, questo deve interagire con più modelli contemporaneamente: </p><ul>
+<li>
+<code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a></code>: per creare e archiviare i movimenti. </li>
+<li>
+<code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a></code>: per verificare se un libro esiste ed è disponibile. </li>
+<li>
+<code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a></code>: per verificare se un utente esiste ed è abilitato al prestito. </li>
+</ul>
+<p>Inoltre, gestisce la persistenza e aggiorna la vista <code><a class="el" href="classbiblioteca_1_1view_1_1_prestiti_panel.html">PrestitiPanel</a></code>.</p>
+<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5ba6a8ff5bfcbed910400568f909e551" name="a5ba6a8ff5bfcbed910400568f909e551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ba6a8ff5bfcbed910400568f909e551">&#9670;&#160;</a></span>PrestitiController()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.controller.PrestitiController.PrestitiController </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a></td>          <td class="paramname"><span class="paramname"><em>gestionePrestiti</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1view_1_1_prestiti_panel.html">PrestitiPanel</a></td>          <td class="paramname"><span class="paramname"><em>view</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a></td>          <td class="paramname"><span class="paramname"><em>archivio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a></td>          <td class="paramname"><span class="paramname"><em>gestioneLibri</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a></td>          <td class="paramname"><span class="paramname"><em>gestioneUtenti</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1controller_1_1_libri_controller.html">LibriController</a></td>          <td class="paramname"><span class="paramname"><em>libriController</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1controller_1_1_utenti_controller.html">UtentiController</a></td>          <td class="paramname"><span class="paramname"><em>utentiController</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Costruttore del controller Prestiti. </p>
+<p>Inizializza il controller con tutte le dipendenze necessarie. Dato che un prestito collega un <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> a un <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a>, è necessario passare i riferimenti a tutti i gestori dati.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gestionePrestiti</td><td>Model principale dei prestiti. </td></tr>
+    <tr><td class="paramname">view</td><td>Pannello grafico dei prestiti. </td></tr>
+    <tr><td class="paramname">archivio</td><td>Gestore del salvataggio su file. </td></tr>
+    <tr><td class="paramname">gestioneLibri</td><td>Model dei libri (per decrementare copie disponibili, ecc.). </td></tr>
+    <tr><td class="paramname">gestioneUtenti</td><td>Model degli utenti (per associare il prestito all'utente). </td></tr>
+    <tr><td class="paramname">libriController</td><td>Controller libri (per notificare aggiornamenti stato libri). </td></tr>
+    <tr><td class="paramname">utentiController</td><td>Controller utenti (per notificare aggiornamenti stato utenti). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/controller/<b>PrestitiController.java</b></li>
 </ul>
 </div><!-- contents -->

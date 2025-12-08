@@ -105,16 +105,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1deb1ca8cbd0b60ae19ab1291be61cce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recupera il testo inserito nel campo password.  <br /></td></tr>
 <tr class="memitem:ad1e1a2ff10903eb53588445efc3b73f0" id="r_ad1e1a2ff10903eb53588445efc3b73f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1e1a2ff10903eb53588445efc3b73f0">mostraErrore</a> (String messaggio)</td></tr>
 <tr class="memdesc:ad1e1a2ff10903eb53588445efc3b73f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visualizza un messaggio di errore o feedback all'utente.  <br /></td></tr>
-<tr class="memitem:ab832e841c0b07deff4c55b0e33664061" id="r_ab832e841c0b07deff4c55b0e33664061"><td class="memItemLeft" align="right" valign="top"><a id="ab832e841c0b07deff4c55b0e33664061" name="ab832e841c0b07deff4c55b0e33664061"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</td></tr>
-<tr class="memdesc:ab832e841c0b07deff4c55b0e33664061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pulisce il campo password. Utile dopo un tentativo fallito o al momento del logout. <br /></td></tr>
+<tr class="memitem:ab832e841c0b07deff4c55b0e33664061" id="r_ab832e841c0b07deff4c55b0e33664061"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab832e841c0b07deff4c55b0e33664061">pulisciCampi</a> ()</td></tr>
+<tr class="memdesc:ab832e841c0b07deff4c55b0e33664061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pulisce il campo password.  <br /></td></tr>
 <tr class="memitem:a5dcfb54a13235a435a5803b5feb26958" id="r_a5dcfb54a13235a435a5803b5feb26958"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dcfb54a13235a435a5803b5feb26958">setOnLogin</a> (Runnable azioneLogin)</td></tr>
 <tr class="memdesc:a5dcfb54a13235a435a5803b5feb26958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imposta l'azione da eseguire al click del tasto Login.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Classe che gestisce l'interfaccia grafica di Autenticazione (Login). </p>
-<p>Questa classe rappresenta la "View" iniziale dell'applicazione. Si occupa di mostrare il campo per l'inserimento della password e il pulsante di conferma.</p>
-<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+<p>Questa classe rappresenta la "View" iniziale dell'applicazione. Si occupa di mostrare il campo per l'inserimento della password e il pulsante di conferma. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a92b71562a7d03a4e32236095938cd90d" name="a92b71562a7d03a4e32236095938cd90d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92b71562a7d03a4e32236095938cd90d">&#9670;&#160;</a></span>LoginView()</h2>
@@ -132,7 +130,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Costruttore della <a class="el" href="classbiblioteca_1_1view_1_1_login_view.html" title="Classe che gestisce l&#39;interfaccia grafica di Autenticazione (Login).">LoginView</a>. </p>
-<p>Inizializza i componenti grafici e definisce il layout. In questa versione, viene applicato uno stile CSS inline al bottone di login per renderlo verde (#00C853) con testo bianco e grassetto. </p>
+<p>Inizializza i componenti grafici e definisce il layout della schermata di login. Viene applicato uno stile CSS inline al bottone di login per evidenziarlo e viene predisposta un'etichetta per la visualizzazione di eventuali messaggi di errore. </p>
 
 </div>
 </div>
@@ -173,7 +171,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Restituisce il nodo radice dell'interfaccia. </p>
-<p>Metodo necessario per inserire questa vista all'interno di una Scene JavaFX. </p><dl class="section return"><dt>Returns</dt><dd>L'oggetto Parent (VBox) contenente l'interfaccia. </dd></dl>
+<p>Metodo necessario per inserire questa vista all'interno di una Scene JavaFX.</p>
+<dl class="section return"><dt>Returns</dt><dd>L'oggetto Parent (VBox) contenente l'interfaccia. </dd></dl>
 
 </div>
 </div>
@@ -193,12 +192,33 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Visualizza un messaggio di errore o feedback all'utente. </p>
+<p>Questo metodo consente di aggiornare il contenuto dell'etichetta dedicata ai messaggi (es. password errata).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">messaggio</td><td>Il testo da mostrare nella label dedicata. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab832e841c0b07deff4c55b0e33664061" name="ab832e841c0b07deff4c55b0e33664061"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab832e841c0b07deff4c55b0e33664061">&#9670;&#160;</a></span>pulisciCampi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.view.LoginView.pulisciCampi </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pulisce il campo password. </p>
+<p>Utile dopo un tentativo fallito o al momento del logout. </p>
 
 </div>
 </div>
@@ -218,10 +238,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Imposta l'azione da eseguire al click del tasto Login. </p>
-<p>Questo metodo permette di collegare la View al Controller (o al <a class="el" href="class_main.html">Main</a>) senza creare dipendenze dirette.</p>
+<p>Il metodo associa al bottone di login una logica di base per la verifica della password inserita. In questa implementazione la password corretta è valorizzata come "admin":</p><ul>
+<li>se la password è corretta, viene cancellato l'eventuale messaggio di errore e viene invocata la callback fornita in ingresso;</li>
+<li>se la password è errata, viene mostrato un messaggio di errore e il campo password viene pulito.</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">azioneLogin</td><td>Un'interfaccia funzionale (Runnable) contenente la logica di verifica. </td></tr>
+    <tr><td class="paramname">azioneLogin</td><td>Callback (Runnable) contenente la logica da eseguire quando l'autenticazione va a buon fine (es. apertura del menu). </td></tr>
   </table>
   </dd>
 </dl>

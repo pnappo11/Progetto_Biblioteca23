@@ -62,7 +62,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('classbiblioteca_1_1model_1_1_autenticazione.html','',''); });
+$(function(){initNavTree('classbiblioteca_1_1model_1_1_autenticazione.html','','classbiblioteca_1_1model_1_1_autenticazione-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -91,9 +91,179 @@ $(function(){initNavTree('classbiblioteca_1_1model_1_1_autenticazione.html','','
   <div class="headertitle"><div class="title">biblioteca.model.Autenticazione Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Gestisce la sicurezza e l'autenticazione del bibliotecario.  
+ <a href="#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for biblioteca.model.Autenticazione:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classbiblioteca_1_1model_1_1_autenticazione.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4641c7a44c3f26151417629e716f6a31" id="r_a4641c7a44c3f26151417629e716f6a31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4641c7a44c3f26151417629e716f6a31">Autenticazione</a> ()</td></tr>
+<tr class="memdesc:a4641c7a44c3f26151417629e716f6a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe.  <br /></td></tr>
+<tr class="memitem:aa6ccc3b83356144444e2bfe1480f8a44" id="r_aa6ccc3b83356144444e2bfe1480f8a44"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6ccc3b83356144444e2bfe1480f8a44">login</a> (String passwordInserita)</td></tr>
+<tr class="memdesc:aa6ccc3b83356144444e2bfe1480f8a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica se la password inserita è corretta.  <br /></td></tr>
+<tr class="memitem:ad509c089cf1dbe79e1bfec00e5eedf57" id="r_ad509c089cf1dbe79e1bfec00e5eedf57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad509c089cf1dbe79e1bfec00e5eedf57">cambiaPassword</a> (String vecchiaPassword, String nuovaPassword)</td></tr>
+<tr class="memdesc:ad509c089cf1dbe79e1bfec00e5eedf57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permette di modificare la password di accesso.  <br /></td></tr>
+<tr class="memitem:ab279d57e018b33fc4664fff98d1a9312" id="r_ab279d57e018b33fc4664fff98d1a9312"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab279d57e018b33fc4664fff98d1a9312">getPasswordHash</a> ()</td></tr>
+<tr class="memdesc:ab279d57e018b33fc4664fff98d1a9312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce l'hash memorizzato.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a159e2c1cfa100703e3010628c8e05562" id="r_a159e2c1cfa100703e3010628c8e05562"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a159e2c1cfa100703e3010628c8e05562">calcolaHash</a> (String passwordChiaro)</td></tr>
+<tr class="memdesc:a159e2c1cfa100703e3010628c8e05562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metodo statico di utilità per calcolare l'hash della password .  <br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<div class="textblock"><p>Gestisce la sicurezza e l'autenticazione del bibliotecario. </p>
+<p>La classe <code class="JavaDocCode">Autenticazione</code> si occupa di memorizzare e verificare la password di accesso al sistema. Implementa l'interfaccia <code><a class="el" href="">Serializable</a></code> per permettere il salvataggio delle credenziali su file (in modo persistente).</p>
+<p><b>Nota sulla sicurezza:</b> La password non viene mai salvata "in chiaro" (plaintext). Viene invece memorizzato solo il suo <em>Hash</em> (impronta digitale), calcolato tramite un algoritmo crittografico (solitamente SHA-256). Questo rende impossibile risalire alla password originale leggendo il file di salvataggio.</p>
+<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4641c7a44c3f26151417629e716f6a31" name="a4641c7a44c3f26151417629e716f6a31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4641c7a44c3f26151417629e716f6a31">&#9670;&#160;</a></span>Autenticazione()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.model.Autenticazione.Autenticazione </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Costruttore della classe. </p>
+<p>Inizializza l'oggetto. </p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a159e2c1cfa100703e3010628c8e05562" name="a159e2c1cfa100703e3010628c8e05562"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a159e2c1cfa100703e3010628c8e05562">&#9670;&#160;</a></span>calcolaHash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String biblioteca.model.Autenticazione.calcolaHash </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>passwordChiaro</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Metodo statico di utilità per calcolare l'hash della password . </p>
+<p>Utilizza <code><a class="el" href="">MessageDigest</a></code> per trasformare una stringa in chiaro in una sequenza esadecimale univoca.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">passwordChiaro</td><td>La stringa da convertire. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La rappresentazione esadecimale dell'hash, oppure <code class="JavaDocCode">null</code> in caso di errore dell'algoritmo. </dd></dl>
+
+</div>
+</div>
+<a id="ad509c089cf1dbe79e1bfec00e5eedf57" name="ad509c089cf1dbe79e1bfec00e5eedf57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad509c089cf1dbe79e1bfec00e5eedf57">&#9670;&#160;</a></span>cambiaPassword()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.Autenticazione.cambiaPassword </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>vecchiaPassword</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>nuovaPassword</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permette di modificare la password di accesso. </p>
+<p>Per sicurezza, richiede di inserire la vecchia password prima di impostarne una nuova.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vecchiaPassword</td><td>La password attuale (per verifica di sicurezza). </td></tr>
+    <tr><td class="paramname">nuovaPassword</td><td>La nuova password da impostare. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>(Opzionale) Se la vecchia password non è corretta. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab279d57e018b33fc4664fff98d1a9312" name="ab279d57e018b33fc4664fff98d1a9312"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab279d57e018b33fc4664fff98d1a9312">&#9670;&#160;</a></span>getPasswordHash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String biblioteca.model.Autenticazione.getPasswordHash </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Restituisce l'hash memorizzato. </p>
+<dl class="section return"><dt>Returns</dt><dd>La stringa contenente l'hash della password. </dd></dl>
+
+</div>
+</div>
+<a id="aa6ccc3b83356144444e2bfe1480f8a44" name="aa6ccc3b83356144444e2bfe1480f8a44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6ccc3b83356144444e2bfe1480f8a44">&#9670;&#160;</a></span>login()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean biblioteca.model.Autenticazione.login </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>passwordInserita</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Verifica se la password inserita è corretta. </p>
+<p>Il metodo calcola l'hash della <code class="JavaDocCode">passwordInserita</code> e lo confronta con il <code class="JavaDocCode">passwordHash</code> memorizzato. Se i due hash coincidono, la password è corretta.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">passwordInserita</td><td>La password digitata dall'utente nel form di login. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code class="JavaDocCode">true</code> se la password corrisponde, <code class="JavaDocCode">false</code> altrimenti. </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/model/<b>Autenticazione.java</b></li>
 </ul>
 </div><!-- contents -->
