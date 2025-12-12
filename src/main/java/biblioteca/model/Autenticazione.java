@@ -4,75 +4,74 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
 /**
- * @brief Gestisce la sicurezza e l'autenticazione del bibliotecario.
- *
- * La classe {@code Autenticazione} si occupa di memorizzare e verificare la password
- * di accesso al sistema. Implementa l'interfaccia {@link Serializable} per permettere
- * il salvataggio delle credenziali su file (in modo persistente).
- *
- * <b>Nota sulla sicurezza:</b>
- * La password non viene mai salvata "in chiaro". Viene invece memorizzato
- * solo il suo <i>Hash</i>, calcolato tramite un algoritmo crittografico. Questo rende impossibile risalire alla password originale
- * leggendo il file di salvataggio.
- *
+ * @brief classe Autenticazione relativa all'accesso da parte del bibliotecario al sistema permette di fare login e cambiare la password di accesso.
+ * La nostra autenticazione prevede il confronto tra la password settata(già codificata) e l'hash  eseguito sulla password inserita nella finestra di login al momento dell'accesso.
  * @author tommy
  */
 public class Autenticazione implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private static final String DEFAULT_HASH =
+            "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+
+
     private String passwordHash;
 
-    /**
-     * @brief Costruttore della classe.
-     *
-     * Inizializza l'oggetto.
-     */
+  /**
+   * @brief costruttore di default inizializza l'attributo passwordHash
+   */
     public Autenticazione() {
+        this.passwordHash = DEFAULT_HASH;
     }
 
-    /**
-     * @brief Verifica se la password inserita è corretta.
-     *
-     * Il metodo calcola l'hash della {@code passwordInserita} e lo confronta
-     * con il {@code passwordHash} memorizzato. Se i due hash coincidono, la password è corretta.
-     *
-     * @param passwordInserita La password digitata dall'utente nel form di login.
-     * @return {@code true} se la password corrisponde, {@code false} altrimenti.
-     */
+   /**
+    * @brief metodo che calcola l'hash sulla password inserita al momento del login e la confronta con quella già presente nel sistema.
+    * @param passwordInserita rappresenta la password inserita al momento del login nel campo password.
+    * @return l'esito del confronto, true se coincidono altrimenti false.
+    */
     public boolean login(String passwordInserita) {
-         
+        String hashInserita = calcolaHash(passwordInserita);
+        return passwordHash.equals(hashInserita);
     }
 
     /**
-     * @brief Permette di modificare la password di accesso.
-     *
-     * Per sicurezza, richiede di inserire la vecchia password prima di impostarne una nuova.
-     *
-     * @param vecchiaPassword La password attuale (per verifica di sicurezza).
-     * @param nuovaPassword   La nuova password da impostare.
+     * @brief metodo per il cambio password, per poter procedere alla modifica della password bisogna comunque ricordare la vecchia
+     * @param vecchiaPassword rappresenta la vecchia password 
+     * @param nuovaPassword rappresenta la nuova password che si vuole impostare
      */
     public void cambiaPassword(String vecchiaPassword, String nuovaPassword) {
+        if (!login(vecchiaPassword)) {
+            throw new IllegalArgumentException("Vecchia password non corretta");
+        }
+        this.passwordHash = calcolaHash(nuovaPassword);
     }
 
-    /**
-     * @brief Restituisce l'hash memorizzato.
-     *
-     * @return La stringa contenente l'hash della password.
-     */
+ /**
+  * @brief metodo getter sulla passwordhash
+  *  @return la password hashata.
+  */
     public String getPasswordHash() {
-        
+        return passwordHash;
     }
 
-    /**
-     * @brief Metodo statico di utilità per calcolare l'hash della password .
-     *
-     * @param passwordChiaro La stringa da convertire.
-     * @return La rappresentazione esadecimale dell'hash, oppure {@code null} in caso di errore dell'algoritmo.
-     */
+   /**
+    * @brief metodo che si occupa di calcolare l'hash di una password, ovvero la versione codificata di quella password.
+    * @param passwordChiaro rappresenta la password non codificata (es."supermario23").
+    * @return la stringa che contiene la password codificata.
+    */
     public static String calcolaHash(String passwordChiaro) {
-     
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(passwordChiaro.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hash) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Algoritmo di hash non disponibile", e);
+        }
     }
 }

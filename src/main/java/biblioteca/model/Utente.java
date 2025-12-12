@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package biblioteca.model;
 
 import java.io.Serializable;
@@ -7,200 +12,189 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @brief Rappresenta un socio o utente registrato nella biblioteca.
- *
- * La classe {@code Utente} mantiene i dati anagrafici, lo stato di abilitazione (blacklist)
- * e la lista dei prestiti attualmente in corso.
- * Implementa {@link Comparable} per l'ordinamento (solitamente per cognome/nome o matricola)
- * e {@link Serializable} per la persistenza su file.
+ * @brief classe che contiene tutte le informazioni relative ad un utente: nome, cognome, matricola, email, se è o meno in blacklist, elenca e conta i prestiti attivi
+ * Questa classe inoltre aggiunge o rimuove un prestito per un determinato utente oltre ad informare se un utente può o meno richiedere nuovi prestiti.
+ * @author tommy
  */
 public class Utente implements Serializable, Comparable<Utente> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @brief Numero massimo di libri che un utente può tenere in prestito contemporaneamente.
-     * Costante di business rule impostata a 3.
-     */
+    
     public static final int MAX_PRESTITI = 3;
 
-    /**
-     * @brief Codice identificativo univoco dell'utente.
-     */
+    
     private final String matricola;
 
     private String nome;
     private String cognome;
     private String email;
 
-    /**
-     * @brief Flag che indica se l'utente è bloccato (es. per ritardi o sanzioni).
-     * Se true, l'utente non può richiedere nuovi prestiti.
-     */
+
     private boolean inBlacklist;
 
-    /**
-     * @brief Lista dei prestiti attualmente attivi associati a questo utente.
-     */
+  
     private final List<Prestito> prestitiAttivi;
-
-    /**
-     * @brief Costruttore per creare un nuovo utente.
-     *
-     * Inizializza i dati anagrafici e crea una lista vuota per i prestiti.
-     * Di default, un nuovo utente non è in blacklist.
-     *
-     * @param matricola Codice univoco (ID).
-     * @param nome      Nome dell'utente.
-     * @param cognome   Cognome dell'utente.
-     * @param email     Indirizzo email di contatto.
-     */
+/**
+ * @brief costruttore per l'inizializzazione degli attributi dell'utente.
+ * @param matricola
+ * @param nome
+ * @param cognome
+ * @param email 
+ */
     public Utente(String matricola, String nome, String cognome, String email) {
+        this.matricola = matricola;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+        this.inBlacklist = false;
+        this.prestitiAttivi = new ArrayList<>();
     }
-
-    /**
-     * @return La matricola univoca dell'utente.
-     */
+/**
+ * @brief metodo getter per la matricola dell'utente
+ * @return matricola
+ */
     public String getMatricola() {
+        return matricola;
     }
-
-    /**
-     * @return Il nome dell'utente.
-     */
+/**
+ * @brief metodo getter per il nome dell'utente
+ * @return nome
+ */
     public String getNome() {
+        return nome;
     }
-
-    /**
-     * @param nome Il  nome da impostare.
-     */
+/**
+ * @brief metodo setter, imposta il nome dell'utente
+ * @param nome 
+ */
     public void setNome(String nome) {
+        this.nome = nome;
     }
-
-    /**
-     * @return Il cognome dell'utente.
-     */
+/**
+ * @brief metodo getter per il cognome dell'utente
+ * @return cognome dell'utente
+ */
     public String getCognome() {
+        return cognome;
     }
-
-    /**
-     * @param cognome Il cognome da impostare.
-     */
+/**
+ * @brief imposta il cognome dell'utente, metodo setter
+ * @param cognome 
+ */
     public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
-
-    /**
-     * @return L'indirizzo email dell'utente.
-     */
+/**
+ * @brief metodo getter per l'email dell'utente
+ * @return l'email
+ */
     public String getEmail() {
+        return email;
     }
-
-    /**
-     * @param email La mail da impostare.
-     */
+/**
+ * @brief imposta l'email dell'utente
+ * @param email 
+ */
     public void setEmail(String email) {
+        this.email = email;
     }
-
-    /**
-     * @brief Verifica se l'utente è attualmente bloccato.
-     *
-     * @return {@code true} se l'utente è in blacklist, {@code false} altrimenti.
-     */
+/**
+ * @brief metodo che restituisce true se l'utente è in blacklist, false altrimenti
+ * @return inBlacklist
+ */
     public boolean isInBlacklist() {
+        return inBlacklist;
     }
-
-    /**
-     * @brief Imposta lo stato di blocco dell'utente.
-     *
-     * @param valore {@code true} per bloccare l'utente, {@code false} per riabilitarlo.
-     */
+/**
+ * @brief imposta il valore di inBlacklist
+ * @param valore true o false(true se è in blacklist)
+ */
     public void setInBlacklist(boolean valore) {
+        this.inBlacklist = valore;
     }
-
-    /**
-     * @brief Restituisce il numero di prestiti attualmente in corso.
-     *
-     * @return La dimensione della lista dei prestiti attivi.
-     */
+/**
+ * @brief metodo getter sul numero di prestiti attivi per un utente
+ * @return il numero di prestiti in corso per un utente
+ */
     public int getNumPrestitiAttivi() {
+        return prestitiAttivi.size();
     }
-
-    /**
-     * @brief Restituisce la lista dei prestiti attivi.
-     *
-     * @return La lista degli oggetti {@link Prestito} associati all'utente.
-     */
+/**
+ * @brief metodo getter per i prestiti attivi
+ * @return la lista di prestiti in corso dell'utente
+ */
     public List<Prestito> getPrestitiAttivi() {
+        return Collections.unmodifiableList(prestitiAttivi);
     }
 
     /**
-     * @brief Verifica se l'utente ha i requisiti per prendere un nuovo libro in prestito.
-     *
-     * Controlla due condizioni:
-     * 1. L'utente non deve essere in blacklist.
-     * 2. Il numero di prestiti attivi deve essere inferiore a {@link #MAX_PRESTITI}.
-     *
-     * @return {@code true} se è possibile erogare un nuovo prestito.
+     * @brief verifica se un utente può richiedere nuovi prestiti.
+     * @return true o false in base all'esito della verifica, true se può richiedere nuovi prestiti altrimenti false.
      */
     public boolean canNuovoPrestito() {
+        return !inBlacklist && prestitiAttivi.size() < MAX_PRESTITI;
     }
-
-    /**
-     * @brief Aggiunge un prestito alla lista personale dell'utente.
-     *
-     * Da invocare quando viene registrato un nuovo prestito nel sistema.
-     *
-     * @param prestito L'oggetto prestito da aggiungere.
-     */
+/**
+ * @brief metodo che permette di aggiungere un nuovo prestito.
+ * @param prestito prestito da aggiungere
+ */
     public void aggiungiPrestito(Prestito prestito) {
+        if (prestito != null && !prestitiAttivi.contains(prestito)) {
+            prestitiAttivi.add(prestito);
+        }
     }
-
-    /**
-     * @brief Rimuove un prestito dalla lista personale dell'utente.
-     *
-     * Da invocare quando un libro viene restituito.
-     *
-     * @param prestito L'oggetto prestito da rimuovere.
-     */
+/**
+ * @brief metodo che permette di rimuovere un prestito.
+ * @param prestito 
+ */
     public void rimuoviPrestito(Prestito prestito) {
+        prestitiAttivi.remove(prestito);
     }
-
-    /**
-     * @brief Definisce l'ordinamento naturale degli utenti.
-     *
-     * Solitamente ordina per cognome e nome, oppure per matricola.
-     *
-     * @param o L'altro utente con cui confrontare.
-     * @return Un intero negativo, zero o positivo.
-     */
+/**
+ * @brief override del metodo compareTo su 2 utenti
+ * @param o
+ * @return valore intero in base al confronto restituirà 0 se sono uguali.
+ */
+    @Override
     public int compareTo(Utente o) {
-    }
-
-    /**
-     * @brief Verifica l'uguaglianza tra due utenti.
-     *
-     * Due utenti sono uguali se hanno la stessa matricola.
-     *
-     * @param o L'oggetto da confrontare.
-     * @return {@code true} se le matricole coincidono.
-     */
+    if (o == null || o.matricola == null) return 1;
+    if (this.matricola == null) return -1;
+    return this.matricola.compareTo(o.matricola);   // confronto tra stringhe
+}
+/**
+ * @brief override del metodo equals su due utenti.
+ * @param o altro utente da confrontare.
+ * @return true se coincidono, false altrimenti
+ */
+    @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Utente)) return false;
+        Utente utente = (Utente) o;
+        return matricola == utente.matricola;
     }
-
-    /**
-     * @brief Calcola l'hash code dell'utente.
-     *
-     * Basato sulla matricola per coerenza con equals.
-     *
-     * @return Il valore hash.
-     */
+/**
+ * @brief restituisce l'hashcode sulla matricola dell'utente
+ * @return valore intero dell'hashcode
+ */
+    @Override
     public int hashCode() {
+        return Objects.hash(matricola);
     }
-
-    /**
-     * @brief Restituisce una rappresentazione testuale dell'utente.
-     *
-     * @return Stringa contenente matricola, nome, cognome e stato.
-     */
+/**
+ * @brief restituisce la stringa relativa a tutti gli attributi dell'utente
+ * @return stringa utente.
+ */
+    @Override
     public String toString() {
+        return "Utente{" +
+                "matricola=" + matricola +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", email='" + email + '\'' +
+                ", inBlacklist=" + inBlacklist +
+                '}';
     }
 }
+

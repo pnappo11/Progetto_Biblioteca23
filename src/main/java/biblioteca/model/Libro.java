@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package biblioteca.model;
 
 import java.io.Serializable;
@@ -7,195 +12,221 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @brief Rappresenta l'entità "Libro" all'interno del sistema bibliotecario.
- * Implementa {@link Comparable} per permettere l'ordinamento automatico nelle liste
- * e {@link Serializable} per il salvataggio su file.
+ * @brief classe libro permette di personalizzare libro in base ai suoi attributi
+ * contiene tutti i getter e setter dei suoi campi.
+ * ha come attributi titolo, isbn , autore, anno di pubblicazione, copie totali e copie disponibili.
+ * @author tommy
  */
 public class Libro implements Serializable, Comparable<Libro> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @brief Codice ISBN (International Standard Book Number), identificativo univoco del libro.
-     */
+    /** Codice ISBN univoco del libro (può avere 13 cifre). */
     private final long isbn;
 
+    /** Titolo del libro. */
     private String titolo;
+
+    /** Elenco degli autori. */
     private List<String> autori;
+
+    /** Anno di pubblicazione. */
     private int annoPubblicazione;
+
+    /** Numero totale di copie possedute dalla biblioteca. */
     private int copieTotali;
-    
-    /**
-     * @brief Numero di copie attualmente presenti in biblioteca e prestabili.
-     */
+
+    /** Numero di copie attualmente disponibili al prestito. */
     private int copieDisponibili;
 
     /**
-     * @brief Costruttore completo.
-     *
-     * @param isbn              Il codice ISBN univoco.
-     * @param titolo            Il titolo del libro.
-     * @param autori            La lista degli autori.
-     * @param annoPubblicazione L'anno di pubblicazione.
-     * @param copieTotali       Il numero totale di copie possedute.
-     * @param copieDisponibili  Il numero di copie attualmente disponibili.
+     * @brief costruttore per l'inizializzazione dei suoi attributi
+     * @param isbn
+     * @param titolo
+     * @param autori
+     * @param annoPubblicazione
+     * @param copieTotali
+     * @param copieDisponibili 
      */
     public Libro(long isbn, String titolo, List<String> autori,
-                 int annoPubblicazione, int copieTotali, int copieDisponibili) {
+                  int annoPubblicazione, int copieTotali, int copieDisponibili) {
+        this.isbn = isbn;
+        this.titolo = titolo;
+        this.autori = new ArrayList<String>(
+                autori != null ? autori : Collections.<String>emptyList()
+        );
+        this.annoPubblicazione = annoPubblicazione;
+        this.copieTotali = copieTotali;
+        this.copieDisponibili = copieDisponibili;
     }
 
     /**
-     * @brief Costruttore semplificato per nuovi inserimenti.
-     *
-     * Assume che all'inserimento tutte le copie totali siano anche disponibili.
-     *
-     * @param isbn              Il codice ISBN univoco.
-     * @param titolo            Il titolo del libro.
-     * @param autori            La lista degli autori.
-     * @param annoPubblicazione L'anno di pubblicazione.
-     * @param copieTotali       Il numero totale di copie.
+     * @brief costruttore che non contiene le copie disponibili di un determinato libro
+     * @param isbn
+     * @param titolo
+     * @param autori
+     * @param annoPubblicazione
+     * @param copieTotali 
      */
     public Libro(long isbn, String titolo, List<String> autori,
-                 int annoPubblicazione, int copieTotali) {
+                  int annoPubblicazione, int copieTotali) {
+        this(isbn, titolo, autori, annoPubblicazione, copieTotali, copieTotali);
     }
-
-    /**
-     * @return Il codice ISBN del libro.
-     */
+/**
+ * @brief metodo getter per l'isbn del libro
+ * @return ritorna il codice isbn
+ */
     public long getIsbn() {
+        return isbn;
     }
-
-    /**
-     * @return Il titolo del libro.
-     */
+/**
+ * @brief metodo getter
+ * @return ritorna il titolo del libro
+ */
     public String getTitolo() {
+        return titolo;
     }
-
-    /**
-     * @param titolo Il nuovo titolo da impostare.
-     */
+/**
+ * @brief metodo setter, imposta il titolo del libro
+ * @param titolo 
+ */
     public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
-
-    /**
-     * @return La lista degli autori del libro.
-     */
+/**
+ * @brief metodo getter, ritorna la lista di autori del libro
+ * @return la lista di autori del libro
+ */
     public List<String> getAutori() {
+        return Collections.unmodifiableList(autori);
     }
-
-    /**
-     * @param autori La nuova lista di autori da impostare.
-     */
+/**
+ * @brief imposta gli autori del libro
+ * @param autori lista contenente gli autori del libro
+ */
     public void setAutori(List<String> autori) {
+        this.autori = new ArrayList<String>(
+                autori != null ? autori : Collections.<String>emptyList()
+        );
     }
-
-    /**
-     * @return L'anno di pubblicazione.
-     */
+/**
+ * @brief metodo getter
+ * @return anno di pubblicazione del libro
+ */
     public int getAnnoPubblicazione() {
+        return annoPubblicazione;
     }
-
-    /**
-     * @param annoPubblicazione Il nuovo anno di pubblicazione.
-     */
+/**
+ * @brief imposta l'anno di pubblicazione del libro
+ * @param annoPubblicazione 
+ */
     public void setAnnoPubblicazione(int annoPubblicazione) {
+        this.annoPubblicazione = annoPubblicazione;
     }
-
-    /**
-     * @return Il numero totale di copie fisiche possedute dalla biblioteca.
-     */
+/**
+ * @brief getter per le copie 
+ * @return numero totale di copie disponibili
+ */
     public int getCopieTotali() {
+        return copieTotali;
     }
-
-    /**
-     * @param copieTotali Il nuovo numero totale di copie.
-     */
+/**
+ * @brief imposta il numero di copie totali del libro
+ * @param copieTotali 
+ */
     public void setCopieTotali(int copieTotali) {
+        this.copieTotali = copieTotali;
+        if (copieDisponibili > copieTotali) {
+            copieDisponibili = copieTotali;
+        }
     }
-
-    /**
-     * @return Il numero di copie attualmente disponibili per il prestito.
-     */
+/**
+ * @brief metodo getter sulle copie
+ * @return il numero di copie disponibili
+ */
     public int getCopieDisponibili() {
+        return copieDisponibili;
     }
-
-    /**
-     * @param copieDisponibili Il nuovo numero di copie disponibili.
-     */
+/**
+ * @brief setter per le copie disponibili, imposta il numero di copie disponibili per un determinato libro.
+ * @param copieDisponibili 
+ */
     public void setCopieDisponibili(int copieDisponibili) {
+        this.copieDisponibili = copieDisponibili;
     }
 
-    /**
-     * @brief Restituisce una rappresentazione testuale degli autori.
-     *
-     * Utile per la visualizzazione nelle tabelle.
-     *
-     * @return Stringa formattata con i nomi degli autori.
-     */
+    /** Restituisce il numero di autori come stringa. */
     public String getNumAutori() {
+        return String.valueOf(autori.size());
     }
 
     /**
-     * @brief Verifica se il libro è prestabile.
-     *
-     * @return {@code true} se c'è almeno una copia disponibile (> 0), {@code false} altrimenti.
+     * 
+     * @return true o false in base alla disponibilità del libro
      */
     public boolean isDisponibile() {
+        return copieDisponibili > 0;
     }
 
     /**
-     * @brief Diminuisce di 1 il contatore delle copie disponibili.
-     *
-     * Da chiamare quando viene effettuato un prestito.
+     * @brief metodo che serve a decrementare le copie disponibili, richiamato quando prestiamo un libro.
      */
     public void decrementaCopiaDisponibile() {
+        if (copieDisponibili <= 0) {
+            throw new IllegalStateException("Nessuna copia disponibile");
+        }
+        copieDisponibili--;
     }
 
     /**
-     * @brief Aumenta di 1 il contatore delle copie disponibili.
-     *
-     * Da chiamare quando viene restituito un libro.
+     * @brief incrementa le copie disponibili quando un libro viene restituito.
      */
     public void incrementaCopiaDisponibile() {
+        if (copieDisponibili < copieTotali) {
+            copieDisponibili++;
+        }
     }
-
-    /**
-     * @brief Definisce l'ordine naturale dei libri.
-     *
-     * Solitamente basa l'ordinamento sul codice ISBN o sul Titolo.
-     *
-     * @param other L'altro libro con cui confrontare questo oggetto.
-     * @return Un intero negativo, zero o positivo a seconda dell'ordine.
-     */
+/**
+ * @brief override del metodo compareTo per confrontare tra loto due isbn
+ * @param other un altro oggetto libro
+ * @return ritorna valore intero, 0 se coincidono
+ */
+    @Override
     public int compareTo(Libro other) {
+        return Long.compare(this.isbn, other.isbn);
     }
-
-    /**
-     * @brief Verifica l'uguaglianza logica tra due libri.
-     *
-     * Due libri sono considerati uguali se hanno lo stesso ISBN.
-     *
-     * @param o L'oggetto da confrontare.
-     * @return {@code true} se gli oggetti rappresentano lo stesso libro.
-     */
+/**
+ * @brief override del metodo equals per valutare i riferimenti degli oggetti
+ * @param o altro oggetto che serve per il confronto
+ * @return true o false in base all'esito del confronto
+ */
+    @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Libro)) return false;
+        Libro libro = (Libro) o;
+        return isbn == libro.isbn;
     }
-
-    /**
-     * @brief Calcola l'hash code del libro.
-     *
-     * Basato sull'ISBN per coerenza con il metodo equals.
-     *
-     * @return Il valore hash intero.
-     */
+/**
+ * 
+ * @return hashcode sull'isbn
+ */
+    @Override
     public int hashCode() {
+        return Objects.hash(isbn);
     }
-
-    /**
-     * @brief Restituisce una rappresentazione a stringa dell'oggetto.
-     *
-     * @return Una stringa contenente i dettagli principali del libro (Titolo, ISBN, ecc.).
-     */
+/**
+ * @brief override del metodo to string per la stampa delle componenti del libro
+ * @return stringa contenente tutti gli attributi
+ */
+    @Override
     public String toString() {
+        return "Libro{" +
+                "isbn=" + isbn +
+                ", titolo='" + titolo + '\'' +
+                ", annoPubblicazione=" + annoPubblicazione +
+                ", copieTotali=" + copieTotali +
+                ", copieDisponibili=" + copieDisponibili +
+                '}';
     }
 }

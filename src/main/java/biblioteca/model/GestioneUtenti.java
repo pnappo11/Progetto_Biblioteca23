@@ -4,117 +4,170 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * @brief Classe che gestisce l'anagrafica degli utenti della biblioteca.
- *
- * Mantiene la collezione degli utenti in un {@link TreeSet} per garantire
- * l'unicità e l'ordinamento. Permette operazioni di inserimento, modifica,
- * ricerca e gestione dello stato (blacklist).
+ * @brief gestisce gli utenti: inserisce, modifica, elimina e trova un utente nel sistema.
+ * @author tommy
  */
 public class GestioneUtenti implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @brief Collezione ordinata e univoca degli utenti registrati.
-     */
+    /** Insieme ordinato degli utenti (ordinati per matricola). */
     private final TreeSet<Utente> utenti;
 
-    /**
-     * @brief Riferimento al gestore dei prestiti.
-     *
-     * Dichiarato <b>transient</b> perché non deve essere serializzato insieme agli utenti,
-     * ma iniettato a runtime per verificare vincoli (es. non cancellare utenti con prestiti).
-     */
+    /** Riferimento ai prestiti, usato per controllare prestiti attivi quando elimino un utente. */
     private transient GestionePrestiti gestionePrestiti;
-
-    /**
-     * @brief Costruttore di default.
-     *
-     * Inizializza un nuovo registro utenti vuoto.
-     */
+    
+/**
+ * costruttore di default che inizializza il treeset di utenti.
+ */
     public GestioneUtenti() {
+        this.utenti = new TreeSet<Utente>();
     }
-
-    /**
-     * @brief Costruttore che inizializza la gestione con una lista utenti esistente.
-     *
-     * @param utenti Il TreeSet di utenti da gestire.
-     */
+    
+/**
+ * costruttore che inizializza un treeset di utenti
+ * @param utenti, il treeset che contiene gli utenti.
+ */
     public GestioneUtenti(TreeSet<Utente> utenti) {
+        this.utenti = (utenti != null) ? utenti : new TreeSet<Utente>();
     }
-
-    /**
-     * @brief Imposta il riferimento al gestore dei prestiti.
-     *
-     * Da chiamare dopo la deserializzazione per ripristinare il collegamento logic.
-     *
-     * @param gestionePrestiti L'istanza attiva di GestionePrestiti.
-     */
+    
+/**
+ * @brief imposta l'attributo gestione prestiti
+ * @param gestionePrestiti 
+ */
     public void setGestionePrestiti(GestionePrestiti gestionePrestiti) {
+        this.gestionePrestiti = gestionePrestiti;
     }
 
-    /**
-     * @brief Restituisce la collezione completa degli utenti.
-     *
-     * @return Il TreeSet contenente tutti gli utenti.
-     */
+   /**
+    * @brief metodo getter, ritorna il treeset contenente gli utenti
+    * @return 
+    */
     public TreeSet<Utente> getUtenti() {
+        return utenti;
     }
 
     /**
-     * @brief Aggiunge un nuovo utente all'anagrafica.
-     *
-     * @param utente L'oggetto utente da inserire.
+     * @brief inserisce un nuovo utente nella collezione
+     * @param utente nuovo utente da inserire
      */
     public void inserisciUtente(Utente utente) {
+        if (utente != null) {
+            utenti.add(utente);
+        }
     }
 
-    /**
-     * @brief Aggiorna i dati di un utente esistente.
-     *
-     * Modifica i dati dell'utente 
-     *
-     * @param utenteMod L'oggetto utente contenente i dati aggiornati.
-     */
+   /**
+    * @brief modifica un utente esistente
+    * @param utenteMod  utente da modificare
+    */
     public void modificaUtente(Utente utenteMod) {
+        if (utenteMod == null) return;
+
+        Utente esistente = trovaUtente(utenteMod.getMatricola());
+        if (esistente != null) {
+            esistente.setNome(utenteMod.getNome());
+            esistente.setCognome(utenteMod.getCognome());
+            esistente.setEmail(utenteMod.getEmail());
+            esistente.setInBlacklist(utenteMod.isInBlacklist());
+        }
     }
 
-    /**
-     * @brief Rimuove un utente dall'anagrafica.
-     *
-     * @param matricolaStr La matricola dell'utente da eliminare.
-     */
+  /**
+   * @brief metodo che elimina un utente dalla collezione
+   * @param matricolaStr  matricola tramite la quale procediamo all'eliminazione dell'utente.
+   */
     public void eliminaUtente(String matricolaStr) {
+        if (matricolaStr == null || matricolaStr.trim().isEmpty()) {
+            return;
+        }
+
+        String matricola = matricolaStr.trim();
+        Utente utente = trovaUtente(matricola);
+        if (utente == null) return;
+
+        // Non elimino se ha prestiti attivi
+        boolean haPrestitiAttivi = false;
+        if (gestionePrestiti != null) {
+            haPrestitiAttivi = gestionePrestiti.haPrestitiAttiviPer(utente);
+        }
+
+        if (!haPrestitiAttivi) {
+            utenti.remove(utente);
+        }
     }
 
     /**
-     * @brief Cerca utenti che corrispondono ai criteri specificati.
-     *
-     * I parametri null o vuoti vengono ignorati nel filtro.
-     *
-     * @param matricola Parte della matricola da cercare.
-     * @param cognome   Parte del cognome da cercare.
-     * @param nome      Parte del nome da cercare.
-     * @return Un TreeSet contenente gli utenti trovati.
+     * @brief metodo che ci permette di cercare un determinato utenti in base a determinati parametri
+     * @param matricola matricola dell'utente
+     * @param cognome cognome dell'utente
+     * @param nome nome dell'utente.
+     * @return utente trovato ed aggiunto alla collezione altrimenti null
      */
     public TreeSet<Utente> cercaUtenti(String matricola, String cognome, String nome) {
+        String matrNorm    = (matricola == null) ? "" : matricola.trim();
+        String cognomeNorm = (cognome   == null) ? "" : cognome.trim().toLowerCase();
+        String nomeNorm    = (nome      == null) ? "" : nome.trim().toLowerCase();
+
+        TreeSet<Utente> risultato = new TreeSet<Utente>();
+
+        for (Utente u : utenti) {
+
+            // filtro per matricola (match esatto, se inserita)
+            if (!matrNorm.isEmpty()) {
+                String m = (u.getMatricola() != null) ? u.getMatricola().trim() : "";
+                if (!m.equals(matrNorm)) {
+                    continue;
+                }
+            }
+
+            // filtro per cognome (contains, case-insensitive)
+            if (!cognomeNorm.isEmpty()) {
+                String c = (u.getCognome() != null) ? u.getCognome().toLowerCase() : "";
+                if (!c.contains(cognomeNorm)) {
+                    continue;
+                }
+            }
+
+            // filtro per nome (contains, case-insensitive)
+            if (!nomeNorm.isEmpty()) {
+                String n = (u.getNome() != null) ? u.getNome().toLowerCase() : "";
+                if (!n.contains(nomeNorm)) {
+                    continue;
+                }
+            }
+
+            risultato.add(u);
+        }
+
+        return risultato;
     }
 
-    /**
-     * @brief Trova un singolo utente tramite la sua matricola esatta.
-     *
-     * @param matricola La matricola univoca dell'utente.
-     * @return L'oggetto {@link Utente} se trovato, altrimenti {@code null}.
-     */
+   /**
+    * @brief permette di trovare un utente in base alla matricola
+    * @param matricola
+    * @return l'utente trovato altrimenti null
+    */
     public Utente trovaUtente(String matricola) {
+        if (matricola == null) return null;
+        String mNorm = matricola.trim();
+        for (Utente u : utenti) {
+            if (mNorm.equals(u.getMatricola())) {
+                return u;
+            }
+        }
+        return null;
     }
 
-    /**
-     * @brief Modifica lo stato di "Blacklist" di un utente.
-     *
-     * @param utente      L'utente da modificare.
-     * @param toBlacklist {@code true} per bloccare l'utente, {@code false} per riabilitarlo.
-     */
+/**
+ * @brief inserisce un determinato utente in blacklist oppure se gia presente lo rimuove dalla blacklist
+ * @param utente utente in questione
+ * @param toBlacklist true o false 
+ */
     public void setBlacklist(Utente utente, boolean toBlacklist) {
+        if (utente != null) {
+            utente.setInBlacklist(toBlacklist);
+        }
     }
 }

@@ -3,55 +3,43 @@ package biblioteca.model;
 import java.io.Serializable;
 
 /**
- * @brief Classe contenitore  per il salvataggio e caricamento dei dati.
- *
- * Raggruppa in un unico oggetto le istanze di tutti i gestori (Libri, Utenti, Prestiti, Autenticazione).
- * Questo permette di serializzare (salvare) l'intero stato dell'applicazione in un singolo file
- * invece di gestire file separati.
+ * @brief Contenitore serializzabile di tutti i dati della biblioteca,
+ * contiene i dati relativi a libri, utenti, prestiti e relativi anche all'autenticazione.
  */
+
 public class DatiBiblioteca implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @brief Oggetto che contiene la lista dei libri e la logica associata.
-     */
     public GestioneLibri gestioneLibri;
-
-    /**
-     * @brief Oggetto che contiene la lista degli utenti e la logica associata.
-     */
+    
     public GestioneUtenti gestioneUtenti;
-
-    /**
-     * @brief Oggetto che contiene la lista dei prestiti e la logica associata.
-     */
+    
     public GestionePrestiti gestionePrestiti;
-
-    /**
-     * @brief Oggetto che contiene le credenziali di accesso (password hash).
-     */
+    
     public Autenticazione autenticazione;
-
-    /**
-     * @brief Costruttore vuoto.
-     *
-     * Necessario per la serializzazione e per creare un'istanza vuota da popolare successivamente.
-     */
+    
+/**
+ * @brief costruttere default
+ */
     public DatiBiblioteca() {
     }
-
-    /**
-     * @brief Costruttore completo per inizializzare il contenitore con dati esistenti.
-     *
-     * @param gl L'istanza corrente di {@link GestioneLibri}.
-     * @param gu L'istanza corrente di {@link GestioneUtenti}.
-     * @param gp L'istanza corrente di {@link GestionePrestiti}.
-     * @param a  L'istanza corrente di {@link Autenticazione}.
-     */
+    
+/**
+ *@brief costruttore che inizializza tutti i parametri da gestire, grazie ai parametri che riceve può accedere a moltissime informazioni relative
+ * a libri, utenti, prestiti e autenticazione.
+ * @param gl gestione libri, porta con sè tutte le informazioni relative ai libri.
+ * @param gu gestione utenti, porta con sè tutte le informazioni relative agli utenti
+ * @param gp gestione prestiti porta con sè tutte le informazioni sui prestiti
+ * @param a porta con sè tutte le informazioni reative ad autenticazione
+ */
     public DatiBiblioteca(GestioneLibri gl,
-                          GestioneUtenti gu,
-                          GestionePrestiti gp,
-                          Autenticazione a) {
+                           GestioneUtenti gu,
+                           GestionePrestiti gp,
+                           Autenticazione a) {
+        this.gestioneLibri = gl;
+        this.gestioneUtenti = gu;
+        this.gestionePrestiti = gp;
+        this.autenticazione = a;
     }
 }
