@@ -92,7 +92,7 @@ $(function(){initNavTree('classbiblioteca_1_1model_1_1_autenticazione.html','','
 </div><!--header-->
 <div class="contents">
 
-<p>Gestisce la sicurezza e l'autenticazione del bibliotecario.  
+<p>classe <a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html" title="classe Autenticazione relativa all&#39;accesso da parte del bibliotecario al sistema permette di fare log...">Autenticazione</a> relativa all'accesso da parte del bibliotecario al sistema permette di fare login e cambiare la password di accesso. La nostra autenticazione prevede il confronto tra la password settata(già codificata) e l'hash eseguito sulla password inserita nella finestra di login al momento dell'accesso.  
  <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for biblioteca.model.Autenticazione:</div>
@@ -103,47 +103,25 @@ Inheritance diagram for biblioteca.model.Autenticazione:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4641c7a44c3f26151417629e716f6a31" id="r_a4641c7a44c3f26151417629e716f6a31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4641c7a44c3f26151417629e716f6a31">Autenticazione</a> ()</td></tr>
-<tr class="memdesc:a4641c7a44c3f26151417629e716f6a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe.  <br /></td></tr>
+<tr class="memitem:a4641c7a44c3f26151417629e716f6a31" id="r_a4641c7a44c3f26151417629e716f6a31"><td class="memItemLeft" align="right" valign="top"><a id="a4641c7a44c3f26151417629e716f6a31" name="a4641c7a44c3f26151417629e716f6a31"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Autenticazione</b> ()</td></tr>
+<tr class="memdesc:a4641c7a44c3f26151417629e716f6a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">costruttore di default inizializza l'attributo passwordHash <br /></td></tr>
 <tr class="memitem:aa6ccc3b83356144444e2bfe1480f8a44" id="r_aa6ccc3b83356144444e2bfe1480f8a44"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6ccc3b83356144444e2bfe1480f8a44">login</a> (String passwordInserita)</td></tr>
-<tr class="memdesc:aa6ccc3b83356144444e2bfe1480f8a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica se la password inserita è corretta.  <br /></td></tr>
+<tr class="memdesc:aa6ccc3b83356144444e2bfe1480f8a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo che calcola l'hash sulla password inserita al momento del login e la confronta con quella già presente nel sistema.  <br /></td></tr>
 <tr class="memitem:ad509c089cf1dbe79e1bfec00e5eedf57" id="r_ad509c089cf1dbe79e1bfec00e5eedf57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad509c089cf1dbe79e1bfec00e5eedf57">cambiaPassword</a> (String vecchiaPassword, String nuovaPassword)</td></tr>
-<tr class="memdesc:ad509c089cf1dbe79e1bfec00e5eedf57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permette di modificare la password di accesso.  <br /></td></tr>
+<tr class="memdesc:ad509c089cf1dbe79e1bfec00e5eedf57"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo per il cambio password, per poter procedere alla modifica della password bisogna comunque ricordare la vecchia  <br /></td></tr>
 <tr class="memitem:ab279d57e018b33fc4664fff98d1a9312" id="r_ab279d57e018b33fc4664fff98d1a9312"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab279d57e018b33fc4664fff98d1a9312">getPasswordHash</a> ()</td></tr>
-<tr class="memdesc:ab279d57e018b33fc4664fff98d1a9312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce l'hash memorizzato.  <br /></td></tr>
+<tr class="memdesc:ab279d57e018b33fc4664fff98d1a9312"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo getter sulla passwordhash  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a159e2c1cfa100703e3010628c8e05562" id="r_a159e2c1cfa100703e3010628c8e05562"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a159e2c1cfa100703e3010628c8e05562">calcolaHash</a> (String passwordChiaro)</td></tr>
-<tr class="memdesc:a159e2c1cfa100703e3010628c8e05562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metodo statico di utilità per calcolare l'hash della password .  <br /></td></tr>
+<tr class="memdesc:a159e2c1cfa100703e3010628c8e05562"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo che si occupa di calcolare l'hash di una password, ovvero la versione codificata di quella password.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Gestisce la sicurezza e l'autenticazione del bibliotecario. </p>
-<p>La classe <code class="JavaDocCode">Autenticazione</code> si occupa di memorizzare e verificare la password di accesso al sistema. Implementa l'interfaccia <code><a class="el" href="">Serializable</a></code> per permettere il salvataggio delle credenziali su file (in modo persistente).</p>
-<p><b>Nota sulla sicurezza:</b> La password non viene mai salvata "in chiaro" (plaintext). Viene invece memorizzato solo il suo <em>Hash</em> (impronta digitale), calcolato tramite un algoritmo crittografico (solitamente SHA-256). Questo rende impossibile risalire alla password originale leggendo il file di salvataggio.</p>
+<div class="textblock"><p>classe <a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html" title="classe Autenticazione relativa all&#39;accesso da parte del bibliotecario al sistema permette di fare log...">Autenticazione</a> relativa all'accesso da parte del bibliotecario al sistema permette di fare login e cambiare la password di accesso. La nostra autenticazione prevede il confronto tra la password settata(già codificata) e l'hash eseguito sulla password inserita nella finestra di login al momento dell'accesso. </p>
 <dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
-</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4641c7a44c3f26151417629e716f6a31" name="a4641c7a44c3f26151417629e716f6a31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4641c7a44c3f26151417629e716f6a31">&#9670;&#160;</a></span>Autenticazione()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">biblioteca.model.Autenticazione.Autenticazione </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Costruttore della classe. </p>
-<p>Inizializza l'oggetto. </p>
-
-</div>
-</div>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a159e2c1cfa100703e3010628c8e05562" name="a159e2c1cfa100703e3010628c8e05562"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a159e2c1cfa100703e3010628c8e05562">&#9670;&#160;</a></span>calcolaHash()</h2>
 
@@ -167,15 +145,14 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Metodo statico di utilità per calcolare l'hash della password . </p>
-<p>Utilizza <code><a class="el" href="">MessageDigest</a></code> per trasformare una stringa in chiaro in una sequenza esadecimale univoca.</p>
+<p>metodo che si occupa di calcolare l'hash di una password, ovvero la versione codificata di quella password. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">passwordChiaro</td><td>La stringa da convertire. </td></tr>
+    <tr><td class="paramname">passwordChiaro</td><td>rappresenta la password non codificata (es."supermario23"). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>La rappresentazione esadecimale dell'hash, oppure <code class="JavaDocCode">null</code> in caso di errore dell'algoritmo. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>la stringa che contiene la password codificata. </dd></dl>
 
 </div>
 </div>
@@ -198,18 +175,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Permette di modificare la password di accesso. </p>
-<p>Per sicurezza, richiede di inserire la vecchia password prima di impostarne una nuova.</p>
+<p>metodo per il cambio password, per poter procedere alla modifica della password bisogna comunque ricordare la vecchia </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vecchiaPassword</td><td>La password attuale (per verifica di sicurezza). </td></tr>
-    <tr><td class="paramname">nuovaPassword</td><td>La nuova password da impostare. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>(Opzionale) Se la vecchia password non è corretta. </td></tr>
+    <tr><td class="paramname">vecchiaPassword</td><td>rappresenta la vecchia password </td></tr>
+    <tr><td class="paramname">nuovaPassword</td><td>rappresenta la nuova password che si vuole impostare </td></tr>
   </table>
   </dd>
 </dl>
@@ -231,8 +201,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Restituisce l'hash memorizzato. </p>
-<dl class="section return"><dt>Returns</dt><dd>La stringa contenente l'hash della password. </dd></dl>
+<p>metodo getter sulla passwordhash </p>
+<dl class="section return"><dt>Returns</dt><dd>la password hashata. </dd></dl>
 
 </div>
 </div>
@@ -251,15 +221,14 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Verifica se la password inserita è corretta. </p>
-<p>Il metodo calcola l'hash della <code class="JavaDocCode">passwordInserita</code> e lo confronta con il <code class="JavaDocCode">passwordHash</code> memorizzato. Se i due hash coincidono, la password è corretta.</p>
+<p>metodo che calcola l'hash sulla password inserita al momento del login e la confronta con quella già presente nel sistema. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">passwordInserita</td><td>La password digitata dall'utente nel form di login. </td></tr>
+    <tr><td class="paramname">passwordInserita</td><td>rappresenta la password inserita al momento del login nel campo password. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code class="JavaDocCode">true</code> se la password corrisponde, <code class="JavaDocCode">false</code> altrimenti. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>l'esito del confronto, true se coincidono altrimenti false. </dd></dl>
 
 </div>
 </div>

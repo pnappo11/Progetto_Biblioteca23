@@ -12,5 +12,6 @@ var classbiblioteca_1_1view_1_1_libri_panel =
     [ "getRoot", "classbiblioteca_1_1view_1_1_libri_panel.html#ad3e49f9ed69f70c17452f5c4c4ce461b", null ],
     [ "getTabellaLibri", "classbiblioteca_1_1view_1_1_libri_panel.html#aa008f2df46173ac9fdab4695046295eb", null ],
     [ "getTitoloInserito", "classbiblioteca_1_1view_1_1_libri_panel.html#a4cfc7cb6a5a485a9808e3d864fd2103c", null ],
-    [ "pulisciCampi", "classbiblioteca_1_1view_1_1_libri_panel.html#a29625aaf0a918d8d709e7d622182c2cd", null ]
+    [ "pulisciCampi", "classbiblioteca_1_1view_1_1_libri_panel.html#a29625aaf0a918d8d709e7d622182c2cd", null ],
+    [ "setCampiDaRiga", "classbiblioteca_1_1view_1_1_libri_panel.html#ad5058b0f13b1ca0edcfeaa5398238b6d", null ]
 ];

@@ -91,6 +91,9 @@ $(function(){initNavTree('classbiblioteca_1_1model_1_1_gestione_libri.html','','
   <div class="headertitle"><div class="title">biblioteca.model.GestioneLibri Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Gestore dei libri della biblioteca. Incapsula il TreeSet&lt;Libro2&gt; .  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for biblioteca.model.GestioneLibri:</div>
 <div class="dyncontent">
@@ -100,23 +103,242 @@ Inheritance diagram for biblioteca.model.GestioneLibri:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab0c52698f0490f14efa7f2c3638ce7bb" id="r_ab0c52698f0490f14efa7f2c3638ce7bb"><td class="memItemLeft" align="right" valign="top"><a id="ab0c52698f0490f14efa7f2c3638ce7bb" name="ab0c52698f0490f14efa7f2c3638ce7bb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GestioneLibri</b> (TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> &gt; libri)</td></tr>
+<tr class="memitem:ab0c52698f0490f14efa7f2c3638ce7bb" id="r_ab0c52698f0490f14efa7f2c3638ce7bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0c52698f0490f14efa7f2c3638ce7bb">GestioneLibri</a> (TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> &gt; libri)</td></tr>
+<tr class="memdesc:ab0c52698f0490f14efa7f2c3638ce7bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">costruttore per la gestione dei libri  <br /></td></tr>
+<tr class="memitem:a33682b7d8af310f416d888b6baa850ce" id="r_a33682b7d8af310f416d888b6baa850ce"><td class="memItemLeft" align="right" valign="top"><a id="a33682b7d8af310f416d888b6baa850ce" name="a33682b7d8af310f416d888b6baa850ce"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>GestioneLibri</b> ()</td></tr>
+<tr class="memdesc:a33682b7d8af310f416d888b6baa850ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore vuoto di comodo: crea un nuovo TreeSet. <br /></td></tr>
 <tr class="memitem:a46d3bd0971f141ef2c31ba315cc895ea" id="r_a46d3bd0971f141ef2c31ba315cc895ea"><td class="memItemLeft" align="right" valign="top"><a id="a46d3bd0971f141ef2c31ba315cc895ea" name="a46d3bd0971f141ef2c31ba315cc895ea"></a>
 TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getLibri</b> ()</td></tr>
+<tr class="memdesc:a46d3bd0971f141ef2c31ba315cc895ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ritorna l’insieme dei libri (ordinati per ISBN). <br /></td></tr>
 <tr class="memitem:ab095e6731399788f95728b580c2e54ee" id="r_ab095e6731399788f95728b580c2e54ee"><td class="memItemLeft" align="right" valign="top"><a id="ab095e6731399788f95728b580c2e54ee" name="ab095e6731399788f95728b580c2e54ee"></a>
 List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getLibriOrdinatiPerTitolo</b> ()</td></tr>
-<tr class="memitem:a37fb084a3789beea1b6cce85214db79e" id="r_a37fb084a3789beea1b6cce85214db79e"><td class="memItemLeft" align="right" valign="top"><a id="a37fb084a3789beea1b6cce85214db79e" name="a37fb084a3789beea1b6cce85214db79e"></a>
-<a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a>&#160;</td><td class="memItemRight" valign="bottom"><b>inserisciLibro</b> (long isbn, String titolo, List&lt; String &gt; autori, int annoPubblicazione, int copieTotali)</td></tr>
-<tr class="memitem:a8c16386957e7a845e4f0bd4618b78f55" id="r_a8c16386957e7a845e4f0bd4618b78f55"><td class="memItemLeft" align="right" valign="top"><a id="a8c16386957e7a845e4f0bd4618b78f55" name="a8c16386957e7a845e4f0bd4618b78f55"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>modificaLibro</b> (<a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> libro, String titolo, List&lt; String &gt; autori, int annoPubblicazione, int copieTotali)</td></tr>
-<tr class="memitem:a9933398d576a47907d441d4bf8929eac" id="r_a9933398d576a47907d441d4bf8929eac"><td class="memItemLeft" align="right" valign="top"><a id="a9933398d576a47907d441d4bf8929eac" name="a9933398d576a47907d441d4bf8929eac"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>eliminaLibro</b> (String codiceIsbn)</td></tr>
-<tr class="memitem:a33467c01187cc1be257b522a895e78e3" id="r_a33467c01187cc1be257b522a895e78e3"><td class="memItemLeft" align="right" valign="top"><a id="a33467c01187cc1be257b522a895e78e3" name="a33467c01187cc1be257b522a895e78e3"></a>
-TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>cercaLibri</b> (String codiceIsbn, String titolo, String autore)</td></tr>
-<tr class="memitem:a56056efb3024205e8d12ab4131eb1485" id="r_a56056efb3024205e8d12ab4131eb1485"><td class="memItemLeft" align="right" valign="top"><a id="a56056efb3024205e8d12ab4131eb1485" name="a56056efb3024205e8d12ab4131eb1485"></a>
-<a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a>&#160;</td><td class="memItemRight" valign="bottom"><b>trovaLibro</b> (long isbn)</td></tr>
+<tr class="memdesc:ab095e6731399788f95728b580c2e54ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce i libri ordinati per titolo (A-Z, case insensitive). <br /></td></tr>
+<tr class="memitem:a37fb084a3789beea1b6cce85214db79e" id="r_a37fb084a3789beea1b6cce85214db79e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37fb084a3789beea1b6cce85214db79e">inserisciLibro</a> (long isbn, String titolo, List&lt; String &gt; autori, int annoPubblicazione, int copieTotali)</td></tr>
+<tr class="memdesc:a37fb084a3789beea1b6cce85214db79e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserisce un nuovo libro. Se esiste già un libro con lo stesso ISBN, incrementa le copie totali e disponibili.  <br /></td></tr>
+<tr class="memitem:a8c16386957e7a845e4f0bd4618b78f55" id="r_a8c16386957e7a845e4f0bd4618b78f55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c16386957e7a845e4f0bd4618b78f55">modificaLibro</a> (<a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> libro, String titolo, List&lt; String &gt; autori, int annoPubblicazione, int copieTotali)</td></tr>
+<tr class="memdesc:a8c16386957e7a845e4f0bd4618b78f55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifica di un libro già esistente. (Qui si passa direttamente l'oggetto libro da aggiornare.).  <br /></td></tr>
+<tr class="memitem:a9933398d576a47907d441d4bf8929eac" id="r_a9933398d576a47907d441d4bf8929eac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9933398d576a47907d441d4bf8929eac">eliminaLibro</a> (String codiceIsbn)</td></tr>
+<tr class="memdesc:a9933398d576a47907d441d4bf8929eac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elimina un libro dato il codice ISBN (formato stringa).  <br /></td></tr>
+<tr class="memitem:a33467c01187cc1be257b522a895e78e3" id="r_a33467c01187cc1be257b522a895e78e3"><td class="memItemLeft" align="right" valign="top">TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33467c01187cc1be257b522a895e78e3">cercaLibri</a> (String codiceIsbn, String titolo, String autore)</td></tr>
+<tr class="memdesc:a33467c01187cc1be257b522a895e78e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ricerca libri per ISBN / Titolo / Autore.  <br /></td></tr>
+<tr class="memitem:a56056efb3024205e8d12ab4131eb1485" id="r_a56056efb3024205e8d12ab4131eb1485"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56056efb3024205e8d12ab4131eb1485">trovaLibro</a> (long isbn)</td></tr>
+<tr class="memdesc:a56056efb3024205e8d12ab4131eb1485"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trova un libro per ISBN oppure null se non esiste.  <br /></td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Gestore dei libri della biblioteca. Incapsula il TreeSet&lt;Libro2&gt; . </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab0c52698f0490f14efa7f2c3638ce7bb" name="ab0c52698f0490f14efa7f2c3638ce7bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0c52698f0490f14efa7f2c3638ce7bb">&#9670;&#160;</a></span>GestioneLibri()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.model.GestioneLibri.GestioneLibri </td>
+          <td>(</td>
+          <td class="paramtype">TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>libri</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>costruttore per la gestione dei libri </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">libri</td><td>è un treeset che contieme l'insieme di libri ordinati. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a33467c01187cc1be257b522a895e78e3" name="a33467c01187cc1be257b522a895e78e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33467c01187cc1be257b522a895e78e3">&#9670;&#160;</a></span>cercaLibri()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> &gt; biblioteca.model.GestioneLibri.cercaLibri </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>codiceIsbn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>titolo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>autore</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ricerca libri per ISBN / Titolo / Autore. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">codiceIsbn</td><td>codice isbn del libro. </td></tr>
+    <tr><td class="paramname">titolo</td><td>titolo del libro. </td></tr>
+    <tr><td class="paramname">autore</td><td>rappresenta l' autore del libro. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>libro trovato </dd></dl>
+
+</div>
+</div>
+<a id="a9933398d576a47907d441d4bf8929eac" name="a9933398d576a47907d441d4bf8929eac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9933398d576a47907d441d4bf8929eac">&#9670;&#160;</a></span>eliminaLibro()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.GestioneLibri.eliminaLibro </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>codiceIsbn</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Elimina un libro dato il codice ISBN (formato stringa). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">codiceIsbn</td><td>codice isbn del libro di cui ci serviamo per procedere all'eliminazione del libro. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a37fb084a3789beea1b6cce85214db79e" name="a37fb084a3789beea1b6cce85214db79e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37fb084a3789beea1b6cce85214db79e">&#9670;&#160;</a></span>inserisciLibro()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> biblioteca.model.GestioneLibri.inserisciLibro </td>
+          <td>(</td>
+          <td class="paramtype">long</td>          <td class="paramname"><span class="paramname"><em>isbn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>titolo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; String &gt;</td>          <td class="paramname"><span class="paramname"><em>autori</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>annoPubblicazione</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>copieTotali</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserisce un nuovo libro. Se esiste già un libro con lo stesso ISBN, incrementa le copie totali e disponibili. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isbn</td><td>codice isbn del libro. </td></tr>
+    <tr><td class="paramname">titolo</td><td>titolo del libro. </td></tr>
+    <tr><td class="paramname">autori</td><td>lista che contiene gli autori del libro. </td></tr>
+    <tr><td class="paramname">annoPubblicazione</td><td>contiene l'anno di pubblicazione del libro. </td></tr>
+    <tr><td class="paramname">copieTotali</td><td>rappresenta i numero di copie totali di quel libro disponibili. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>libro aggiunto alla collezione </dd></dl>
+
+</div>
+</div>
+<a id="a8c16386957e7a845e4f0bd4618b78f55" name="a8c16386957e7a845e4f0bd4618b78f55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c16386957e7a845e4f0bd4618b78f55">&#9670;&#160;</a></span>modificaLibro()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.GestioneLibri.modificaLibro </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a></td>          <td class="paramname"><span class="paramname"><em>libro</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>titolo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">List&lt; String &gt;</td>          <td class="paramname"><span class="paramname"><em>autori</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>annoPubblicazione</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>copieTotali</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modifica di un libro già esistente. (Qui si passa direttamente l'oggetto libro da aggiornare.). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">codiceIsbn</td><td>codice isbn del libro. </td></tr>
+    <tr><td class="paramname">titolo</td><td>titolo del libro. </td></tr>
+    <tr><td class="paramname">autori</td><td>lista che contiene gli autori del libro. </td></tr>
+    <tr><td class="paramname">annoPubblicazione</td><td>contiene l'anno di pubblicazione del libro. </td></tr>
+    <tr><td class="paramname">copieTotali</td><td>rappresenta i numero di copie totali di quel libro disponibili. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a56056efb3024205e8d12ab4131eb1485" name="a56056efb3024205e8d12ab4131eb1485"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56056efb3024205e8d12ab4131eb1485">&#9670;&#160;</a></span>trovaLibro()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> biblioteca.model.GestioneLibri.trovaLibro </td>
+          <td>(</td>
+          <td class="paramtype">long</td>          <td class="paramname"><span class="paramname"><em>isbn</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trova un libro per ISBN oppure null se non esiste. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">isbn</td><td>codice isbn del libro. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>libro trovato </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/model/<b>GestioneLibri.java</b></li>
 </ul>

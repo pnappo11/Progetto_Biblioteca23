@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['prestiticontroller_0',['PrestitiController',['../classbiblioteca_1_1controller_1_1_prestiti_controller.html',1,'biblioteca.controller.PrestitiController'],['../classbiblioteca_1_1controller_1_1_prestiti_controller.html#a5ba6a8ff5bfcbed910400568f909e551',1,'biblioteca.controller.PrestitiController.PrestitiController()']]],
-  ['prestitipanel_1',['PrestitiPanel',['../classbiblioteca_1_1view_1_1_prestiti_panel.html',1,'biblioteca.view.PrestitiPanel'],['../classbiblioteca_1_1view_1_1_prestiti_panel.html#affc08897a8c5b78b4e004b96df2ab975',1,'biblioteca.view.PrestitiPanel.PrestitiPanel()']]],
-  ['prestito_2',['Prestito',['../classbiblioteca_1_1model_1_1_prestito.html',1,'biblioteca::model']]],
-  ['puliscicampi_3',['pulisciCampi',['../classbiblioteca_1_1view_1_1_libri_panel.html#a29625aaf0a918d8d709e7d622182c2cd',1,'biblioteca.view.LibriPanel.pulisciCampi()'],['../classbiblioteca_1_1view_1_1_login_view.html#ab832e841c0b07deff4c55b0e33664061',1,'biblioteca.view.LoginView.pulisciCampi()'],['../classbiblioteca_1_1view_1_1_utenti_panel.html#ae3e0377c67f29d29a5f67a156cf62e13',1,'biblioteca.view.UtentiPanel.pulisciCampi()']]]
+  ['incrementacopiadisponibile_0',['incrementaCopiaDisponibile',['../classbiblioteca_1_1model_1_1_libro.html#a657886544d5a60dec32ad7bd01ff77ab',1,'biblioteca::model::Libro']]],
+  ['inseriscilibro_1',['inserisciLibro',['../classbiblioteca_1_1model_1_1_gestione_libri.html#a37fb084a3789beea1b6cce85214db79e',1,'biblioteca::model::GestioneLibri']]],
+  ['inserisciutente_2',['inserisciUtente',['../classbiblioteca_1_1model_1_1_gestione_utenti.html#a482c5796bdd459783d573fc80204fb1e',1,'biblioteca::model::GestioneUtenti']]],
+  ['isattivo_3',['isAttivo',['../classbiblioteca_1_1model_1_1_prestito.html#ad82df46e30c8407a39b4cf9bc488b170',1,'biblioteca::model::Prestito']]],
+  ['isdisponibile_4',['isDisponibile',['../classbiblioteca_1_1model_1_1_libro.html#acfed2ed7e9ac32af57eb6b38e5e60214',1,'biblioteca::model::Libro']]],
+  ['isinblacklist_5',['isInBlacklist',['../classbiblioteca_1_1model_1_1_utente.html#adc8d57430f76a2f0aaf7b6b04833db1d',1,'biblioteca::model::Utente']]],
+  ['isinritardo_6',['isInRitardo',['../classbiblioteca_1_1model_1_1_prestito.html#ac00dfd3b3e0a23141a98fe20a98caa8b',1,'biblioteca::model::Prestito']]]
 ];

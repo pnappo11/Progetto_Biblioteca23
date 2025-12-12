@@ -91,6 +91,9 @@ $(function(){initNavTree('classbiblioteca_1_1model_1_1_gestione_prestiti.html','
   <div class="headertitle"><div class="title">biblioteca.model.GestionePrestiti Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>classe che si occupa di gestire i prestiti di libri permette di registrare nuovi prestiti, contarli e trovarli nel sistema.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for biblioteca.model.GestionePrestiti:</div>
 <div class="dyncontent">
@@ -100,23 +103,220 @@ Inheritance diagram for biblioteca.model.GestionePrestiti:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a70576b946379d80ead4a57d0e1f0db52" id="r_a70576b946379d80ead4a57d0e1f0db52"><td class="memItemLeft" align="right" valign="top"><a id="a70576b946379d80ead4a57d0e1f0db52" name="a70576b946379d80ead4a57d0e1f0db52"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GestionePrestiti</b> (List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> &gt; prestiti)</td></tr>
+<tr class="memitem:a70576b946379d80ead4a57d0e1f0db52" id="r_a70576b946379d80ead4a57d0e1f0db52"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70576b946379d80ead4a57d0e1f0db52">GestionePrestiti</a> (List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> &gt; prestiti)</td></tr>
+<tr class="memdesc:a70576b946379d80ead4a57d0e1f0db52"><td class="mdescLeft">&#160;</td><td class="mdescRight">costruttore che crea una nuova lista di prestiti.  <br /></td></tr>
+<tr class="memitem:a15e0ddd12244cc6f2a0a12663f4b79a9" id="r_a15e0ddd12244cc6f2a0a12663f4b79a9"><td class="memItemLeft" align="right" valign="top"><a id="a15e0ddd12244cc6f2a0a12663f4b79a9" name="a15e0ddd12244cc6f2a0a12663f4b79a9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>GestionePrestiti</b> ()</td></tr>
+<tr class="memdesc:a15e0ddd12244cc6f2a0a12663f4b79a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">istanzia un nuovo array list di prestiti. <br /></td></tr>
 <tr class="memitem:a7cbb90ea2cc713a5b6735fa41222bab9" id="r_a7cbb90ea2cc713a5b6735fa41222bab9"><td class="memItemLeft" align="right" valign="top"><a id="a7cbb90ea2cc713a5b6735fa41222bab9" name="a7cbb90ea2cc713a5b6735fa41222bab9"></a>
 List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPrestiti</b> ()</td></tr>
+<tr class="memdesc:a7cbb90ea2cc713a5b6735fa41222bab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce la lista di tutti i prestiti (solo lettura). <br /></td></tr>
 <tr class="memitem:aa8d1f424a50c041219fc0871573eceae" id="r_aa8d1f424a50c041219fc0871573eceae"><td class="memItemLeft" align="right" valign="top"><a id="aa8d1f424a50c041219fc0871573eceae" name="aa8d1f424a50c041219fc0871573eceae"></a>
 List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPrestitiAttivi</b> ()</td></tr>
-<tr class="memitem:a241a43674e29561baf9c406e956313ef" id="r_a241a43674e29561baf9c406e956313ef"><td class="memItemLeft" align="right" valign="top"><a id="a241a43674e29561baf9c406e956313ef" name="a241a43674e29561baf9c406e956313ef"></a>
-<a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a>&#160;</td><td class="memItemRight" valign="bottom"><b>registraPrestito</b> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente, <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> libro, LocalDate dataPrestito, LocalDate dataPrevistaRestituzione)</td></tr>
-<tr class="memitem:a89385e7c48cbb841deec6823e9960a30" id="r_a89385e7c48cbb841deec6823e9960a30"><td class="memItemLeft" align="right" valign="top"><a id="a89385e7c48cbb841deec6823e9960a30" name="a89385e7c48cbb841deec6823e9960a30"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>registraRestituzione</b> (<a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> prestito, LocalDate dataRestituzione)</td></tr>
-<tr class="memitem:a265514c8a5fa63b9fad4d6f2fb0b9ddb" id="r_a265514c8a5fa63b9fad4d6f2fb0b9ddb"><td class="memItemLeft" align="right" valign="top"><a id="a265514c8a5fa63b9fad4d6f2fb0b9ddb" name="a265514c8a5fa63b9fad4d6f2fb0b9ddb"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>contaPrestitiAttivi</b> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente)</td></tr>
-<tr class="memitem:a0e4c03f4dda6b557df22b40cf5f9aab8" id="r_a0e4c03f4dda6b557df22b40cf5f9aab8"><td class="memItemLeft" align="right" valign="top"><a id="a0e4c03f4dda6b557df22b40cf5f9aab8" name="a0e4c03f4dda6b557df22b40cf5f9aab8"></a>
-boolean&#160;</td><td class="memItemRight" valign="bottom"><b>haPrestitiAttiviPer</b> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente)</td></tr>
-<tr class="memitem:a43be638f3622ac6866b744656a26baed" id="r_a43be638f3622ac6866b744656a26baed"><td class="memItemLeft" align="right" valign="top"><a id="a43be638f3622ac6866b744656a26baed" name="a43be638f3622ac6866b744656a26baed"></a>
-<a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a>&#160;</td><td class="memItemRight" valign="bottom"><b>trovaPrestitoAttivo</b> (String matricola, long isbn, LocalDate dataInizio)</td></tr>
+<tr class="memdesc:aa8d1f424a50c041219fc0871573eceae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce solo i prestiti ancora attivi. <br /></td></tr>
+<tr class="memitem:a241a43674e29561baf9c406e956313ef" id="r_a241a43674e29561baf9c406e956313ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a241a43674e29561baf9c406e956313ef">registraPrestito</a> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente, <a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a> libro, LocalDate dataPrestito, LocalDate dataPrevistaRestituzione)</td></tr>
+<tr class="memdesc:a241a43674e29561baf9c406e956313ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">permette di registrare un nuovo prestito.  <br /></td></tr>
+<tr class="memitem:a89385e7c48cbb841deec6823e9960a30" id="r_a89385e7c48cbb841deec6823e9960a30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89385e7c48cbb841deec6823e9960a30">registraRestituzione</a> (<a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> prestito, LocalDate dataRestituzione)</td></tr>
+<tr class="memdesc:a89385e7c48cbb841deec6823e9960a30"><td class="mdescLeft">&#160;</td><td class="mdescRight">permette di registrare una restituzione.  <br /></td></tr>
+<tr class="memitem:a265514c8a5fa63b9fad4d6f2fb0b9ddb" id="r_a265514c8a5fa63b9fad4d6f2fb0b9ddb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a265514c8a5fa63b9fad4d6f2fb0b9ddb">contaPrestitiAttivi</a> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente)</td></tr>
+<tr class="memdesc:a265514c8a5fa63b9fad4d6f2fb0b9ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">conta quanti prestiti in corso ha un determinato utente  <br /></td></tr>
+<tr class="memitem:a0e4c03f4dda6b557df22b40cf5f9aab8" id="r_a0e4c03f4dda6b557df22b40cf5f9aab8"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e4c03f4dda6b557df22b40cf5f9aab8">haPrestitiAttiviPer</a> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente)</td></tr>
+<tr class="memdesc:a0e4c03f4dda6b557df22b40cf5f9aab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">rappresenta se un utente ha o meno prestiti in corso.  <br /></td></tr>
+<tr class="memitem:a43be638f3622ac6866b744656a26baed" id="r_a43be638f3622ac6866b744656a26baed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43be638f3622ac6866b744656a26baed">trovaPrestitoAttivo</a> (String matricola, long isbn, LocalDate dataInizio)</td></tr>
+<tr class="memdesc:a43be638f3622ac6866b744656a26baed"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo che permette di trovare un determinato prestito.  <br /></td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>classe che si occupa di gestire i prestiti di libri permette di registrare nuovi prestiti, contarli e trovarli nel sistema. </p>
+<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a70576b946379d80ead4a57d0e1f0db52" name="a70576b946379d80ead4a57d0e1f0db52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70576b946379d80ead4a57d0e1f0db52">&#9670;&#160;</a></span>GestionePrestiti()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.model.GestionePrestiti.GestionePrestiti </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>prestiti</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>costruttore che crea una nuova lista di prestiti. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prestiti</td><td>parametro che contiene tutti i prestiti del sistema </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a265514c8a5fa63b9fad4d6f2fb0b9ddb" name="a265514c8a5fa63b9fad4d6f2fb0b9ddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a265514c8a5fa63b9fad4d6f2fb0b9ddb">&#9670;&#160;</a></span>contaPrestitiAttivi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biblioteca.model.GestionePrestiti.contaPrestitiAttivi </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a></td>          <td class="paramname"><span class="paramname"><em>utente</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>conta quanti prestiti in corso ha un determinato utente </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">utente</td><td>utente in questione </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>numero di presiti attivi </dd></dl>
+
+</div>
+</div>
+<a id="a0e4c03f4dda6b557df22b40cf5f9aab8" name="a0e4c03f4dda6b557df22b40cf5f9aab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e4c03f4dda6b557df22b40cf5f9aab8">&#9670;&#160;</a></span>haPrestitiAttiviPer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean biblioteca.model.GestionePrestiti.haPrestitiAttiviPer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a></td>          <td class="paramname"><span class="paramname"><em>utente</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>rappresenta se un utente ha o meno prestiti in corso. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">utente</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true o false se un utente ha o meno prestiti attivi </dd></dl>
+
+</div>
+</div>
+<a id="a241a43674e29561baf9c406e956313ef" name="a241a43674e29561baf9c406e956313ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a241a43674e29561baf9c406e956313ef">&#9670;&#160;</a></span>registraPrestito()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> biblioteca.model.GestionePrestiti.registraPrestito </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a></td>          <td class="paramname"><span class="paramname"><em>utente</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_libro.html">Libro</a></td>          <td class="paramname"><span class="paramname"><em>libro</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LocalDate</td>          <td class="paramname"><span class="paramname"><em>dataPrestito</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LocalDate</td>          <td class="paramname"><span class="paramname"><em>dataPrevistaRestituzione</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>permette di registrare un nuovo prestito. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">utente</td><td>colui che riceve il libro in prestito </td></tr>
+    <tr><td class="paramname">libro</td><td>libro ricevuto in prestito. </td></tr>
+    <tr><td class="paramname">dataPrestito</td><td>data in cui il prestito viene registrato </td></tr>
+    <tr><td class="paramname">dataPrevistaRestituzione</td><td>data prevista per effettuare la restituzione del libro. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a89385e7c48cbb841deec6823e9960a30" name="a89385e7c48cbb841deec6823e9960a30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89385e7c48cbb841deec6823e9960a30">&#9670;&#160;</a></span>registraRestituzione()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.GestionePrestiti.registraRestituzione </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a></td>          <td class="paramname"><span class="paramname"><em>prestito</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LocalDate</td>          <td class="paramname"><span class="paramname"><em>dataRestituzione</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>permette di registrare una restituzione. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prestito</td><td>porta con sè tutte le informazioni del prestito </td></tr>
+    <tr><td class="paramname">dataRestituzione</td><td>data in cui l'utente restituisce il libro </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a43be638f3622ac6866b744656a26baed" name="a43be638f3622ac6866b744656a26baed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43be638f3622ac6866b744656a26baed">&#9670;&#160;</a></span>trovaPrestitoAttivo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> biblioteca.model.GestionePrestiti.trovaPrestitoAttivo </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>matricola</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long</td>          <td class="paramname"><span class="paramname"><em>isbn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LocalDate</td>          <td class="paramname"><span class="paramname"><em>dataInizio</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo che permette di trovare un determinato prestito. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">matricola</td><td>matricola dell'utente </td></tr>
+    <tr><td class="paramname">isbn</td><td>isbn del libro prestato </td></tr>
+    <tr><td class="paramname">dataInizio</td><td>data del prestito </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ritorna il prestito trovato secondo i parametri inseriti. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/model/<b>GestionePrestiti.java</b></li>
 </ul>

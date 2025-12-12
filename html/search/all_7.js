@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['setongestionelibri_0',['setOnGestioneLibri',['../classbiblioteca_1_1view_1_1_menu_view.html#aac873792cb535ba7ec82861397b1b5f9',1,'biblioteca::view::MenuView']]],
-  ['setongestioneprestiti_1',['setOnGestionePrestiti',['../classbiblioteca_1_1view_1_1_menu_view.html#a86ccdb98d3e3f74d54e72c0445a4915a',1,'biblioteca::view::MenuView']]],
-  ['setongestioneutenti_2',['setOnGestioneUtenti',['../classbiblioteca_1_1view_1_1_menu_view.html#a2f1d042114ca5a9df5b9003784ed8c63',1,'biblioteca::view::MenuView']]],
-  ['setonlogin_3',['setOnLogin',['../classbiblioteca_1_1view_1_1_login_view.html#a5dcfb54a13235a435a5803b5feb26958',1,'biblioteca::view::LoginView']]],
-  ['setonlogout_4',['setOnLogout',['../classbiblioteca_1_1view_1_1_menu_view.html#a9ca0a4697454f125b5ba0e8833402c79',1,'biblioteca::view::MenuView']]],
-  ['start_5',['start',['../classbiblioteca_1_1main_1_1_main.html#a4a256808ee5aab84d8068ee766b821ac',1,'biblioteca::main::Main']]]
+  ['libricontroller_0',['LibriController',['../classbiblioteca_1_1controller_1_1_libri_controller.html',1,'biblioteca.controller.LibriController'],['../classbiblioteca_1_1controller_1_1_libri_controller.html#a4d58ed7ef7b1b5b7305a8b38eb3b9999',1,'biblioteca.controller.LibriController.LibriController()']]],
+  ['libripanel_1',['LibriPanel',['../classbiblioteca_1_1view_1_1_libri_panel.html',1,'biblioteca.view.LibriPanel'],['../classbiblioteca_1_1view_1_1_libri_panel.html#a8b1c7de6dabe35b11c4eeb97376b6082',1,'biblioteca.view.LibriPanel.LibriPanel()']]],
+  ['libro_2',['Libro',['../classbiblioteca_1_1model_1_1_libro.html',1,'biblioteca.model.Libro'],['../classbiblioteca_1_1model_1_1_libro.html#a0da5f4b8523fc7013b3637c7d90e696f',1,'biblioteca.model.Libro.Libro(long isbn, String titolo, List&lt; String &gt; autori, int annoPubblicazione, int copieTotali, int copieDisponibili)'],['../classbiblioteca_1_1model_1_1_libro.html#ace3420c46bb80d682f03b8c87927726b',1,'biblioteca.model.Libro.Libro(long isbn, String titolo, List&lt; String &gt; autori, int annoPubblicazione, int copieTotali)']]],
+  ['login_3',['login',['../classbiblioteca_1_1model_1_1_autenticazione.html#aa6ccc3b83356144444e2bfe1480f8a44',1,'biblioteca::model::Autenticazione']]],
+  ['loginview_4',['LoginView',['../classbiblioteca_1_1view_1_1_login_view.html',1,'biblioteca.view.LoginView'],['../classbiblioteca_1_1view_1_1_login_view.html#a92b71562a7d03a4e32236095938cd90d',1,'biblioteca.view.LoginView.LoginView()']]]
 ];

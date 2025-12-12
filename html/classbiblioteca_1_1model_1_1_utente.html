@@ -91,6 +91,9 @@ $(function(){initNavTree('classbiblioteca_1_1model_1_1_utente.html','','classbib
   <div class="headertitle"><div class="title">biblioteca.model.Utente Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>classe che contiene tutte le informazioni relative ad un utente: nome, cognome, matricola, email, se è o meno in blacklist, elenca e conta i prestiti attivi Questa classe inoltre aggiunge o rimuove un prestito per un determinato utente oltre ad informare se un utente può o meno richiedere nuovi prestiti.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for biblioteca.model.Utente:</div>
 <div class="dyncontent">
@@ -100,50 +103,499 @@ Inheritance diagram for biblioteca.model.Utente:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a15c957d5c83033b3c91adb36941c5a59" id="r_a15c957d5c83033b3c91adb36941c5a59"><td class="memItemLeft" align="right" valign="top"><a id="a15c957d5c83033b3c91adb36941c5a59" name="a15c957d5c83033b3c91adb36941c5a59"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Utente</b> (String matricola, String nome, String cognome, String email)</td></tr>
-<tr class="memitem:a2d7d6b85d4c6d42eb5f07d47a642548a" id="r_a2d7d6b85d4c6d42eb5f07d47a642548a"><td class="memItemLeft" align="right" valign="top"><a id="a2d7d6b85d4c6d42eb5f07d47a642548a" name="a2d7d6b85d4c6d42eb5f07d47a642548a"></a>
-String&#160;</td><td class="memItemRight" valign="bottom"><b>getMatricola</b> ()</td></tr>
-<tr class="memitem:acf30bbf97413448d110ed354eb105646" id="r_acf30bbf97413448d110ed354eb105646"><td class="memItemLeft" align="right" valign="top"><a id="acf30bbf97413448d110ed354eb105646" name="acf30bbf97413448d110ed354eb105646"></a>
-String&#160;</td><td class="memItemRight" valign="bottom"><b>getNome</b> ()</td></tr>
-<tr class="memitem:a748c5df00d40c00dc6d9f42c2287aa9f" id="r_a748c5df00d40c00dc6d9f42c2287aa9f"><td class="memItemLeft" align="right" valign="top"><a id="a748c5df00d40c00dc6d9f42c2287aa9f" name="a748c5df00d40c00dc6d9f42c2287aa9f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setNome</b> (String nome)</td></tr>
-<tr class="memitem:a45d9fe9e2323d735d477773e51dca962" id="r_a45d9fe9e2323d735d477773e51dca962"><td class="memItemLeft" align="right" valign="top"><a id="a45d9fe9e2323d735d477773e51dca962" name="a45d9fe9e2323d735d477773e51dca962"></a>
-String&#160;</td><td class="memItemRight" valign="bottom"><b>getCognome</b> ()</td></tr>
-<tr class="memitem:aecc43ab5c901302ed6437d8f2b5b8c02" id="r_aecc43ab5c901302ed6437d8f2b5b8c02"><td class="memItemLeft" align="right" valign="top"><a id="aecc43ab5c901302ed6437d8f2b5b8c02" name="aecc43ab5c901302ed6437d8f2b5b8c02"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setCognome</b> (String cognome)</td></tr>
-<tr class="memitem:aeef83438b0e47a83856c567b0b2aca26" id="r_aeef83438b0e47a83856c567b0b2aca26"><td class="memItemLeft" align="right" valign="top"><a id="aeef83438b0e47a83856c567b0b2aca26" name="aeef83438b0e47a83856c567b0b2aca26"></a>
-String&#160;</td><td class="memItemRight" valign="bottom"><b>getEmail</b> ()</td></tr>
-<tr class="memitem:ab328f012f5c017b39a332ed22f4426f3" id="r_ab328f012f5c017b39a332ed22f4426f3"><td class="memItemLeft" align="right" valign="top"><a id="ab328f012f5c017b39a332ed22f4426f3" name="ab328f012f5c017b39a332ed22f4426f3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setEmail</b> (String email)</td></tr>
-<tr class="memitem:adc8d57430f76a2f0aaf7b6b04833db1d" id="r_adc8d57430f76a2f0aaf7b6b04833db1d"><td class="memItemLeft" align="right" valign="top"><a id="adc8d57430f76a2f0aaf7b6b04833db1d" name="adc8d57430f76a2f0aaf7b6b04833db1d"></a>
-boolean&#160;</td><td class="memItemRight" valign="bottom"><b>isInBlacklist</b> ()</td></tr>
-<tr class="memitem:a5577d6393699d862312053474f014a2f" id="r_a5577d6393699d862312053474f014a2f"><td class="memItemLeft" align="right" valign="top"><a id="a5577d6393699d862312053474f014a2f" name="a5577d6393699d862312053474f014a2f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setInBlacklist</b> (boolean valore)</td></tr>
-<tr class="memitem:acd078a3faa32621a32f0268db14f8e39" id="r_acd078a3faa32621a32f0268db14f8e39"><td class="memItemLeft" align="right" valign="top"><a id="acd078a3faa32621a32f0268db14f8e39" name="acd078a3faa32621a32f0268db14f8e39"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getNumPrestitiAttivi</b> ()</td></tr>
-<tr class="memitem:a2de98a6dd5760fd389671b3256893eeb" id="r_a2de98a6dd5760fd389671b3256893eeb"><td class="memItemLeft" align="right" valign="top"><a id="a2de98a6dd5760fd389671b3256893eeb" name="a2de98a6dd5760fd389671b3256893eeb"></a>
-List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPrestitiAttivi</b> ()</td></tr>
-<tr class="memitem:a8cc70d889ec860a2ec4a5c361fcfcbb3" id="r_a8cc70d889ec860a2ec4a5c361fcfcbb3"><td class="memItemLeft" align="right" valign="top"><a id="a8cc70d889ec860a2ec4a5c361fcfcbb3" name="a8cc70d889ec860a2ec4a5c361fcfcbb3"></a>
-boolean&#160;</td><td class="memItemRight" valign="bottom"><b>canNuovoPrestito</b> ()</td></tr>
-<tr class="memitem:abe86b60b7f3ea6b40f552233ffef3b9b" id="r_abe86b60b7f3ea6b40f552233ffef3b9b"><td class="memItemLeft" align="right" valign="top"><a id="abe86b60b7f3ea6b40f552233ffef3b9b" name="abe86b60b7f3ea6b40f552233ffef3b9b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>aggiungiPrestito</b> (<a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> prestito)</td></tr>
-<tr class="memitem:a2ea359883fb9acdae6092b604dc59995" id="r_a2ea359883fb9acdae6092b604dc59995"><td class="memItemLeft" align="right" valign="top"><a id="a2ea359883fb9acdae6092b604dc59995" name="a2ea359883fb9acdae6092b604dc59995"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>rimuoviPrestito</b> (<a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> prestito)</td></tr>
-<tr class="memitem:ac3ff0520cc318da12c728cc9d868a3db" id="r_ac3ff0520cc318da12c728cc9d868a3db"><td class="memItemLeft" align="right" valign="top"><a id="ac3ff0520cc318da12c728cc9d868a3db" name="ac3ff0520cc318da12c728cc9d868a3db"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>compareTo</b> (Utente o)</td></tr>
-<tr class="memitem:a2be3b21513ad584c25ffe8d1453d0661" id="r_a2be3b21513ad584c25ffe8d1453d0661"><td class="memItemLeft" align="right" valign="top"><a id="a2be3b21513ad584c25ffe8d1453d0661" name="a2be3b21513ad584c25ffe8d1453d0661"></a>
-boolean&#160;</td><td class="memItemRight" valign="bottom"><b>equals</b> (Object o)</td></tr>
-<tr class="memitem:ac2cd0928a0bc0c742b04221faaf7c511" id="r_ac2cd0928a0bc0c742b04221faaf7c511"><td class="memItemLeft" align="right" valign="top"><a id="ac2cd0928a0bc0c742b04221faaf7c511" name="ac2cd0928a0bc0c742b04221faaf7c511"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>hashCode</b> ()</td></tr>
-<tr class="memitem:ad2fc710a19fdcff5147946442df3be3a" id="r_ad2fc710a19fdcff5147946442df3be3a"><td class="memItemLeft" align="right" valign="top"><a id="ad2fc710a19fdcff5147946442df3be3a" name="ad2fc710a19fdcff5147946442df3be3a"></a>
-String&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> ()</td></tr>
+<tr class="memitem:a15c957d5c83033b3c91adb36941c5a59" id="r_a15c957d5c83033b3c91adb36941c5a59"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15c957d5c83033b3c91adb36941c5a59">Utente</a> (String matricola, String nome, String cognome, String email)</td></tr>
+<tr class="memdesc:a15c957d5c83033b3c91adb36941c5a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">costruttore per l'inizializzazione degli attributi dell'utente.  <br /></td></tr>
+<tr class="memitem:a2d7d6b85d4c6d42eb5f07d47a642548a" id="r_a2d7d6b85d4c6d42eb5f07d47a642548a"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d7d6b85d4c6d42eb5f07d47a642548a">getMatricola</a> ()</td></tr>
+<tr class="memdesc:a2d7d6b85d4c6d42eb5f07d47a642548a"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo getter per la matricola dell'utente  <br /></td></tr>
+<tr class="memitem:acf30bbf97413448d110ed354eb105646" id="r_acf30bbf97413448d110ed354eb105646"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf30bbf97413448d110ed354eb105646">getNome</a> ()</td></tr>
+<tr class="memdesc:acf30bbf97413448d110ed354eb105646"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo getter per il nome dell'utente  <br /></td></tr>
+<tr class="memitem:a748c5df00d40c00dc6d9f42c2287aa9f" id="r_a748c5df00d40c00dc6d9f42c2287aa9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a748c5df00d40c00dc6d9f42c2287aa9f">setNome</a> (String nome)</td></tr>
+<tr class="memdesc:a748c5df00d40c00dc6d9f42c2287aa9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo setter, imposta il nome dell'utente  <br /></td></tr>
+<tr class="memitem:a45d9fe9e2323d735d477773e51dca962" id="r_a45d9fe9e2323d735d477773e51dca962"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45d9fe9e2323d735d477773e51dca962">getCognome</a> ()</td></tr>
+<tr class="memdesc:a45d9fe9e2323d735d477773e51dca962"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo getter per il cognome dell'utente  <br /></td></tr>
+<tr class="memitem:aecc43ab5c901302ed6437d8f2b5b8c02" id="r_aecc43ab5c901302ed6437d8f2b5b8c02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecc43ab5c901302ed6437d8f2b5b8c02">setCognome</a> (String cognome)</td></tr>
+<tr class="memdesc:aecc43ab5c901302ed6437d8f2b5b8c02"><td class="mdescLeft">&#160;</td><td class="mdescRight">imposta il cognome dell'utente, metodo setter  <br /></td></tr>
+<tr class="memitem:aeef83438b0e47a83856c567b0b2aca26" id="r_aeef83438b0e47a83856c567b0b2aca26"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeef83438b0e47a83856c567b0b2aca26">getEmail</a> ()</td></tr>
+<tr class="memdesc:aeef83438b0e47a83856c567b0b2aca26"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo getter per l'email dell'utente  <br /></td></tr>
+<tr class="memitem:ab328f012f5c017b39a332ed22f4426f3" id="r_ab328f012f5c017b39a332ed22f4426f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab328f012f5c017b39a332ed22f4426f3">setEmail</a> (String email)</td></tr>
+<tr class="memdesc:ab328f012f5c017b39a332ed22f4426f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">imposta l'email dell'utente  <br /></td></tr>
+<tr class="memitem:adc8d57430f76a2f0aaf7b6b04833db1d" id="r_adc8d57430f76a2f0aaf7b6b04833db1d"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc8d57430f76a2f0aaf7b6b04833db1d">isInBlacklist</a> ()</td></tr>
+<tr class="memdesc:adc8d57430f76a2f0aaf7b6b04833db1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo che restituisce true se l'utente è in blacklist, false altrimenti  <br /></td></tr>
+<tr class="memitem:a5577d6393699d862312053474f014a2f" id="r_a5577d6393699d862312053474f014a2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5577d6393699d862312053474f014a2f">setInBlacklist</a> (boolean valore)</td></tr>
+<tr class="memdesc:a5577d6393699d862312053474f014a2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">imposta il valore di inBlacklist  <br /></td></tr>
+<tr class="memitem:acd078a3faa32621a32f0268db14f8e39" id="r_acd078a3faa32621a32f0268db14f8e39"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd078a3faa32621a32f0268db14f8e39">getNumPrestitiAttivi</a> ()</td></tr>
+<tr class="memdesc:acd078a3faa32621a32f0268db14f8e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo getter sul numero di prestiti attivi per un utente  <br /></td></tr>
+<tr class="memitem:a2de98a6dd5760fd389671b3256893eeb" id="r_a2de98a6dd5760fd389671b3256893eeb"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2de98a6dd5760fd389671b3256893eeb">getPrestitiAttivi</a> ()</td></tr>
+<tr class="memdesc:a2de98a6dd5760fd389671b3256893eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo getter per i prestiti attivi  <br /></td></tr>
+<tr class="memitem:a8cc70d889ec860a2ec4a5c361fcfcbb3" id="r_a8cc70d889ec860a2ec4a5c361fcfcbb3"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cc70d889ec860a2ec4a5c361fcfcbb3">canNuovoPrestito</a> ()</td></tr>
+<tr class="memdesc:a8cc70d889ec860a2ec4a5c361fcfcbb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">verifica se un utente può richiedere nuovi prestiti.  <br /></td></tr>
+<tr class="memitem:abe86b60b7f3ea6b40f552233ffef3b9b" id="r_abe86b60b7f3ea6b40f552233ffef3b9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe86b60b7f3ea6b40f552233ffef3b9b">aggiungiPrestito</a> (<a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> prestito)</td></tr>
+<tr class="memdesc:abe86b60b7f3ea6b40f552233ffef3b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo che permette di aggiungere un nuovo prestito.  <br /></td></tr>
+<tr class="memitem:a2ea359883fb9acdae6092b604dc59995" id="r_a2ea359883fb9acdae6092b604dc59995"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ea359883fb9acdae6092b604dc59995">rimuoviPrestito</a> (<a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> prestito)</td></tr>
+<tr class="memdesc:a2ea359883fb9acdae6092b604dc59995"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo che permette di rimuovere un prestito.  <br /></td></tr>
+<tr class="memitem:ac3ff0520cc318da12c728cc9d868a3db" id="r_ac3ff0520cc318da12c728cc9d868a3db"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3ff0520cc318da12c728cc9d868a3db">compareTo</a> (<a class="el" href="#a15c957d5c83033b3c91adb36941c5a59">Utente</a> o)</td></tr>
+<tr class="memdesc:ac3ff0520cc318da12c728cc9d868a3db"><td class="mdescLeft">&#160;</td><td class="mdescRight">override del metodo compareTo su 2 utenti  <br /></td></tr>
+<tr class="memitem:a2be3b21513ad584c25ffe8d1453d0661" id="r_a2be3b21513ad584c25ffe8d1453d0661"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2be3b21513ad584c25ffe8d1453d0661">equals</a> (Object o)</td></tr>
+<tr class="memdesc:a2be3b21513ad584c25ffe8d1453d0661"><td class="mdescLeft">&#160;</td><td class="mdescRight">override del metodo equals su due utenti.  <br /></td></tr>
+<tr class="memitem:ac2cd0928a0bc0c742b04221faaf7c511" id="r_ac2cd0928a0bc0c742b04221faaf7c511"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2cd0928a0bc0c742b04221faaf7c511">hashCode</a> ()</td></tr>
+<tr class="memdesc:ac2cd0928a0bc0c742b04221faaf7c511"><td class="mdescLeft">&#160;</td><td class="mdescRight">restituisce l'hashcode sulla matricola dell'utente  <br /></td></tr>
+<tr class="memitem:ad2fc710a19fdcff5147946442df3be3a" id="r_ad2fc710a19fdcff5147946442df3be3a"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2fc710a19fdcff5147946442df3be3a">toString</a> ()</td></tr>
+<tr class="memdesc:ad2fc710a19fdcff5147946442df3be3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">restituisce la stringa relativa a tutti gli attributi dell'utente  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:aa9d9397cc56dd15717889c5bbd80d261" id="r_aa9d9397cc56dd15717889c5bbd80d261"><td class="memItemLeft" align="right" valign="top"><a id="aa9d9397cc56dd15717889c5bbd80d261" name="aa9d9397cc56dd15717889c5bbd80d261"></a>
 static final int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_PRESTITI</b> = 3</td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>classe che contiene tutte le informazioni relative ad un utente: nome, cognome, matricola, email, se è o meno in blacklist, elenca e conta i prestiti attivi Questa classe inoltre aggiunge o rimuove un prestito per un determinato utente oltre ad informare se un utente può o meno richiedere nuovi prestiti. </p>
+<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a15c957d5c83033b3c91adb36941c5a59" name="a15c957d5c83033b3c91adb36941c5a59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15c957d5c83033b3c91adb36941c5a59">&#9670;&#160;</a></span>Utente()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.model.Utente.Utente </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>matricola</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>nome</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>cognome</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>email</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>costruttore per l'inizializzazione degli attributi dell'utente. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">matricola</td><td></td></tr>
+    <tr><td class="paramname">nome</td><td></td></tr>
+    <tr><td class="paramname">cognome</td><td></td></tr>
+    <tr><td class="paramname">email</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="abe86b60b7f3ea6b40f552233ffef3b9b" name="abe86b60b7f3ea6b40f552233ffef3b9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe86b60b7f3ea6b40f552233ffef3b9b">&#9670;&#160;</a></span>aggiungiPrestito()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.Utente.aggiungiPrestito </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a></td>          <td class="paramname"><span class="paramname"><em>prestito</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo che permette di aggiungere un nuovo prestito. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prestito</td><td>prestito da aggiungere </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8cc70d889ec860a2ec4a5c361fcfcbb3" name="a8cc70d889ec860a2ec4a5c361fcfcbb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc70d889ec860a2ec4a5c361fcfcbb3">&#9670;&#160;</a></span>canNuovoPrestito()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean biblioteca.model.Utente.canNuovoPrestito </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>verifica se un utente può richiedere nuovi prestiti. </p>
+<dl class="section return"><dt>Returns</dt><dd>true o false in base all'esito della verifica, true se può richiedere nuovi prestiti altrimenti false. </dd></dl>
+
+</div>
+</div>
+<a id="ac3ff0520cc318da12c728cc9d868a3db" name="ac3ff0520cc318da12c728cc9d868a3db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3ff0520cc318da12c728cc9d868a3db">&#9670;&#160;</a></span>compareTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biblioteca.model.Utente.compareTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a15c957d5c83033b3c91adb36941c5a59">Utente</a></td>          <td class="paramname"><span class="paramname"><em>o</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>override del metodo compareTo su 2 utenti </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">o</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>valore intero in base al confronto restituirà 0 se sono uguali. </dd></dl>
+
+</div>
+</div>
+<a id="a2be3b21513ad584c25ffe8d1453d0661" name="a2be3b21513ad584c25ffe8d1453d0661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2be3b21513ad584c25ffe8d1453d0661">&#9670;&#160;</a></span>equals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean biblioteca.model.Utente.equals </td>
+          <td>(</td>
+          <td class="paramtype">Object</td>          <td class="paramname"><span class="paramname"><em>o</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>override del metodo equals su due utenti. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">o</td><td>altro utente da confrontare. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true se coincidono, false altrimenti </dd></dl>
+
+</div>
+</div>
+<a id="a45d9fe9e2323d735d477773e51dca962" name="a45d9fe9e2323d735d477773e51dca962"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45d9fe9e2323d735d477773e51dca962">&#9670;&#160;</a></span>getCognome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String biblioteca.model.Utente.getCognome </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo getter per il cognome dell'utente </p>
+<dl class="section return"><dt>Returns</dt><dd>cognome dell'utente </dd></dl>
+
+</div>
+</div>
+<a id="aeef83438b0e47a83856c567b0b2aca26" name="aeef83438b0e47a83856c567b0b2aca26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeef83438b0e47a83856c567b0b2aca26">&#9670;&#160;</a></span>getEmail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String biblioteca.model.Utente.getEmail </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo getter per l'email dell'utente </p>
+<dl class="section return"><dt>Returns</dt><dd>l'email </dd></dl>
+
+</div>
+</div>
+<a id="a2d7d6b85d4c6d42eb5f07d47a642548a" name="a2d7d6b85d4c6d42eb5f07d47a642548a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d7d6b85d4c6d42eb5f07d47a642548a">&#9670;&#160;</a></span>getMatricola()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String biblioteca.model.Utente.getMatricola </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo getter per la matricola dell'utente </p>
+<dl class="section return"><dt>Returns</dt><dd>matricola </dd></dl>
+
+</div>
+</div>
+<a id="acf30bbf97413448d110ed354eb105646" name="acf30bbf97413448d110ed354eb105646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf30bbf97413448d110ed354eb105646">&#9670;&#160;</a></span>getNome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String biblioteca.model.Utente.getNome </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo getter per il nome dell'utente </p>
+<dl class="section return"><dt>Returns</dt><dd>nome </dd></dl>
+
+</div>
+</div>
+<a id="acd078a3faa32621a32f0268db14f8e39" name="acd078a3faa32621a32f0268db14f8e39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd078a3faa32621a32f0268db14f8e39">&#9670;&#160;</a></span>getNumPrestitiAttivi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biblioteca.model.Utente.getNumPrestitiAttivi </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo getter sul numero di prestiti attivi per un utente </p>
+<dl class="section return"><dt>Returns</dt><dd>il numero di prestiti in corso per un utente </dd></dl>
+
+</div>
+</div>
+<a id="a2de98a6dd5760fd389671b3256893eeb" name="a2de98a6dd5760fd389671b3256893eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2de98a6dd5760fd389671b3256893eeb">&#9670;&#160;</a></span>getPrestitiAttivi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt; <a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a> &gt; biblioteca.model.Utente.getPrestitiAttivi </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo getter per i prestiti attivi </p>
+<dl class="section return"><dt>Returns</dt><dd>la lista di prestiti in corso dell'utente </dd></dl>
+
+</div>
+</div>
+<a id="ac2cd0928a0bc0c742b04221faaf7c511" name="ac2cd0928a0bc0c742b04221faaf7c511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2cd0928a0bc0c742b04221faaf7c511">&#9670;&#160;</a></span>hashCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biblioteca.model.Utente.hashCode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>restituisce l'hashcode sulla matricola dell'utente </p>
+<dl class="section return"><dt>Returns</dt><dd>valore intero dell'hashcode </dd></dl>
+
+</div>
+</div>
+<a id="adc8d57430f76a2f0aaf7b6b04833db1d" name="adc8d57430f76a2f0aaf7b6b04833db1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc8d57430f76a2f0aaf7b6b04833db1d">&#9670;&#160;</a></span>isInBlacklist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean biblioteca.model.Utente.isInBlacklist </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo che restituisce true se l'utente è in blacklist, false altrimenti </p>
+<dl class="section return"><dt>Returns</dt><dd>inBlacklist </dd></dl>
+
+</div>
+</div>
+<a id="a2ea359883fb9acdae6092b604dc59995" name="a2ea359883fb9acdae6092b604dc59995"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ea359883fb9acdae6092b604dc59995">&#9670;&#160;</a></span>rimuoviPrestito()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.Utente.rimuoviPrestito </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_prestito.html">Prestito</a></td>          <td class="paramname"><span class="paramname"><em>prestito</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo che permette di rimuovere un prestito. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prestito</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aecc43ab5c901302ed6437d8f2b5b8c02" name="aecc43ab5c901302ed6437d8f2b5b8c02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecc43ab5c901302ed6437d8f2b5b8c02">&#9670;&#160;</a></span>setCognome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.Utente.setCognome </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>cognome</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>imposta il cognome dell'utente, metodo setter </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cognome</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab328f012f5c017b39a332ed22f4426f3" name="ab328f012f5c017b39a332ed22f4426f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab328f012f5c017b39a332ed22f4426f3">&#9670;&#160;</a></span>setEmail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.Utente.setEmail </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>email</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>imposta l'email dell'utente </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">email</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5577d6393699d862312053474f014a2f" name="a5577d6393699d862312053474f014a2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5577d6393699d862312053474f014a2f">&#9670;&#160;</a></span>setInBlacklist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.Utente.setInBlacklist </td>
+          <td>(</td>
+          <td class="paramtype">boolean</td>          <td class="paramname"><span class="paramname"><em>valore</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>imposta il valore di inBlacklist </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">valore</td><td>true o false(true se è in blacklist) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a748c5df00d40c00dc6d9f42c2287aa9f" name="a748c5df00d40c00dc6d9f42c2287aa9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a748c5df00d40c00dc6d9f42c2287aa9f">&#9670;&#160;</a></span>setNome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.Utente.setNome </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>nome</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo setter, imposta il nome dell'utente </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nome</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad2fc710a19fdcff5147946442df3be3a" name="ad2fc710a19fdcff5147946442df3be3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2fc710a19fdcff5147946442df3be3a">&#9670;&#160;</a></span>toString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String biblioteca.model.Utente.toString </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>restituisce la stringa relativa a tutti gli attributi dell'utente </p>
+<dl class="section return"><dt>Returns</dt><dd>stringa utente. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/model/<b>Utente.java</b></li>
 </ul>

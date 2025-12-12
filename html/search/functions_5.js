@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['prestiticontroller_0',['PrestitiController',['../classbiblioteca_1_1controller_1_1_prestiti_controller.html#a5ba6a8ff5bfcbed910400568f909e551',1,'biblioteca::controller::PrestitiController']]],
-  ['prestitipanel_1',['PrestitiPanel',['../classbiblioteca_1_1view_1_1_prestiti_panel.html#affc08897a8c5b78b4e004b96df2ab975',1,'biblioteca::view::PrestitiPanel']]],
-  ['puliscicampi_2',['pulisciCampi',['../classbiblioteca_1_1view_1_1_libri_panel.html#a29625aaf0a918d8d709e7d622182c2cd',1,'biblioteca.view.LibriPanel.pulisciCampi()'],['../classbiblioteca_1_1view_1_1_login_view.html#ab832e841c0b07deff4c55b0e33664061',1,'biblioteca.view.LoginView.pulisciCampi()'],['../classbiblioteca_1_1view_1_1_utenti_panel.html#ae3e0377c67f29d29a5f67a156cf62e13',1,'biblioteca.view.UtentiPanel.pulisciCampi()']]]
+  ['haprestitiattiviper_0',['haPrestitiAttiviPer',['../classbiblioteca_1_1model_1_1_gestione_prestiti.html#a0e4c03f4dda6b557df22b40cf5f9aab8',1,'biblioteca::model::GestionePrestiti']]],
+  ['hashcode_1',['hashCode',['../classbiblioteca_1_1model_1_1_libro.html#a7ecdff50ef24f363241535d61e1b154e',1,'biblioteca.model.Libro.hashCode()'],['../classbiblioteca_1_1model_1_1_prestito.html#a519288e9303cfc6a6cb0296a3fd96163',1,'biblioteca.model.Prestito.hashCode()'],['../classbiblioteca_1_1model_1_1_utente.html#ac2cd0928a0bc0c742b04221faaf7c511',1,'biblioteca.model.Utente.hashCode()']]]
 ];

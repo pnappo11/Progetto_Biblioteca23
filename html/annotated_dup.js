@@ -2,27 +2,27 @@ var annotated_dup =
 [
     [ "biblioteca", null, [
       [ "controller", null, [
-        [ "AuthController", "classbiblioteca_1_1controller_1_1_auth_controller.html", "classbiblioteca_1_1controller_1_1_auth_controller" ],
-        [ "LibriController", "classbiblioteca_1_1controller_1_1_libri_controller.html", null ],
-        [ "MainController", "classbiblioteca_1_1controller_1_1_main_controller.html", null ],
+        [ "Authcontroller", "classbiblioteca_1_1controller_1_1_authcontroller.html", "classbiblioteca_1_1controller_1_1_authcontroller" ],
+        [ "LibriController", "classbiblioteca_1_1controller_1_1_libri_controller.html", "classbiblioteca_1_1controller_1_1_libri_controller" ],
+        [ "MainController", "classbiblioteca_1_1controller_1_1_main_controller.html", "classbiblioteca_1_1controller_1_1_main_controller" ],
         [ "PrestitiController", "classbiblioteca_1_1controller_1_1_prestiti_controller.html", "classbiblioteca_1_1controller_1_1_prestiti_controller" ],
-        [ "UtentiController", "classbiblioteca_1_1controller_1_1_utenti_controller.html", null ]
+        [ "UtentiController", "classbiblioteca_1_1controller_1_1_utenti_controller.html", "classbiblioteca_1_1controller_1_1_utenti_controller" ]
       ] ],
       [ "main", null, [
         [ "Main", "classbiblioteca_1_1main_1_1_main.html", "classbiblioteca_1_1main_1_1_main" ]
       ] ],
       [ "model", null, [
         [ "Autenticazione", "classbiblioteca_1_1model_1_1_autenticazione.html", "classbiblioteca_1_1model_1_1_autenticazione" ],
-        [ "DatiBiblioteca", "classbiblioteca_1_1model_1_1_dati_biblioteca.html", null ],
-        [ "GestioneLibri", "classbiblioteca_1_1model_1_1_gestione_libri.html", null ],
-        [ "GestionePrestiti", "classbiblioteca_1_1model_1_1_gestione_prestiti.html", null ],
-        [ "GestioneUtenti", "classbiblioteca_1_1model_1_1_gestione_utenti.html", null ],
-        [ "Libro", "classbiblioteca_1_1model_1_1_libro.html", null ],
-        [ "Prestito", "classbiblioteca_1_1model_1_1_prestito.html", null ],
-        [ "Utente", "classbiblioteca_1_1model_1_1_utente.html", null ]
+        [ "DatiBiblioteca", "classbiblioteca_1_1model_1_1_dati_biblioteca.html", "classbiblioteca_1_1model_1_1_dati_biblioteca" ],
+        [ "GestioneLibri", "classbiblioteca_1_1model_1_1_gestione_libri.html", "classbiblioteca_1_1model_1_1_gestione_libri" ],
+        [ "GestionePrestiti", "classbiblioteca_1_1model_1_1_gestione_prestiti.html", "classbiblioteca_1_1model_1_1_gestione_prestiti" ],
+        [ "GestioneUtenti", "classbiblioteca_1_1model_1_1_gestione_utenti.html", "classbiblioteca_1_1model_1_1_gestione_utenti" ],
+        [ "Libro", "classbiblioteca_1_1model_1_1_libro.html", "classbiblioteca_1_1model_1_1_libro" ],
+        [ "Prestito", "classbiblioteca_1_1model_1_1_prestito.html", "classbiblioteca_1_1model_1_1_prestito" ],
+        [ "Utente", "classbiblioteca_1_1model_1_1_utente.html", "classbiblioteca_1_1model_1_1_utente" ]
       ] ],
       [ "persistence", null, [
-        [ "ArchivioFile", "classbiblioteca_1_1persistence_1_1_archivio_file.html", null ]
+        [ "ArchivioFile", "classbiblioteca_1_1persistence_1_1_archivio_file.html", "classbiblioteca_1_1persistence_1_1_archivio_file" ]
       ] ],
       [ "view", null, [
         [ "LibriPanel", "classbiblioteca_1_1view_1_1_libri_panel.html", "classbiblioteca_1_1view_1_1_libri_panel" ],

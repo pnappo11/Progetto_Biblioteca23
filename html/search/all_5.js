@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['main_0',['Main',['../classbiblioteca_1_1main_1_1_main.html',1,'biblioteca.main.Main'],['../class_main.html',1,'Main']]],
-  ['main_1',['main',['../classbiblioteca_1_1main_1_1_main.html#a6b4b1750a0ddd839313c91106ef896d9',1,'biblioteca::main::Main']]],
-  ['maincontroller_2',['MainController',['../classbiblioteca_1_1controller_1_1_main_controller.html',1,'biblioteca::controller']]],
-  ['mainframe_3',['MainFrame',['../classbiblioteca_1_1view_1_1_main_frame.html',1,'biblioteca.view.MainFrame'],['../classbiblioteca_1_1view_1_1_main_frame.html#a63a67ffe7c5a541395310270cd64dd12',1,'biblioteca.view.MainFrame.MainFrame()'],['../classbiblioteca_1_1view_1_1_main_frame.html#a6b2e377d011ef0f1a223a723841d0b5c',1,'biblioteca.view.MainFrame.MainFrame(int tabIndex)']]],
-  ['menuview_4',['MenuView',['../classbiblioteca_1_1view_1_1_menu_view.html',1,'biblioteca.view.MenuView'],['../classbiblioteca_1_1view_1_1_menu_view.html#a36d5704e0df4273bbe030c6356db6517',1,'biblioteca.view.MenuView.MenuView()'],['../classbiblioteca_1_1view_1_1_menu_view.html#a78c57aa5d4825e8024505f5615c95c92',1,'biblioteca.view.MenuView.MenuView(String nomeBibliotecario)']]],
-  ['mostraerrore_5',['mostraErrore',['../classbiblioteca_1_1view_1_1_login_view.html#ad1e1a2ff10903eb53588445efc3b73f0',1,'biblioteca::view::LoginView']]]
+  ['haprestitiattiviper_0',['haPrestitiAttiviPer',['../classbiblioteca_1_1model_1_1_gestione_prestiti.html#a0e4c03f4dda6b557df22b40cf5f9aab8',1,'biblioteca::model::GestionePrestiti']]],
+  ['hashcode_1',['hashCode',['../classbiblioteca_1_1model_1_1_libro.html#a7ecdff50ef24f363241535d61e1b154e',1,'biblioteca.model.Libro.hashCode()'],['../classbiblioteca_1_1model_1_1_prestito.html#a519288e9303cfc6a6cb0296a3fd96163',1,'biblioteca.model.Prestito.hashCode()'],['../classbiblioteca_1_1model_1_1_utente.html#ac2cd0928a0bc0c742b04221faaf7c511',1,'biblioteca.model.Utente.hashCode()']]]
 ];

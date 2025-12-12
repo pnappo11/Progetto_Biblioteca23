@@ -92,19 +92,20 @@ $(function(){initNavTree('classbiblioteca_1_1view_1_1_menu_view.html','','classb
 </div><!--header-->
 <div class="contents">
 
-<p>Schermata di Menu Principale (Dashboard).  
+<p>Schermata di Menu Principale.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a36d5704e0df4273bbe030c6356db6517" id="r_a36d5704e0df4273bbe030c6356db6517"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36d5704e0df4273bbe030c6356db6517">MenuView</a> ()</td></tr>
-<tr class="memdesc:a36d5704e0df4273bbe030c6356db6517"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore di default.  <br /></td></tr>
+<tr class="memitem:a36d5704e0df4273bbe030c6356db6517" id="r_a36d5704e0df4273bbe030c6356db6517"><td class="memItemLeft" align="right" valign="top"><a id="a36d5704e0df4273bbe030c6356db6517" name="a36d5704e0df4273bbe030c6356db6517"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>MenuView</b> ()</td></tr>
+<tr class="memdesc:a36d5704e0df4273bbe030c6356db6517"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore di default. <br /></td></tr>
 <tr class="memitem:a78c57aa5d4825e8024505f5615c95c92" id="r_a78c57aa5d4825e8024505f5615c95c92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78c57aa5d4825e8024505f5615c95c92">MenuView</a> (String nomeBibliotecario)</td></tr>
-<tr class="memdesc:a78c57aa5d4825e8024505f5615c95c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore principale con personalizzazione.  <br /></td></tr>
+<tr class="memdesc:a78c57aa5d4825e8024505f5615c95c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore principale contiene l'intera interfaccia grafica. Contiene il tasto per il logout, pulsanti di navigazione, e tutto ciò che ci permette di muoverci all'interno della nostra finestra.  <br /></td></tr>
 <tr class="memitem:a136e148cfc5c427a38c78e8b33fcfaf2" id="r_a136e148cfc5c427a38c78e8b33fcfaf2"><td class="memItemLeft" align="right" valign="top">Parent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a136e148cfc5c427a38c78e8b33fcfaf2">getRoot</a> ()</td></tr>
 <tr class="memdesc:a136e148cfc5c427a38c78e8b33fcfaf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il nodo radice dell'interfaccia.  <br /></td></tr>
 <tr class="memitem:aac873792cb535ba7ec82861397b1b5f9" id="r_aac873792cb535ba7ec82861397b1b5f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac873792cb535ba7ec82861397b1b5f9">setOnGestioneLibri</a> (Runnable r)</td></tr>
-<tr class="memdesc:aac873792cb535ba7ec82861397b1b5f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imposta l'azione da eseguire al click su "Gestione Libri".  <br /></td></tr>
+<tr class="memdesc:aac873792cb535ba7ec82861397b1b5f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imposta l'azione da eseguire al click su "Gestione Libri" (setOn Action).  <br /></td></tr>
 <tr class="memitem:a2f1d042114ca5a9df5b9003784ed8c63" id="r_a2f1d042114ca5a9df5b9003784ed8c63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f1d042114ca5a9df5b9003784ed8c63">setOnGestioneUtenti</a> (Runnable r)</td></tr>
 <tr class="memdesc:a2f1d042114ca5a9df5b9003784ed8c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imposta l'azione da eseguire al click su "Gestione Utenti".  <br /></td></tr>
 <tr class="memitem:a86ccdb98d3e3f74d54e72c0445a4915a" id="r_a86ccdb98d3e3f74d54e72c0445a4915a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86ccdb98d3e3f74d54e72c0445a4915a">setOnGestionePrestiti</a> (Runnable r)</td></tr>
@@ -113,37 +114,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9ca0a4697454f125b5ba0e8833402c79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imposta l'azione da eseguire al click su "Logout".  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Schermata di Menu Principale (Dashboard). </p>
-<p>Questa classe rappresenta la vista intermedia che appare dopo il Login. Funge da "hub" di navigazione permettendo all'operatore di scegliere tra:</p><ul>
-<li>Gestione Libri</li>
-<li>Gestione Utenti</li>
-<li>Gestione Prestiti</li>
-<li>Logout <dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
-</li>
-</ul>
+<div class="textblock"><p>Schermata di Menu Principale. </p>
+<p>Questa classe rappresenta ciò che appare dopo il Login. Permette all'operatore di scegliere tra: gestione utenti, libri e prestiti e la selezione del tasto logout per uscire. </p><dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a36d5704e0df4273bbe030c6356db6517" name="a36d5704e0df4273bbe030c6356db6517"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36d5704e0df4273bbe030c6356db6517">&#9670;&#160;</a></span>MenuView() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">biblioteca.view.MenuView.MenuView </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Costruttore di default. </p>
-<p>Richiama il costruttore principale passando un nome generico ("Bibliotecario"). Utile se non si dispone del nome specifico dell'utente loggato. </p>
-
-</div>
-</div>
 <a id="a78c57aa5d4825e8024505f5615c95c92" name="a78c57aa5d4825e8024505f5615c95c92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78c57aa5d4825e8024505f5615c95c92">&#9670;&#160;</a></span>MenuView() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a78c57aa5d4825e8024505f5615c95c92">&#9670;&#160;</a></span>MenuView()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,13 +132,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Costruttore principale con personalizzazione. </p>
-<p>Costruisce l'intera interfaccia grafica:</p><ol type="1">
-<li>Crea la barra superiore con il titolo e il tasto Logout (stilizzato in rosso).</li>
-<li>Mostra un messaggio di benvenuto personalizzato con il nome dell'operatore.</li>
-<li>Dispone i pulsanti di navigazione in una griglia o righe centrate.</li>
-<li>Collega i bottoni ai rispettivi <span class="tt">Runnable</span> (se definiti).</li>
-</ol>
+<p>Costruttore principale contiene l'intera interfaccia grafica. Contiene il tasto per il logout, pulsanti di navigazione, e tutto ciò che ci permette di muoverci all'interno della nostra finestra. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nomeBibliotecario</td><td>Il nome dell'utente da mostrare nel messaggio di benvenuto. </td></tr>
@@ -190,7 +159,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Restituisce il nodo radice dell'interfaccia. </p>
-<dl class="section return"><dt>Returns</dt><dd>L'oggetto Parent (BorderPane) da inserire nella Scena. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>L'oggetto di tipo Parent da inserire nella Scena. </dd></dl>
 
 </div>
 </div>
@@ -209,7 +178,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Imposta l'azione da eseguire al click su "Gestione Libri". </p>
+<p>Imposta l'azione da eseguire al click su "Gestione Libri" (setOn Action). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">r</td><td>Il Runnable contenente la logica di cambio scena. </td></tr>
@@ -262,7 +231,7 @@ Public Member Functions</h2></td></tr>
 <p>Imposta l'azione da eseguire al click su "Gestione Utenti". </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r</td><td>Il Runnable contenente la logica di cambio scena. </td></tr>
+    <tr><td class="paramname">r</td><td>rappresenta il Runnable contenente la logica di cambio scena. </td></tr>
   </table>
   </dd>
 </dl>

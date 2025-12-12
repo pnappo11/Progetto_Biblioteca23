@@ -1,21 +1,5 @@
 var searchData=
 [
-  ['getannoinserito_0',['getAnnoInserito',['../classbiblioteca_1_1view_1_1_libri_panel.html#a741b040ab08cf4083d682a666c83c734',1,'biblioteca::view::LibriPanel']]],
-  ['getautoreinserito_1',['getAutoreInserito',['../classbiblioteca_1_1view_1_1_libri_panel.html#a41995d3b949e06559ce733059ef0a926',1,'biblioteca::view::LibriPanel']]],
-  ['getbottonecerca_2',['getBottoneCerca',['../classbiblioteca_1_1view_1_1_libri_panel.html#a231ec4587ddb6c539cedf098262ce08b',1,'biblioteca::view::LibriPanel']]],
-  ['getbottoneelimina_3',['getBottoneElimina',['../classbiblioteca_1_1view_1_1_libri_panel.html#afc0b7e0676c0f8a10c989cff9d44adb4',1,'biblioteca::view::LibriPanel']]],
-  ['getbottoneinserisci_4',['getBottoneInserisci',['../classbiblioteca_1_1view_1_1_libri_panel.html#a2d81e0927896d3df6912ff9f83d89568',1,'biblioteca::view::LibriPanel']]],
-  ['getbottonemodifica_5',['getBottoneModifica',['../classbiblioteca_1_1view_1_1_libri_panel.html#a4b069136bcc35da1eb40bbec5d9134b8',1,'biblioteca::view::LibriPanel']]],
-  ['getbtnlogout_6',['getBtnLogout',['../classbiblioteca_1_1view_1_1_main_frame.html#aa12d3a88ac227f706b700e1c97cb6f70',1,'biblioteca::view::MainFrame']]],
-  ['getbtnmenu_7',['getBtnMenu',['../classbiblioteca_1_1view_1_1_main_frame.html#a784cf1e0e76616d2e7ecbbc19ef0138e',1,'biblioteca::view::MainFrame']]],
-  ['getcodiceisbninserito_8',['getCodiceIsbnInserito',['../classbiblioteca_1_1view_1_1_libri_panel.html#ac0f392c890163d23186adbc838338820',1,'biblioteca::view::LibriPanel']]],
-  ['getcopietotaliinserite_9',['getCopieTotaliInserite',['../classbiblioteca_1_1view_1_1_libri_panel.html#abda9aca4c69621a5c5c2693d13570201',1,'biblioteca::view::LibriPanel']]],
-  ['getlibriview_10',['getLibriView',['../classbiblioteca_1_1view_1_1_main_frame.html#aa9f61f856516f7b0bb762371c25ff1b0',1,'biblioteca::view::MainFrame']]],
-  ['getpassword_11',['getPassword',['../classbiblioteca_1_1view_1_1_login_view.html#a1deb1ca8cbd0b60ae19ab1291be61cce',1,'biblioteca::view::LoginView']]],
-  ['getpasswordhash_12',['getPasswordHash',['../classbiblioteca_1_1model_1_1_autenticazione.html#ab279d57e018b33fc4664fff98d1a9312',1,'biblioteca::model::Autenticazione']]],
-  ['getprestitiview_13',['getPrestitiView',['../classbiblioteca_1_1view_1_1_main_frame.html#a9a830271a078fa9aaffe4d2a787fc684',1,'biblioteca::view::MainFrame']]],
-  ['getroot_14',['getRoot',['../classbiblioteca_1_1view_1_1_libri_panel.html#ad3e49f9ed69f70c17452f5c4c4ce461b',1,'biblioteca.view.LibriPanel.getRoot()'],['../classbiblioteca_1_1view_1_1_login_view.html#aadef5c8cdf237cbde86c039a30c0d127',1,'biblioteca.view.LoginView.getRoot()'],['../classbiblioteca_1_1view_1_1_main_frame.html#a657e65c9114bba9942020f4dc63f9f0a',1,'biblioteca.view.MainFrame.getRoot()'],['../classbiblioteca_1_1view_1_1_menu_view.html#a136e148cfc5c427a38c78e8b33fcfaf2',1,'biblioteca.view.MenuView.getRoot()'],['../classbiblioteca_1_1view_1_1_prestiti_panel.html#ab8056b6c5066b73a5d181c334ecf8aa7',1,'biblioteca.view.PrestitiPanel.getRoot()'],['../classbiblioteca_1_1view_1_1_utenti_panel.html#a61287b05d0c5cdabc9f80144de3478c1',1,'biblioteca.view.UtentiPanel.getRoot()']]],
-  ['gettabellalibri_15',['getTabellaLibri',['../classbiblioteca_1_1view_1_1_libri_panel.html#aa008f2df46173ac9fdab4695046295eb',1,'biblioteca::view::LibriPanel']]],
-  ['gettitoloinserito_16',['getTitoloInserito',['../classbiblioteca_1_1view_1_1_libri_panel.html#a4cfc7cb6a5a485a9808e3d864fd2103c',1,'biblioteca::view::LibriPanel']]],
-  ['getutentiview_17',['getUtentiView',['../classbiblioteca_1_1view_1_1_main_frame.html#a041cb8ce38025ac66e28b1d7bd63b618',1,'biblioteca::view::MainFrame']]]
+  ['datibiblioteca_0',['DatiBiblioteca',['../classbiblioteca_1_1model_1_1_dati_biblioteca.html#a0b20cf119d0378672ac797eabe1901bc',1,'biblioteca.model.DatiBiblioteca.DatiBiblioteca()'],['../classbiblioteca_1_1model_1_1_dati_biblioteca.html#a2fa2344433a486575362e1d96fc990e8',1,'biblioteca.model.DatiBiblioteca.DatiBiblioteca(GestioneLibri gl, GestioneUtenti gu, GestionePrestiti gp, Autenticazione a)']]],
+  ['decrementacopiadisponibile_1',['decrementaCopiaDisponibile',['../classbiblioteca_1_1model_1_1_libro.html#a9a60553b6a4aaac4697ddda22e830bce',1,'biblioteca::model::Libro']]]
 ];

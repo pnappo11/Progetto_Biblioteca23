@@ -91,14 +91,89 @@ $(function(){initNavTree('classbiblioteca_1_1controller_1_1_libri_controller.htm
   <div class="headertitle"><div class="title">biblioteca.controller.LibriController Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Controller responsabile della gestione dell'inventario dei libri.  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4d58ed7ef7b1b5b7305a8b38eb3b9999" id="r_a4d58ed7ef7b1b5b7305a8b38eb3b9999"><td class="memItemLeft" align="right" valign="top"><a id="a4d58ed7ef7b1b5b7305a8b38eb3b9999" name="a4d58ed7ef7b1b5b7305a8b38eb3b9999"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LibriController</b> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a> gestioneLibri, <a class="el" href="classbiblioteca_1_1view_1_1_libri_panel.html">LibriPanel</a> view, <a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a> archivio)</td></tr>
-<tr class="memitem:a3f3ec2d3d34645e394012ca65cc811e5" id="r_a3f3ec2d3d34645e394012ca65cc811e5"><td class="memItemLeft" align="right" valign="top"><a id="a3f3ec2d3d34645e394012ca65cc811e5" name="a3f3ec2d3d34645e394012ca65cc811e5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>aggiornaDaModel</b> ()</td></tr>
+<tr class="memitem:a4d58ed7ef7b1b5b7305a8b38eb3b9999" id="r_a4d58ed7ef7b1b5b7305a8b38eb3b9999"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d58ed7ef7b1b5b7305a8b38eb3b9999">LibriController</a> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a> gestioneLibri, <a class="el" href="classbiblioteca_1_1view_1_1_libri_panel.html">LibriPanel</a> view, <a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a> archivio)</td></tr>
+<tr class="memdesc:a4d58ed7ef7b1b5b7305a8b38eb3b9999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore del controller.  <br /></td></tr>
+<tr class="memitem:a3f3ec2d3d34645e394012ca65cc811e5" id="r_a3f3ec2d3d34645e394012ca65cc811e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f3ec2d3d34645e394012ca65cc811e5">aggiornaDaModel</a> ()</td></tr>
+<tr class="memdesc:a3f3ec2d3d34645e394012ca65cc811e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metodo pubblico per forzare l'aggiornamento della vista dai dati del modello.  <br /></td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Controller responsabile della gestione dell'inventario dei libri. </p>
+<p>La classe <code class="JavaDocCode">LibriController</code> gestisce la logica di business relativa ai libri, fungendo da ponte tra la vista <code><a class="el" href="classbiblioteca_1_1view_1_1_libri_panel.html">LibriPanel</a></code> e il modello <code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a></code>. Si occupa di: </p><ul>
+<li>
+Gestire le operazioni CRUD (Inserimento, Modifica, Eliminazione). </li>
+<li>
+Gestire la persistenza dei dati tramite <code><a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a></code>. </li>
+<li>
+Gestire la logica di ricerca e filtraggio dei libri. </li>
+<li>
+Validare l'input utente prima di modificare il modello. </li>
+</ul>
+<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4d58ed7ef7b1b5b7305a8b38eb3b9999" name="a4d58ed7ef7b1b5b7305a8b38eb3b9999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d58ed7ef7b1b5b7305a8b38eb3b9999">&#9670;&#160;</a></span>LibriController()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.controller.LibriController.LibriController </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a></td>          <td class="paramname"><span class="paramname"><em>gestioneLibri</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1view_1_1_libri_panel.html">LibriPanel</a></td>          <td class="paramname"><span class="paramname"><em>view</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a></td>          <td class="paramname"><span class="paramname"><em>archivio</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Costruttore del controller. </p>
+<p>Inizializza le dipendenze, configura la tabella della vista e collega i listener agli eventi dei pulsanti.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gestioneLibri</td><td>Istanza del modello dati. </td></tr>
+    <tr><td class="paramname">view</td><td>Istanza della vista. </td></tr>
+    <tr><td class="paramname">archivio</td><td>Gestore della persistenza su file. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a3f3ec2d3d34645e394012ca65cc811e5" name="a3f3ec2d3d34645e394012ca65cc811e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f3ec2d3d34645e394012ca65cc811e5">&#9670;&#160;</a></span>aggiornaDaModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.controller.LibriController.aggiornaDaModel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Metodo pubblico per forzare l'aggiornamento della vista dai dati del modello. </p>
+<p>Utile quando si rientra in questa vista da un'altra schermata o all'avvio dell'applicazione. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/controller/<b>LibriController.java</b></li>
 </ul>

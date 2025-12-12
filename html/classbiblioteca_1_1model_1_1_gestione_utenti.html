@@ -91,6 +91,9 @@ $(function(){initNavTree('classbiblioteca_1_1model_1_1_gestione_utenti.html','',
   <div class="headertitle"><div class="title">biblioteca.model.GestioneUtenti Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>gestisce gli utenti: inserisce, modifica, elimina e trova un utente nel sistema.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for biblioteca.model.GestioneUtenti:</div>
 <div class="dyncontent">
@@ -100,25 +103,284 @@ Inheritance diagram for biblioteca.model.GestioneUtenti:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6d0e2abc236b4a96dafcef84edeb0ae8" id="r_a6d0e2abc236b4a96dafcef84edeb0ae8"><td class="memItemLeft" align="right" valign="top"><a id="a6d0e2abc236b4a96dafcef84edeb0ae8" name="a6d0e2abc236b4a96dafcef84edeb0ae8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>GestioneUtenti</b> (TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt; utenti)</td></tr>
-<tr class="memitem:a8db300a557bd354a96a0783142be2661" id="r_a8db300a557bd354a96a0783142be2661"><td class="memItemLeft" align="right" valign="top"><a id="a8db300a557bd354a96a0783142be2661" name="a8db300a557bd354a96a0783142be2661"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setGestionePrestiti</b> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a> gestionePrestiti)</td></tr>
-<tr class="memitem:a2a6fbec74b118b95525d0bb733fa1c5b" id="r_a2a6fbec74b118b95525d0bb733fa1c5b"><td class="memItemLeft" align="right" valign="top"><a id="a2a6fbec74b118b95525d0bb733fa1c5b" name="a2a6fbec74b118b95525d0bb733fa1c5b"></a>
-TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getUtenti</b> ()</td></tr>
-<tr class="memitem:a482c5796bdd459783d573fc80204fb1e" id="r_a482c5796bdd459783d573fc80204fb1e"><td class="memItemLeft" align="right" valign="top"><a id="a482c5796bdd459783d573fc80204fb1e" name="a482c5796bdd459783d573fc80204fb1e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>inserisciUtente</b> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente)</td></tr>
-<tr class="memitem:a59c340ce0d3327a750d9fa2beffca7a5" id="r_a59c340ce0d3327a750d9fa2beffca7a5"><td class="memItemLeft" align="right" valign="top"><a id="a59c340ce0d3327a750d9fa2beffca7a5" name="a59c340ce0d3327a750d9fa2beffca7a5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>modificaUtente</b> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utenteMod)</td></tr>
-<tr class="memitem:a7d7aae32e8a183d2c0c73f10779de22a" id="r_a7d7aae32e8a183d2c0c73f10779de22a"><td class="memItemLeft" align="right" valign="top"><a id="a7d7aae32e8a183d2c0c73f10779de22a" name="a7d7aae32e8a183d2c0c73f10779de22a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>eliminaUtente</b> (String matricolaStr)</td></tr>
-<tr class="memitem:a11995ac42914068e6b7356ddeed6bf1c" id="r_a11995ac42914068e6b7356ddeed6bf1c"><td class="memItemLeft" align="right" valign="top"><a id="a11995ac42914068e6b7356ddeed6bf1c" name="a11995ac42914068e6b7356ddeed6bf1c"></a>
-TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>cercaUtenti</b> (String matricola, String cognome, String nome)</td></tr>
-<tr class="memitem:a95a694ec791f1a86be366d94f13def5b" id="r_a95a694ec791f1a86be366d94f13def5b"><td class="memItemLeft" align="right" valign="top"><a id="a95a694ec791f1a86be366d94f13def5b" name="a95a694ec791f1a86be366d94f13def5b"></a>
-<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a>&#160;</td><td class="memItemRight" valign="bottom"><b>trovaUtente</b> (String matricola)</td></tr>
-<tr class="memitem:a5bfdc5145010680e48d385bc50ae9363" id="r_a5bfdc5145010680e48d385bc50ae9363"><td class="memItemLeft" align="right" valign="top"><a id="a5bfdc5145010680e48d385bc50ae9363" name="a5bfdc5145010680e48d385bc50ae9363"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setBlacklist</b> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente, boolean toBlacklist)</td></tr>
+<tr class="memitem:a58ae83d457406edfc0ce567858b09370" id="r_a58ae83d457406edfc0ce567858b09370"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58ae83d457406edfc0ce567858b09370">GestioneUtenti</a> ()</td></tr>
+<tr class="memitem:a6d0e2abc236b4a96dafcef84edeb0ae8" id="r_a6d0e2abc236b4a96dafcef84edeb0ae8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d0e2abc236b4a96dafcef84edeb0ae8">GestioneUtenti</a> (TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt; utenti)</td></tr>
+<tr class="memitem:a8db300a557bd354a96a0783142be2661" id="r_a8db300a557bd354a96a0783142be2661"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8db300a557bd354a96a0783142be2661">setGestionePrestiti</a> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a> gestionePrestiti)</td></tr>
+<tr class="memdesc:a8db300a557bd354a96a0783142be2661"><td class="mdescLeft">&#160;</td><td class="mdescRight">imposta l'attributo gestione prestiti  <br /></td></tr>
+<tr class="memitem:a2a6fbec74b118b95525d0bb733fa1c5b" id="r_a2a6fbec74b118b95525d0bb733fa1c5b"><td class="memItemLeft" align="right" valign="top">TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a6fbec74b118b95525d0bb733fa1c5b">getUtenti</a> ()</td></tr>
+<tr class="memdesc:a2a6fbec74b118b95525d0bb733fa1c5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo getter, ritorna il treeset contenente gli utenti  <br /></td></tr>
+<tr class="memitem:a482c5796bdd459783d573fc80204fb1e" id="r_a482c5796bdd459783d573fc80204fb1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a482c5796bdd459783d573fc80204fb1e">inserisciUtente</a> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente)</td></tr>
+<tr class="memdesc:a482c5796bdd459783d573fc80204fb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">inserisce un nuovo utente nella collezione  <br /></td></tr>
+<tr class="memitem:a59c340ce0d3327a750d9fa2beffca7a5" id="r_a59c340ce0d3327a750d9fa2beffca7a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59c340ce0d3327a750d9fa2beffca7a5">modificaUtente</a> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utenteMod)</td></tr>
+<tr class="memdesc:a59c340ce0d3327a750d9fa2beffca7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">modifica un utente esistente  <br /></td></tr>
+<tr class="memitem:a7d7aae32e8a183d2c0c73f10779de22a" id="r_a7d7aae32e8a183d2c0c73f10779de22a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d7aae32e8a183d2c0c73f10779de22a">eliminaUtente</a> (String matricolaStr)</td></tr>
+<tr class="memdesc:a7d7aae32e8a183d2c0c73f10779de22a"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo che elimina un utente dalla collezione  <br /></td></tr>
+<tr class="memitem:a11995ac42914068e6b7356ddeed6bf1c" id="r_a11995ac42914068e6b7356ddeed6bf1c"><td class="memItemLeft" align="right" valign="top">TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11995ac42914068e6b7356ddeed6bf1c">cercaUtenti</a> (String matricola, String cognome, String nome)</td></tr>
+<tr class="memdesc:a11995ac42914068e6b7356ddeed6bf1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">metodo che ci permette di cercare un determinato utenti in base a determinati parametri  <br /></td></tr>
+<tr class="memitem:a95a694ec791f1a86be366d94f13def5b" id="r_a95a694ec791f1a86be366d94f13def5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95a694ec791f1a86be366d94f13def5b">trovaUtente</a> (String matricola)</td></tr>
+<tr class="memdesc:a95a694ec791f1a86be366d94f13def5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">permette di trovare un utente in base alla matricola  <br /></td></tr>
+<tr class="memitem:a5bfdc5145010680e48d385bc50ae9363" id="r_a5bfdc5145010680e48d385bc50ae9363"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5bfdc5145010680e48d385bc50ae9363">setBlacklist</a> (<a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> utente, boolean toBlacklist)</td></tr>
+<tr class="memdesc:a5bfdc5145010680e48d385bc50ae9363"><td class="mdescLeft">&#160;</td><td class="mdescRight">inserisce un determinato utente in blacklist oppure se gia presente lo rimuove dalla blacklist  <br /></td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>gestisce gli utenti: inserisce, modifica, elimina e trova un utente nel sistema. </p>
+<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a58ae83d457406edfc0ce567858b09370" name="a58ae83d457406edfc0ce567858b09370"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ae83d457406edfc0ce567858b09370">&#9670;&#160;</a></span>GestioneUtenti() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.model.GestioneUtenti.GestioneUtenti </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>costruttore di default che inizializza il treeset di utenti. </p>
+
+</div>
+</div>
+<a id="a6d0e2abc236b4a96dafcef84edeb0ae8" name="a6d0e2abc236b4a96dafcef84edeb0ae8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d0e2abc236b4a96dafcef84edeb0ae8">&#9670;&#160;</a></span>GestioneUtenti() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.model.GestioneUtenti.GestioneUtenti </td>
+          <td>(</td>
+          <td class="paramtype">TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>utenti</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>costruttore che inizializza un treeset di utenti </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">utenti,il</td><td>treeset che contiene gli utenti. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a11995ac42914068e6b7356ddeed6bf1c" name="a11995ac42914068e6b7356ddeed6bf1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11995ac42914068e6b7356ddeed6bf1c">&#9670;&#160;</a></span>cercaUtenti()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt; biblioteca.model.GestioneUtenti.cercaUtenti </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>matricola</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>cognome</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>nome</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo che ci permette di cercare un determinato utenti in base a determinati parametri </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">matricola</td><td>matricola dell'utente </td></tr>
+    <tr><td class="paramname">cognome</td><td>cognome dell'utente </td></tr>
+    <tr><td class="paramname">nome</td><td>nome dell'utente. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>utente trovato ed aggiunto alla collezione altrimenti null </dd></dl>
+
+</div>
+</div>
+<a id="a7d7aae32e8a183d2c0c73f10779de22a" name="a7d7aae32e8a183d2c0c73f10779de22a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d7aae32e8a183d2c0c73f10779de22a">&#9670;&#160;</a></span>eliminaUtente()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.GestioneUtenti.eliminaUtente </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>matricolaStr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo che elimina un utente dalla collezione </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">matricolaStr</td><td>matricola tramite la quale procediamo all'eliminazione dell'utente. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2a6fbec74b118b95525d0bb733fa1c5b" name="a2a6fbec74b118b95525d0bb733fa1c5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a6fbec74b118b95525d0bb733fa1c5b">&#9670;&#160;</a></span>getUtenti()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TreeSet&lt; <a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> &gt; biblioteca.model.GestioneUtenti.getUtenti </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>metodo getter, ritorna il treeset contenente gli utenti </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a482c5796bdd459783d573fc80204fb1e" name="a482c5796bdd459783d573fc80204fb1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a482c5796bdd459783d573fc80204fb1e">&#9670;&#160;</a></span>inserisciUtente()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.GestioneUtenti.inserisciUtente </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a></td>          <td class="paramname"><span class="paramname"><em>utente</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inserisce un nuovo utente nella collezione </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">utente</td><td>nuovo utente da inserire </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a59c340ce0d3327a750d9fa2beffca7a5" name="a59c340ce0d3327a750d9fa2beffca7a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c340ce0d3327a750d9fa2beffca7a5">&#9670;&#160;</a></span>modificaUtente()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.GestioneUtenti.modificaUtente </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a></td>          <td class="paramname"><span class="paramname"><em>utenteMod</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>modifica un utente esistente </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">utenteMod</td><td>utente da modificare </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5bfdc5145010680e48d385bc50ae9363" name="a5bfdc5145010680e48d385bc50ae9363"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bfdc5145010680e48d385bc50ae9363">&#9670;&#160;</a></span>setBlacklist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.GestioneUtenti.setBlacklist </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a></td>          <td class="paramname"><span class="paramname"><em>utente</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boolean</td>          <td class="paramname"><span class="paramname"><em>toBlacklist</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inserisce un determinato utente in blacklist oppure se gia presente lo rimuove dalla blacklist </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">utente</td><td>utente in questione </td></tr>
+    <tr><td class="paramname">toBlacklist</td><td>true o false </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8db300a557bd354a96a0783142be2661" name="a8db300a557bd354a96a0783142be2661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db300a557bd354a96a0783142be2661">&#9670;&#160;</a></span>setGestionePrestiti()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.model.GestioneUtenti.setGestionePrestiti </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a></td>          <td class="paramname"><span class="paramname"><em>gestionePrestiti</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>imposta l'attributo gestione prestiti </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gestionePrestiti</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a95a694ec791f1a86be366d94f13def5b" name="a95a694ec791f1a86be366d94f13def5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95a694ec791f1a86be366d94f13def5b">&#9670;&#160;</a></span>trovaUtente()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classbiblioteca_1_1model_1_1_utente.html">Utente</a> biblioteca.model.GestioneUtenti.trovaUtente </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>matricola</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>permette di trovare un utente in base alla matricola </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">matricola</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>l'utente trovato altrimenti null </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/model/<b>GestioneUtenti.java</b></li>
 </ul>

@@ -4,7 +4,7 @@ var hierarchy =
       [ "biblioteca.main.Main", "classbiblioteca_1_1main_1_1_main.html", null ]
     ] ],
     [ "biblioteca.persistence.ArchivioFile", "classbiblioteca_1_1persistence_1_1_archivio_file.html", null ],
-    [ "biblioteca.controller.AuthController", "classbiblioteca_1_1controller_1_1_auth_controller.html", null ],
+    [ "biblioteca.controller.Authcontroller", "classbiblioteca_1_1controller_1_1_authcontroller.html", null ],
     [ "Comparable", null, [
       [ "biblioteca.model.Libro", "classbiblioteca_1_1model_1_1_libro.html", null ],
       [ "biblioteca.model.Utente", "classbiblioteca_1_1model_1_1_utente.html", null ]

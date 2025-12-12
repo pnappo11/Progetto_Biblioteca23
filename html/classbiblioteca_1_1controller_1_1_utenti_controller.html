@@ -91,16 +91,121 @@ $(function(){initNavTree('classbiblioteca_1_1controller_1_1_utenti_controller.ht
   <div class="headertitle"><div class="title">biblioteca.controller.UtentiController Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Controller responsabile della gestione dell'anagrafica utenti (soci della biblioteca).  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a493d8d86c1735f29bd94a846e819c058" id="r_a493d8d86c1735f29bd94a846e819c058"><td class="memItemLeft" align="right" valign="top"><a id="a493d8d86c1735f29bd94a846e819c058" name="a493d8d86c1735f29bd94a846e819c058"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>UtentiController</b> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a> gestioneUtenti, <a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a> gestionePrestiti, <a class="el" href="classbiblioteca_1_1view_1_1_utenti_panel.html">UtentiPanel</a> view, <a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a> archivio)</td></tr>
-<tr class="memitem:a7cf915eb3b1d80881fde2c269eb401b1" id="r_a7cf915eb3b1d80881fde2c269eb401b1"><td class="memItemLeft" align="right" valign="top"><a id="a7cf915eb3b1d80881fde2c269eb401b1" name="a7cf915eb3b1d80881fde2c269eb401b1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPrestitiController</b> (<a class="el" href="classbiblioteca_1_1controller_1_1_prestiti_controller.html">PrestitiController</a> prestitiController)</td></tr>
-<tr class="memitem:aa7f37598cf7ddb1afb2bc0fe09bc9f2c" id="r_aa7f37598cf7ddb1afb2bc0fe09bc9f2c"><td class="memItemLeft" align="right" valign="top"><a id="aa7f37598cf7ddb1afb2bc0fe09bc9f2c" name="aa7f37598cf7ddb1afb2bc0fe09bc9f2c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>aggiornaDaModel</b> ()</td></tr>
+<tr class="memitem:a493d8d86c1735f29bd94a846e819c058" id="r_a493d8d86c1735f29bd94a846e819c058"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a493d8d86c1735f29bd94a846e819c058">UtentiController</a> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a> gestioneUtenti, <a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a> gestionePrestiti, <a class="el" href="classbiblioteca_1_1view_1_1_utenti_panel.html">UtentiPanel</a> view, <a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a> archivio)</td></tr>
+<tr class="memdesc:a493d8d86c1735f29bd94a846e819c058"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore del controller Utenti.  <br /></td></tr>
+<tr class="memitem:a7cf915eb3b1d80881fde2c269eb401b1" id="r_a7cf915eb3b1d80881fde2c269eb401b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cf915eb3b1d80881fde2c269eb401b1">setPrestitiController</a> (<a class="el" href="classbiblioteca_1_1controller_1_1_prestiti_controller.html">PrestitiController</a> prestitiController)</td></tr>
+<tr class="memdesc:a7cf915eb3b1d80881fde2c269eb401b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inietta il controller dei prestiti dopo la costruzione.  <br /></td></tr>
+<tr class="memitem:aa7f37598cf7ddb1afb2bc0fe09bc9f2c" id="r_aa7f37598cf7ddb1afb2bc0fe09bc9f2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7f37598cf7ddb1afb2bc0fe09bc9f2c">aggiornaDaModel</a> ()</td></tr>
+<tr class="memdesc:aa7f37598cf7ddb1afb2bc0fe09bc9f2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metodo pubblico per forzare l'aggiornamento della tabella dai dati del modello.  <br /></td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Controller responsabile della gestione dell'anagrafica utenti (soci della biblioteca). </p>
+<p>La classe <code class="JavaDocCode">UtentiController</code> gestisce il ciclo di vita dei dati utente (CRUD) e implementa regole di business specifiche, come la gestione della "Blacklist" e i vincoli di integrità (non eliminare utenti con prestiti attivi).</p>
+<p>Collabora con: </p><ul>
+<li>
+<code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a></code>: Modello principale per i dati anagrafici. </li>
+<li>
+<code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a></code>: Per verificare la presenza di prestiti attivi prima di eliminare un utente. </li>
+<li>
+<code><a class="el" href="classbiblioteca_1_1view_1_1_utenti_panel.html">UtentiPanel</a></code>: La vista per l'interazione grafica. </li>
+</ul>
+<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a493d8d86c1735f29bd94a846e819c058" name="a493d8d86c1735f29bd94a846e819c058"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a493d8d86c1735f29bd94a846e819c058">&#9670;&#160;</a></span>UtentiController()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.controller.UtentiController.UtentiController </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a></td>          <td class="paramname"><span class="paramname"><em>gestioneUtenti</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a></td>          <td class="paramname"><span class="paramname"><em>gestionePrestiti</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1view_1_1_utenti_panel.html">UtentiPanel</a></td>          <td class="paramname"><span class="paramname"><em>view</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a></td>          <td class="paramname"><span class="paramname"><em>archivio</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Costruttore del controller Utenti. </p>
+<p>Inizializza le dipendenze principali.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gestioneUtenti</td><td>Il modello dati degli utenti. </td></tr>
+    <tr><td class="paramname">gestionePrestiti</td><td>Il modello dati dei prestiti (per controlli di vincolo). </td></tr>
+    <tr><td class="paramname">view</td><td>La vista (pannello JavaFX). </td></tr>
+    <tr><td class="paramname">archivio</td><td>Il gestore della persistenza su file. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aa7f37598cf7ddb1afb2bc0fe09bc9f2c" name="aa7f37598cf7ddb1afb2bc0fe09bc9f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7f37598cf7ddb1afb2bc0fe09bc9f2c">&#9670;&#160;</a></span>aggiornaDaModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.controller.UtentiController.aggiornaDaModel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Metodo pubblico per forzare l'aggiornamento della tabella dai dati del modello. </p>
+<p>Utile quando la lista utenti viene modificata esternamente o al caricamento della vista. </p>
+
+</div>
+</div>
+<a id="a7cf915eb3b1d80881fde2c269eb401b1" name="a7cf915eb3b1d80881fde2c269eb401b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cf915eb3b1d80881fde2c269eb401b1">&#9670;&#160;</a></span>setPrestitiController()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.controller.UtentiController.setPrestitiController </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbiblioteca_1_1controller_1_1_prestiti_controller.html">PrestitiController</a></td>          <td class="paramname"><span class="paramname"><em>prestitiController</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inietta il controller dei prestiti dopo la costruzione. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prestitiController</td><td>L'istanza del controller prestiti. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/main/java/biblioteca/controller/<b>UtentiController.java</b></li>
 </ul>
