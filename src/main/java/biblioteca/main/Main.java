@@ -1,6 +1,13 @@
-
 package biblioteca.main;
 
+import biblioteca.controller.LibriController;
+import biblioteca.controller.UtentiController;
+import biblioteca.controller.PrestitiController;
+import biblioteca.model.GestioneLibri;
+import biblioteca.model.GestioneUtenti;
+import biblioteca.model.GestionePrestiti;
+import biblioteca.model.Autenticazione;
+import biblioteca.persistence.ArchivioFile;
 import biblioteca.view.LoginView;
 import biblioteca.view.MainFrame;
 import biblioteca.view.MenuView;
@@ -9,48 +16,48 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * @brief Classe principale dell'applicazione (Entry Point).
- *
- * Agisce come un "Router" di alto livello, decidendo quale schermata mostrare
- * in base agli eventi (login effettuato, click su un bottone del menu, logout).
- *
- * @author tommy
+ * @brief Classe principale.
+ * Questa classe estende Application e gestisce il ciclo di vita dell'interfaccia grafica.
+ * Si occupa dell'inizializzazione dei dati da file, della configurazione dello stage primario
+ * e della navigazione tra le scene principali: Login, Menu, MainFrame.
  */
 public class Main extends Application {
 
-    // --- Modelli Dati Globali ---
-    // Questi riferimenti sono dichiarati qui per essere potenzialmente
-    // passati ai vari controller durante la navigazione.
     private GestioneLibri gestioneLibri;
     private GestioneUtenti gestioneUtenti;
     private GestionePrestiti gestionePrestiti;
     private Autenticazione bibliotecario;
-    
+
+    private ArchivioFile archivio;
+
     /**
      * @brief Metodo di avvio dell'applicazione JavaFX.
-     *
-     * Viene chiamato automaticamente dal launcher JavaFX.
-     * Imposta la prima schermata visibile, che è quella di Login.
-     *
-     * @param primaryStage La finestra principale creata dal runtime JavaFX.
+     * Viene chiamato dal runtime JavaFX dopo l'inizializzazione del sistema.
+     * Carica i dati come Libri, Utenti, Prestiti, Autenticazione tramite l'archivio
+     * e mostra la schermata di login.
+     * @param primaryStage Lo stage principale fornito dalla piattaforma JavaFX.
      */
     @Override
     public void start(Stage primaryStage) {
+
+        archivio = new ArchivioFile(".");
+
+        gestioneLibri    = archivio.caricaLibri();
+        gestioneUtenti   = archivio.caricaUtenti();
+        gestionePrestiti = archivio.caricaPrestiti();
+        bibliotecario    = archivio.caricaAutenticazione();
+
+        gestioneUtenti.setGestionePrestiti(gestionePrestiti);
+
         mostraLogin(primaryStage);
         primaryStage.show();
     }
 
-    // -----------------------------------------------------------
-    // SEZIONE 1: LOGIN
-    // -----------------------------------------------------------
-
     /**
      * @brief Configura e mostra la scena di Login.
-     *
-     * Crea la vista {@link LoginView} e imposta il listener per l'evento di successo.
-     * Se il login va a buon fine (callback invocata), transita al Menu.
-     *
-     * @param stage Lo stage su cui impostare la scena.
+     * Imposta la vista di login sullo stage corrente e definisce la logica di autenticazione.
+     * Se la password Ã¨ corretta, salva lo stato e passa al menu principale.
+     * @param stage Lo stage su cui visualizzare la scena.
      */
     private void mostraLogin(Stage stage) {
         LoginView loginView = new LoginView();
@@ -60,58 +67,53 @@ public class Main extends Application {
         stage.setScene(loginScene);
         stage.centerOnScreen();
 
-        // Callback: se il login va bene → vai al MENU
-        loginView.setOnLogin(() -> mostraMenu(stage));
-    }
+        loginView.setOnLogin(() -> {
+            String password = loginView.getPassword().trim();
 
-    // -----------------------------------------------------------
-    // SEZIONE 2: MENU INTERMEDIO
-    // -----------------------------------------------------------
+            boolean ok = bibliotecario.login(password);
+
+            if (ok) {
+                loginView.mostraErrore("");
+                loginView.pulisciCampi();
+                // salvo eventuale cambio di password
+                archivio.salvaAutenticazione(bibliotecario);
+                mostraMenu(stage);
+            } else {
+                loginView.mostraErrore("Password errata.");
+                loginView.pulisciCampi();
+            }
+        });
+    }
 
     /**
      * @brief Configura e mostra la scena del Menu principale.
-     *
-     * Il menu funge da snodo centrale con 3 grandi opzioni (Libri, Utenti, Prestiti)
-     * e il tasto Logout.
-     *
-     * @param stage Lo stage su cui impostare la scena.
+     * Crea la grafica del menu di navigazione intermedio, collegando i pulsanti
+     * alle rispettive schermate operative (Libri, Utenti, Prestiti) o al logout.
+     * @param stage Lo stage su cui visualizzare la scena.
      */
     private void mostraMenu(Stage stage) {
-        // Inizializza la vista menu (puoi passare il nome utente loggato qui)
-        MenuView menu = new MenuView("Bibliotecario"); 
-        
+        MenuView menu = new MenuView("Bibliotecario");
+
         Scene menuScene = new Scene(menu.getRoot(), 500, 400);
 
         stage.setTitle("Menu Biblioteca");
         stage.setScene(menuScene);
         stage.centerOnScreen();
 
-        // Configurazione Navigazione dai bottoni del Menu:
-        // Cliccando su un bottone, si va al MainFrame aprendo il tab specifico.
-        menu.setOnGestioneLibri(() -> mostraMain(stage, 0));    // Tab 0: Libri
-        menu.setOnGestioneUtenti(() -> mostraMain(stage, 1));   // Tab 1: Utenti
-        menu.setOnGestionePrestiti(() -> mostraMain(stage, 2)); // Tab 2: Prestiti
+        menu.setOnGestioneLibri(()    -> mostraMain(stage, 0));
+        menu.setOnGestioneUtenti(()   -> mostraMain(stage, 1));
+        menu.setOnGestionePrestiti(() -> mostraMain(stage, 2));
 
-        // Logout: torna alla schermata di login
         menu.setOnLogout(() -> mostraLogin(stage));
     }
 
-    // -----------------------------------------------------------
-    // SEZIONE 3: DASHBOARD PRINCIPALE (TAB PANE)
-    // -----------------------------------------------------------
-
     /**
-     * @brief Configura e mostra la finestra principale operativa (MainFrame).
-     *
-     * Questa vista contiene i pannelli gestionali organizzati in schede (Tab).
-     *
-     * @param stage    Lo stage su cui impostare la scena.
-     * @param tabIndex L'indice della scheda da selezionare all'avvio:
-     * <ul>
-     * <li>0: Gestione Libri</li>
-     * <li>1: Gestione Utenti</li>
-     * <li>2: Gestione Prestiti</li>
-     * </ul>
+     * @brief Configura e mostra la finestra operativa principale.
+     * Istanzia i controller specifici per ogni sezione: Libri, Utenti, Prestiti.
+     * Risolve le dipendenze tra controller e imposta la scena principale visualizzando
+     * il tab richiesto.
+     * @param stage Lo stage su cui visualizzare la scena.
+     * @param tabIndex L'indice del tab da aprire inizialmente.
      */
     private void mostraMain(Stage stage, int tabIndex) {
         MainFrame mainView = new MainFrame(tabIndex);
@@ -121,25 +123,34 @@ public class Main extends Application {
         stage.setScene(mainScene);
         stage.centerOnScreen();
 
-        // 🔹 Gestione tasto "Torna al Menu":
-        // Permette di tornare alla selezione macroscopica senza effettuare logout.
-        mainView.getBtnMenu().setOnAction(e -> mostraMenu(stage));
+        LibriController libriCtrl =
+                new LibriController(gestioneLibri, mainView.getLibriView(), archivio);
 
-        // 🔹 Gestione tasto "Logout" diretto dalla dashboard:
-        // Termina la sessione e riporta al login.
+        UtentiController utentiCtrl =
+                new UtentiController(gestioneUtenti, gestionePrestiti,
+                                     mainView.getUtentiView(), archivio);
+
+        PrestitiController prestitiCtrl =
+                new PrestitiController(gestionePrestiti,
+                                       mainView.getPrestitiView(),
+                                       archivio,
+                                       gestioneLibri,
+                                       gestioneUtenti,
+                                       libriCtrl,
+                                       utentiCtrl);
+
+        utentiCtrl.setPrestitiController(prestitiCtrl);
+
+        mainView.getBtnMenu().setOnAction(e -> mostraMenu(stage));
         mainView.getBtnLogout().setOnAction(e -> mostraLogin(stage));
     }
 
     /**
-     * @brief Punto di ingresso standard per applicazioni Java.
-     *
-     * Lancia il runtime JavaFX invocando il metodo {@link #launch(String...)}.
-     *
+     * @brief Punto di ingresso standard per l'applicazione Java.
+     * Lancia il runtime di JavaFX chiamando il metodo launch().
      * @param args Argomenti da riga di comando.
      */
     public static void main(String[] args) {
         launch(args);
     }
 }
-
-

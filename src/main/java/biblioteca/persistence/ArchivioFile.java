@@ -8,131 +8,152 @@ import biblioteca.model.GestionePrestiti;
 import java.io.*;
 
 /**
- * @brief Classe responsabile della persistenza dei dati su file system.
- *
- * La classe {@code ArchivioFile} implementa il meccanismo di salvataggio e caricamento
- * dei dati dell'applicazione. Utilizza la **Serializzazione Java** per scrivere
- * interi oggetti (i Model) su file binari (`.dat`).
- * Questo permette di mantenere lo stato dell'applicazione (libri, utenti, prestiti)
- * tra un avvio e l'altro.
- *
- * @author tommy
+ * @brief Gestisce la persistenza dei dati del sistema bibliotecario su file binari.
+ * Questa classe si occupa di serializzare e deserializzare gli oggetti principali del modello
+ * (libri, utenti, prestiti e credenziali) utilizzando gli stream di oggetti Java.
  */
 public class ArchivioFile {
 
-    /**
-     * @brief La cartella radice dove verranno salvati i file.
-     */
     private final String percorsoBase;
 
-    // Costanti per i nomi dei file
     private static final String FILE_LIBRI      = "libri.dat";
     private static final String FILE_UTENTI     = "utenti.dat";
     private static final String FILE_PRESTITI   = "prestiti.dat";
     private static final String FILE_LOGIN      = "login.dat";
 
     /**
-     * @brief Costruttore.
-     *
-     * @param percorsoBase Il percorso della directory nel file system dove leggere/scrivere i file.
-     * Se la stringa è vuota, usa la directory corrente del progetto.
+     * @brief Costruttore della classe.
+     * @param percorsoBase Il percorso della cartella dove verranno salvati/letti i file.
      */
     public ArchivioFile(String percorsoBase) {
+        this.percorsoBase = percorsoBase;
     }
 
     /**
-     * @brief Carica l'archivio dei libri dal file su disco.
-     *
-     * @return L'oggetto {@link GestioneLibri} recuperato dal file, oppure una nuova istanza
-     * vuota se il file non esiste o è corrotto.
+     * @brief Carica l'elenco dei libri dal file locale.
+     * @return Un'istanza di GestioneLibri. Se il file non esiste, ritorna un nuovo oggetto vuoto.
      */
     public GestioneLibri caricaLibri() {
+        GestioneLibri gl = caricaOggetto(FILE_LIBRI, GestioneLibri.class);
+        if (gl == null) {
+            gl = new GestioneLibri();      // nuovo se il file non esiste
+        }
+        return gl;
     }
 
     /**
-     * @brief Salva lo stato corrente dei libri su file.
-     *
-     * @param gl L'oggetto {@link GestioneLibri} da serializzare e salvare.
+     * @brief Salva lo stato attuale della gestione libri su file.
+     * @param gl L'oggetto GestioneLibri da serializzare.
      */
     public void salvaLibri(GestioneLibri gl) {
+        salvaOggetto(FILE_LIBRI, gl);
     }
 
     /**
-     * @brief Carica l'anagrafica utenti dal file su disco.
-     *
-     * @return L'oggetto {@link GestioneUtenti} recuperato, o una nuova istanza se non presente.
+     * @brief Carica l'elenco degli utenti dal file locale.
+     * @return Un'istanza di GestioneUtenti. Se il file non esiste, ritorna un nuovo oggetto vuoto.
      */
     public GestioneUtenti caricaUtenti() {
+        GestioneUtenti gu = caricaOggetto(FILE_UTENTI, GestioneUtenti.class);
+        if (gu == null) {
+            gu = new GestioneUtenti();
+        }
+        return gu;
     }
 
     /**
-     * @brief Salva l'elenco degli utenti su file.
-     *
-     * @param gu L'oggetto {@link GestioneUtenti} da serializzare.
+     * @brief Salva lo stato attuale della gestione utenti su file.
+     * @param gu L'oggetto GestioneUtenti da serializzare.
      */
     public void salvaUtenti(GestioneUtenti gu) {
+        salvaOggetto(FILE_UTENTI, gu);
     }
 
     /**
-     * @brief Carica lo storico dei prestiti dal file su disco.
-     *
-     * @return L'oggetto {@link GestionePrestiti} recuperato.
+     * @brief Carica l'elenco dei prestiti dal file locale.
+     * @return Un'istanza di GestionePrestiti. Se il file non esiste, ritorna un nuovo oggetto vuoto.
      */
     public GestionePrestiti caricaPrestiti() {
+        GestionePrestiti gp = caricaOggetto(FILE_PRESTITI, GestionePrestiti.class);
+        if (gp == null) {
+            gp = new GestionePrestiti();
+        }
+        return gp;
     }
 
     /**
-     * @brief Salva la situazione dei prestiti su file.
-     *
-     * @param gp L'oggetto {@link GestionePrestiti} da serializzare.
+     * @brief Salva lo stato attuale dei prestiti su file.
+     * @param gp L'oggetto GestionePrestiti da serializzare.
      */
     public void salvaPrestiti(GestionePrestiti gp) {
+        salvaOggetto(FILE_PRESTITI, gp);
     }
 
     /**
-     * @brief Carica i dati di autenticazione (hash password) dal file.
-     *
-     * @return L'oggetto {@link Autenticazione} contenente le credenziali.
+     * @brief Carica i dati di autenticazione (credenziali admin) dal file locale.
+     * @return Un'istanza di Autenticazione. Se il file non esiste, ritorna un'istanza con valori predefiniti.
      */
     public Autenticazione caricaAutenticazione() {
+        Autenticazione a = caricaOggetto(FILE_LOGIN, Autenticazione.class);
+        if (a == null) {
+            a = new Autenticazione();  // password default (es. "admin")
+        }
+        return a;
     }
 
     /**
-     * @brief Salva le nuove credenziali di accesso su file.
-     *
-     * Da invocare quando viene cambiata la password.
-     *
-     * @param a L'oggetto {@link Autenticazione} da salvare.
+     * @brief Salva le credenziali di autenticazione su file.
+     * @param a L'oggetto Autenticazione da serializzare.
      */
     public void salvaAutenticazione(Autenticazione a) {
+        salvaOggetto(FILE_LOGIN, a);
     }
 
-    // -------------------------------------------------------------------------
-    // METODI PRIVATI GENERICI (HELPER)
-    // -------------------------------------------------------------------------
-
     /**
-     * @brief Metodo generico per deserializzare un oggetto da file.
-     *
-     * Apre un {@code ObjectInputStream} e tenta di leggere l'oggetto salvato.
-     * Gestisce le eccezioni di IO e ClassNotFoundException internamente.
-     *
-     * @param <T>      Il tipo della classe da caricare (es. GestioneLibri).
-     * @param nomeFile Il nome del file (es. "libri.dat").
-     * @param tipo     La classe dell'oggetto atteso (utilizzata per creare istanza vuota in caso di errore).
-     * @return L'oggetto letto dal file, oppure una nuova istanza vuota del tipo T se il caricamento fallisce.
+     * @brief Metodo generico privato per la lettura di un oggetto serializzato.
+     * @param <T> Tipo dell'oggetto atteso.
+     * @param nomeFile Nome del file da leggere.
+     * @param tipo Classe di riferimento per il casting sicuro.
+     * @return L'oggetto deserializzato di tipo T, oppure null in caso di errore o file non trovato.
      */
     private <T> T caricaOggetto(String nomeFile, Class<T> tipo) {
+        File file = new File(percorsoBase, nomeFile);
+        if (!file.exists()) {
+            return null;
+        }
+
+        try (ObjectInputStream ois =
+                     new ObjectInputStream(new FileInputStream(file))) {
+            Object obj = ois.readObject();
+            if (tipo.isInstance(obj)) {
+                return tipo.cast(obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
-     * @brief Metodo generico per serializzare un oggetto su file.
-     *
-     * Apre un {@code ObjectOutputStream} e scrive l'oggetto su disco.
-     *
-     * @param nomeFile Il nome del file di destinazione.
-     * @param obj      L'oggetto da salvare (deve implementare Serializable).
+     * @brief Metodo generico privato per la scrittura di un oggetto su file,
+     * crea automaticamente la directory di destinazione se non esistente.
+     * @param nomeFile Nome del file da creare/sovrascrivere.
+     * @param obj L'oggetto da serializzare.
      */
     private void salvaOggetto(String nomeFile, Object obj) {
+        if (obj == null) return;
+
+        File dir = new File(percorsoBase);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        File file = new File(dir, nomeFile);
+        try (ObjectOutputStream oos =
+                     new ObjectOutputStream(new FileOutputStream(file))) {
+            oos.writeObject(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
