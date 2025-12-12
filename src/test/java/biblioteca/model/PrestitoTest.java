@@ -1,182 +1,93 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package biblioteca.model;
 
-import java.time.LocalDate;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author tommy
- */
-public class PrestitoTest {
-    
-    public PrestitoTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
+class PrestitoTest {
+
+    private Prestito prestito;
+    private Utente utente;
+    private Libro libro;
+    private LocalDate dataInizio;
+    private LocalDate dataPrevista;
     @BeforeEach
-    public void setUp() {
+    void setUp() {
+        utente = new Utente("Mario", "Verdi", "0612709541", "m.verdi@unisa.it");
+        libro = new Libro(123456L, "Libro Test", new ArrayList<>(), 2020, 5, 5);
+        dataInizio = LocalDate.of(2023, 1, 1);
+        dataPrevista = LocalDate.of(2023, 2, 1);
+        
+        prestito = new Prestito(utente, libro, dataInizio, dataPrevista);
+    } @Test
+    void testCostruttore() {
+        assertNotNull(prestito);
+        assertEquals(utente, prestito.getUtente());
+        assertEquals(libro, prestito.getLibro());
+        assertEquals(dataInizio, prestito.getDataInizio());
+        assertEquals(dataPrevista, prestito.getDataPrevistaRestituzione());
+        assertNull(prestito.getDataRestituzione());
+    } @Test
+    void testIsAttivoAppenaCreato() {
+        assertTrue(prestito.isAttivo());
     }
-    
-    @AfterEach
-    public void tearDown() {
-    }
+@Test
+    void testSetDataRestituzione() {
+        LocalDate dataRestituzione = LocalDate.of(2023, 1, 20);
+        prestito.setDataRestituzione(dataRestituzione);
+        
+        assertEquals(dataRestituzione, prestito.getDataRestituzione());
+        assertFalse(prestito.isAttivo());
+    } @Test
+    void testIsInRitardoFalsoSeNonScaduto() {
+        LocalDate primaDellaScadenza = LocalDate.of(2023, 1, 15);
+        assertFalse(prestito.isInRitardo(primaDellaScadenza));
+    } @Test
+    void testIsInRitardoFalsoSeGiornoEsatto() {
+        assertFalse(prestito.isInRitardo(dataPrevista));
+    } @Test
+    void testIsInRitardoVeroSeScaduto() {
+        LocalDate dopoScadenza = LocalDate.of(2023, 2, 2);
+        assertTrue(prestito.isInRitardo(dopoScadenza));
+    } @Test
+    void testIsInRitardoFalsoSeRestituito() {
+        prestito.setDataRestituzione(LocalDate.of(2023, 2, 5)); 
+        LocalDate controllo = LocalDate.of(2023, 2, 10);
+        
+        assertFalse(prestito.isInRitardo(controllo));
+    } @Test
+    void testIsInRitardoInputNull() {
+        Prestito prestitoScaduto = new Prestito(utente, libro, LocalDate.now().minusDays(10), LocalDate.now().minusDays(1));
+        assertTrue(prestitoScaduto.isInRitardo(null));
 
-    /**
-     * Test of getUtente method, of class Prestito.
-     */
-    @Test
-    public void testGetUtente() {
-        System.out.println("getUtente");
-        Prestito instance = null;
-        Utente expResult = null;
-        Utente result = instance.getUtente();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Prestito prestitoNonScaduto = new Prestito(utente, libro, LocalDate.now(), LocalDate.now().plusDays(10));
+        assertFalse(prestitoNonScaduto.isInRitardo(null));
+    } @Test
+    void testEquals() {
+        Prestito stessoPrestito = new Prestito(utente, libro, dataInizio, LocalDate.of(2023, 3, 1));
+        
+        Utente altroUtente = new Utente("Giuseppe", "Luongo", "0612709547", "g.luongo@unisa.it");
+        Prestito prestitoUtenteDiverso = new Prestito(altroUtente, libro, dataInizio, dataPrevista);
+        
+        Libro altroLibro = new Libro(999L, "B", new ArrayList<>(), 2000, 1);
+        Prestito prestitoLibroDiverso = new Prestito(utente, altroLibro, dataInizio, dataPrevista);
+        
+        Prestito prestitoDataDiversa = new Prestito(utente, libro, LocalDate.of(2023, 1, 2), dataPrevista);
 
-    /**
-     * Test of getLibro method, of class Prestito.
-     */
-    @Test
-    public void testGetLibro() {
-        System.out.println("getLibro");
-        Prestito instance = null;
-        Libro expResult = null;
-        Libro result = instance.getLibro();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDataInizio method, of class Prestito.
-     */
-    @Test
-    public void testGetDataInizio() {
-        System.out.println("getDataInizio");
-        Prestito instance = null;
-        LocalDate expResult = null;
-        LocalDate result = instance.getDataInizio();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDataPrevistaRestituzione method, of class Prestito.
-     */
-    @Test
-    public void testGetDataPrevistaRestituzione() {
-        System.out.println("getDataPrevistaRestituzione");
-        Prestito instance = null;
-        LocalDate expResult = null;
-        LocalDate result = instance.getDataPrevistaRestituzione();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getDataRestituzione method, of class Prestito.
-     */
-    @Test
-    public void testGetDataRestituzione() {
-        System.out.println("getDataRestituzione");
-        Prestito instance = null;
-        LocalDate expResult = null;
-        LocalDate result = instance.getDataRestituzione();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setDataRestituzione method, of class Prestito.
-     */
-    @Test
-    public void testSetDataRestituzione() {
-        System.out.println("setDataRestituzione");
-        LocalDate dataRestituzione = null;
-        Prestito instance = null;
-        instance.setDataRestituzione(dataRestituzione);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isAttivo method, of class Prestito.
-     */
-    @Test
-    public void testIsAttivo() {
-        System.out.println("isAttivo");
-        Prestito instance = null;
-        boolean expResult = false;
-        boolean result = instance.isAttivo();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isInRitardo method, of class Prestito.
-     */
-    @Test
-    public void testIsInRitardo() {
-        System.out.println("isInRitardo");
-        LocalDate oggi = null;
-        Prestito instance = null;
-        boolean expResult = false;
-        boolean result = instance.isInRitardo(oggi);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of equals method, of class Prestito.
-     */
-    @Test
-    public void testEquals() {
-        System.out.println("equals");
-        Object o = null;
-        Prestito instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(o);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of hashCode method, of class Prestito.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        Prestito instance = null;
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
-}
+        assertEquals(prestito, stessoPrestito); 
+        assertNotEquals(prestito, prestitoUtenteDiverso);
+        assertNotEquals(prestito, prestitoLibroDiverso);
+        assertNotEquals(prestito, prestitoDataDiversa);
+        assertNotEquals(prestito, null);
+        assertNotEquals(prestito, new Object());
+    } @Test
+    void testHashCode() {
+        Prestito stessoPrestito = new Prestito(utente, libro, dataInizio, LocalDate.of(2099, 12, 31));
+        assertEquals(prestito.hashCode(), stessoPrestito.hashCode());
+    } }

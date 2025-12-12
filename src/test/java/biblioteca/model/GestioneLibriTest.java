@@ -1,151 +1,210 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package biblioteca.model;
 
+
+import org.junit.jupiter.api.BeforeEach;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author tommy
- */
-public class GestioneLibriTest {
-    
-    public GestioneLibriTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
+class GestioneLibriTest {
+
+    private GestioneLibri gestioneLibri;
+
     @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+    void setUp() {
+        gestioneLibri = new GestioneLibri();
     }
 
-    /**
-     * Test of getLibri method, of class GestioneLibri.
-     */
     @Test
-    public void testGetLibri() {
-        System.out.println("getLibri");
-        GestioneLibri instance = new GestioneLibri();
-        TreeSet<Libro> expResult = null;
-        TreeSet<Libro> result = instance.getLibri();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testCostruttoreDefault() {
+        assertNotNull(gestioneLibri.getLibri());
+        assertTrue(gestioneLibri.getLibri().isEmpty());
     }
 
-    /**
-     * Test of getLibriOrdinatiPerTitolo method, of class GestioneLibri.
-     */
     @Test
-    public void testGetLibriOrdinatiPerTitolo() {
-        System.out.println("getLibriOrdinatiPerTitolo");
-        GestioneLibri instance = new GestioneLibri();
-        List<Libro> expResult = null;
-        List<Libro> result = instance.getLibriOrdinatiPerTitolo();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testCostruttoreConParametri() {
+        TreeSet<Libro> setIniziale = new TreeSet<>();
+        setIniziale.add(new Libro(12345L, "Titolo", new ArrayList<>(), 2020, 5));
+        
+        GestioneLibri gl = new GestioneLibri(setIniziale);
+        assertEquals(1, gl.getLibri().size());
     }
 
-    /**
-     * Test of inserisciLibro method, of class GestioneLibri.
-     */
     @Test
-    public void testInserisciLibro() {
-        System.out.println("inserisciLibro");
-        long isbn = 0L;
-        String titolo = "";
-        List<String> autori = null;
-        int annoPubblicazione = 0;
-        int copieTotali = 0;
-        GestioneLibri instance = new GestioneLibri();
-        Libro expResult = null;
-        Libro result = instance.inserisciLibro(isbn, titolo, autori, annoPubblicazione, copieTotali);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testCostruttoreConParametriNull() {
+        GestioneLibri gl = new GestioneLibri(null);
+        assertNotNull(gl.getLibri());
+        assertTrue(gl.getLibri().isEmpty());
     }
 
-    /**
-     * Test of modificaLibro method, of class GestioneLibri.
-     */
     @Test
-    public void testModificaLibro() {
-        System.out.println("modificaLibro");
-        Libro libro = null;
-        String titolo = "";
-        List<String> autori = null;
-        int annoPubblicazione = 0;
-        int copieTotali = 0;
-        GestioneLibri instance = new GestioneLibri();
-        instance.modificaLibro(libro, titolo, autori, annoPubblicazione, copieTotali);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testInserisciLibroNuovo() {
+        long isbn = 978880000L;
+        String titolo = "Java Programming";
+        List<String> autori = Arrays.asList("Rossi", "Bianchi");
+        int anno = 2023;
+        int copie = 10;
+
+        Libro libro = gestioneLibri.inserisciLibro(isbn, titolo, autori, anno, copie);
+
+        assertNotNull(libro);
+        assertEquals(1, gestioneLibri.getLibri().size());
+        assertEquals(isbn, libro.getIsbn());
+        assertEquals(titolo, libro.getTitolo());
+        assertEquals(copie, libro.getCopieTotali());
+        assertEquals(copie, libro.getCopieDisponibili()); 
     }
 
-    /**
-     * Test of eliminaLibro method, of class GestioneLibri.
-     */
     @Test
-    public void testEliminaLibro() {
-        System.out.println("eliminaLibro");
-        String codiceIsbn = "";
-        GestioneLibri instance = new GestioneLibri();
-        instance.eliminaLibro(codiceIsbn);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testInserisciLibroEsistenteIncrementaCopie() {
+        long isbn = 978880000L;
+        gestioneLibri.inserisciLibro(isbn, "Titolo 1", new ArrayList<>(), 2020, 5);
+
+        Libro aggiornato = gestioneLibri.inserisciLibro(isbn, "Titolo 1", new ArrayList<>(), 2020, 3);
+
+        assertEquals(1, gestioneLibri.getLibri().size());
+        assertEquals(8, aggiornato.getCopieTotali()); 
+        assertEquals(8, aggiornato.getCopieDisponibili()); 
     }
 
-    /**
-     * Test of cercaLibri method, of class GestioneLibri.
-     */
     @Test
-    public void testCercaLibri() {
-        System.out.println("cercaLibri");
-        String codiceIsbn = "";
-        String titolo = "";
-        String autore = "";
-        GestioneLibri instance = new GestioneLibri();
-        TreeSet<Libro> expResult = null;
-        TreeSet<Libro> result = instance.cercaLibri(codiceIsbn, titolo, autore);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testInserisciLibroCopieNegative() {
+        assertThrows(IllegalArgumentException.class, () -> 
+            gestioneLibri.inserisciLibro(111L, "Test", new ArrayList<>(), 2021, 0)
+        );
+        assertThrows(IllegalArgumentException.class, () -> 
+            gestioneLibri.inserisciLibro(111L, "Test", new ArrayList<>(), 2021, -5)
+        );
     }
 
-    /**
-     * Test of trovaLibro method, of class GestioneLibri.
-     */
     @Test
-    public void testTrovaLibro() {
-        System.out.println("trovaLibro");
-        long isbn = 0L;
-        GestioneLibri instance = new GestioneLibri();
-        Libro expResult = null;
-        Libro result = instance.trovaLibro(isbn);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testModificaLibro() {
+        long isbn = 12345L;
+        Libro libro = gestioneLibri.inserisciLibro(isbn, "Vecchio Titolo", new ArrayList<>(), 2000, 1);
+        
+        String nuovoTitolo = "Nuovo Titolo";
+        List<String> nuoviAutori = Arrays.asList("Nuovo Autore");
+        int nuovoAnno = 2024;
+        int nuoveCopie = 5;
+
+        gestioneLibri.modificaLibro(libro, nuovoTitolo, nuoviAutori, nuovoAnno, nuoveCopie);
+
+        assertEquals(nuovoTitolo, libro.getTitolo());
+        assertEquals(nuoviAutori, libro.getAutori());
+        assertEquals(nuovoAnno, libro.getAnnoPubblicazione());
+        assertEquals(nuoveCopie, libro.getCopieTotali());
     }
-    
+
+    @Test
+    void testModificaLibroNull() {
+        assertDoesNotThrow(() -> 
+            gestioneLibri.modificaLibro(null, "A", new ArrayList<>(), 2020, 1)
+        );
+    }
+
+    @Test
+    void testEliminaLibroEsistente() {
+        long isbn = 11111L;
+        gestioneLibri.inserisciLibro(isbn, "Da Eliminare", new ArrayList<>(), 2020, 1);
+        
+        gestioneLibri.eliminaLibro(String.valueOf(isbn));
+        
+        assertTrue(gestioneLibri.getLibri().isEmpty());
+    }
+
+    @Test
+    void testEliminaLibroNonEsistente() {
+        gestioneLibri.inserisciLibro(123L, "Da Tenere", new ArrayList<>(), 2020, 1);
+        
+        gestioneLibri.eliminaLibro("99999");
+        
+        assertEquals(1, gestioneLibri.getLibri().size());
+    }
+
+    @Test
+    void testEliminaLibroInputNonValido() {
+        gestioneLibri.inserisciLibro(123L, "Libro", new ArrayList<>(), 2020, 1);
+        
+        gestioneLibri.eliminaLibro(null);
+        assertEquals(1, gestioneLibri.getLibri().size());
+
+        gestioneLibri.eliminaLibro("");
+        assertEquals(1, gestioneLibri.getLibri().size());
+
+        gestioneLibri.eliminaLibro("abc");
+        assertEquals(1, gestioneLibri.getLibri().size());
+    }
+
+    @Test
+    void testTrovaLibro() {
+        long isbn = 555L;
+        gestioneLibri.inserisciLibro(isbn, "Cercami", new ArrayList<>(), 2021, 1);
+
+        Libro trovato = gestioneLibri.trovaLibro(isbn);
+        assertNotNull(trovato);
+        assertEquals("Cercami", trovato.getTitolo());
+
+        Libro nonTrovato = gestioneLibri.trovaLibro(999L);
+        assertNull(nonTrovato);
+    }
+
+    @Test
+    void testGetLibriOrdinatiPerTitolo() {
+        gestioneLibri.inserisciLibro(1L, "Zebra", new ArrayList<>(), 2020, 1);
+        gestioneLibri.inserisciLibro(2L, "albero", new ArrayList<>(), 2020, 1);
+        gestioneLibri.inserisciLibro(3L, "Casa", new ArrayList<>(), 2020, 1);
+
+        List<Libro> ordinati = gestioneLibri.getLibriOrdinatiPerTitolo();
+
+        assertEquals(3, ordinati.size());
+        assertEquals("albero", ordinati.get(0).getTitolo()); 
+        assertEquals("Casa", ordinati.get(1).getTitolo());
+        assertEquals("Zebra", ordinati.get(2).getTitolo());
+    }
+
+    @Test
+    void testCercaLibriPerIsbn() {
+        gestioneLibri.inserisciLibro(100L, "Libro A", new ArrayList<>(), 2020, 1);
+        gestioneLibri.inserisciLibro(200L, "Libro B", new ArrayList<>(), 2020, 1);
+
+        TreeSet<Libro> result = gestioneLibri.cercaLibri("100", null, null);
+        assertEquals(1, result.size());
+        assertEquals(100L, result.first().getIsbn());
+    }
+
+    @Test
+    void testCercaLibriPerTitoloParziale() {
+        gestioneLibri.inserisciLibro(1L, "Harry Potter 1", new ArrayList<>(), 2000, 1);
+        gestioneLibri.inserisciLibro(2L, "Harry Potter 2", new ArrayList<>(), 2002, 1);
+        gestioneLibri.inserisciLibro(3L, "Lord of the Rings", new ArrayList<>(), 1954, 1);
+
+        TreeSet<Libro> result = gestioneLibri.cercaLibri(null, "potter", null);
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    void testCercaLibriPerAutore() {
+        gestioneLibri.inserisciLibro(1L, "Libro 1", Arrays.asList("Tolkien"), 1954, 1);
+        gestioneLibri.inserisciLibro(2L, "Libro 2", Arrays.asList("Rowling"), 2000, 1);
+
+        TreeSet<Libro> result = gestioneLibri.cercaLibri(null, null, "tolkien");
+        assertEquals(1, result.size());
+        assertEquals("Libro 1", result.first().getTitolo());
+    }
+
+    @Test
+    void testCercaLibriInputVuoti() {
+        gestioneLibri.inserisciLibro(1L, "A", new ArrayList<>(), 2000, 1);
+        gestioneLibri.inserisciLibro(2L, "B", new ArrayList<>(), 2000, 1);
+
+        TreeSet<Libro> result = gestioneLibri.cercaLibri(null, "", "   ");
+        assertEquals(2, result.size());
+    }
 }

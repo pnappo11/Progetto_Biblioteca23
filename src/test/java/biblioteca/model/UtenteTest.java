@@ -1,289 +1,182 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package biblioteca.model;
 
-import java.util.List;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author tommy
- */
-public class UtenteTest {
-    
-    public UtenteTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
+class UtenteTest {
+
+    private Utente utente;
+    private final String MATRICOLA = "123456";
+
     @BeforeEach
-    public void setUp() {
+    void setUp() {
+        utente = new Utente(MATRICOLA, "Mario", "Rossi", "mario.rossi@test.com");
     }
+
+    @Test
+            
+    void testCostruttore() {
+        assertEquals(MATRICOLA, utente.getMatricola());
+        assertEquals("Mario", utente.getNome());
+        assertEquals("Rossi", utente.getCognome());
+        assertEquals("mario.rossi@test.com", utente.getEmail());
+        assertFalse(utente.isInBlacklist());
+        assertNotNull(utente.getPrestitiAttivi());
+        assertEquals(0, utente.getNumPrestitiAttivi());
+    }
+    @Test
+            
+    void testSetters() {
+        utente.setNome("Luigi");
+        assertEquals("Luigi", utente.getNome());
+
+        utente.setCognome("Bianchi");
+        assertEquals("Bianchi", utente.getCognome());
+
+        utente.setEmail("luigi.bianchi@test.com");
+        assertEquals("luigi.bianchi@test.com", utente.getEmail());
+
+        utente.setInBlacklist(true);
+        assertTrue(utente.isInBlacklist());
+        
     
-    @AfterEach
-    public void tearDown() {
+    }    
+    
+    
+    
+    @Test
+    void testAggiungiPrestito() {
+        Libro libro = new Libro(1L, "Titolo", new ArrayList<>(), 2020, 5, 5);
+        Prestito prestito = new Prestito(utente, libro, LocalDate.now(), LocalDate.now().plusDays(30));
+
+        utente.aggiungiPrestito(prestito);
+
+        assertEquals(1, utente.getNumPrestitiAttivi());
+        assertTrue(utente.getPrestitiAttivi().contains(prestito));
     }
 
-    /**
-     * Test of getMatricola method, of class Utente.
-     */
+    
     @Test
-    public void testGetMatricola() {
-        System.out.println("getMatricola");
-        Utente instance = null;
-        String expResult = "";
-        String result = instance.getMatricola();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testAggiungiPrestitoNull() {
+        utente.aggiungiPrestito(null);
+        assertEquals(0, utente.getNumPrestitiAttivi());
     }
 
-    /**
-     * Test of getNome method, of class Utente.
-     */
+    
     @Test
-    public void testGetNome() {
-        System.out.println("getNome");
-        Utente instance = null;
-        String expResult = "";
-        String result = instance.getNome();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testAggiungiPrestitoDuplicato() {
+        Libro libro = new Libro(1L, "Titolo", new ArrayList<>(), 2020, 5, 5);
+        Prestito prestito = new Prestito(utente, libro, LocalDate.now(), LocalDate.now().plusDays(30));
+
+        utente.aggiungiPrestito(prestito);
+        utente.aggiungiPrestito(prestito);
+
+        assertEquals(1, utente.getNumPrestitiAttivi());
     }
 
-    /**
-     * Test of setNome method, of class Utente.
-     */
+    
     @Test
-    public void testSetNome() {
-        System.out.println("setNome");
-        String nome = "";
-        Utente instance = null;
-        instance.setNome(nome);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testRimuoviPrestito() {
+        Libro libro = new Libro(1L, "Titolo", new ArrayList<>(), 2020, 5, 5);
+        Prestito prestito = new Prestito(utente, libro, LocalDate.now(), LocalDate.now().plusDays(30));
+
+        utente.aggiungiPrestito(prestito);
+        utente.rimuoviPrestito(prestito);
+
+        assertEquals(0, utente.getNumPrestitiAttivi());
+        assertFalse(utente.getPrestitiAttivi().contains(prestito));
     }
 
-    /**
-     * Test of getCognome method, of class Utente.
-     */
+    
     @Test
-    public void testGetCognome() {
-        System.out.println("getCognome");
-        Utente instance = null;
-        String expResult = "";
-        String result = instance.getCognome();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testGetPrestitiAttiviUnmodifiable() {
+        List<Prestito> prestiti = utente.getPrestitiAttivi();
+        assertThrows(UnsupportedOperationException.class, () -> prestiti.add(null));
     }
 
-    /**
-     * Test of setCognome method, of class Utente.
-     */
+    
     @Test
-    public void testSetCognome() {
-        System.out.println("setCognome");
-        String cognome = "";
-        Utente instance = null;
-        instance.setCognome(cognome);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testCanNuovoPrestitoSuccesso() {
+        assertTrue(utente.canNuovoPrestito());
     }
 
-    /**
-     * Test of getEmail method, of class Utente.
-     */
+    
     @Test
-    public void testGetEmail() {
-        System.out.println("getEmail");
-        Utente instance = null;
-        String expResult = "";
-        String result = instance.getEmail();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testCanNuovoPrestitoBlacklist() {
+        utente.setInBlacklist(true);
+        assertFalse(utente.canNuovoPrestito());
     }
 
-    /**
-     * Test of setEmail method, of class Utente.
-     */
+    
     @Test
-    public void testSetEmail() {
-        System.out.println("setEmail");
-        String email = "";
-        Utente instance = null;
-        instance.setEmail(email);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testCanNuovoPrestitoMaxRaggiunto() {
+        for (int i = 0; i < Utente.MAX_PRESTITI; i++) {
+            Libro l = new Libro((long) i, "T", new ArrayList<>(), 2000, 1, 1);
+            Prestito p = new Prestito(utente, l, LocalDate.now(), LocalDate.now().plusDays(30));
+            utente.aggiungiPrestito(p);
+        }
+
+        assertEquals(Utente.MAX_PRESTITI, utente.getNumPrestitiAttivi());
+        assertFalse(utente.canNuovoPrestito());
     }
 
-    /**
-     * Test of isInBlacklist method, of class Utente.
-     */
+    
     @Test
-    public void testIsInBlacklist() {
-        System.out.println("isInBlacklist");
-        Utente instance = null;
-        boolean expResult = false;
-        boolean result = instance.isInBlacklist();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testEquals() {
+        Utente stessoUtente = new Utente(MATRICOLA, "Altro", "Nome", "email");
+        Utente diversoUtente = new Utente("999999", "Mario", "Rossi", "email");
+
+        assertEquals(utente, stessoUtente);
+        assertNotEquals(utente, diversoUtente);
+        assertNotEquals(utente, null);
+        assertNotEquals(utente, new Object());
     }
 
-    /**
-     * Test of setInBlacklist method, of class Utente.
-     */
+    
     @Test
-    public void testSetInBlacklist() {
-        System.out.println("setInBlacklist");
-        boolean valore = false;
-        Utente instance = null;
-        instance.setInBlacklist(valore);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testHashCode() {
+        Utente stessoUtente = new Utente(MATRICOLA, "X", "Y", "Z");
+        assertEquals(utente.hashCode(), stessoUtente.hashCode());
     }
 
-    /**
-     * Test of getNumPrestitiAttivi method, of class Utente.
-     */
+    
     @Test
-    public void testGetNumPrestitiAttivi() {
-        System.out.println("getNumPrestitiAttivi");
-        Utente instance = null;
-        int expResult = 0;
-        int result = instance.getNumPrestitiAttivi();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testCompareTo() {
+        Utente u1 = new Utente("A100", "N", "C", "E");
+        Utente u2 = new Utente("B100", "N", "C", "E");
+        Utente u3 = new Utente("A100", "X", "Y", "Z");
+
+        assertTrue(u1.compareTo(u2) < 0);
+        assertTrue(u2.compareTo(u1) > 0);
+        assertEquals(0, u1.compareTo(u3));
     }
 
-    /**
-     * Test of getPrestitiAttivi method, of class Utente.
-     */
+    
     @Test
-    public void testGetPrestitiAttivi() {
-        System.out.println("getPrestitiAttivi");
-        Utente instance = null;
-        List<Prestito> expResult = null;
-        List<Prestito> result = instance.getPrestitiAttivi();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testCompareToNull() {
+        assertEquals(1, utente.compareTo(null));
+        
+        Utente utenteNullMatricola = new Utente(null, "A", "B", "C");
+        assertEquals(1, utente.compareTo(utenteNullMatricola));
+        assertEquals(-1, utenteNullMatricola.compareTo(utente));
     }
 
-    /**
-     * Test of canNuovoPrestito method, of class Utente.
-     */
+    
     @Test
-    public void testCanNuovoPrestito() {
-        System.out.println("canNuovoPrestito");
-        Utente instance = null;
-        boolean expResult = false;
-        boolean result = instance.canNuovoPrestito();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of aggiungiPrestito method, of class Utente.
-     */
-    @Test
-    public void testAggiungiPrestito() {
-        System.out.println("aggiungiPrestito");
-        Prestito prestito = null;
-        Utente instance = null;
-        instance.aggiungiPrestito(prestito);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of rimuoviPrestito method, of class Utente.
-     */
-    @Test
-    public void testRimuoviPrestito() {
-        System.out.println("rimuoviPrestito");
-        Prestito prestito = null;
-        Utente instance = null;
-        instance.rimuoviPrestito(prestito);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of compareTo method, of class Utente.
-     */
-    @Test
-    public void testCompareTo() {
-        System.out.println("compareTo");
-        Utente o = null;
-        Utente instance = null;
-        int expResult = 0;
-        int result = instance.compareTo(o);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of equals method, of class Utente.
-     */
-    @Test
-    public void testEquals() {
-        System.out.println("equals");
-        Object o = null;
-        Utente instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(o);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of hashCode method, of class Utente.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        Utente instance = null;
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class Utente.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        Utente instance = null;
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testToString() {
+        String s = utente.toString();
+        assertNotNull(s);
+        assertTrue(s.contains(MATRICOLA));
+        assertTrue(s.contains("Mario"));
+        assertTrue(s.contains("Rossi"));
     }
     
 }
