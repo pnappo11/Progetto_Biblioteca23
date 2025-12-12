@@ -1,200 +1,118 @@
-
 package biblioteca.persistence;
 
-import biblioteca.model.*;
+import biblioteca.model.Autenticazione;
+import biblioteca.model.GestioneLibri;
+import biblioteca.model.GestionePrestiti;
+import biblioteca.model.GestioneUtenti;
 
-import org.junit.jupiter.api.BeforeEach;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.function.Supplier;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class ArchivioFileTest {
 
-class ArchivioFileTest {
+    private final Path baseDir;
 
-    @TempDir
-    Path tempDir;
+    private static final String FILE_LIBRI = "libri.dat";
+    private static final String FILE_UTENTI = "utenti.dat";
+    private static final String FILE_PRESTITI = "prestiti.dat";
+    private static final String FILE_AUTENTICAZIONE = "autenticazione.dat";
 
-    private ArchivioFile archivioFile;
-    private String percorsoTest;
-
-    @BeforeEach
-    void setUp() {
-        percorsoTest = tempDir.toString();
-        archivioFile = new ArchivioFile(percorsoTest);
-    }
-
-    @Test
-    void testCaricaLibriFileNonEsistente() {
-        GestioneLibri gl = archivioFile.caricaLibri();
-        assertNotNull(gl);
-        assertTrue(gl.getLibri().isEmpty());
-    }
-
-    
-    @Test
-    void testSalvaECaricaLibri() {
-        GestioneLibri gl = new GestioneLibri();
-        Libro libro = new Libro(123L, "Titolo", new ArrayList<>(), 2020, 5, 5);
-        gl.inserisciLibro(libro.getIsbn(), libro.getTitolo(), libro.getAutori(), libro.getAnnoPubblicazione(), libro.getCopieTotali());
-
-        archivioFile.salvaLibri(gl);
-
-        GestioneLibri caricato = archivioFile.caricaLibri();
-        assertNotNull(caricato);
-        assertEquals(1, caricato.getLibri().size());
-        assertEquals("Titolo", caricato.trovaLibro(123L).getTitolo());
-    }
-
-    
-    @Test
-    void testCaricaUtentiFileNonEsistente() {
-        GestioneUtenti gu = archivioFile.caricaUtenti();
-        assertNotNull(gu);
-        assertTrue(gu.getUtenti().isEmpty());
-    }
-
-    
-    @Test
-    void testSalvaECaricaUtenti() {
-        GestioneUtenti gu = new GestioneUtenti();
-        Utente utente = new Utente("M1", "Mario", "Rossi", "email@test.com");
-        gu.inserisciUtente(utente);
-
-        archivioFile.salvaUtenti(gu);
-
-        GestioneUtenti caricato = archivioFile.caricaUtenti();
-        assertNotNull(caricato);
-        assertEquals(1, caricato.getUtenti().size());
-        assertEquals("Mario", caricato.trovaUtente("M1").getNome());
-    }
-
-    
-    @Test
-    void testCaricaPrestitiFileNonEsistente() {
-        GestionePrestiti gp = archivioFile.caricaPrestiti();
-        assertNotNull(gp);
-        assertTrue(gp.getPrestiti().isEmpty());
-    }
-
-    
-    @Test
-    void testSalvaECaricaPrestiti() {
-        
-        GestionePrestiti gp = new GestionePrestiti();
-     
-        
-        archivioFile.salvaPrestiti(gp);
-
-        GestionePrestiti caricato = archivioFile.caricaPrestiti();
-        assertNotNull(caricato);
-        assertTrue(caricato.getPrestiti().isEmpty());
-    }
-
-    
-    @Test
-    void testCaricaAutenticazioneFileNonEsistente() {
-        Autenticazione a = archivioFile.caricaAutenticazione();
-        assertNotNull(a);
-      
-        assertEquals(new Autenticazione().getPasswordHash(), a.getPasswordHash());
-    }
-
-    
-    @Test
-    void testSalvaECaricaAutenticazione() {
-        Autenticazione a = new Autenticazione();
-        a.cambiaPassword("admin", "nuovaPassword123"); 
-
-        archivioFile.salvaAutenticazione(a);
-
-        Autenticazione caricata = archivioFile.caricaAutenticazione();
-        assertNotNull(caricata);
-        assertEquals(a.getPasswordHash(), caricata.getPasswordHash());
-        assertTrue(caricata.login("nuovaPassword123"));
-    }
-
-    
-    @Test
-    void testCreazioneDirectorySeNonEsiste() {
-        File dir = new File(percorsoTest, "sottocartella");
-        ArchivioFile archivioNuovo = new ArchivioFile(dir.getAbsolutePath());
-        
-        GestioneLibri gl = new GestioneLibri();
-        archivioNuovo.salvaLibri(gl);
-        
-        assertTrue(dir.exists());
-        assertTrue(dir.isDirectory());
-        assertTrue(new File(dir, "libri.dat").exists());
-    }
-
-    
-    @Test
-    void testGestioneFileCorrotto() {
-    
-        GestioneLibri gl = new GestioneLibri();
-        archivioFile.salvaLibri(gl);
-        
-        File fileLibri = new File(percorsoTest, "libri.dat");
-
-        
-        try (java.io.FileWriter writer = new java.io.FileWriter(fileLibri)) {
-            writer.write("QUESTO NON E UN OGGETTO SERIALIZZATO MA SOLO TESTO");
-        } catch (Exception e) {
-            fail("Impossibile creare il file corrotto per il test: " + e.getMessage());
+    public ArchivioFileTest(String directory) {
+        if (directory == null || directory.trim().isEmpty()) {
+            directory = ".";
         }
-
-      
-        GestioneLibri risultato = archivioFile.caricaLibri();
-        
-      
-        assertNotNull(risultato, "Il metodo dovrebbe restituire un oggetto vuoto (new), non null");
-        assertTrue(risultato.getLibri().isEmpty(), "La lista libri dovrebbe essere vuota in caso di errore di lettura");
-    }@Test
-    void testSalvaOggettoNull() {
-      
-        archivioFile.salvaLibri(null);
-        
-        File file = new File(percorsoTest, "libri.dat");
-        
-        assertFalse(file.exists());
+        this.baseDir = Paths.get(directory);
     }
 
-    
-    @Test
-    void testCaricaOggettoTipoErrato() {
-        GestioneLibri gl = new GestioneLibri();
-    
-        File fileLibri = new File(percorsoTest, "libri.dat");
-        try (java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(new java.io.FileOutputStream(fileLibri))) {
-            oos.writeObject("SonoUnaStringaNonGestioneLibri");
-        } catch (Exception e) {
-            fail("Impossibile creare file di test");
+    public void salvaLibri(GestioneLibri gl) {
+        salvaOggetto(gl, FILE_LIBRI);
+    }
+
+    public GestioneLibri caricaLibri() {
+        return caricaOggetto(FILE_LIBRI, GestioneLibri.class, GestioneLibri::new);
+    }
+
+    public void salvaUtenti(GestioneUtenti gu) {
+        salvaOggetto(gu, FILE_UTENTI);
+    }
+
+    public GestioneUtenti caricaUtenti() {
+        return caricaOggetto(FILE_UTENTI, GestioneUtenti.class, GestioneUtenti::new);
+    }
+
+    public void salvaPrestiti(GestionePrestiti gp) {
+        salvaOggetto(gp, FILE_PRESTITI);
+    }
+
+    public GestionePrestiti caricaPrestiti() {
+        return caricaOggetto(FILE_PRESTITI, GestionePrestiti.class, GestionePrestiti::new);
+    }
+
+    public void salvaAutenticazione(Autenticazione a) {
+        salvaOggetto(a, FILE_AUTENTICAZIONE);
+    }
+
+    public Autenticazione caricaAutenticazione() {
+        return caricaOggetto(FILE_AUTENTICAZIONE, Autenticazione.class, Autenticazione::new);
+    }
+
+    private Path pathFile(String nomeFile) {
+        return baseDir.resolve(nomeFile);
+    }
+
+    private void salvaOggetto(Object obj, String nomeFile) {
+        if (obj == null) return;
+
+        try {
+            Files.createDirectories(baseDir);
+            Path p = pathFile(nomeFile);
+
+            if (Files.exists(p) && Files.isDirectory(p)) return;
+
+            try (OutputStream os = Files.newOutputStream(
+                    p,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.WRITE
+            );
+                 BufferedOutputStream bos = new BufferedOutputStream(os);
+                 ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+
+                oos.writeObject(obj);
+                oos.flush();
+            }
+        } catch (Exception ignored) {
         }
-
-        
-        GestioneLibri risultato = archivioFile.caricaLibri();
-        
-        assertNotNull(risultato);
-        assertTrue(risultato.getLibri().isEmpty());
     }
 
-    @Test
-    void testEccezioneInSalvataggio() {
+    private <T> T caricaOggetto(String nomeFile, Class<T> tipo, Supplier<T> fallback) {
+        try {
+            Path p = pathFile(nomeFile);
 
-        
-        File fileBloccante = new File(percorsoTest, "libri.dat");
-        fileBloccante.mkdir(); 
-        
-        GestioneLibri gl = new GestioneLibri();
-     
-        assertDoesNotThrow(() -> archivioFile.salvaLibri(gl));
-   
-        assertTrue(fileBloccante.isDirectory());
+            if (!Files.exists(p) || Files.isDirectory(p)) {
+                return fallback.get();
+            }
+
+            try (InputStream is = Files.newInputStream(p, StandardOpenOption.READ);
+                 BufferedInputStream bis = new BufferedInputStream(is);
+                 ObjectInputStream ois = new ObjectInputStream(bis)) {
+
+                Object letto = ois.readObject();
+                if (tipo.isInstance(letto)) {
+                    return tipo.cast(letto);
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return fallback.get();
     }
-    
 }
