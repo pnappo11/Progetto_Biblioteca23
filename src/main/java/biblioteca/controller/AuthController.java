@@ -8,7 +8,7 @@ import biblioteca.view.LoginView;
  * Questa classe gestisce la logica di interazione tra la vista di login e il modello
  * di autenticazione, coordinando l'accesso al menu principale.
  */
-public class Authcontroller {
+public class AuthController {
 
     private final Autenticazione bibliotecario;
     private final LoginView loginView;
@@ -22,7 +22,7 @@ public class Authcontroller {
      * @param loginView       La vista che fornisce l'interfaccia utente per il login.
      * @param mainController  Il controller principale per la navigazione tra le viste.
      */
-    public Authcontroller(Autenticazione bibliotecario,
+    public AuthController(Autenticazione bibliotecario,
                            LoginView loginView,
                            MainController mainController) {
         this.bibliotecario = bibliotecario;

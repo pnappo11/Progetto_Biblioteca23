@@ -90,7 +90,7 @@ public class MainController {
         stage.centerOnScreen();
 
 
-        new Authcontroller(bibliotecario, loginView, this);
+        new AuthController(bibliotecario, loginView, this);
     }
 
     /**
