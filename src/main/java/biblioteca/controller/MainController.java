@@ -1,143 +1,169 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/*
- * Controller principale dell'applicazione.
- *
- * Si occupa di:
- * - inizializzare i gestori del model e la persistenza;
- * - gestire il passaggio tra Login, Menu e Finestra principale (tab);
- * - creare i controller delle singole sezioni (Libri, Utenti, Prestiti).
- */
-package biblioteca.controller;
+package biblioteca.controller2;
 
-import biblioteca.model.Autenticazione;
-import biblioteca.model.GestioneLibri;
-import biblioteca.model.GestionePrestiti;
-import biblioteca.model.GestioneUtenti;
-import biblioteca.persistence.ArchivioFile;
-import biblioteca.view.LoginView;
-import biblioteca.view.MainFrame;
-import biblioteca.view.MenuView;
+import biblioteca.model2.Autenticazione2;
+import biblioteca.model2.GestioneLibri;
+import biblioteca.model2.GestionePrestiti2;
+import biblioteca.model2.GestioneUtenti2;
+import biblioteca.persistence.ArchivioFile2;
+import biblioteca.view2.LoginView2;
+import biblioteca.view2.MainFrame2;
+import biblioteca.view2.MenuView2;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * @brief Controller principale che orchestra la navigazione e il ciclo di vita dell'applicazione.
- *
- * La classe {@code MainController} funge da punto centralizzato per:
- * <ul>
- * <li>Inizializzare e mantenere le istanze condivise dei modelli ({@link GestioneLibri}, {@link GestioneUtenti}, ecc.).</li>
- * <li>Gestire la finestra principale ({@link Stage}) di JavaFX.</li>
- * <li>Gestire le transizioni tra le diverse viste (Login -> Menu -> Dashboard Principale).</li>
- * <li>Gestire la persistenza dei dati tramite {@link ArchivioFile}.</li>
- * </ul>
- *
- * @author tommy
+ * @brief Controller principale dell'applicazione (Main Controller).
+ * * Questa classe funge da punto di ingresso e orchestratore per l'intera applicazione.
+ * Gestisce il ciclo di vita della finestra principale (Stage), inizializza i modelli e
+ * gestisce la navigazione tra le diverse scene (Login, Menu, Gestione principale).
  */
-public class MainController {
+public class MainController2 {
 
-    /**
-     * @brief La finestra principale (top-level container) dell'applicazione JavaFX.
-     * Tutte le scene (Login, Menu, MainFrame) vengono caricate qui dentro.
-     */
+
     private final Stage stage;
 
-    // --- Modelli (Business Logic) ---
-    /**
-     * @brief Modello per la gestione dell'inventario libri.
-     */
+
     private final GestioneLibri gestioneLibri;
+    private final GestioneUtenti2 gestioneUtenti;
+    private final GestionePrestiti2 gestionePrestiti;
+    private PrestitiController2 prestitiController;
+
+    private final Autenticazione2 bibliotecario;
+
+
+    private final ArchivioFile2 archivio;
 
     /**
-     * @brief Modello per la gestione dell'anagrafica utenti.
+     * @brief Costruttore della classe MainController2.
+     * * Inizializza lo stage, il sistema di persistenza (ArchivioFile2) e i modelli
+     * principali (Libri, Utenti, Prestiti, Autenticazione).
+     * * @param stage Lo stage primario di JavaFX su cui vengono caricate le scene.
      */
-    private final GestioneUtenti gestioneUtenti;
+    public MainController2(Stage stage) {
+        this.stage = stage;
 
-    /**
-     * @brief Modello per la gestione dei prestiti.
-     */
-    private final GestionePrestiti gestionePrestiti;
 
-    /**
-     * @brief Riferimento al controller dei prestiti (iniettato successivamente per evitare dipendenze circolari).
-     */
-    private PrestitiController prestitiController;
+        this.archivio = new ArchivioFile2(".");
 
-    /**
-     * @brief Modello per la gestione dell'autenticazione (Login).
-     */
-    private final Autenticazione bibliotecario;
 
-    /**
-     * @brief Gestore della persistenza per il salvataggio su file.
-     */
-    private final ArchivioFile archivio;
+        this.gestioneLibri    = new GestioneLibri();
+        this.gestioneUtenti   = new GestioneUtenti2();
+        this.gestionePrestiti = new GestionePrestiti2();
 
-    /**
-     * @brief Costruttore del MainController.
-     *
-     * Si occupa di:
-     * 1. Inizializzare il sistema di persistenza ({@code ArchivioFile}).
-     * 2. Caricare i dati dai file nei rispettivi Modelli.
-     * 3. Preparare l'applicazione per l'avvio.
-     *
-     * @param stage La finestra primaria fornita dal metodo {@code start} di JavaFX Application.
-     */
-    public MainController(Stage stage) {
-       
-        // Inizializzazione modelli e caricamento dati...
+
+        this.gestioneUtenti.setGestionePrestiti(gestionePrestiti);
+
+
+        this.bibliotecario = new Autenticazione2();
     }
 
     /**
-     * @brief Setter per iniettare il PrestitiController.
-     *
-     * @param prestitiController L'istanza del controller dei prestiti.
+     * @brief Imposta il controller dei prestiti.
+     * * Permette l'iniezione del controller dei prestiti dopo l'inizializzazione.
+     * * @param prestitiController L'istanza del controller per la gestione dei prestiti.
      */
-    public void setPrestitiController(PrestitiController prestitiController) {
+    public void setPrestitiController(PrestitiController2 prestitiController) {
         this.prestitiController = prestitiController;
     }
 
+
     /**
-     * @brief Punto di ingresso logico dell'applicazione.
-     *
-     * Configura il titolo della finestra e invoca la prima schermata (solitamente il Login).
+     * @brief Avvia l'applicazione.
+     * Mostra la schermata di login e rende visibile lo stage principale.
      */
     public void avvia() {
+        mostraLogin();
+        stage.show();
     }
 
     /**
-     * @brief Mostra la schermata di Login.
-     *
-     * Crea l'istanza di {@link LoginView} e del relativo {@link AuthController},
-     * imposta la scena sullo Stage e la mostra.
+     * @brief Configura e mostra la scena di Login.
+     * Istanzia la vista di login e il relativo controller di autenticazione,
+     * impostando la scena sullo stage.
      */
     public void mostraLogin() {
+        LoginView2 loginView = new LoginView2();
+        Scene loginScene = new Scene(loginView.getRoot(), 400, 200);
+
+        stage.setTitle("Login Biblioteca");
+        stage.setScene(loginScene);
+        stage.centerOnScreen();
+
+
+        new Authcontroller2(bibliotecario, loginView, this);
     }
 
     /**
-     * @brief Mostra il Menu principale (se previsto come schermata intermedia).
-     *
-     * Crea e mostra la {@link MenuView}.
+     * @brief Configura e mostra la scena del Menu principale.
+     * Crea la vista del menu intermedio, collegando i pulsanti alle relative funzioni
+     * di navigazione (verso le gestioni specifiche o il logout).
      */
     public void mostraMenu() {
+        // nome che appare nel "Benvenuto, ...".
+        MenuView2 menu = new MenuView2("Bibliotecario");
+
+        Scene menuScene = new Scene(menu.getRoot(), 500, 400);
+
+        stage.setTitle("Menu Biblioteca");
+        stage.setScene(menuScene);
+        stage.centerOnScreen();
+
+        // dai bottoni grandi vai alle varie sezioni (MainFrame con tab)
+        menu.setOnGestioneLibri(()    -> mostraMain(0));
+        menu.setOnGestioneUtenti(()   -> mostraMain(1));
+        menu.setOnGestionePrestiti(() -> mostraMain(2));
+
+        // logout dal menu → torni al login
+        menu.setOnLogout(this::mostraLogin);
     }
 
     /**
-     * @brief Mostra la dashboard principale dell'applicazione (MainFrame).
-     *
-     * Carica la vista complessa che contiene i pannelli (Libri, Utenti, Prestiti).
-     *
-     * @param tabIndex L'indice della scheda (Tab) da selezionare all'apertura.
-     * <ul>
-     * <li>0: Tab Libri</li>
-     * <li>1: Tab Utenti</li>
-     * <li>2: Tab Prestiti</li>
-     * </ul>
-     * Utile per navigare direttamente a una sezione specifica dopo un'azione.
+     * @brief Configura e mostra la finestra operativa principale (MainFrame).
+     * Inizializza i controller specifici (Libri, Utenti, Prestiti), gestisce le dipendenze
+     * incrociate tra di essi e seleziona il tab specificato.
+     * * @param tabIndex L'indice del tab da aprire inizialmente (0=Libri, 1=Utenti, 2=Prestiti).
      */
-    public void mostraMain(int tabIndex) {
-    }
+   public void mostraMain(int tabIndex) {
+    MainFrame2 mainView = new MainFrame2(tabIndex);
+    Scene mainScene = new Scene(mainView.getRoot(), 1000, 600);
+
+    stage.setTitle("Biblioteca universitaria");
+    stage.setScene(mainScene);
+    stage.centerOnScreen();
+
+
+    Libricontroller2 libriCtrl = new Libricontroller2(
+            gestioneLibri,
+            mainView.getLibriView(),
+            archivio
+    );
+
+    UtentiController2 utentiCtrl = new UtentiController2(
+            gestioneUtenti,
+            gestionePrestiti,
+            mainView.getUtentiView(),
+            archivio
+    );
+
+    PrestitiController2 prestitiCtrl = new PrestitiController2(
+            gestionePrestiti,
+            mainView.getPrestitiView(),
+            archivio,
+            gestioneLibri,
+            gestioneUtenti,
+            libriCtrl,
+            utentiCtrl
+    );
+
+
+    utentiCtrl.setPrestitiController(prestitiCtrl);
+
+
+    mainView.getBtnMenu().setOnAction(e -> mostraMenu());
+
+
+    mainView.getBtnLogout().setOnAction(e -> mostraLogin());
+}
+
+
 }
