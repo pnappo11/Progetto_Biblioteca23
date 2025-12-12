@@ -1,9 +1,9 @@
-package biblioteca.controller2;
+package biblioteca.controller;
 
-import biblioteca.model2.GestioneLibri;
-import biblioteca.model2.Libro2;
-import biblioteca.persistence.ArchivioFile2;
-import biblioteca.view2.LibriPanel2;
+import biblioteca.model.GestioneLibri;
+import biblioteca.model.Libro;
+import biblioteca.persistence.ArchivioFile;
+import biblioteca.view.LibriPanel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -20,11 +20,11 @@ import java.util.List;
  * coordinando l'interazione tra la vista (LibriPanel2), il modello (GestioneLibri)
  * e la persistenza dei dati (ArchivioFile2).
  */
-public class Libricontroller2 {
+public class LibriController {
 
     private final GestioneLibri gestioneLibri;
-    private final LibriPanel2 view;
-    private final ArchivioFile2 archivio;
+    private final LibriPanel view;
+    private final ArchivioFile archivio;
 
     private boolean inModalitaRicerca = false;
 
@@ -36,9 +36,9 @@ public class Libricontroller2 {
      * @param view          La view che contiene il pannello di gestione libri.
      * @param archivio      Il gestore della persistenza su file.
      */
-    public Libricontroller2(GestioneLibri gestioneLibri,
-                            LibriPanel2 view,
-                            ArchivioFile2 archivio) {
+    public Libricontroller(GestioneLibri gestioneLibri,
+                            LibriPanel view,
+                            ArchivioFile archivio) {
         this.gestioneLibri = gestioneLibri;
         this.view = view;
         this.archivio = archivio;

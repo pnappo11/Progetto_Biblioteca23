@@ -1,13 +1,13 @@
 package biblioteca.controller2;
 
-import biblioteca.model2.Autenticazione2;
-import biblioteca.model2.GestioneLibri;
-import biblioteca.model2.GestionePrestiti2;
-import biblioteca.model2.GestioneUtenti2;
-import biblioteca.persistence.ArchivioFile2;
-import biblioteca.view2.LoginView2;
-import biblioteca.view2.MainFrame2;
-import biblioteca.view2.MenuView2;
+import biblioteca.model.Autenticazione;
+import biblioteca.model.GestioneLibri;
+import biblioteca.model.GestionePrestiti;
+import biblioteca.model.GestioneUtenti;
+import biblioteca.persistence.ArchivioFile;
+import biblioteca.view.LoginView;
+import biblioteca.view.MainFrame;
+import biblioteca.view.MenuView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -17,21 +17,21 @@ import javafx.stage.Stage;
  * Gestisce il ciclo di vita della finestra principale (Stage), inizializza i modelli e
  * gestisce la navigazione tra le diverse scene (Login, Menu, Gestione principale).
  */
-public class MainController2 {
+public class MainController {
 
 
     private final Stage stage;
 
 
     private final GestioneLibri gestioneLibri;
-    private final GestioneUtenti2 gestioneUtenti;
-    private final GestionePrestiti2 gestionePrestiti;
-    private PrestitiController2 prestitiController;
+    private final GestioneUtenti gestioneUtenti;
+    private final GestionePrestiti gestionePrestiti;
+    private PrestitiController prestitiController;
 
-    private final Autenticazione2 bibliotecario;
+    private final Autenticazione bibliotecario;
 
 
-    private final ArchivioFile2 archivio;
+    private final ArchivioFile archivio;
 
     /**
      * @brief Costruttore della classe MainController2.
@@ -39,16 +39,16 @@ public class MainController2 {
      * principali (Libri, Utenti, Prestiti, Autenticazione).
      * * @param stage Lo stage primario di JavaFX su cui vengono caricate le scene.
      */
-    public MainController2(Stage stage) {
+    public MainController(Stage stage) {
         this.stage = stage;
 
 
-        this.archivio = new ArchivioFile2(".");
+        this.archivio = new ArchivioFile(".");
 
 
         this.gestioneLibri    = new GestioneLibri();
-        this.gestioneUtenti   = new GestioneUtenti2();
-        this.gestionePrestiti = new GestionePrestiti2();
+        this.gestioneUtenti   = new GestioneUtenti();
+        this.gestionePrestiti = new GestionePrestiti();
 
 
         this.gestioneUtenti.setGestionePrestiti(gestionePrestiti);
@@ -82,7 +82,7 @@ public class MainController2 {
      * impostando la scena sullo stage.
      */
     public void mostraLogin() {
-        LoginView2 loginView = new LoginView2();
+        LoginView loginView = new LoginView2();
         Scene loginScene = new Scene(loginView.getRoot(), 400, 200);
 
         stage.setTitle("Login Biblioteca");
@@ -100,7 +100,7 @@ public class MainController2 {
      */
     public void mostraMenu() {
         // nome che appare nel "Benvenuto, ...".
-        MenuView2 menu = new MenuView2("Bibliotecario");
+        MenuView menu = new MenuView2("Bibliotecario");
 
         Scene menuScene = new Scene(menu.getRoot(), 500, 400);
 
@@ -124,7 +124,7 @@ public class MainController2 {
      * * @param tabIndex L'indice del tab da aprire inizialmente (0=Libri, 1=Utenti, 2=Prestiti).
      */
    public void mostraMain(int tabIndex) {
-    MainFrame2 mainView = new MainFrame2(tabIndex);
+    MainFrame mainView = new MainFrame2(tabIndex);
     Scene mainScene = new Scene(mainView.getRoot(), 1000, 600);
 
     stage.setTitle("Biblioteca universitaria");
@@ -132,20 +132,20 @@ public class MainController2 {
     stage.centerOnScreen();
 
 
-    Libricontroller2 libriCtrl = new Libricontroller2(
+    Libricontroller libriCtrl = new Libricontroller2(
             gestioneLibri,
             mainView.getLibriView(),
             archivio
     );
 
-    UtentiController2 utentiCtrl = new UtentiController2(
+    UtentiController utentiCtrl = new UtentiController2(
             gestioneUtenti,
             gestionePrestiti,
             mainView.getUtentiView(),
             archivio
     );
 
-    PrestitiController2 prestitiCtrl = new PrestitiController2(
+    PrestitiController prestitiCtrl = new PrestitiController2(
             gestionePrestiti,
             mainView.getPrestitiView(),
             archivio,
