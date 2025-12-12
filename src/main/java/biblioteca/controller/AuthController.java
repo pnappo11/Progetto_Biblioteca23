@@ -1,64 +1,57 @@
-
 package biblioteca.controller;
 
 import biblioteca.model.Autenticazione;
 import biblioteca.view.LoginView;
 
 /**
- * @brief Controller responsabile della gestione del flusso di autenticazione.
- *
- * La classe {@code AuthController} funge da intermediario tra la vista di login ({@link LoginView})
- * e il modello di autenticazione ({@link Autenticazione}). Si occupa di catturare l'input dell'utente,
- * verificare le credenziali tramite il modello e, in caso di successo, delegare la navigazione
- * al {@link MainController}.
- *
- * @author tommy
+ * @brief Controller per la gestione del processo di autenticazione.
+ * Questa classe gestisce la logica di interazione tra la vista di login e il modello
+ * di autenticazione, coordinando l'accesso al menu principale.
  */
-public class AuthController {
+public class Authcontroller {
 
-    /**
-     * @brief Riferimento al modello che gestisce la logica di verifica delle credenziali.
-     */
     private final Autenticazione bibliotecario;
-
-    /**
-     * @brief Riferimento alla vista che mostra l'interfaccia di login.
-     */
     private final LoginView loginView;
-
-    /**
-     * @brief Riferimento al controller principale per gestire il cambio di vista post-login.
-     */
     private final MainController mainController;
 
     /**
-     * @brief Costruttore della classe AuthController.
-     *
-     * Inizializza il controller con le dipendenze necessarie e configura i listener
-     * sulla vista per intercettare le azioni dell'utente (es. click sul bottone di login).
-     *
-     * @param bibliotecario  Istanza del modello {@link Autenticazione} per verificare la password.
-     * @param loginView      Istanza della vista {@link LoginView} per interagire con l'utente.
-     * @param mainController Istanza del {@link MainController} per la navigazione tra le viste.
+     * @brief Costruttore della classe Authcontroller2.
+     * Inizializza il controller con le dipendenze necessarie e imposta il listener
+     * per l'evento di login sulla vista.
+     * @param bibliotecario   Il modello che gestisce la verifica delle credenziali.
+     * @param loginView       La vista che fornisce l'interfaccia utente per il login.
+     * @param mainController  Il controller principale per la navigazione tra le viste.
      */
-    public AuthController(Autenticazione bibliotecario,
-                          LoginView loginView,
-                          MainController mainController) {
-        
-        
+    public Authcontroller2(Autenticazione bibliotecario,
+                           LoginView loginView,
+                           MainController mainController) {
+        this.bibliotecario = bibliotecario;
+        this.loginView = loginView;
+        this.mainController = mainController;
+
+        this.loginView.setOnLogin(() -> login(this.loginView.getPassword()));
     }
 
     /**
-     * @brief Gestisce il tentativo di login dell'utente.
-     *
-     * Questo metodo viene invocato quando l'utente conferma l'inserimento della password.
-     * Verifica la correttezza della password tramite il modello {@code bibliotecario}.
-     * Se la password è corretta, notifica il {@code mainController} per mostrare la dashboard;
-     * altrimenti, mostra un messaggio di errore sulla vista.
-     *
-     * @param passwordInserita La stringa contenente la password digitata dall'utente nella vista.
+     * @brief Esegue il tentativo di login verificando la password inserita.
+     * * Se la password è corretta, pulisce i campi e passa al menu principale.
+     * In caso contrario, mostra un messaggio di errore.
+     * * @param passwordInserita La password fornita dall'utente.
      */
     private void login(String passwordInserita) {
-        // Implementazione logica di login...
+        if (passwordInserita == null) {
+            passwordInserita = "";
+        }
+
+        boolean ok = bibliotecario.login(passwordInserita.trim());
+
+        if (ok) {
+            loginView.mostraErrore("");
+            loginView.pulisciCampi();
+            mainController.mostraMenu();
+        } else {
+            loginView.mostraErrore("Password errata.");
+            loginView.pulisciCampi();
+        }
     }
 }
