@@ -22,7 +22,7 @@ public class Authcontroller {
      * @param loginView       La vista che fornisce l'interfaccia utente per il login.
      * @param mainController  Il controller principale per la navigazione tra le viste.
      */
-    public Authcontroller2(Autenticazione bibliotecario,
+    public Authcontroller(Autenticazione bibliotecario,
                            LoginView loginView,
                            MainController mainController) {
         this.bibliotecario = bibliotecario;

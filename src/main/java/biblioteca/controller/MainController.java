@@ -1,4 +1,4 @@
-package biblioteca.controller2;
+package biblioteca.controller;
 
 import biblioteca.model.Autenticazione;
 import biblioteca.model.GestioneLibri;
@@ -34,8 +34,8 @@ public class MainController {
     private final ArchivioFile archivio;
 
     /**
-     * @brief Costruttore della classe MainController2.
-     * * Inizializza lo stage, il sistema di persistenza (ArchivioFile2) e i modelli
+     * @brief Costruttore della classe MainController.
+     * * Inizializza lo stage, il sistema di persistenza (ArchivioFile) e i modelli
      * principali (Libri, Utenti, Prestiti, Autenticazione).
      * * @param stage Lo stage primario di JavaFX su cui vengono caricate le scene.
      */
@@ -54,7 +54,7 @@ public class MainController {
         this.gestioneUtenti.setGestionePrestiti(gestionePrestiti);
 
 
-        this.bibliotecario = new Autenticazione2();
+        this.bibliotecario = new Autenticazione();
     }
 
     /**
@@ -62,7 +62,7 @@ public class MainController {
      * * Permette l'iniezione del controller dei prestiti dopo l'inizializzazione.
      * * @param prestitiController L'istanza del controller per la gestione dei prestiti.
      */
-    public void setPrestitiController(PrestitiController2 prestitiController) {
+    public void setPrestitiController(PrestitiController prestitiController) {
         this.prestitiController = prestitiController;
     }
 
@@ -82,7 +82,7 @@ public class MainController {
      * impostando la scena sullo stage.
      */
     public void mostraLogin() {
-        LoginView loginView = new LoginView2();
+        LoginView loginView = new LoginView();
         Scene loginScene = new Scene(loginView.getRoot(), 400, 200);
 
         stage.setTitle("Login Biblioteca");
@@ -90,7 +90,7 @@ public class MainController {
         stage.centerOnScreen();
 
 
-        new Authcontroller2(bibliotecario, loginView, this);
+        new Authcontroller(bibliotecario, loginView, this);
     }
 
     /**
@@ -100,7 +100,7 @@ public class MainController {
      */
     public void mostraMenu() {
         // nome che appare nel "Benvenuto, ...".
-        MenuView menu = new MenuView2("Bibliotecario");
+        MenuView menu = new MenuView("Bibliotecario");
 
         Scene menuScene = new Scene(menu.getRoot(), 500, 400);
 
@@ -124,7 +124,7 @@ public class MainController {
      * * @param tabIndex L'indice del tab da aprire inizialmente (0=Libri, 1=Utenti, 2=Prestiti).
      */
    public void mostraMain(int tabIndex) {
-    MainFrame mainView = new MainFrame2(tabIndex);
+    MainFrame mainView = new MainFrame(tabIndex);
     Scene mainScene = new Scene(mainView.getRoot(), 1000, 600);
 
     stage.setTitle("Biblioteca universitaria");
@@ -132,20 +132,20 @@ public class MainController {
     stage.centerOnScreen();
 
 
-    Libricontroller libriCtrl = new Libricontroller2(
+    LibriController libriCtrl = new LibriController(
             gestioneLibri,
             mainView.getLibriView(),
             archivio
     );
 
-    UtentiController utentiCtrl = new UtentiController2(
+    UtentiController utentiCtrl = new UtentiController(
             gestioneUtenti,
             gestionePrestiti,
             mainView.getUtentiView(),
             archivio
     );
 
-    PrestitiController prestitiCtrl = new PrestitiController2(
+    PrestitiController prestitiCtrl = new PrestitiController(
             gestionePrestiti,
             mainView.getPrestitiView(),
             archivio,

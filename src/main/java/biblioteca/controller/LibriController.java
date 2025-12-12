@@ -17,8 +17,8 @@ import java.util.List;
 /**
  * @brief Controller per la gestione delle operazioni sui libri.
  * Questa classe gestisce la logica di business relativa ai libri,
- * coordinando l'interazione tra la vista (LibriPanel2), il modello (GestioneLibri)
- * e la persistenza dei dati (ArchivioFile2).
+ * coordinando l'interazione tra la vista (LibriPanel), il modello (GestioneLibri)
+ * e la persistenza dei dati (ArchivioFile).
  */
 public class LibriController {
 
@@ -29,14 +29,14 @@ public class LibriController {
     private boolean inModalitaRicerca = false;
 
     /**
-     * @brief Costruttore della classe Libricontroller2.
+     * @brief Costruttore della classe LibriController.
      * Inizializza il controller, popola la tabella con i dati iniziali e collega
      * gli eventi dei pulsanti e della tabella.
      * @param gestioneLibri Il modello per la gestione logica dei libri.
      * @param view          La view che contiene il pannello di gestione libri.
      * @param archivio      Il gestore della persistenza su file.
      */
-    public Libricontroller(GestioneLibri gestioneLibri,
+    public LibriController(GestioneLibri gestioneLibri,
                             LibriPanel view,
                             ArchivioFile archivio) {
         this.gestioneLibri = gestioneLibri;
@@ -140,7 +140,7 @@ public class LibriController {
         Long isbn = parseLong(isbnStr, "ISBN");
         if (isbn == null) return;
 
-        Libro2 libro = trovaLibroPerIsbn(isbn);
+        Libro libro = trovaLibroPerIsbn(isbn);
         if (libro == null) {
             mostraErrore("Nessun libro trovato con ISBN " + isbn);
             return;
@@ -230,7 +230,7 @@ public class LibriController {
                 );
             }
 
-            Collection<Libro2> trovati =
+            Collection<Libro> trovati =
                     gestioneLibri.cercaLibri(isbnStr, titolo, autoreStr);
             aggiornaTabella(trovati);
 
@@ -246,20 +246,20 @@ public class LibriController {
 
     /**
      * @brief Aggiorna la tabella della vista con una collezione di libri.
-     * Converte la collezione di oggetti Libro2 in ObservableList compatibile con JavaFX,
+     * Converte la collezione di oggetti Libro in ObservableList compatibile con JavaFX,
      * ordinandoli alfabeticamente per titolo.
      * * @param libriDaMostrare La collezione di libri da visualizzare in tabella.
      */
-    private void aggiornaTabella(Collection<Libro2> libriDaMostrare) {
-        List<Libro2> lista = new ArrayList<>(libriDaMostrare);
+    private void aggiornaTabella(Collection<Libro> libriDaMostrare) {
+        List<Libro> lista = new ArrayList<>(libriDaMostrare);
         lista.sort(Comparator.comparing(
-                Libro2::getTitolo,
+                Libro::getTitolo,
                 String.CASE_INSENSITIVE_ORDER
         ));
 
         ObservableList<ObservableList<String>> righe = FXCollections.observableArrayList();
 
-        for (Libro2 libro : lista) {
+        for (Libro libro : lista) {
             ObservableList<String> riga = FXCollections.observableArrayList();
             riga.add(String.valueOf(libro.getIsbn()));              // 0
             riga.add(libro.getTitolo());                            // 1
@@ -369,12 +369,12 @@ public class LibriController {
     }
 
     /**
-     * @brief Cerca un oggetto Libro2 nel modello tramite il suo ISBN.
+     * @brief Cerca un oggetto Libro nel modello tramite il suo ISBN.
      * @param isbn L'ISBN del libro da cercare.
-     * @return L'oggetto Libro2 corrispondente, oppure null se non trovato.
+     * @return L'oggetto Libro corrispondente, oppure null se non trovato.
      */
-    private Libro2 trovaLibroPerIsbn(Long isbn) {
-        for (Libro2 l : gestioneLibri.getLibri()) {
+    private Libro trovaLibroPerIsbn(Long isbn) {
+        for (Libro l : gestioneLibri.getLibri()) {
             if (l.getIsbn() == isbn) {
                 return l;
             }
