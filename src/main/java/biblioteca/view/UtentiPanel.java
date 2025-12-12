@@ -23,7 +23,7 @@ import javafx.scene.layout.HBox;
 /**
  * @brief Pannello per la gestione dell'anagrafica utenti.
  *
- * Questa classe (View) fornisce l'interfaccia grafica per le operazioni create, read, update, delete
+ * Questa classe (View) fornisce l'interfaccia grafica per le operazioni di creazione, visualizzazione, modifica ed eliminazione
  * sugli utenti della biblioteca.
  * È composta da un form di inserimento, una tabella riepilogativa e i comandi di azione.
  */
@@ -34,42 +34,38 @@ public class UtentiPanel {
      */
     private final BorderPane root;
 
-    // ===== Campi del Form =====
-    /** Campo di testo per la matricola o ID utente. */
     private final TextField campoMatricola;
-    /** Campo di testo per il nome. */
+
     private final TextField campoNome;
-    /** Campo di testo per il cognome. */
+
     private final TextField campoCognome;
-    /** Campo di testo per l'indirizzo email istituzionale. */
+
     private final TextField campoEmail;
 
     /**
      * @brief Tabella per visualizzare la lista degli utenti.
      *
-     * Ogni riga è rappresentata da una ObservableList<String> con questi indici:
-     * 0 = Matricola, 1 = Nome, 2 = Cognome, 3 = Email, 4 = Blacklist.
+     * Ogni riga è rappresentata da una ObservableList<String> indicizzata.
+     * 0: Matricola, 1: Nome, 2: cognome, 3: email, 4: prestiti attivi, 5: blacklist.
      */
     private final TableView<ObservableList<String>> tabellaUtenti;
 
-    // ===== Pulsanti Azione =====
+    //  Pulsanti Azione
     private final Button bottoneInserisci;
     private final Button bottoneModifica;
     private final Button bottoneElimina;
+    private final Button bottoneBlacklist;
     private final Button bottoneCerca;
 
     /**
      * @brief Costruttore del pannello Utenti.
      *
-     * Inizializza e assembla i componenti grafici:
-     * 1. Top: GridPane per l'inserimento dati (Matricola, Nome, Cognome, Email).
-     * 2. Center: TableView con le colonne configurate per mostrare i dettagli utente.
-     * 3. Bottom: HBox contenente i pulsanti (Inserisci, Modifica, Elimina, Cerca).
+     * Inizializza e assembla i componenti grafici: inserimento dat, dettagli utenti, pulsanti(Inserisci, Modifica, Elimina, Blacklist, Cerca).
      */
     public UtentiPanel() {
         root = new BorderPane();
 
-        // ===== form in alto =====
+        //  form in alto
         campoMatricola = new TextField();
         campoNome = new TextField();
         campoCognome = new TextField();
@@ -94,10 +90,10 @@ public class UtentiPanel {
 
         root.setTop(form);
 
-        // ===== tabella al centro =====
+        //  tabella al centro
         tabellaUtenti = new TableView<>();
 
-        // 0 = Matricola, 1 = Nome, 2 = Cognome, 3 = Email, 4 = Blacklist
+        // 0 = Matricola, 1 = Nome, 2 = Cognome, 3 = Email, 4 = Prestiti attivi, 5 = Blacklist
 
         TableColumn<ObservableList<String>, String> colMatricola = new TableColumn<>("Matricola");
         colMatricola.setCellValueFactory(data ->
@@ -115,35 +111,45 @@ public class UtentiPanel {
         colEmail.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().get(3)));
 
-        TableColumn<ObservableList<String>, String> colBlacklist = new TableColumn<>("Blacklist");
-        colBlacklist.setCellValueFactory(data ->
+        // nuova colonna: Prestiti attivi (indice 4)
+        TableColumn<ObservableList<String>, String> colPrestitiAttivi =
+                new TableColumn<>("Prestiti attivi");
+        colPrestitiAttivi.setCellValueFactory(data ->
                 new SimpleStringProperty(data.getValue().get(4)));
 
+        TableColumn<ObservableList<String>, String> colBlacklist = new TableColumn<>("Blacklist");
+        colBlacklist.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().get(5)));
+
         tabellaUtenti.getColumns().addAll(
-                colMatricola, colNome, colCognome, colEmail, colBlacklist
+                colMatricola, colNome, colCognome, colEmail, colPrestitiAttivi, colBlacklist
         );
 
-        // Dati di prova (puoi toglierli quando collegherai il controller/model)
         ObservableList<ObservableList<String>> datiFinti = FXCollections.observableArrayList();
         datiFinti.add(FXCollections.observableArrayList(
-                "0612700001", "Mario", "Rossi", "m.rossi@unisa.it", "No"
+                "0612700001", "Mario", "Rossi", "m.rossi@unisa.it", "1", "No"
         ));
         datiFinti.add(FXCollections.observableArrayList(
-                "0612700002", "Giulia", "Bianchi", "g.bianchi@unisa.it", "Sì"
+                "0612700002", "Giulia", "Bianchi", "g.bianchi@unisa.it", "0", "Sì"
         ));
         tabellaUtenti.setItems(datiFinti);
 
         root.setCenter(tabellaUtenti);
         BorderPane.setMargin(tabellaUtenti, new Insets(10));
 
-        // ===== pulsanti in basso =====
-        bottoneInserisci = new Button("Inserisci");
-        bottoneModifica = new Button("Modifica");
-        bottoneElimina = new Button("Elimina");
-        bottoneCerca = new Button("Cerca");
+        //  pulsanti in basso
+        bottoneInserisci  = new Button("Inserisci");
+        bottoneModifica   = new Button("Modifica");
+        bottoneElimina    = new Button("Elimina");
+        bottoneBlacklist  = new Button("Blacklist");
+        bottoneCerca      = new Button("Cerca");
 
         HBox bottoniBox = new HBox(10,
-                bottoneInserisci, bottoneModifica, bottoneElimina, bottoneCerca);
+                bottoneInserisci,
+                bottoneModifica,
+                bottoneElimina,
+                bottoneBlacklist,
+                bottoneCerca);
         bottoniBox.setAlignment(Pos.CENTER_RIGHT);
         bottoniBox.setPadding(new Insets(10));
 
@@ -152,22 +158,37 @@ public class UtentiPanel {
 
     /**
      * @brief Restituisce il nodo radice dell'interfaccia.
-     * @return L'oggetto Parent (BorderPane) da inserire nella scena principale.
+     * @return L'oggetto Parent da inserire nella scena principale.
      */
     public Parent getRoot() {
         return root;
     }
 
-    // --- Getter dei dati inseriti (Input) ---
+    //  Getter dei dati inseriti (Input)
 
+    /** @brief getter per la matricola
+     * @return campo matricola senza spazi
+     */
     public String getMatricolaInserita() { return campoMatricola.getText().trim(); }
-    public String getNomeInserito()      { return campoNome.getText().trim(); }
-    public String getCognomeInserito()   { return campoCognome.getText().trim(); }
-    public String getEmailInserita()     { return campoEmail.getText().trim(); }
+
+    /** @brief getter per il nome
+     * @return campo nome senza spazi
+     */
+    public String getNomeInserito() { return campoNome.getText().trim(); }
+
+    /** @brief getter per il cognome
+     * @return campo cognome senza spazi
+     */
+    public String getCognomeInserito() { return campoCognome.getText().trim(); }
+
+    /** @brief getter per il campo mail
+     * @return campo mail
+     */
+    public String getEmailInserita() { return campoEmail.getText().trim(); }
 
     /**
      * @brief Pulisce i campi di input del form.
-     * Da chiamare dopo un inserimento avvenuto con successo.
+     * Da chiamare dopo un inserimento avvenuto con successo per resettare i campi .
      */
     public void pulisciCampi() {
         campoMatricola.clear();
@@ -176,15 +197,43 @@ public class UtentiPanel {
         campoEmail.clear();
     }
 
-    // --- Getter Componenti UI (per i Controller) ---
+    //  Getter Componenti UI (per i Controller)
 
     public TableView<ObservableList<String>> getTabellaUtenti() {
         return tabellaUtenti;
     }
 
+    /** @return tasto Inserisci */
     public Button getBottoneInserisci() { return bottoneInserisci; }
-    public Button getBottoneModifica()  { return bottoneModifica; }
-    public Button getBottoneElimina()   { return bottoneElimina; }
-    public Button getBottoneCerca()     { return bottoneCerca; }
-}
 
+    /** @return tasto Modifica */
+    public Button getBottoneModifica() { return bottoneModifica; }
+
+    /** @return tasto Elimina */
+    public Button getBottoneElimina() { return bottoneElimina; }
+
+    /** @return tasto Blacklist */
+    public Button getBottoneBlacklist() { return bottoneBlacklist; }
+
+    /** @return tasto Cerca */
+    public Button getBottoneCerca() { return bottoneCerca; }
+
+    /**
+     * @brief Imposta i campi del form a partire da una riga selezionata nella tabella.
+     *
+     * Struttura riga:
+     * 0 = Matricola, 1 = Nome, 2 = Cognome, 3 = Email, 4 = Prestiti attivi, 5 = Blacklist.
+     *
+     * @param riga Riga selezionata nella TableView utenti.
+     */
+    public void setCampiDaRiga(ObservableList<String> riga) {
+        if (riga == null || riga.size() < 4) {
+            return;
+        }
+
+        campoMatricola.setText(riga.get(0));
+        campoNome.setText(riga.get(1));
+        campoCognome.setText(riga.get(2));
+        campoEmail.setText(riga.get(3));
+    }
+}

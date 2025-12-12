@@ -17,31 +17,24 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /**
- * @brief Schermata di Menu Principale (Dashboard).
+ * @brief Schermata di Menu Principale.
  *
- * Questa classe rappresenta la vista intermedia che appare dopo il Login.
- * Funge da "hub" di navigazione permettendo all'operatore di scegliere tra:
- * - Gestione Libri
- * - Gestione Utenti
- * - Gestione Prestiti
- * - Logout
+ * Questa classe rappresenta ciò che appare dopo il Login.
+ * Permette all'operatore di scegliere tra: gestione utenti, libri e prestiti e la selezione del tasto logout per uscire.
  * @author tommy
  */
 public class MenuView {
 
     /**
-     * @brief Nodo radice del layout (BorderPane).
+     * @brief Nodo radice del layout .
      */
     private final BorderPane root;
 
-    // --- Componenti UI ---
     private final Button btnLibri;
     private final Button btnUtenti;
     private final Button btnPrestiti;
-    /** Bottone di logout posizionato nella barra superiore. */
+    /** Bottone di logout posizionato nella barra superiore in alto a destra. */
     private final Button btnLogout;
-
-    // --- Callback (Gestori Eventi) ---
     /** Azione da eseguire quando si clicca su Gestione Libri. */
     private Runnable onGestioneLibri;
     /** Azione da eseguire quando si clicca su Gestione Utenti. */
@@ -53,23 +46,14 @@ public class MenuView {
 
     /**
      * @brief Costruttore di default.
-     *
-     * Richiama il costruttore principale passando un nome generico ("Bibliotecario").
-     * Utile se non si dispone del nome specifico dell'utente loggato.
      */
     public MenuView() {
         this("Bibliotecario");
     }
 
     /**
-     * @brief Costruttore principale con personalizzazione.
-     *
-     * Costruisce l'intera interfaccia grafica:
-     * 1. Crea la barra superiore con il titolo e il tasto Logout (stilizzato in rosso).
-     * 2. Mostra un messaggio di benvenuto personalizzato con il nome dell'operatore.
-     * 3. Dispone i pulsanti di navigazione in una griglia o righe centrate.
-     * 4. Collega i bottoni ai rispettivi `Runnable` (se definiti).
-     *
+     * @brief Costruttore principale contiene l'intera interfaccia grafica.
+     * Contiene il tasto per il logout, pulsanti di navigazione, e tutto ciò che ci permette di muoverci all'interno della nostra finestra.
      * @param nomeBibliotecario Il nome dell'utente da mostrare nel messaggio di benvenuto.
      */
     public MenuView(String nomeBibliotecario) {
@@ -79,38 +63,33 @@ public class MenuView {
         card.setPadding(new Insets(20));
         card.setAlignment(Pos.TOP_CENTER);
 
-        // --- riga in alto: titolo + logout piccolo a destra ---
         Label lblTitolo = new Label("Menu Biblioteca");
         lblTitolo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         btnLogout = new Button("Logout");
-        // Stile inline per rendere il tasto logout rosso e ben visibile
+
         btnLogout.setStyle(
                 "-fx-background-color: #ff4d4d;" +
                 "-fx-text-fill: black;" +
                 "-fx-font-weight: bold;"
         );
-        
-        // Esecuzione callback di logout se definita
+
         btnLogout.setOnAction(e -> {
             if (onLogout != null) onLogout.run();
         });
 
-        // Spacer per spingere il logout tutto a destra
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         HBox topLine = new HBox(10, lblTitolo, spacer, btnLogout);
         topLine.setAlignment(Pos.CENTER_LEFT);
 
-        // --- Sezione Benvenuto ---
         Label lblBenvenuto = new Label("Benvenuto, " + nomeBibliotecario + "!");
         lblBenvenuto.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
         Label lblDescrizione = new Label("Scegli l'area della biblioteca che vuoi gestire:");
         lblDescrizione.setStyle("-fx-font-size: 13px; -fx-text-fill: #555555;");
 
-        // --- Bottoni di Navigazione ---
         HBox row1 = new HBox(15);
         row1.setAlignment(Pos.CENTER);
 
@@ -121,12 +100,10 @@ public class MenuView {
         btnUtenti = new Button("Gestione Utenti");
         btnPrestiti = new Button("Gestione Prestiti");
 
-        // Dimensione uniforme per i bottoni
         btnLibri.setPrefWidth(150);
         btnUtenti.setPrefWidth(150);
         btnPrestiti.setPrefWidth(150);
 
-        // Collegamento eventi ai Runnable
         btnLibri.setOnAction(e -> {
             if (onGestioneLibri != null) onGestioneLibri.run();
         });
@@ -140,7 +117,6 @@ public class MenuView {
         row1.getChildren().addAll(btnLibri, btnUtenti);
         row2.getChildren().addAll(btnPrestiti);
 
-        // Composizione finale della card centrale
         card.getChildren().addAll(topLine, lblBenvenuto, lblDescrizione, row1, row2);
 
         root.setCenter(card);
@@ -148,16 +124,14 @@ public class MenuView {
 
     /**
      * @brief Restituisce il nodo radice dell'interfaccia.
-     * @return L'oggetto Parent (BorderPane) da inserire nella Scena.
+     * @return L'oggetto di tipo Parent da inserire nella Scena.
      */
     public Parent getRoot() {
         return root;
     }
 
-    // --- Setter delle Callback (Injecting Behavior) ---
-
     /**
-     * @brief Imposta l'azione da eseguire al click su "Gestione Libri".
+     * @brief Imposta l'azione da eseguire al click su "Gestione Libri" (setOn Action).
      * @param r Il Runnable contenente la logica di cambio scena.
      */
     public void setOnGestioneLibri(Runnable r) {
@@ -166,7 +140,7 @@ public class MenuView {
 
     /**
      * @brief Imposta l'azione da eseguire al click su "Gestione Utenti".
-     * @param r Il Runnable contenente la logica di cambio scena.
+     * @param r rappresenta il Runnable contenente la logica di cambio scena.
      */
     public void setOnGestioneUtenti(Runnable r) {
         this.onGestioneUtenti = r;
