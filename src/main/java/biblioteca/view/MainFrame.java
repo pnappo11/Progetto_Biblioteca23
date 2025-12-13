@@ -7,12 +7,19 @@ package biblioteca.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**
  * @brief Finestra operativa principale dell'applicazione.
@@ -39,7 +46,7 @@ public class MainFrame {
 
     /**
      * @brief Costruttore di default.
-     * Strutturato in modo che la prima finestra ad essere visualizzata è quella relativa ai libri.
+     *Strutturato in modo che la prima finestra ad essere visualizzata è quella relativa ai libri.
      */
     public MainFrame() {
         this(0);
@@ -56,9 +63,12 @@ public class MainFrame {
      */
     public MainFrame(int tabIndex) {
         root = new BorderPane();
-        tabPane = new TabPane();
+        root.getStyleClass().add("app-wood");
+        root.getStyleClass().add("app-root");
 
-        //  PANNELLI E TAB
+        tabPane = new TabPane();
+        tabPane.getStyleClass().add("tabs-flat");
+
         libriView = new LibriPanel();
         utentiView = new UtentiPanel();
         prestitiView = new PrestitiPanel();
@@ -67,47 +77,81 @@ public class MainFrame {
         Tab tabUtenti = new Tab("Utenti", utentiView.getRoot());
         Tab tabPrestiti = new Tab("Prestiti", prestitiView.getRoot());
 
-        // Disabilitiamo la chiusura delle tab per mantenere la UI consistente
         tabLibri.setClosable(false);
         tabUtenti.setClosable(false);
         tabPrestiti.setClosable(false);
 
         tabPane.getTabs().addAll(tabLibri, tabUtenti, tabPrestiti);
-
-        // Selezione programmatica della tab richiesta
         tabPane.getSelectionModel().select(tabIndex);
 
-        // BARRA IN ALTO: [Menu]   Gestione Biblioteca   [Logout]
+        final int nTabs = tabPane.getTabs().size();
+        tabPane.widthProperty().addListener((obs, oldW, newW) -> {
+            double available = newW.doubleValue() - 60;
+            double w = Math.max(120, available / nTabs);
+            tabPane.setTabMinWidth(w);
+            tabPane.setTabMaxWidth(w);
+        });
+
         BorderPane topBar = new BorderPane();
-        topBar.setPadding(new Insets(8, 12, 8, 12));
+        topBar.getStyleClass().add("topbar");
+        topBar.setPadding(new Insets(6, 6, 6, 6));
 
-        // Configurazione bottone Menu (stile grigio chiaro), stile CSS.
         btnMenu = new Button("Menu");
-        btnMenu.setStyle(
-                "-fx-background-color: #e0e0e0;" +
-                "-fx-text-fill: black;" +
-                "-fx-font-weight: bold;"
-        );
+        btnMenu.getStyleClass().add("btn-secondary");
 
-        Label lblTitolo = new Label("Gestione Biblioteca");
-        BorderPane.setAlignment(lblTitolo, Pos.CENTER);
-
-        // Configurazione bottone Logout (stile rosso di allerta) CSS.
         btnLogout = new Button("Logout");
-        btnLogout.setStyle(
-                "-fx-background-color: #ff4d4d;" +
-                "-fx-text-fill: black;" +
-                "-fx-font-weight: bold;"
-        );
+        btnLogout.getStyleClass().add("btn-danger");
 
-        // Posizionamento elementi nella barra superiore
+        Parent centro;
+        try {
+            Image img = new Image(
+                    getClass().getResourceAsStream("/biblioteca/view2/img/logo.png"),
+                    96, 96, true, true
+            );
+
+            ImageView logo = new ImageView(img);
+            logo.setPreserveRatio(true);
+            logo.setFitWidth(36);
+            logo.setFitHeight(36);
+            logo.setSmooth(true);
+            logo.setCache(true);
+            logo.setCacheHint(CacheHint.QUALITY);
+
+            StackPane logoWrap = new StackPane(logo);
+            logoWrap.getStyleClass().add("brand-logo-wrap");
+
+            Label lblTitolo = new Label("Gestione Biblioteca");
+            lblTitolo.getStyleClass().add("brand-title");
+
+            Label lblSub = new Label("Biblioteca Universitaria");
+            lblSub.getStyleClass().add("brand-subtitle");
+
+            VBox testo = new VBox(0, lblTitolo, lblSub);
+            testo.setAlignment(Pos.CENTER_LEFT);
+
+            HBox brand = new HBox(10, logoWrap, testo);
+            brand.setAlignment(Pos.CENTER);
+            brand.getStyleClass().add("brand");
+
+            centro = brand;
+        } catch (Exception e) {
+            Label lblTitolo = new Label("Gestione Biblioteca");
+            lblTitolo.getStyleClass().add("page-title");
+            BorderPane.setAlignment(lblTitolo, Pos.CENTER);
+            centro = lblTitolo;
+        }
+
         topBar.setLeft(btnMenu);
-        topBar.setCenter(lblTitolo);
+        topBar.setCenter(centro);
         topBar.setRight(btnLogout);
+        BorderPane.setAlignment(centro, Pos.CENTER);
 
-        // Assemblaggio finale del layout
-        root.setTop(topBar);
-        root.setCenter(tabPane);
+        VBox shell = new VBox(10, topBar, tabPane);
+        shell.getStyleClass().add("shell");
+        VBox.setVgrow(tabPane, Priority.ALWAYS);
+
+        root.setCenter(shell);
+        BorderPane.setMargin(shell, new Insets(12));
     }
 
     /**
@@ -117,8 +161,6 @@ public class MainFrame {
     public Parent getRoot() {
         return root;
     }
-
-    //  Getter per l'accesso alle sottoviste (per i Controller)
 
     /** @return Il pannello per la gestione libri. */
     public LibriPanel getLibriView() { return libriView; }

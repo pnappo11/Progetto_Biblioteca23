@@ -53,30 +53,26 @@ public class MenuView {
 
     /**
      * @brief Costruttore principale contiene l'intera interfaccia grafica.
-     * Contiene il tasto per il logout, pulsanti di navigazione, e tutto ciò che ci permette di muoverci all'interno della nostra finestra.
+     *Contiene il tasto per il logout, pulsanti di navigazione, e tutto ciò che ci permette di muoverci all'interno della nostra finestra.
      * @param nomeBibliotecario Il nome dell'utente da mostrare nel messaggio di benvenuto.
      */
     public MenuView(String nomeBibliotecario) {
         root = new BorderPane();
+        root.getStyleClass().add("app-root");
+        root.getStyleClass().add("app-wood");
+        root.setPadding(new Insets(16));
 
         VBox card = new VBox(20);
+        card.getStyleClass().add("card");
         card.setPadding(new Insets(20));
         card.setAlignment(Pos.TOP_CENTER);
 
         Label lblTitolo = new Label("Menu Biblioteca");
-        lblTitolo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        lblTitolo.getStyleClass().add("page-title");
 
         btnLogout = new Button("Logout");
-
-        btnLogout.setStyle(
-                "-fx-background-color: #ff4d4d;" +
-                "-fx-text-fill: black;" +
-                "-fx-font-weight: bold;"
-        );
-
-        btnLogout.setOnAction(e -> {
-            if (onLogout != null) onLogout.run();
-        });
+        btnLogout.getStyleClass().add("btn-danger");
+        btnLogout.setOnAction(e -> { if (onLogout != null) onLogout.run(); });
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -85,10 +81,10 @@ public class MenuView {
         topLine.setAlignment(Pos.CENTER_LEFT);
 
         Label lblBenvenuto = new Label("Benvenuto, " + nomeBibliotecario + "!");
-        lblBenvenuto.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        lblBenvenuto.getStyleClass().add("page-title");
 
         Label lblDescrizione = new Label("Scegli l'area della biblioteca che vuoi gestire:");
-        lblDescrizione.setStyle("-fx-font-size: 13px; -fx-text-fill: #555555;");
+        lblDescrizione.getStyleClass().add("muted");
 
         HBox row1 = new HBox(15);
         row1.setAlignment(Pos.CENTER);
@@ -100,25 +96,22 @@ public class MenuView {
         btnUtenti = new Button("Gestione Utenti");
         btnPrestiti = new Button("Gestione Prestiti");
 
+        btnLibri.getStyleClass().add("tile-button");
+        btnUtenti.getStyleClass().add("tile-button");
+        btnPrestiti.getStyleClass().add("tile-button");
+
         btnLibri.setPrefWidth(150);
         btnUtenti.setPrefWidth(150);
         btnPrestiti.setPrefWidth(150);
 
-        btnLibri.setOnAction(e -> {
-            if (onGestioneLibri != null) onGestioneLibri.run();
-        });
-        btnUtenti.setOnAction(e -> {
-            if (onGestioneUtenti != null) onGestioneUtenti.run();
-        });
-        btnPrestiti.setOnAction(e -> {
-            if (onGestionePrestiti != null) onGestionePrestiti.run();
-        });
+        btnLibri.setOnAction(e -> { if (onGestioneLibri != null) onGestioneLibri.run(); });
+        btnUtenti.setOnAction(e -> { if (onGestioneUtenti != null) onGestioneUtenti.run(); });
+        btnPrestiti.setOnAction(e -> { if (onGestionePrestiti != null) onGestionePrestiti.run(); });
 
         row1.getChildren().addAll(btnLibri, btnUtenti);
         row2.getChildren().addAll(btnPrestiti);
 
         card.getChildren().addAll(topLine, lblBenvenuto, lblDescrizione, row1, row2);
-
         root.setCenter(card);
     }
 

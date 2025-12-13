@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.view;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -17,8 +12,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 /**
  * @brief Pannello per la gestione delle operazioni di prestito.
@@ -49,10 +47,20 @@ public class PrestitiPanel {
         campoIsbn = new TextField();
         campoDataPrevista = new TextField();
 
+        campoMatricola.setMaxWidth(Double.MAX_VALUE);
+        campoIsbn.setMaxWidth(Double.MAX_VALUE);
+        campoDataPrevista.setMaxWidth(Double.MAX_VALUE);
+
         GridPane form = new GridPane();
         form.setHgap(8);
         form.setVgap(8);
         form.setPadding(new Insets(10));
+
+        ColumnConstraints c0 = new ColumnConstraints(); c0.setMinWidth(90);
+        ColumnConstraints c1 = new ColumnConstraints(); c1.setHgrow(Priority.ALWAYS);
+        ColumnConstraints c2 = new ColumnConstraints(); c2.setMinWidth(70);
+        ColumnConstraints c3 = new ColumnConstraints(); c3.setHgrow(Priority.ALWAYS);
+        form.getColumnConstraints().addAll(c0, c1, c2, c3);
 
         int r = 0;
         form.add(new Label("Matricola:"), 0, r);
@@ -62,47 +70,51 @@ public class PrestitiPanel {
         r++;
 
         form.add(new Label("Data prevista:"), 0, r);
-        form.add(campoDataPrevista, 1, r);
+        form.add(campoDataPrevista, 1, r, 3, 1);
 
-        root.setTop(form);
+        GridPane.setHgrow(campoMatricola, Priority.ALWAYS);
+        GridPane.setHgrow(campoIsbn, Priority.ALWAYS);
+        GridPane.setHgrow(campoDataPrevista, Priority.ALWAYS);
 
         tabellaPrestiti = new TableView<>();
+        tabellaPrestiti.getStyleClass().add("table-in-card");
+        tabellaPrestiti.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         TableColumn<ObservableList<String>, String> colMatricola = new TableColumn<>("Matricola");
-        colMatricola.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(0)));
+        colMatricola.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(0)));
+        colMatricola.setPrefWidth(120);
 
         TableColumn<ObservableList<String>, String> colNome = new TableColumn<>("Nome");
-        colNome.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(1)));
+        colNome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(1)));
+        colNome.setPrefWidth(120);
 
         TableColumn<ObservableList<String>, String> colCognome = new TableColumn<>("Cognome");
-        colCognome.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(2)));
+        colCognome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(2)));
+        colCognome.setPrefWidth(150);
 
         TableColumn<ObservableList<String>, String> colIsbn = new TableColumn<>("ISBN");
-        colIsbn.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(3)));
+        colIsbn.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(3)));
+        colIsbn.setPrefWidth(130);
 
         TableColumn<ObservableList<String>, String> colTitolo = new TableColumn<>("Titolo");
-        colTitolo.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(4)));
+        colTitolo.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(4)));
+        colTitolo.setPrefWidth(220);
 
         TableColumn<ObservableList<String>, String> colDataInizio = new TableColumn<>("Data inizio");
-        colDataInizio.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(5)));
+        colDataInizio.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(5)));
+        colDataInizio.setPrefWidth(110);
 
         TableColumn<ObservableList<String>, String> colDataPrevista = new TableColumn<>("Data prevista");
-        colDataPrevista.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(6)));
+        colDataPrevista.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(6)));
+        colDataPrevista.setPrefWidth(120);
 
         TableColumn<ObservableList<String>, String> colInRitardo = new TableColumn<>("In ritardo");
-        colInRitardo.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(7)));
+        colInRitardo.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(7)));
+        colInRitardo.setPrefWidth(90);
 
         TableColumn<ObservableList<String>, String> colBlacklist = new TableColumn<>("Blacklist");
-        colBlacklist.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(8)));
+        colBlacklist.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(8)));
+        colBlacklist.setPrefWidth(100);
 
         tabellaPrestiti.getColumns().addAll(
                 colMatricola, colNome, colCognome, colIsbn, colTitolo,
@@ -110,34 +122,38 @@ public class PrestitiPanel {
         );
 
         ObservableList<ObservableList<String>> datiFinti = FXCollections.observableArrayList();
-
         datiFinti.add(FXCollections.observableArrayList(
                 "0612700001", "Mario", "Rossi",
                 "9788800000001", "Programmazione in Java",
                 "2025-12-01", "2025-12-15", "No", "No"
         ));
-
         datiFinti.add(FXCollections.observableArrayList(
                 "0612700002", "Giulia", "Bianchi",
                 "9788800000002", "Basi di Dati",
                 "2025-11-20", "2025-11-30", "Sì", "Sì"
         ));
-
         tabellaPrestiti.setItems(datiFinti);
-
-        root.setCenter(tabellaPrestiti);
-        BorderPane.setMargin(tabellaPrestiti, new Insets(10));
 
         bottoneNuovoPrestito = new Button("Nuovo prestito");
         bottoneRestituzione = new Button("Registrare restituzione");
         bottoneBlacklist = new Button("Blacklist utente");
 
-        HBox bottoniBox = new HBox(10,
-                bottoneNuovoPrestito, bottoneRestituzione, bottoneBlacklist);
-        bottoniBox.setAlignment(Pos.CENTER_RIGHT);
-        bottoniBox.setPadding(new Insets(10));
+        bottoneNuovoPrestito.getStyleClass().add("btn-primary");
+        bottoneRestituzione.getStyleClass().add("btn-secondary");
+        bottoneBlacklist.getStyleClass().add("btn-danger");
 
-        root.setBottom(bottoniBox);
+        HBox bottoniBox = new HBox(10, bottoneNuovoPrestito, bottoneRestituzione, bottoneBlacklist);
+        bottoniBox.getStyleClass().add("card-footer");
+        bottoniBox.setAlignment(Pos.CENTER_RIGHT);
+
+        VBox contenuto = new VBox(14, form, tabellaPrestiti, bottoniBox);
+        contenuto.getStyleClass().add("card");
+        contenuto.setPadding(new Insets(16));
+
+        VBox.setVgrow(tabellaPrestiti, Priority.ALWAYS);
+
+        root.setCenter(contenuto);
+        BorderPane.setMargin(contenuto, new Insets(12));
     }
 
     /** @brief Nodo radice da inserire nella scena principale. */
@@ -155,16 +171,10 @@ public class PrestitiPanel {
     public String getDataPrevistaInserita() { return campoDataPrevista.getText().trim(); }
 
     /** @brief resetta i textfield */
-    public void pulisciCampi() {
-        campoMatricola.clear();
-        campoIsbn.clear();
-        campoDataPrevista.clear();
-    }
+    public void pulisciCampi() { campoMatricola.clear(); campoIsbn.clear(); campoDataPrevista.clear(); }
 
     /** @return la tabella dei prestiti. */
-    public TableView<ObservableList<String>> getTabellaPrestiti() {
-        return tabellaPrestiti;
-    }
+    public TableView<ObservableList<String>> getTabellaPrestiti() { return tabellaPrestiti; }
 
     /** @return tasto nuovo prestito */
     public Button getBottoneNuovoPrestito() { return bottoneNuovoPrestito; }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.view;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -17,8 +12,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * @brief Pannello per la gestione dell'anagrafica utenti.
@@ -35,11 +32,8 @@ public class UtentiPanel {
     private final BorderPane root;
 
     private final TextField campoMatricola;
-
     private final TextField campoNome;
-
     private final TextField campoCognome;
-
     private final TextField campoEmail;
 
     /**
@@ -65,16 +59,26 @@ public class UtentiPanel {
     public UtentiPanel() {
         root = new BorderPane();
 
-        //  form in alto
         campoMatricola = new TextField();
         campoNome = new TextField();
         campoCognome = new TextField();
         campoEmail = new TextField();
 
+        campoMatricola.setMaxWidth(Double.MAX_VALUE);
+        campoNome.setMaxWidth(Double.MAX_VALUE);
+        campoCognome.setMaxWidth(Double.MAX_VALUE);
+        campoEmail.setMaxWidth(Double.MAX_VALUE);
+
         GridPane form = new GridPane();
         form.setHgap(8);
         form.setVgap(8);
         form.setPadding(new Insets(10));
+
+        ColumnConstraints c0 = new ColumnConstraints(); c0.setMinWidth(90);
+        ColumnConstraints c1 = new ColumnConstraints(); c1.setHgrow(javafx.scene.layout.Priority.ALWAYS);
+        ColumnConstraints c2 = new ColumnConstraints(); c2.setMinWidth(70);
+        ColumnConstraints c3 = new ColumnConstraints(); c3.setHgrow(javafx.scene.layout.Priority.ALWAYS);
+        form.getColumnConstraints().addAll(c0, c1, c2, c3);
 
         int r = 0;
         form.add(new Label("Matricola:"), 0, r);
@@ -88,134 +92,96 @@ public class UtentiPanel {
         form.add(new Label("Email:"), 2, r);
         form.add(campoEmail, 3, r);
 
-        root.setTop(form);
+        GridPane.setHgrow(campoMatricola, javafx.scene.layout.Priority.ALWAYS);
+        GridPane.setHgrow(campoNome, javafx.scene.layout.Priority.ALWAYS);
+        GridPane.setHgrow(campoCognome, javafx.scene.layout.Priority.ALWAYS);
+        GridPane.setHgrow(campoEmail, javafx.scene.layout.Priority.ALWAYS);
 
-        //  tabella al centro
         tabellaUtenti = new TableView<>();
-
-        // 0 = Matricola, 1 = Nome, 2 = Cognome, 3 = Email, 4 = Prestiti attivi, 5 = Blacklist
+        tabellaUtenti.getStyleClass().add("table-in-card");
+        tabellaUtenti.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         TableColumn<ObservableList<String>, String> colMatricola = new TableColumn<>("Matricola");
-        colMatricola.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(0)));
+        colMatricola.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(0)));
+        colMatricola.setPrefWidth(120);
 
         TableColumn<ObservableList<String>, String> colNome = new TableColumn<>("Nome");
-        colNome.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(1)));
+        colNome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(1)));
+        colNome.setPrefWidth(140);
 
         TableColumn<ObservableList<String>, String> colCognome = new TableColumn<>("Cognome");
-        colCognome.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(2)));
+        colCognome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(2)));
+        colCognome.setPrefWidth(160);
 
         TableColumn<ObservableList<String>, String> colEmail = new TableColumn<>("Email");
-        colEmail.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(3)));
+        colEmail.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(3)));
+        colEmail.setPrefWidth(240);
 
-        // nuova colonna: Prestiti attivi (indice 4)
-        TableColumn<ObservableList<String>, String> colPrestitiAttivi =
-                new TableColumn<>("Prestiti attivi");
-        colPrestitiAttivi.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(4)));
+        TableColumn<ObservableList<String>, String> colPrestitiAttivi = new TableColumn<>("Prestiti attivi");
+        colPrestitiAttivi.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(4)));
+        colPrestitiAttivi.setPrefWidth(120);
 
         TableColumn<ObservableList<String>, String> colBlacklist = new TableColumn<>("Blacklist");
-        colBlacklist.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().get(5)));
+        colBlacklist.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(5)));
+        colBlacklist.setPrefWidth(100);
 
-        tabellaUtenti.getColumns().addAll(
-                colMatricola, colNome, colCognome, colEmail, colPrestitiAttivi, colBlacklist
-        );
+        tabellaUtenti.getColumns().addAll(colMatricola, colNome, colCognome, colEmail, colPrestitiAttivi, colBlacklist);
 
         ObservableList<ObservableList<String>> datiFinti = FXCollections.observableArrayList();
-        datiFinti.add(FXCollections.observableArrayList(
-                "0612700001", "Mario", "Rossi", "m.rossi@unisa.it", "1", "No"
-        ));
-        datiFinti.add(FXCollections.observableArrayList(
-                "0612700002", "Giulia", "Bianchi", "g.bianchi@unisa.it", "0", "Sì"
-        ));
+        datiFinti.add(FXCollections.observableArrayList("0612700001","Mario","Rossi","m.rossi@unisa.it","1","No"));
+        datiFinti.add(FXCollections.observableArrayList("0612700002","Giulia","Bianchi","g.bianchi@unisa.it","0","Sì"));
         tabellaUtenti.setItems(datiFinti);
 
-        root.setCenter(tabellaUtenti);
-        BorderPane.setMargin(tabellaUtenti, new Insets(10));
+        bottoneInserisci = new Button("Inserisci");
+        bottoneModifica = new Button("Modifica");
+        bottoneElimina = new Button("Elimina");
+        bottoneBlacklist = new Button("Blacklist");
+        bottoneCerca = new Button("Cerca");
 
-        //  pulsanti in basso
-        bottoneInserisci  = new Button("Inserisci");
-        bottoneModifica   = new Button("Modifica");
-        bottoneElimina    = new Button("Elimina");
-        bottoneBlacklist  = new Button("Blacklist");
-        bottoneCerca      = new Button("Cerca");
+        bottoneInserisci.getStyleClass().add("btn-primary");
+        bottoneModifica.getStyleClass().add("btn-secondary");
+        bottoneElimina.getStyleClass().add("btn-danger");
+        bottoneBlacklist.getStyleClass().add("btn-secondary");
+        bottoneCerca.getStyleClass().add("btn-secondary");
 
-        HBox bottoniBox = new HBox(10,
-                bottoneInserisci,
-                bottoneModifica,
-                bottoneElimina,
-                bottoneBlacklist,
-                bottoneCerca);
+        HBox bottoniBox = new HBox(10, bottoneInserisci, bottoneModifica, bottoneElimina, bottoneBlacklist, bottoneCerca);
+        bottoniBox.getStyleClass().add("card-footer");
         bottoniBox.setAlignment(Pos.CENTER_RIGHT);
-        bottoniBox.setPadding(new Insets(10));
 
-        root.setBottom(bottoniBox);
+        VBox contenuto = new VBox(14, form, tabellaUtenti, bottoniBox);
+        contenuto.getStyleClass().add("card");
+        contenuto.setPadding(new Insets(16));
+
+        VBox.setVgrow(tabellaUtenti, javafx.scene.layout.Priority.ALWAYS);
+
+        root.setCenter(contenuto);
+        BorderPane.setMargin(contenuto, new Insets(12));
     }
 
     /**
      * @brief Restituisce il nodo radice dell'interfaccia.
      * @return L'oggetto Parent da inserire nella scena principale.
      */
-    public Parent getRoot() {
-        return root;
-    }
+    public Parent getRoot() { return root; }
 
-    //  Getter dei dati inseriti (Input)
-
-    /** @brief getter per la matricola
-     * @return campo matricola senza spazi
-     */
+    // Getter dei dati inseriti (Input)
     public String getMatricolaInserita() { return campoMatricola.getText().trim(); }
-
-    /** @brief getter per il nome
-     * @return campo nome senza spazi
-     */
     public String getNomeInserito() { return campoNome.getText().trim(); }
-
-    /** @brief getter per il cognome
-     * @return campo cognome senza spazi
-     */
     public String getCognomeInserito() { return campoCognome.getText().trim(); }
-
-    /** @brief getter per il campo mail
-     * @return campo mail
-     */
     public String getEmailInserita() { return campoEmail.getText().trim(); }
 
     /**
      * @brief Pulisce i campi di input del form.
      * Da chiamare dopo un inserimento avvenuto con successo per resettare i campi .
      */
-    public void pulisciCampi() {
-        campoMatricola.clear();
-        campoNome.clear();
-        campoCognome.clear();
-        campoEmail.clear();
-    }
+    public void pulisciCampi() { campoMatricola.clear(); campoNome.clear(); campoCognome.clear(); campoEmail.clear(); }
 
-    //  Getter Componenti UI (per i Controller)
-
-    public TableView<ObservableList<String>> getTabellaUtenti() {
-        return tabellaUtenti;
-    }
-
-    /** @return tasto Inserisci */
+    // Getter Componenti UI (per i Controller)
+    public TableView<ObservableList<String>> getTabellaUtenti() { return tabellaUtenti; }
     public Button getBottoneInserisci() { return bottoneInserisci; }
-
-    /** @return tasto Modifica */
     public Button getBottoneModifica() { return bottoneModifica; }
-
-    /** @return tasto Elimina */
     public Button getBottoneElimina() { return bottoneElimina; }
-
-    /** @return tasto Blacklist */
     public Button getBottoneBlacklist() { return bottoneBlacklist; }
-
-    /** @return tasto Cerca */
     public Button getBottoneCerca() { return bottoneCerca; }
 
     /**
@@ -227,10 +193,7 @@ public class UtentiPanel {
      * @param riga Riga selezionata nella TableView utenti.
      */
     public void setCampiDaRiga(ObservableList<String> riga) {
-        if (riga == null || riga.size() < 4) {
-            return;
-        }
-
+        if (riga == null || riga.size() < 4) return;
         campoMatricola.setText(riga.get(0));
         campoNome.setText(riga.get(1));
         campoCognome.setText(riga.get(2));

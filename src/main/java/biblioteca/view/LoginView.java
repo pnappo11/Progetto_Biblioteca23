@@ -90,14 +90,10 @@ public class LoginView {
         });
 
         bottoneLogin = new Button("Login");
-        bottoneLogin.setStyle(
-            "-fx-background-color: #00C853;" +
-            "-fx-text-fill: white;" +
-            "-fx-font-weight: bold;"
-        );
+        bottoneLogin.getStyleClass().add("btn-primary");
 
         etichettaMessaggio = new Label("");
-        etichettaMessaggio.setStyle("-fx-text-fill: red;");
+        etichettaMessaggio.getStyleClass().add("msg-error");
 
         Label labelPassword = new Label("Password:");
 
@@ -141,11 +137,6 @@ public class LoginView {
      */
     public void mostraErrore(String messaggio) {
         etichettaMessaggio.setText(messaggio);
-        if (messaggio == null || messaggio.isEmpty()) {
-            etichettaMessaggio.setStyle("");
-        } else {
-            etichettaMessaggio.setStyle("-fx-text-fill: red;");
-        }
     }
 
     /**
