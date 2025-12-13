@@ -20,7 +20,7 @@ class PrestitoTest {
     @BeforeEach
     void setUp() {
         utente = new Utente("Mario", "Verdi", "0612709541", "m.verdi@unisa.it");
-        libro = new Libro(123456L, "Libro Test", new ArrayList<>(), 2020, 5, 5);
+        libro = new Libro(123456L, "30 days", new ArrayList<>(), 2020, 5, 5);
         dataInizio = LocalDate.of(2023, 1, 1);
         dataPrevista = LocalDate.of(2023, 2, 1);
         
@@ -75,7 +75,7 @@ class PrestitoTest {
         Utente altroUtente = new Utente("Giuseppe", "Luongo", "0612709547", "g.luongo@unisa.it");
         Prestito prestitoUtenteDiverso = new Prestito(altroUtente, libro, dataInizio, dataPrevista);
         
-        Libro altroLibro = new Libro(999L, "B", new ArrayList<>(), 2000, 1);
+        Libro altroLibro = new Libro(999L, "AG4IN", new ArrayList<>(), 2000, 1);
         Prestito prestitoLibroDiverso = new Prestito(utente, altroLibro, dataInizio, dataPrevista);
         
         Prestito prestitoDataDiversa = new Prestito(utente, libro, LocalDate.of(2023, 1, 2), dataPrevista);

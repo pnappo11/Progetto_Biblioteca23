@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class UtenteTest {
 
     private Utente utente;
-    private final String MATRICOLA = "123456";
+    private final String MATRICOLA = "0612709423";
 
     @BeforeEach
     void setUp() {
-        utente = new Utente(MATRICOLA, "Mario", "Rossi", "mario.rossi@test.com");
+        utente = new Utente(MATRICOLA, "Mario", "Rossi", "m.rossi@unisa.it");
     }
 
     @Test
@@ -27,7 +27,7 @@ class UtenteTest {
         assertEquals(MATRICOLA, utente.getMatricola());
         assertEquals("Mario", utente.getNome());
         assertEquals("Rossi", utente.getCognome());
-        assertEquals("mario.rossi@test.com", utente.getEmail());
+        assertEquals("m.rossi@unisa.it", utente.getEmail());
         assertFalse(utente.isInBlacklist());
         assertNotNull(utente.getPrestitiAttivi());
         assertEquals(0, utente.getNumPrestitiAttivi());
@@ -41,8 +41,8 @@ class UtenteTest {
         utente.setCognome("Bianchi");
         assertEquals("Bianchi", utente.getCognome());
 
-        utente.setEmail("luigi.bianchi@test.com");
-        assertEquals("luigi.bianchi@test.com", utente.getEmail());
+        utente.setEmail("l.bianchi@unisa.it");
+        assertEquals("l.bianchi@unisa.it", utente.getEmail());
 
         utente.setInBlacklist(true);
         assertTrue(utente.isInBlacklist());
@@ -54,7 +54,7 @@ class UtenteTest {
     
     @Test
     void testAggiungiPrestito() {
-        Libro libro = new Libro(1L, "Titolo", new ArrayList<>(), 2020, 5, 5);
+        Libro libro = new Libro(1L, "La storia del mocho", new ArrayList<>(), 2020, 5, 5);
         Prestito prestito = new Prestito(utente, libro, LocalDate.now(), LocalDate.now().plusDays(30));
 
         utente.aggiungiPrestito(prestito);
@@ -73,7 +73,7 @@ class UtenteTest {
     
     @Test
     void testAggiungiPrestitoDuplicato() {
-        Libro libro = new Libro(1L, "Titolo", new ArrayList<>(), 2020, 5, 5);
+        Libro libro = new Libro(1L, "La storia del mocho", new ArrayList<>(), 2020, 5, 5);
         Prestito prestito = new Prestito(utente, libro, LocalDate.now(), LocalDate.now().plusDays(30));
 
         utente.aggiungiPrestito(prestito);
@@ -85,7 +85,7 @@ class UtenteTest {
     
     @Test
     void testRimuoviPrestito() {
-        Libro libro = new Libro(1L, "Titolo", new ArrayList<>(), 2020, 5, 5);
+        Libro libro = new Libro(1L, "La storia del mocho", new ArrayList<>(), 2020, 5, 5);
         Prestito prestito = new Prestito(utente, libro, LocalDate.now(), LocalDate.now().plusDays(30));
 
         utente.aggiungiPrestito(prestito);
@@ -119,7 +119,7 @@ class UtenteTest {
     @Test
     void testCanNuovoPrestitoMaxRaggiunto() {
         for (int i = 0; i < Utente.MAX_PRESTITI; i++) {
-            Libro l = new Libro((long) i, "T", new ArrayList<>(), 2000, 1, 1);
+            Libro l = new Libro((long) i, "Torno a casa", new ArrayList<>(), 2000, 1, 1);
             Prestito p = new Prestito(utente, l, LocalDate.now(), LocalDate.now().plusDays(30));
             utente.aggiungiPrestito(p);
         }
@@ -131,8 +131,8 @@ class UtenteTest {
     
     @Test
     void testEquals() {
-        Utente stessoUtente = new Utente(MATRICOLA, "Altro", "Nome", "email");
-        Utente diversoUtente = new Utente("999999", "Mario", "Rossi", "email");
+        Utente stessoUtente = new Utente(MATRICOLA, "Giovanni", "Guercia", "g.guercia@unisa.it");
+        Utente diversoUtente = new Utente("0612709412", "Mario", "Belli", "m.belli@unisa.it");
 
         assertEquals(utente, stessoUtente);
         assertNotEquals(utente, diversoUtente);
@@ -150,9 +150,9 @@ class UtenteTest {
     
     @Test
     void testCompareTo() {
-        Utente u1 = new Utente("A100", "N", "C", "E");
-        Utente u2 = new Utente("B100", "N", "C", "E");
-        Utente u3 = new Utente("A100", "X", "Y", "Z");
+        Utente u1 = new Utente("0612708415", "Nicola", "Ventrone", "n.ventrone@unisa.it");
+        Utente u2 = new Utente("0612708453", "Giovanni", "Bonaccini", "g.bonaccini@unisa.it");
+        Utente u3 = new Utente("0612708415", "Andrea", "Muzi", "a.muzi@unisa.it");
 
         assertTrue(u1.compareTo(u2) < 0);
         assertTrue(u2.compareTo(u1) > 0);
@@ -164,7 +164,7 @@ class UtenteTest {
     void testCompareToNull() {
         assertEquals(1, utente.compareTo(null));
         
-        Utente utenteNullMatricola = new Utente(null, "A", "B", "C");
+        Utente utenteNullMatricola = new Utente(null, "Gennaro", "LaPuzza", "g.LaPuzza@unisa.it");
         assertEquals(1, utente.compareTo(utenteNullMatricola));
         assertEquals(-1, utenteNullMatricola.compareTo(utente));
     }

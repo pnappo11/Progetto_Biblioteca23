@@ -8,21 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class DatiBibliotecaTest {
 
     @Test
-    @DisplayName("Il costruttore vuoto deve inizializzare l'oggetto ma lasciare i campi null")
+    @DisplayName("il costruttore vuoto deve inizializzare l'oggetto ma lasciare i campi null")
     void testCostruttoreDefault() {
         DatiBiblioteca dati = new DatiBiblioteca();
 
-        assertNotNull(dati, "L'istanza di DatiBiblioteca non deve essere null");
+        assertNotNull(dati, "l'istanza di DatiBiblioteca non deve essere null");
         
         
-        assertNull(dati.gestioneLibri, "GestioneLibri dovrebbe essere null");
-        assertNull(dati.gestioneUtenti, "GestioneUtenti dovrebbe essere null");
-        assertNull(dati.gestionePrestiti, "GestionePrestiti dovrebbe essere null");
-        assertNull(dati.autenticazione, "Autenticazione dovrebbe essere null");
+        assertNull(dati.gestioneLibri, "gestioneLibri dovrebbe essere null");
+        assertNull(dati.gestioneUtenti, "gestioneUtenti dovrebbe essere null");
+        assertNull(dati.gestionePrestiti, "gestionePrestiti dovrebbe essere null");
+        assertNull(dati.autenticazione, "autenticazione dovrebbe essere null");
     }
 
     @Test
-    @DisplayName("Il costruttore con parametri deve assegnare correttamente gli oggetti passati")
+    @DisplayName("il costruttore con parametri deve assegnare correttamente gli oggetti passati")
     void testCostruttoreParametrico() {
         
         GestioneLibri gl = new GestioneLibri();
@@ -34,9 +34,9 @@ class DatiBibliotecaTest {
         DatiBiblioteca dati = new DatiBiblioteca(gl, gu, gp, a);
 
         
-        assertSame(gl, dati.gestioneLibri, "Il campo gestioneLibri non corrisponde all'oggetto passato");
-        assertSame(gu, dati.gestioneUtenti, "Il campo gestioneUtenti non corrisponde all'oggetto passato");
-        assertSame(gp, dati.gestionePrestiti, "Il campo gestionePrestiti non corrisponde all'oggetto passato");
-        assertSame(a, dati.autenticazione, "Il campo autenticazione non corrisponde all'oggetto passato");
+        assertSame(gl, dati.gestioneLibri, "il campo gestioneLibri non corrisponde all'oggetto passato");
+        assertSame(gu, dati.gestioneUtenti, "il campo gestioneUtenti non corrisponde all'oggetto passato");
+        assertSame(gp, dati.gestionePrestiti, "il campo gestionePrestiti non corrisponde all'oggetto passato");
+        assertSame(a, dati.autenticazione, "il campo autenticazione non corrisponde all'oggetto passato");
     }
 }
