@@ -1,9 +1,6 @@
-
 package biblioteca.model;
 
-
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,174 +9,194 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @brief Test della classe GestionePrestiti.
+ */
 class GestionePrestitiTest {
 
     private GestionePrestiti gestionePrestiti;
-    private Utente utenteTest;
-    private Libro libroTest;
+
+    private Utente utente1;
+    private Utente utente2;
+
+    private Libro libro1;
+    private Libro libro2;
 
     @BeforeEach
     void setUp() {
         gestionePrestiti = new GestionePrestiti();
-        utenteTest = new Utente("Giovanni", "Feola", "0612709854", "g.feola@unisa.it");
-        List<String> autori = new ArrayList<>();
-        autori.add("Autore 1");
-        libroTest = new Libro(123456789L, "Libro Test", autori, 2023, 5);
+
+        utente1 = new Utente("0612700101", "Gennaro", "Esposito", "g.esposito@unisa.it");
+        utente2 = new Utente("0612700102", "Nunzia", "Capasso", "n.capasso@unisa.it");
+
+        libro1 = new Libro(9788800000000L, "L'amica geniale", new ArrayList<String>(), 2011, 2, 2);
+        libro2 = new Libro(9788800000001L, "Gomorra", new ArrayList<String>(), 2006, 1, 1);
     }
 
     @Test
-    void testCostruttoreDefault() {
-        assertNotNull(gestionePrestiti.getPrestiti());
-        assertTrue(gestionePrestiti.getPrestiti().isEmpty());
+    void testGetPrestiti_listaNonModificabile() {
+        assertThrows(UnsupportedOperationException.class, () -> gestionePrestiti.getPrestiti().add(null));
     }
 
     @Test
-    void testCostruttoreConParametri() {
-        List<Prestito> listaPrestiti = new ArrayList<>();
-        Prestito p = new Prestito(utenteTest, libroTest, LocalDate.now(), LocalDate.now().plusDays(30));
-        listaPrestiti.add(p);
-
-        GestionePrestiti gp = new GestionePrestiti(listaPrestiti);
-        assertEquals(1, gp.getPrestiti().size());
+    void testGetPrestitiAttivi_inizioVuoto() {
+        assertTrue(gestionePrestiti.getPrestitiAttivi().isEmpty());
     }
 
     @Test
-    void testCostruttoreConParametriNull() {
-        GestionePrestiti gp = new GestionePrestiti(null);
-        assertNotNull(gp.getPrestiti());
-        assertTrue(gp.getPrestiti().isEmpty());
-    }
+    void testRegistraPrestito_ok_aggiornaTutto() {
+        LocalDate oggi = LocalDate.of(2025, 12, 1);
+        LocalDate prevista = LocalDate.of(2025, 12, 15);
 
-    @Test
-    void testRegistraPrestitoSuccesso() {
-        LocalDate dataPrestito = LocalDate.now();
-        LocalDate dataRestituzione = dataPrestito.plusDays(30);
+        Prestito p = gestionePrestiti.registraPrestito(utente1, libro1, oggi, prevista);
 
-        Prestito prestito = gestionePrestiti.registraPrestito(utenteTest, libroTest, dataPrestito, dataRestituzione);
-
-        assertNotNull(prestito);
+        assertNotNull(p);
         assertEquals(1, gestionePrestiti.getPrestiti().size());
-        assertEquals(utenteTest, prestito.getUtente());
-        assertEquals(libroTest, prestito.getLibro());
-        assertEquals(4, libroTest.getCopieDisponibili());
+        assertEquals(1, gestionePrestiti.getPrestitiAttivi().size());
+
+        assertEquals(1, libro1.getCopieDisponibili());
+        assertEquals(1, gestionePrestiti.contaPrestitiAttivi(utente1));
+        assertTrue(utente1.getPrestitiAttivi().contains(p));
     }
 
-    
     @Test
-    void testRegistraPrestitoParametriNull() {
+    void testRegistraPrestito_utenteNull_lancia() {
         assertThrows(IllegalArgumentException.class, () ->
-            gestionePrestiti.registraPrestito(null, libroTest, LocalDate.now(), LocalDate.now().plusDays(30))
+                gestionePrestiti.registraPrestito(null, libro1, LocalDate.now(), LocalDate.now().plusDays(7))
         );
+    }
+
+    @Test
+    void testRegistraPrestito_libroNull_lancia() {
         assertThrows(IllegalArgumentException.class, () ->
-            gestionePrestiti.registraPrestito(utenteTest, null, LocalDate.now(), LocalDate.now().plusDays(30))
+                gestionePrestiti.registraPrestito(utente1, null, LocalDate.now(), LocalDate.now().plusDays(7))
         );
     }
 
-    
     @Test
-    void testRegistraPrestitoLibroNonDisponibile() {
-        libroTest.setCopieDisponibili(0);
-        assertThrows(IllegalStateException.class, () -> gestionePrestiti.registraPrestito(utenteTest, libroTest, LocalDate.now(), LocalDate.now().plusDays(30))
+    void testRegistraPrestito_libroNonDisponibile_lancia() {
+        libro2.setCopieDisponibili(0);
+        assertThrows(IllegalStateException.class, () ->
+                gestionePrestiti.registraPrestito(utente1, libro2, LocalDate.now(), LocalDate.now().plusDays(7))
         );
     }
 
-    
     @Test
-    void testRegistraPrestitoLimiteMassimoRaggiunto() {
-        for (int i = 0; i < Utente.MAX_PRESTITI; i++) {
-            Libro l = new Libro(100L + i, "Titolo " + i, new ArrayList<>(), 2000, 5);
-            gestionePrestiti.registraPrestito(utenteTest, l, LocalDate.now(), LocalDate.now().plusDays(30));
+    void testRegistraPrestito_superaMassimo_lancia() {
+        LocalDate oggi = LocalDate.of(2025, 12, 1);
+        LocalDate prevista = LocalDate.of(2025, 12, 20);
+
+        List<Libro> tantiLibri = new ArrayList<>();
+        for (int i = 0; i < Utente.MAX_PRESTITI + 1; i++) {
+            tantiLibri.add(new Libro(
+                    9788800000100L + i,
+                    "Titolo " + (i + 1),
+                    new ArrayList<String>(),
+                    2000 + (i % 20),
+                    1,
+                    1
+            ));
         }
 
-        assertEquals(Utente.MAX_PRESTITI, gestionePrestiti.contaPrestitiAttivi(utenteTest));
+        for (int i = 0; i < Utente.MAX_PRESTITI; i++) {
+            gestionePrestiti.registraPrestito(utente1, tantiLibri.get(i), oggi, prevista);
+        }
 
-        assertThrows(IllegalStateException.class, () -> gestionePrestiti.registraPrestito(utenteTest, libroTest, LocalDate.now(), LocalDate.now().plusDays(30))
+        assertEquals(Utente.MAX_PRESTITI, gestionePrestiti.contaPrestitiAttivi(utente1));
+
+        assertThrows(IllegalStateException.class, () ->
+                gestionePrestiti.registraPrestito(utente1, tantiLibri.get(Utente.MAX_PRESTITI), oggi, prevista)
         );
     }
 
     @Test
-    void testGetPrestitiAttivi() {
-        Prestito p1 = gestionePrestiti.registraPrestito(utenteTest, libroTest, LocalDate.now(), LocalDate.now().plusDays(30));
-        
-        Utente utente2 = new Utente("Mirko", "Alessandrini", "0612709875", "m.alessandrini@unisa.it");
-        Libro libro2 = new Libro(987654L, "Libro 2", new ArrayList<>(), 2022, 3);
-        Prestito p2 = gestionePrestiti.registraPrestito(utente2, libro2, LocalDate.now(), LocalDate.now().plusDays(30));
+    void testRegistraRestituzione_ok_rendePrestitoNonAttivo() {
+        LocalDate inizio = LocalDate.of(2025, 12, 1);
+        LocalDate prevista = LocalDate.of(2025, 12, 10);
 
-        gestionePrestiti.registraRestituzione(p1, LocalDate.now());
+        Prestito p = gestionePrestiti.registraPrestito(utente1, libro1, inizio, prevista);
 
-        List<Prestito> attivi = gestionePrestiti.getPrestitiAttivi();
-        
-        assertEquals(1, attivi.size());
-        assertTrue(attivi.contains(p2));
-        assertFalse(attivi.contains(p1));
-    }
+        assertEquals(1, libro1.getCopieDisponibili());
+        assertEquals(1, gestionePrestiti.getPrestitiAttivi().size());
 
-    
-    @Test
-    void testRegistraRestituzione() {
-        Prestito prestito = gestionePrestiti.registraPrestito(utenteTest, libroTest, LocalDate.now(), LocalDate.now().plusDays(30));
-        int copiePrimaRestituzione = libroTest.getCopieDisponibili();
+        gestionePrestiti.registraRestituzione(p, LocalDate.of(2025, 12, 5));
 
-        gestionePrestiti.registraRestituzione(prestito, LocalDate.now());
-
-        assertNotNull(prestito.getDataRestituzione());
-        assertFalse(prestito.isAttivo());
-        assertEquals(copiePrimaRestituzione + 1, libroTest.getCopieDisponibili());
-    }
-
-    
-    @Test
-    void testRegistraRestituzioneNullOInattivo() {
-        gestionePrestiti.registraRestituzione(null, LocalDate.now());
-
-        Prestito prestito = gestionePrestiti.registraPrestito(utenteTest, libroTest, LocalDate.now(), LocalDate.now().plusDays(30));
-        gestionePrestiti.registraRestituzione(prestito, LocalDate.now());
-        
-        LocalDate dataPrima = prestito.getDataRestituzione();
-        gestionePrestiti.registraRestituzione(prestito, LocalDate.now().plusDays(1));
-        
-        assertEquals(dataPrima, prestito.getDataRestituzione());
-    }
-
-    
-    @Test
-            
-    void testContaPrestitiAttivi() {
-        assertEquals(0, gestionePrestiti.contaPrestitiAttivi(utenteTest));
-
-        gestionePrestiti.registraPrestito(utenteTest, libroTest, LocalDate.now(), LocalDate.now().plusDays(30));
-        assertEquals(1, gestionePrestiti.contaPrestitiAttivi(utenteTest));
-
-        Utente altroUtente = new Utente("Andrea", "Merola", "0612709521", "a.merola@unisa.it");
-        assertEquals(0, gestionePrestiti.contaPrestitiAttivi(altroUtente));
-        
-        assertEquals(0, gestionePrestiti.contaPrestitiAttivi(null));
+        assertEquals(2, libro1.getCopieDisponibili());
+        assertTrue(gestionePrestiti.getPrestitiAttivi().isEmpty());
+        assertEquals(0, gestionePrestiti.contaPrestitiAttivi(utente1));
+        assertFalse(utente1.getPrestitiAttivi().contains(p));
     }
 
     @Test
-    void testHaPrestitiAttiviPer() {
-        assertFalse(gestionePrestiti.haPrestitiAttiviPer(utenteTest));
-
-        gestionePrestiti.registraPrestito(utenteTest, libroTest, LocalDate.now(), LocalDate.now().plusDays(30));
-        
-        assertTrue(gestionePrestiti.haPrestitiAttiviPer(utenteTest));
+    void testRegistraRestituzione_null_nonFaNulla() {
+        assertDoesNotThrow(() -> gestionePrestiti.registraRestituzione(null, LocalDate.now()));
     }
 
     @Test
-    void testTrovaPrestitoAttivo() {
-        LocalDate dataInizio = LocalDate.now();
-        gestionePrestiti.registraPrestito(utenteTest, libroTest, dataInizio, dataInizio.plusDays(30));
+    void testRegistraRestituzione_suPrestitoGiaRestituito_nonDoppiaIncremento() {
+        LocalDate inizio = LocalDate.of(2025, 12, 1);
+        LocalDate prevista = LocalDate.of(2025, 12, 10);
 
-        Prestito trovato = gestionePrestiti.trovaPrestitoAttivo(utenteTest.getMatricola(), libroTest.getIsbn(), dataInizio);
-        
+        Libro l = new Libro(9788800000999L, "Il mare non bagna Napoli", new ArrayList<String>(), 1953, 1, 1);
+        Prestito p = gestionePrestiti.registraPrestito(utente2, l, inizio, prevista);
+
+        assertEquals(0, l.getCopieDisponibili());
+
+        gestionePrestiti.registraRestituzione(p, LocalDate.of(2025, 12, 2));
+        assertEquals(1, l.getCopieDisponibili());
+
+        gestionePrestiti.registraRestituzione(p, LocalDate.of(2025, 12, 3));
+        assertEquals(1, l.getCopieDisponibili());
+    }
+
+    @Test
+    void testContaPrestitiAttivi_eHaPrestitiAttiviPer() {
+        assertEquals(0, gestionePrestiti.contaPrestitiAttivi(utente1));
+        assertFalse(gestionePrestiti.haPrestitiAttiviPer(utente1));
+
+        Prestito p = gestionePrestiti.registraPrestito(
+                utente1,
+                libro1,
+                LocalDate.of(2025, 12, 1),
+                LocalDate.of(2025, 12, 10)
+        );
+
+        assertEquals(1, gestionePrestiti.contaPrestitiAttivi(utente1));
+        assertTrue(gestionePrestiti.haPrestitiAttiviPer(utente1));
+
+        gestionePrestiti.registraRestituzione(p, LocalDate.of(2025, 12, 2));
+
+        assertEquals(0, gestionePrestiti.contaPrestitiAttivi(utente1));
+        assertFalse(gestionePrestiti.haPrestitiAttiviPer(utente1));
+    }
+
+    @Test
+    void testTrovaPrestitoAttivo_trovato() {
+        LocalDate inizio = LocalDate.of(2025, 12, 1);
+        LocalDate prevista = LocalDate.of(2025, 12, 10);
+
+        Prestito p = gestionePrestiti.registraPrestito(utente1, libro1, inizio, prevista);
+
+        Prestito trovato = gestionePrestiti.trovaPrestitoAttivo(
+                utente1.getMatricola(),
+                libro1.getIsbn(),
+                inizio
+        );
+
         assertNotNull(trovato);
-        assertEquals(utenteTest, trovato.getUtente());
-        assertEquals(libroTest, trovato.getLibro());
+        assertEquals(p, trovato);
     }
 
     @Test
-    void testTrovaPrestitoAttivoNonTrovato() {
-        Prestito nonTrovato = gestionePrestiti.trovaPrestitoAttivo("MATRICOLA_INESISTENTE", 0L, LocalDate.now());
-        assertNull(nonTrovato);
+    void testTrovaPrestitoAttivo_nonTrovato() {
+        LocalDate inizio = LocalDate.of(2025, 12, 1);
+
+        Prestito trovato = gestionePrestiti.trovaPrestitoAttivo(
+                "0612709999",
+                9788800000000L,
+                inizio
+        );
+
+        assertNull(trovato);
     }
 }

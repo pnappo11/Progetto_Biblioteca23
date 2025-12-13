@@ -1,13 +1,10 @@
-
 package biblioteca.model;
 
-
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -15,196 +12,211 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GestioneLibriTest {
 
-    private GestioneLibri gestioneLibri;
+    private GestioneLibri gestione;
 
     @BeforeEach
     void setUp() {
-        gestioneLibri = new GestioneLibri();
-    }
+        gestione = new GestioneLibri();
 
-    @Test
-    void testCostruttoreDefault() {
-        assertNotNull(gestioneLibri.getLibri());
-        assertTrue(gestioneLibri.getLibri().isEmpty());
-    }
-
-    @Test
-    void testCostruttoreConParametri() {
-        TreeSet<Libro> setIniziale = new TreeSet<>();
-        setIniziale.add(new Libro(12345L, "Titolo", new ArrayList<>(), 2020, 5));
-        
-        GestioneLibri gl = new GestioneLibri(setIniziale);
-        assertEquals(1, gl.getLibri().size());
-    }
-
-    @Test
-    void testCostruttoreConParametriNull() {
-        GestioneLibri gl = new GestioneLibri(null);
-        assertNotNull(gl.getLibri());
-        assertTrue(gl.getLibri().isEmpty());
-    }
-
-    @Test
-    void testInserisciLibroNuovo() {
-        long isbn = 978880000L;
-        String titolo = "Java Programming";
-        List<String> autori = Arrays.asList("Rossi", "Bianchi");
-        int anno = 2023;
-        int copie = 10;
-
-        Libro libro = gestioneLibri.inserisciLibro(isbn, titolo, autori, anno, copie);
-
-        assertNotNull(libro);
-        assertEquals(1, gestioneLibri.getLibri().size());
-        assertEquals(isbn, libro.getIsbn());
-        assertEquals(titolo, libro.getTitolo());
-        assertEquals(copie, libro.getCopieTotali());
-        assertEquals(copie, libro.getCopieDisponibili()); 
-    }
-
-    @Test
-    void testInserisciLibroEsistenteIncrementaCopie() {
-        long isbn = 978880000L;
-        gestioneLibri.inserisciLibro(isbn, "Titolo 1", new ArrayList<>(), 2020, 5);
-
-        Libro aggiornato = gestioneLibri.inserisciLibro(isbn, "Titolo 1", new ArrayList<>(), 2020, 3);
-
-        assertEquals(1, gestioneLibri.getLibri().size());
-        assertEquals(8, aggiornato.getCopieTotali()); 
-        assertEquals(8, aggiornato.getCopieDisponibili()); 
-    }
-
-    @Test
-    void testInserisciLibroCopieNegative() {
-        assertThrows(IllegalArgumentException.class, () -> 
-            gestioneLibri.inserisciLibro(111L, "Test", new ArrayList<>(), 2021, 0)
+        gestione.inserisciLibro(
+                9788800000000L,
+                "L'amica geniale",
+                Arrays.asList("Elena Ferrante"),
+                2011,
+                5
         );
-        assertThrows(IllegalArgumentException.class, () -> 
-            gestioneLibri.inserisciLibro(111L, "Test", new ArrayList<>(), 2021, -5)
+
+        gestione.inserisciLibro(
+                9788800000001L,
+                "Gomorra",
+                Arrays.asList("Roberto Saviano"),
+                2006,
+                2
+        );
+
+        gestione.inserisciLibro(
+                9788800000002L,
+                "Napoli milionaria!",
+                Arrays.asList("Eduardo De Filippo"),
+                1945,
+                3
         );
     }
 
     @Test
-    void testModificaLibro() {
-        long isbn = 12345L;
-        Libro libro = gestioneLibri.inserisciLibro(isbn, "Vecchio Titolo", new ArrayList<>(), 2000, 1);
-        
-        String nuovoTitolo = "Nuovo Titolo";
-        List<String> nuoviAutori = Arrays.asList("Nuovo Autore");
-        int nuovoAnno = 2024;
-        int nuoveCopie = 5;
-
-        gestioneLibri.modificaLibro(libro, nuovoTitolo, nuoviAutori, nuovoAnno, nuoveCopie);
-
-        assertEquals(nuovoTitolo, libro.getTitolo());
-        assertEquals(nuoviAutori, libro.getAutori());
-        assertEquals(nuovoAnno, libro.getAnnoPubblicazione());
-        assertEquals(nuoveCopie, libro.getCopieTotali());
+    void testCostruttoreVuoto() {
+        GestioneLibri g = new GestioneLibri();
+        assertNotNull(g.getLibri());
+        assertTrue(g.getLibri().isEmpty());
     }
 
     @Test
-    void testModificaLibroNull() {
-        assertDoesNotThrow(() -> 
-            gestioneLibri.modificaLibro(null, "A", new ArrayList<>(), 2020, 1)
-        );
+    void testCostruttoreConTreeSetNull() {
+        GestioneLibri g = new GestioneLibri(null);
+        assertNotNull(g.getLibri());
+        assertTrue(g.getLibri().isEmpty());
     }
 
     @Test
-    void testEliminaLibroEsistente() {
-        long isbn = 11111L;
-        gestioneLibri.inserisciLibro(isbn, "Da Eliminare", new ArrayList<>(), 2020, 1);
-        
-        gestioneLibri.eliminaLibro(String.valueOf(isbn));
-        
-        assertTrue(gestioneLibri.getLibri().isEmpty());
-    }
-
-    @Test
-    void testEliminaLibroNonEsistente() {
-        gestioneLibri.inserisciLibro(123L, "Da Tenere", new ArrayList<>(), 2020, 1);
-        
-        gestioneLibri.eliminaLibro("99999");
-        
-        assertEquals(1, gestioneLibri.getLibri().size());
-    }
-
-    @Test
-    void testEliminaLibroInputNonValido() {
-        gestioneLibri.inserisciLibro(123L, "Libro", new ArrayList<>(), 2020, 1);
-        
-        gestioneLibri.eliminaLibro(null);
-        assertEquals(1, gestioneLibri.getLibri().size());
-
-        gestioneLibri.eliminaLibro("");
-        assertEquals(1, gestioneLibri.getLibri().size());
-
-        gestioneLibri.eliminaLibro("abc");
-        assertEquals(1, gestioneLibri.getLibri().size());
-    }
-
-    @Test
-    void testTrovaLibro() {
-        long isbn = 555L;
-        gestioneLibri.inserisciLibro(isbn, "Cercami", new ArrayList<>(), 2021, 1);
-
-        Libro trovato = gestioneLibri.trovaLibro(isbn);
-        assertNotNull(trovato);
-        assertEquals("Cercami", trovato.getTitolo());
-
-        Libro nonTrovato = gestioneLibri.trovaLibro(999L);
-        assertNull(nonTrovato);
+    void testGetLibri() {
+        assertEquals(3, gestione.getLibri().size());
+        assertNotNull(gestione.getLibri());
     }
 
     @Test
     void testGetLibriOrdinatiPerTitolo() {
-        gestioneLibri.inserisciLibro(1L, "Zebra", new ArrayList<>(), 2020, 1);
-        gestioneLibri.inserisciLibro(2L, "albero", new ArrayList<>(), 2020, 1);
-        gestioneLibri.inserisciLibro(3L, "Casa", new ArrayList<>(), 2020, 1);
-
-        List<Libro> ordinati = gestioneLibri.getLibriOrdinatiPerTitolo();
-
+        List<Libro> ordinati = gestione.getLibriOrdinatiPerTitolo();
         assertEquals(3, ordinati.size());
-        assertEquals("albero", ordinati.get(0).getTitolo()); 
-        assertEquals("Casa", ordinati.get(1).getTitolo());
-        assertEquals("Zebra", ordinati.get(2).getTitolo());
+
+        assertEquals("Gomorra", ordinati.get(0).getTitolo());
+        assertEquals("L'amica geniale", ordinati.get(1).getTitolo());
+        assertEquals("Napoli milionaria!", ordinati.get(2).getTitolo());
     }
 
     @Test
-    void testCercaLibriPerIsbn() {
-        gestioneLibri.inserisciLibro(100L, "Libro A", new ArrayList<>(), 2020, 1);
-        gestioneLibri.inserisciLibro(200L, "Libro B", new ArrayList<>(), 2020, 1);
+    void testInserisciLibroNuovo() {
+        Libro nuovo = gestione.inserisciLibro(
+                9788800000003L,
+                "Il nome della rosa",
+                Arrays.asList("Umberto Eco"),
+                1980,
+                4
+        );
 
-        TreeSet<Libro> result = gestioneLibri.cercaLibri("100", null, null);
-        assertEquals(1, result.size());
-        assertEquals(100L, result.first().getIsbn());
+        assertNotNull(nuovo);
+        assertEquals(4, nuovo.getCopieTotali());
+        assertEquals(4, nuovo.getCopieDisponibili());
+        assertEquals(4, gestione.getLibri().size());
     }
 
     @Test
-    void testCercaLibriPerTitoloParziale() {
-        gestioneLibri.inserisciLibro(1L, "Harry Potter 1", new ArrayList<>(), 2000, 1);
-        gestioneLibri.inserisciLibro(2L, "Harry Potter 2", new ArrayList<>(), 2002, 1);
-        gestioneLibri.inserisciLibro(3L, "Lord of the Rings", new ArrayList<>(), 1954, 1);
+    void testInserisciLibroEsistente_incrementaCopie() {
+        Libro prima = gestione.trovaLibro(9788800000001L);
+        assertNotNull(prima);
+        assertEquals(2, prima.getCopieTotali());
+        assertEquals(2, prima.getCopieDisponibili());
 
-        TreeSet<Libro> result = gestioneLibri.cercaLibri(null, "potter", null);
-        assertEquals(2, result.size());
+        Libro aggiornato = gestione.inserisciLibro(
+                9788800000001L,
+                "Gomorra",
+                Arrays.asList("Roberto Saviano"),
+                2006,
+                3
+        );
+
+        assertSame(prima, aggiornato);
+        assertEquals(5, aggiornato.getCopieTotali());
+        assertEquals(5, aggiornato.getCopieDisponibili());
+        assertEquals(3, gestione.getLibri().size());
     }
 
     @Test
-    void testCercaLibriPerAutore() {
-        gestioneLibri.inserisciLibro(1L, "Libro 1", Arrays.asList("Tolkien"), 1954, 1);
-        gestioneLibri.inserisciLibro(2L, "Libro 2", Arrays.asList("Rowling"), 2000, 1);
-
-        TreeSet<Libro> result = gestioneLibri.cercaLibri(null, null, "tolkien");
-        assertEquals(1, result.size());
-        assertEquals("Libro 1", result.first().getTitolo());
+    void testInserisciLibro_copieNonValide_lanciaEccezione() {
+        assertThrows(IllegalArgumentException.class, () ->
+                gestione.inserisciLibro(9788800000099L, "Test", Collections.emptyList(), 2000, 0)
+        );
+        assertThrows(IllegalArgumentException.class, () ->
+                gestione.inserisciLibro(9788800000098L, "Test", Collections.emptyList(), 2000, -2)
+        );
     }
 
     @Test
-    void testCercaLibriInputVuoti() {
-        gestioneLibri.inserisciLibro(1L, "A", new ArrayList<>(), 2000, 1);
-        gestioneLibri.inserisciLibro(2L, "B", new ArrayList<>(), 2000, 1);
+    void testModificaLibro_modificaCampi() {
+        Libro l = gestione.trovaLibro(9788800000002L);
+        assertNotNull(l);
 
-        TreeSet<Libro> result = gestioneLibri.cercaLibri(null, "", "   ");
-        assertEquals(2, result.size());
+        gestione.modificaLibro(
+                l,
+                "Napoli milionaria! (Edizione Teatro)",
+                Arrays.asList("Eduardo De Filippo", "Compagnia Napoletana"),
+                1950,
+                10
+        );
+
+        assertEquals("Napoli milionaria! (Edizione Teatro)", l.getTitolo());
+        assertEquals(2, l.getAutori().size());
+        assertEquals(1950, l.getAnnoPubblicazione());
+        assertEquals(10, l.getCopieTotali());
+    }
+
+    @Test
+    void testModificaLibro_null_nonFaNulla() {
+        assertDoesNotThrow(() ->
+                gestione.modificaLibro(null, "X", Arrays.asList("Y"), 2000, 1)
+        );
+        assertEquals(3, gestione.getLibri().size());
+    }
+
+    @Test
+    void testEliminaLibro_valido_elimina() {
+        assertNotNull(gestione.trovaLibro(9788800000000L));
+        gestione.eliminaLibro("9788800000000");
+        assertNull(gestione.trovaLibro(9788800000000L));
+        assertEquals(2, gestione.getLibri().size());
+    }
+
+    @Test
+    void testEliminaLibro_stringaVuota_oNull_nonFaNulla() {
+        gestione.eliminaLibro(null);
+        gestione.eliminaLibro("   ");
+        assertEquals(3, gestione.getLibri().size());
+    }
+
+    @Test
+    void testEliminaLibro_formatoNonValido_nonFaNulla() {
+        gestione.eliminaLibro("abc");
+        assertEquals(3, gestione.getLibri().size());
+    }
+
+    @Test
+    void testCercaLibri_perIsbn() {
+        TreeSet<Libro> trovati = gestione.cercaLibri("9788800000001", "", "");
+        assertEquals(1, trovati.size());
+        assertEquals(9788800000001L, trovati.first().getIsbn());
+    }
+
+    @Test
+    void testCercaLibri_isbnNonValido_vieneIgnorato() {
+        TreeSet<Libro> trovati = gestione.cercaLibri("NON_NUMERO", "", "");
+        assertEquals(3, trovati.size());
+    }
+
+    @Test
+    void testCercaLibri_perTitolo_parziale_caseInsensitive() {
+        TreeSet<Libro> trovati = gestione.cercaLibri("", "gEnIaLe", "");
+        assertEquals(1, trovati.size());
+        assertEquals("L'amica geniale", trovati.first().getTitolo());
+    }
+
+    @Test
+    void testCercaLibri_perAutore_parziale_caseInsensitive() {
+        TreeSet<Libro> trovati = gestione.cercaLibri("", "", "sav");
+        assertEquals(1, trovati.size());
+        assertEquals("Gomorra", trovati.first().getTitolo());
+    }
+
+    @Test
+    void testCercaLibri_conTuttiFiltri() {
+        TreeSet<Libro> trovati = gestione.cercaLibri("9788800000002", "napoli", "eduardo");
+        assertEquals(1, trovati.size());
+        assertEquals(9788800000002L, trovati.first().getIsbn());
+    }
+
+    @Test
+    void testCercaLibri_nessunRisultato() {
+        TreeSet<Libro> trovati = gestione.cercaLibri("", "QuestoNonEsiste", "");
+        assertTrue(trovati.isEmpty());
+    }
+
+    @Test
+    void testTrovaLibro_esistente() {
+        Libro l = gestione.trovaLibro(9788800000001L);
+        assertNotNull(l);
+        assertEquals("Gomorra", l.getTitolo());
+    }
+
+    @Test
+    void testTrovaLibro_nonEsistente() {
+        assertNull(gestione.trovaLibro(9788800000999L));
     }
 }

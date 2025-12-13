@@ -13,98 +13,137 @@ import static org.junit.jupiter.api.Assertions.*;
 class LibroTest {
 
     private Libro libro;
-    private final long ISBN_DEFAULT = 1234567890123L;
+    private final long ISBN_BASE = 9788800000000L;
 
     @BeforeEach
     void setUp() {
         List<String> autori = new ArrayList<>();
-        autori.add("Autore 1");
-        autori.add("Autore 2");
-        libro = new Libro(ISBN_DEFAULT, "Titolo Test", autori, 2023, 5, 5);
+        autori.add("Elena Ferrante");
+        autori.add("Roberto Saviano");
+        libro = new Libro(ISBN_BASE, "L'amica geniale", autori, 2011, 5, 5);
     }
 
     @Test
     void testCostruttoreCompleto() {
-        assertEquals(ISBN_DEFAULT, libro.getIsbn());
-        assertEquals("Titolo Test", libro.getTitolo());
+        assertEquals(ISBN_BASE, libro.getIsbn());
+        assertEquals("L'amica geniale", libro.getTitolo());
         assertEquals(2, libro.getAutori().size());
-        assertEquals(2023, libro.getAnnoPubblicazione());
+        assertEquals(2011, libro.getAnnoPubblicazione());
         assertEquals(5, libro.getCopieTotali());
         assertEquals(5, libro.getCopieDisponibili());
     }
 
     @Test
-    void testCostruttoreParziale() {
-        Libro libroParziale = new Libro(999L, "Titolo 2", null, 2020, 10);
-        
-        assertEquals(999L, libroParziale.getIsbn());
-        assertEquals(10, libroParziale.getCopieTotali());
-        assertEquals(10, libroParziale.getCopieDisponibili());
-        assertNotNull(libroParziale.getAutori());
-        assertTrue(libroParziale.getAutori().isEmpty());
+    void testCostruttoreParziale_copieDisponibiliUgualiTotali() {
+        Libro l = new Libro(ISBN_BASE + 1, "Gomorra", null, 2006, 2);
+
+        assertEquals(ISBN_BASE + 1, l.getIsbn());
+        assertEquals("Gomorra", l.getTitolo());
+        assertNotNull(l.getAutori());
+        assertTrue(l.getAutori().isEmpty());
+        assertEquals(2, l.getCopieTotali());
+        assertEquals(2, l.getCopieDisponibili());
     }
 
-    
+    @Test
+    void testGetIsbn() {
+        assertEquals(ISBN_BASE, libro.getIsbn());
+    }
+
     @Test
     void testSetGetTitolo() {
-        libro.setTitolo("Nuovo Titolo");
-        assertEquals("Nuovo Titolo", libro.getTitolo());
+        libro.setTitolo("L'amica geniale (Edizione Napoli)");
+        assertEquals("L'amica geniale (Edizione Napoli)", libro.getTitolo());
     }
 
-    
     @Test
     void testSetGetAnnoPubblicazione() {
-        libro.setAnnoPubblicazione(1999);
-        assertEquals(1999, libro.getAnnoPubblicazione());
+        libro.setAnnoPubblicazione(2012);
+        assertEquals(2012, libro.getAnnoPubblicazione());
     }
 
-    
+    @Test
+    void testGetAutori() {
+        assertEquals(2, libro.getAutori().size());
+        assertEquals("Elena Ferrante", libro.getAutori().get(0));
+    }
+
     @Test
     void testSetGetAutori() {
-        List<String> nuoviAutori = Arrays.asList("Nuovo Autore");
-        libro.setAutori(nuoviAutori);
-        
+        List<String> nuovi = Arrays.asList("Umberto Eco");
+        libro.setAutori(nuovi);
+
         assertEquals(1, libro.getAutori().size());
-        assertEquals("Nuovo Autore", libro.getAutori().get(0));
+        assertEquals("Umberto Eco", libro.getAutori().get(0));
     }
 
-    
     @Test
-    void testSetAutoriNull() {
+    void testSetAutoriNull_diventaListaVuota() {
         libro.setAutori(null);
         assertNotNull(libro.getAutori());
         assertTrue(libro.getAutori().isEmpty());
     }
 
-    
     @Test
     void testGetAutoriUnmodifiable() {
-        List<String> autori = libro.getAutori();
-        assertThrows(UnsupportedOperationException.class, () -> autori.add("Nuovo"));
+        List<String> a = libro.getAutori();
+        assertThrows(UnsupportedOperationException.class, () -> a.add("Gennaro Esposito"));
     }
 
-    
+    @Test
+    void testAutori_copiaDifensiva_costruttore() {
+        List<String> autori = new ArrayList<>();
+        autori.add("Eduardo De Filippo");
+
+        Libro l = new Libro(ISBN_BASE + 2, "Napoli milionaria!", autori, 1945, 3, 3);
+        autori.add("Aggiunto dopo");
+
+        assertEquals(1, l.getAutori().size());
+        assertEquals("Eduardo De Filippo", l.getAutori().get(0));
+    }
+
+    @Test
+    void testAutori_copiaDifensiva_setter() {
+        List<String> autori = new ArrayList<>();
+        autori.add("Totò");
+
+        libro.setAutori(autori);
+        autori.add("Aggiunto dopo");
+
+        assertEquals(1, libro.getAutori().size());
+        assertEquals("Totò", libro.getAutori().get(0));
+    }
+
     @Test
     void testGetNumAutori() {
         assertEquals("2", libro.getNumAutori());
+
         libro.setAutori(Collections.emptyList());
         assertEquals("0", libro.getNumAutori());
     }
 
-    
     @Test
-    void testSetCopieTotaliStandard() {
+    void testGetCopieTotali() {
+        assertEquals(5, libro.getCopieTotali());
+    }
+
+    @Test
+    void testSetCopieTotali_aumenta_nonToccaDisponibiliSeGiaValide() {
         libro.setCopieTotali(10);
         assertEquals(10, libro.getCopieTotali());
         assertEquals(5, libro.getCopieDisponibili());
     }
 
-    
     @Test
-    void testSetCopieTotaliRiduzione() {
+    void testSetCopieTotali_riduce_tagliaDisponibiliSeSuperanoTotali() {
         libro.setCopieTotali(3);
         assertEquals(3, libro.getCopieTotali());
         assertEquals(3, libro.getCopieDisponibili());
+    }
+
+    @Test
+    void testGetCopieDisponibili() {
+        assertEquals(5, libro.getCopieDisponibili());
     }
 
     @Test
@@ -113,50 +152,55 @@ class LibroTest {
         assertEquals(2, libro.getCopieDisponibili());
     }
 
-    
     @Test
     void testIsDisponibile() {
         assertTrue(libro.isDisponibile());
-        
         libro.setCopieDisponibili(0);
         assertFalse(libro.isDisponibile());
     }
 
-    
     @Test
-    void testDecrementaCopiaDisponibileSuccesso() {
+    void testDecrementaCopiaDisponibile_ok() {
         libro.decrementaCopiaDisponibile();
         assertEquals(4, libro.getCopieDisponibili());
     }
 
-    
     @Test
-    void testDecrementaCopiaDisponibileErrore() {
+    void testDecrementaCopiaDisponibile_quandoZero_lanciaEccezione() {
         libro.setCopieDisponibili(0);
         assertThrows(IllegalStateException.class, () -> libro.decrementaCopiaDisponibile());
     }
 
-    
     @Test
-    void testIncrementaCopiaDisponibileSuccesso() {
+    void testIncrementaCopiaDisponibile_ok() {
         libro.setCopieDisponibili(3);
         libro.incrementaCopiaDisponibile();
         assertEquals(4, libro.getCopieDisponibili());
     }
 
-    
     @Test
-    void testIncrementaCopiaDisponibileLimiteRaggiunto() {
+    void testIncrementaCopiaDisponibile_seGiaAlMassimo_nonSuperaTotali() {
         libro.setCopieDisponibili(5);
         libro.incrementaCopiaDisponibile();
         assertEquals(5, libro.getCopieDisponibili());
     }
 
-    
+    @Test
+    void testCompareTo() {
+        Libro l1 = new Libro(9788800000000L, "L'amica geniale", null, 2011, 1);
+        Libro l2 = new Libro(9788800000001L, "Gomorra", null, 2006, 1);
+
+        assertTrue(l1.compareTo(l2) < 0);
+        assertTrue(l2.compareTo(l1) > 0);
+
+        Libro stessoIsbn = new Libro(9788800000000L, "Titolo diverso", null, 1990, 1);
+        assertEquals(0, l1.compareTo(stessoIsbn));
+    }
+
     @Test
     void testEquals() {
-        Libro stessoIsbn = new Libro(ISBN_DEFAULT, "Altro Titolo", null, 2000, 1);
-        Libro diversoIsbn = new Libro(11111L, "Titolo Test", null, 2023, 5);
+        Libro stessoIsbn = new Libro(ISBN_BASE, "Altro titolo", null, 2000, 1);
+        Libro diversoIsbn = new Libro(ISBN_BASE + 5, "Il nome della rosa", null, 1980, 1);
 
         assertEquals(libro, stessoIsbn);
         assertNotEquals(libro, diversoIsbn);
@@ -164,30 +208,19 @@ class LibroTest {
         assertNotEquals(libro, new Object());
     }
 
-    
     @Test
     void testHashCode() {
-        Libro stessoIsbn = new Libro(ISBN_DEFAULT, "Altro", null, 2000, 1);
+        Libro stessoIsbn = new Libro(ISBN_BASE, "Qualcosa", null, 2010, 1);
         assertEquals(libro.hashCode(), stessoIsbn.hashCode());
     }
 
-    
-    @Test
-    void testCompareTo() {
-        Libro libroMinore = new Libro(100L, "A", null, 2000, 1);
-        Libro libroMaggiore = new Libro(200L, "B", null, 2000, 1);
-
-        assertTrue(libroMinore.compareTo(libroMaggiore) < 0);
-        assertTrue(libroMaggiore.compareTo(libroMinore) > 0);
-        assertEquals(0, libroMinore.compareTo(new Libro(100L, "C", null, 2000, 1)));
-    }
-
-    
     @Test
     void testToString() {
         String s = libro.toString();
         assertNotNull(s);
-        assertTrue(s.contains(String.valueOf(ISBN_DEFAULT)));
-        assertTrue(s.contains("Titolo Test"));
+        assertTrue(s.contains(String.valueOf(ISBN_BASE)));
+        assertTrue(s.contains("L'amica geniale"));
+        assertTrue(s.contains("copieTotali"));
+        assertTrue(s.contains("copieDisponibili"));
     }
 }

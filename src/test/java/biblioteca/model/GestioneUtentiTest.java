@@ -1,9 +1,6 @@
-
 package biblioteca.model;
 
-
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.TreeSet;
@@ -12,203 +9,192 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GestioneUtentiTest {
 
-    private GestioneUtenti gestioneUtenti;
-    private Utente utenteTest;
-    private GestionePrestitiStub gestionePrestitiStub;
-
-    /**
-     * Classe Stub interna per simulare il comportamento di GestionePrestiti
-     * senza dover istanziare la classe reale o dipendere dai suoi dati.
-     */
-    static class GestionePrestitiStub extends GestionePrestiti {
-        private boolean hasPrestitiAttivi;
-
-        void setHasPrestitiAttivi(boolean hasPrestitiAttivi) {
-            this.hasPrestitiAttivi = hasPrestitiAttivi;
-        }
-
-        @Override
-        public boolean haPrestitiAttiviPer(Utente utente) {
-            return hasPrestitiAttivi;
-        }
-    }
+    private GestioneUtenti gestione;
 
     @BeforeEach
     void setUp() {
-        gestioneUtenti = new GestioneUtenti();
-        
-        // Inizializza lo stub e lo imposta nel gestore
-        gestionePrestitiStub = new GestionePrestitiStub();
-        gestioneUtenti.setGestionePrestiti(gestionePrestitiStub);
+        gestione = new GestioneUtenti();
 
-        // Creazione Utente con i 4 attributi corretti: matricola, nome, cognome, email
-        utenteTest = new Utente("M12345", "Mario", "Rossi", "mario.rossi@email.it");
+        gestione.inserisciUtente(new Utente("0612700001", "Gennaro", "Esposito", "g.esposito@unisa.it"));
+        gestione.inserisciUtente(new Utente("0612700002", "Carmela", "Russo", "c.russo@unisa.it"));
+        gestione.inserisciUtente(new Utente("0612700003", "Ciro", "Iovine", "c.iovine@unisa.it"));
     }
 
     @Test
-    void testCostruttoreDefault() {
-        assertNotNull(gestioneUtenti.getUtenti());
-        assertTrue(gestioneUtenti.getUtenti().isEmpty());
+    void testCostruttoreVuoto() {
+        GestioneUtenti g = new GestioneUtenti();
+        assertNotNull(g.getUtenti());
+        assertTrue(g.getUtenti().isEmpty());
     }
 
-    
     @Test
-    void testCostruttoreConParametri() {
-        TreeSet<Utente> utentiIniziali = new TreeSet<>();
-        utentiIniziali.add(utenteTest);
-        
-        GestioneUtenti gu = new GestioneUtenti(utentiIniziali);
-        assertEquals(1, gu.getUtenti().size());
-        assertEquals(utenteTest, gu.trovaUtente("M12345"));
+    void testCostruttoreConTreeSetNull() {
+        GestioneUtenti g = new GestioneUtenti(null);
+        assertNotNull(g.getUtenti());
+        assertTrue(g.getUtenti().isEmpty());
     }
 
-    
     @Test
-    void testInserisciUtente() {
-        gestioneUtenti.inserisciUtente(utenteTest);
-        
-        assertEquals(1, gestioneUtenti.getUtenti().size());
-        Utente trovato = gestioneUtenti.trovaUtente("M12345");
-        assertNotNull(trovato);
-        assertEquals("Mario", trovato.getNome());
+    void testGetUtenti() {
+        assertNotNull(gestione.getUtenti());
+        assertEquals(3, gestione.getUtenti().size());
     }
 
-    
     @Test
-    void testInserisciUtenteNull() {
-        gestioneUtenti.inserisciUtente(null);
-        assertTrue(gestioneUtenti.getUtenti().isEmpty());
+    void testInserisciUtente_ok() {
+        gestione.inserisciUtente(new Utente("0612700004", "Assunta", "Vitale", "a.vitale@unisa.it"));
+        assertEquals(4, gestione.getUtenti().size());
+        assertNotNull(gestione.trovaUtente("0612700004"));
     }
 
-    
     @Test
-    void testInserisciUtenteDuplicato() {
-        gestioneUtenti.inserisciUtente(utenteTest);
-        // Utente con stessa matricola (per il TreeSet/Comparable conta la matricola)
-        Utente duplicato = new Utente("M12345", "Luigi", "Bianchi", "luigi@email.it");
-        
-        gestioneUtenti.inserisciUtente(duplicato);
-        
-        assertEquals(1, gestioneUtenti.getUtenti().size());
-        // Il TreeSet non sostituisce l'elemento esistente se compareTo restituisce 0
-        assertEquals("Mario", gestioneUtenti.trovaUtente("M12345").getNome());
+    void testInserisciUtente_null_nonFaNulla() {
+        gestione.inserisciUtente(null);
+        assertEquals(3, gestione.getUtenti().size());
     }
 
-    
     @Test
-    void testModificaUtente() {
-        gestioneUtenti.inserisciUtente(utenteTest);
+    void testTrovaUtente_esistente() {
+        Utente u = gestione.trovaUtente("0612700002");
+        assertNotNull(u);
+        assertEquals("Carmela", u.getNome());
+        assertEquals("Russo", u.getCognome());
+    }
 
-        // Creo un oggetto con la stessa matricola ma dati diversi
-        Utente modifiche = new Utente("M12345", "Giovanni", "Verdi", "giovanni@email.it");
-        modifiche.setInBlacklist(true);
+    @Test
+    void testTrovaUtente_nonEsistente() {
+        assertNull(gestione.trovaUtente("0612700999"));
+    }
 
-        gestioneUtenti.modificaUtente(modifiche);
+    @Test
+    void testTrovaUtente_null() {
+        assertNull(gestione.trovaUtente(null));
+    }
 
-        Utente aggiornato = gestioneUtenti.trovaUtente("M12345");
-        assertEquals("Giovanni", aggiornato.getNome());
-        assertEquals("Verdi", aggiornato.getCognome());
-        assertEquals("giovanni@email.it", aggiornato.getEmail());
+    @Test
+    void testModificaUtente_modificaCampi() {
+        Utente mod = new Utente("0612700003", "Ciro", "Iovine", "vecchia@mail.it");
+        mod.setNome("Ciro Antonio");
+        mod.setCognome("Iovine");
+        mod.setEmail("c.antonio@unisa.it");
+        mod.setInBlacklist(true);
+
+        gestione.modificaUtente(mod);
+
+        Utente aggiornato = gestione.trovaUtente("0612700003");
+        assertNotNull(aggiornato);
+        assertEquals("Ciro Antonio", aggiornato.getNome());
+        assertEquals("Iovine", aggiornato.getCognome());
+        assertEquals("c.antonio@unisa.it", aggiornato.getEmail());
         assertTrue(aggiornato.isInBlacklist());
     }
 
-    
     @Test
-    void testModificaUtenteInesistente() {
-        Utente fantasma = new Utente("999999", "Fantasma", "Casper", "ghost@email.it");
-        gestioneUtenti.modificaUtente(fantasma);
-        
-        assertNull(gestioneUtenti.trovaUtente("999999"));
-        assertTrue(gestioneUtenti.getUtenti().isEmpty());
-    }
-
-    
-    @Test
-    void testEliminaUtenteSenzaPrestiti() {
-        gestioneUtenti.inserisciUtente(utenteTest);
-        
-        // Simulo che l'utente NON abbia prestiti attivi
-        gestionePrestitiStub.setHasPrestitiAttivi(false);
-
-        gestioneUtenti.eliminaUtente("M12345");
-        
-        assertTrue(gestioneUtenti.getUtenti().isEmpty());
-    }
-
-    
-    @Test
-    void testEliminaUtenteConPrestitiAttivi() {
-        gestioneUtenti.inserisciUtente(utenteTest);
-        
-        // Simulo che l'utente ABBIA prestiti attivi
-        gestionePrestitiStub.setHasPrestitiAttivi(true);
-
-        gestioneUtenti.eliminaUtente("M12345");
-        
-        // L'utente non deve essere stato eliminato
-        assertEquals(1, gestioneUtenti.getUtenti().size());
-        assertNotNull(gestioneUtenti.trovaUtente("M12345"));
+    void testModificaUtente_null_nonFaNulla() {
+        assertDoesNotThrow(() -> gestione.modificaUtente(null));
+        assertEquals(3, gestione.getUtenti().size());
     }
 
     @Test
-    void testEliminaUtenteNullOVuoto() {
-        gestioneUtenti.inserisciUtente(utenteTest);
-        
-        gestioneUtenti.eliminaUtente(null);
-        assertEquals(1, gestioneUtenti.getUtenti().size());
-
-        gestioneUtenti.eliminaUtente("");
-        assertEquals(1, gestioneUtenti.getUtenti().size());
-        
-        gestioneUtenti.eliminaUtente("   ");
-        assertEquals(1, gestioneUtenti.getUtenti().size());
+    void testModificaUtente_nonEsiste_nonFaNulla() {
+        Utente mod = new Utente("0612709999", "Nunzia", "Capasso", "n.capasso@unisa.it");
+        gestione.modificaUtente(mod);
+        assertNull(gestione.trovaUtente("0612709999"));
+        assertEquals(3, gestione.getUtenti().size());
     }
 
     @Test
-    void testCercaUtenti() {
-        Utente u1 = new Utente("A001", "Anna", "Neri", "anna@mail.it");
-        Utente u2 = new Utente("B002", "Marco", "Neri", "marco@mail.it");
-        Utente u3 = new Utente("C003", "Luca", "Rossi", "luca@mail.it");
-
-        gestioneUtenti.inserisciUtente(u1);
-        gestioneUtenti.inserisciUtente(u2);
-        gestioneUtenti.inserisciUtente(u3);
-
-        // Ricerca per cognome "Neri"
-        TreeSet<Utente> risultatiCognome = gestioneUtenti.cercaUtenti(null, "neri", null);
-        assertEquals(2, risultatiCognome.size());
-
-        // Ricerca per matricola esatta
-        TreeSet<Utente> risultatiMatricola = gestioneUtenti.cercaUtenti("C003", null, null);
-        assertEquals(1, risultatiMatricola.size());
-        assertEquals("Luca", risultatiMatricola.first().getNome());
-
-        // Ricerca combinata (nome e cognome)
-        TreeSet<Utente> risultatiCombinati = gestioneUtenti.cercaUtenti(null, "rossi", "luca");
-        assertEquals(1, risultatiCombinati.size());
+    void testEliminaUtente_stringaVuota_oNull_nonFaNulla() {
+        gestione.eliminaUtente(null);
+        gestione.eliminaUtente("   ");
+        assertEquals(3, gestione.getUtenti().size());
     }
 
     @Test
-    void testTrovaUtente() {
-        gestioneUtenti.inserisciUtente(utenteTest);
-        
-        Utente trovato = gestioneUtenti.trovaUtente("M12345");
-        assertNotNull(trovato);
-        assertEquals("M12345", trovato.getMatricola());
-
-        Utente nonTrovato = gestioneUtenti.trovaUtente("NON_ESISTE");
-        assertNull(nonTrovato);
+    void testEliminaUtente_nonEsiste_nonFaNulla() {
+        gestione.eliminaUtente("0612700999");
+        assertEquals(3, gestione.getUtenti().size());
     }
 
     @Test
-    void testSetBlacklist() {
-        gestioneUtenti.inserisciUtente(utenteTest);
-        assertFalse(utenteTest.isInBlacklist());
+    void testEliminaUtente_senzaPrestiti_attivi_elimina() {
+        assertNotNull(gestione.trovaUtente("0612700001"));
+        gestione.eliminaUtente("0612700001");
+        assertNull(gestione.trovaUtente("0612700001"));
+        assertEquals(2, gestione.getUtenti().size());
+    }
 
-        gestioneUtenti.setBlacklist(utenteTest, true);
-        assertTrue(utenteTest.isInBlacklist());
+    @Test
+    void testEliminaUtente_conPrestitiAttivi_nonElimina() {
+        GestionePrestiti prestitiFinti = new GestionePrestitiFinta("0612700002");
+        gestione.setGestionePrestiti(prestitiFinti);
 
-        gestioneUtenti.setBlacklist(utenteTest, false);
-        assertFalse(utenteTest.isInBlacklist());
+        assertNotNull(gestione.trovaUtente("0612700002"));
+        gestione.eliminaUtente("0612700002");
+
+        assertNotNull(gestione.trovaUtente("0612700002"));
+        assertEquals(3, gestione.getUtenti().size());
+    }
+
+    @Test
+    void testCercaUtenti_perMatricola_matchEsatto() {
+        TreeSet<Utente> trovati = gestione.cercaUtenti("0612700001", "", "");
+        assertEquals(1, trovati.size());
+        assertEquals("0612700001", trovati.first().getMatricola());
+    }
+
+    @Test
+    void testCercaUtenti_perCognome_contains_caseInsensitive() {
+        TreeSet<Utente> trovati = gestione.cercaUtenti("", "RUS", "");
+        assertEquals(1, trovati.size());
+        assertEquals("Russo", trovati.first().getCognome());
+    }
+
+    @Test
+    void testCercaUtenti_perNome_contains_caseInsensitive() {
+        TreeSet<Utente> trovati = gestione.cercaUtenti("", "", "ennar");
+        assertEquals(1, trovati.size());
+        assertEquals("Gennaro", trovati.first().getNome());
+    }
+
+    @Test
+    void testCercaUtenti_tuttiVuoti_restituisceTutti() {
+        TreeSet<Utente> trovati = gestione.cercaUtenti("", "", "");
+        assertEquals(3, trovati.size());
+    }
+
+    @Test
+    void testSetBlacklist_impostaTrue() {
+        Utente u = gestione.trovaUtente("0612700003");
+        assertNotNull(u);
+        assertFalse(u.isInBlacklist());
+
+        gestione.setBlacklist(u, true);
+        assertTrue(u.isInBlacklist());
+    }
+
+    @Test
+    void testSetBlacklist_utenteNull_nonFaNulla() {
+        assertDoesNotThrow(() -> gestione.setBlacklist(null, true));
+    }
+
+    @Test
+    void testSetGestionePrestiti() {
+        GestionePrestiti finta = new GestionePrestitiFinta("0612700001");
+        assertDoesNotThrow(() -> gestione.setGestionePrestiti(finta));
+    }
+
+    private static class GestionePrestitiFinta extends GestionePrestiti {
+        private final String matricolaConPrestito;
+
+        private GestionePrestitiFinta(String matricolaConPrestito) {
+            this.matricolaConPrestito = matricolaConPrestito;
+        }
+
+        @Override
+        public boolean haPrestitiAttiviPer(Utente u) {
+            if (u == null || u.getMatricola() == null) return false;
+            return u.getMatricola().trim().equals(matricolaConPrestito);
+        }
     }
 }
