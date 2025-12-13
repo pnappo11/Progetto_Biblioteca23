@@ -1,118 +1,128 @@
 package biblioteca.persistence;
 
-import biblioteca.model.Autenticazione;
-import biblioteca.model.GestioneLibri;
-import biblioteca.model.GestionePrestiti;
-import biblioteca.model.GestioneUtenti;
+import biblioteca.model.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.CleanupMode;
+import org.junit.jupiter.api.io.TempDir;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
+import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.function.Supplier;
+import java.util.ArrayList;
 
-public class ArchivioFileTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    private final Path baseDir;
+class ArchivioFileTest {
 
-    private static final String FILE_LIBRI = "libri.dat";
-    private static final String FILE_UTENTI = "utenti.dat";
-    private static final String FILE_PRESTITI = "prestiti.dat";
-    private static final String FILE_AUTENTICAZIONE = "autenticazione.dat";
+    @TempDir(cleanup = CleanupMode.NEVER)
+    Path tempDir;
 
-    public ArchivioFileTest(String directory) {
-        if (directory == null || directory.trim().isEmpty()) {
-            directory = ".";
+    private ArchivioFile archivio;
+
+    @BeforeEach
+    void setUp() {
+        archivio = new ArchivioFile(tempDir.toString());
+    }
+
+    @Test
+    void caricaLibri_senzaFile_restituisceVuoto() {
+        GestioneLibri gl = archivio.caricaLibri();
+        assertNotNull(gl);
+        assertTrue(gl.getLibri().isEmpty());
+    }
+
+    @Test
+    void salvaECaricaLibri_ritrovoTitolo() {
+        GestioneLibri gl = new GestioneLibri();
+        gl.inserisciLibro(9788800000000L, "Odissea", new ArrayList<>(), 2020, 5);
+        gl.inserisciLibro(9788800000001L, "Lilith", new ArrayList<>(), 2018, 2);
+
+        archivio.salvaLibri(gl);
+
+        GestioneLibri letto = archivio.caricaLibri();
+        assertNotNull(letto);
+        assertEquals("Odissea", letto.trovaLibro(9788800000000L).getTitolo());
+        assertEquals("Lilith", letto.trovaLibro(9788800000001L).getTitolo());
+    }
+
+    @Test
+    void caricaUtenti_senzaFile_restituisceVuoto() {
+        GestioneUtenti gu = archivio.caricaUtenti();
+        assertNotNull(gu);
+        assertTrue(gu.getUtenti().isEmpty());
+    }
+
+    @Test
+    void salvaECaricaUtenti_ritrovoNome() {
+        GestioneUtenti gu = new GestioneUtenti();
+        gu.inserisciUtente(new Utente("0612700001", "Matteo", "Menza", "m.menza@unisa.it"));
+        gu.inserisciUtente(new Utente("0612700002", "Pasquale", "Sorbo", "p.sorbo@unisa.it"));
+
+        archivio.salvaUtenti(gu);
+
+        GestioneUtenti letto = archivio.caricaUtenti();
+        assertNotNull(letto);
+        assertEquals("Matteo", letto.trovaUtente("0612700001").getNome());
+        assertEquals("Pasquale", letto.trovaUtente("0612700002").getNome());
+    }
+
+    @Test
+    void caricaPrestiti_senzaFile_restituisceVuoto() {
+        GestionePrestiti gp = archivio.caricaPrestiti();
+        assertNotNull(gp);
+        assertTrue(gp.getPrestiti().isEmpty());
+    }
+
+    @Test
+    void salvaECaricaPrestiti_listaVuotaRestaVuota() {
+        GestionePrestiti gp = new GestionePrestiti();
+        archivio.salvaPrestiti(gp);
+
+        GestionePrestiti letto = archivio.caricaPrestiti();
+        assertNotNull(letto);
+        assertTrue(letto.getPrestiti().isEmpty());
+    }
+
+    @Test
+    void salvaECaricaAutenticazione_passwordFunziona() {
+        Autenticazione a = new Autenticazione();
+        a.cambiaPassword("admin", "nuovaPassword123");
+        archivio.salvaAutenticazione(a);
+
+        Autenticazione letta = archivio.caricaAutenticazione();
+        assertNotNull(letta);
+        assertTrue(letta.login("nuovaPassword123"));
+    }
+
+    @Test
+    void caricaLibri_fileCorrotto_restituisceVuoto() {
+        GestioneLibri gl = new GestioneLibri();
+        archivio.salvaLibri(gl);
+
+        File fileLibri = new File(tempDir.toFile(), "libri.dat");
+        try (java.io.FileWriter w = new java.io.FileWriter(fileLibri)) {
+            w.write("NON_SERIALIZZATO");
+        } catch (Exception e) {
+            fail();
         }
-        this.baseDir = Paths.get(directory);
+
+        GestioneLibri letto = archivio.caricaLibri();
+        assertNotNull(letto);
+        assertTrue(letto.getLibri().isEmpty());
     }
 
-    public void salvaLibri(GestioneLibri gl) {
-        salvaOggetto(gl, FILE_LIBRI);
+    @Test
+    void salvaLibri_null_nonCreaFile() {
+        archivio.salvaLibri(null);
+        assertFalse(new File(tempDir.toFile(), "libri.dat").exists());
     }
 
-    public GestioneLibri caricaLibri() {
-        return caricaOggetto(FILE_LIBRI, GestioneLibri.class, GestioneLibri::new);
-    }
+    @Test
+    void salvaLibri_seFileEUnaCartella_nonLancia() {
+        File f = new File(tempDir.toFile(), "libri.dat");
+        assertTrue(f.mkdir());
 
-    public void salvaUtenti(GestioneUtenti gu) {
-        salvaOggetto(gu, FILE_UTENTI);
-    }
-
-    public GestioneUtenti caricaUtenti() {
-        return caricaOggetto(FILE_UTENTI, GestioneUtenti.class, GestioneUtenti::new);
-    }
-
-    public void salvaPrestiti(GestionePrestiti gp) {
-        salvaOggetto(gp, FILE_PRESTITI);
-    }
-
-    public GestionePrestiti caricaPrestiti() {
-        return caricaOggetto(FILE_PRESTITI, GestionePrestiti.class, GestionePrestiti::new);
-    }
-
-    public void salvaAutenticazione(Autenticazione a) {
-        salvaOggetto(a, FILE_AUTENTICAZIONE);
-    }
-
-    public Autenticazione caricaAutenticazione() {
-        return caricaOggetto(FILE_AUTENTICAZIONE, Autenticazione.class, Autenticazione::new);
-    }
-
-    private Path pathFile(String nomeFile) {
-        return baseDir.resolve(nomeFile);
-    }
-
-    private void salvaOggetto(Object obj, String nomeFile) {
-        if (obj == null) return;
-
-        try {
-            Files.createDirectories(baseDir);
-            Path p = pathFile(nomeFile);
-
-            if (Files.exists(p) && Files.isDirectory(p)) return;
-
-            try (OutputStream os = Files.newOutputStream(
-                    p,
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.TRUNCATE_EXISTING,
-                    StandardOpenOption.WRITE
-            );
-                 BufferedOutputStream bos = new BufferedOutputStream(os);
-                 ObjectOutputStream oos = new ObjectOutputStream(bos)) {
-
-                oos.writeObject(obj);
-                oos.flush();
-            }
-        } catch (Exception ignored) {
-        }
-    }
-
-    private <T> T caricaOggetto(String nomeFile, Class<T> tipo, Supplier<T> fallback) {
-        try {
-            Path p = pathFile(nomeFile);
-
-            if (!Files.exists(p) || Files.isDirectory(p)) {
-                return fallback.get();
-            }
-
-            try (InputStream is = Files.newInputStream(p, StandardOpenOption.READ);
-                 BufferedInputStream bis = new BufferedInputStream(is);
-                 ObjectInputStream ois = new ObjectInputStream(bis)) {
-
-                Object letto = ois.readObject();
-                if (tipo.isInstance(letto)) {
-                    return tipo.cast(letto);
-                }
-            }
-        } catch (Exception ignored) {
-        }
-        return fallback.get();
+        assertDoesNotThrow(() -> archivio.salvaLibri(new GestioneLibri()));
+        assertTrue(f.isDirectory());
     }
 }

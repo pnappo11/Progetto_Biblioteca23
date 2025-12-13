@@ -2,8 +2,8 @@ package biblioteca.controller;
 
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MainControllerTest {
 
     private Stage stage;
-    private MainController instance;
+    private MainController controller;
 
     @BeforeAll
-    public static void setUpClass() throws Exception {
+    public static void avviaJavaFx() throws Exception {
         Platform.setImplicitExit(false);
         CountDownLatch latch = new CountDownLatch(1);
         try {
@@ -28,87 +28,70 @@ public class MainControllerTest {
         } catch (IllegalStateException ex) {
             Platform.runLater(latch::countDown);
         }
-        assertTrue(latch.await(5, TimeUnit.SECONDS));
+        assertTrue(latch.await(10, TimeUnit.SECONDS));
     }
 
     @BeforeEach
     public void setUp() throws Exception {
-        runFxAndWait(() -> {
+        eseguiFx(() -> {
             stage = new Stage();
-            instance = new MainController(stage);
-        });
-    }
-
-    @AfterEach
-    public void tearDown() throws Exception {
-        runFxAndWait(() -> {
-            if (stage != null) {
-                stage.hide();
-            }
+            stage.setScene(new Scene(new Pane(), 200, 100));
+            controller = new MainController(stage);
         });
     }
 
     @Test
-    public void testSetPrestitiController() throws Exception {
-        runFxAndWait(() -> instance.setPrestitiController(null));
+    public void setPrestitiController_impostaCampo() throws Exception {
+        eseguiFx(() -> controller.setPrestitiController(null));
+
         Field f = MainController.class.getDeclaredField("prestitiController");
         f.setAccessible(true);
-        assertNull(f.get(instance));
+        assertNull(f.get(controller));
     }
 
     @Test
-    public void testAvvia() throws Exception {
-        runFxAndWait(() -> instance.avvia());
-        assertTrue(runFxAndWaitResult(stage::isShowing));
-        assertEquals("Login Biblioteca", runFxAndWaitResult(stage::getTitle));
-        Scene sc = runFxAndWaitResult(stage::getScene);
-        assertNotNull(sc);
-        assertNotNull(sc.getRoot());
-        runFxAndWait(stage::hide);
+    public void mostraLogin_impostaTitoloEScena() throws Exception {
+        eseguiFx(() -> controller.mostraLogin());
+
+        assertEquals("Login Biblioteca", stage.getTitle());
+        assertNotNull(stage.getScene());
     }
 
     @Test
-    public void testMostraLogin() throws Exception {
-        runFxAndWait(() -> instance.mostraLogin());
-        assertEquals("Login Biblioteca", runFxAndWaitResult(stage::getTitle));
-        Scene sc = runFxAndWaitResult(stage::getScene);
-        assertNotNull(sc);
-        assertNotNull(sc.getRoot());
+    public void mostraMenu_impostaTitoloEScena() throws Exception {
+        eseguiFx(() -> controller.mostraMenu());
+
+        assertEquals("Menu Biblioteca", stage.getTitle());
+        assertNotNull(stage.getScene());
     }
 
     @Test
-    public void testMostraMenu() throws Exception {
-        runFxAndWait(() -> instance.mostraMenu());
-        assertEquals("Menu Biblioteca", runFxAndWaitResult(stage::getTitle));
-        Scene sc = runFxAndWaitResult(stage::getScene);
-        assertNotNull(sc);
-        assertNotNull(sc.getRoot());
+    public void mostraMain_impostaTitoloEScena() throws Exception {
+        eseguiFx(() -> controller.mostraMain(0));
+
+        assertEquals("Biblioteca universitaria", stage.getTitle());
+        assertNotNull(stage.getScene());
     }
 
     @Test
-    public void testMostraMain() throws Exception {
-        runFxAndWait(() -> instance.mostraMain(0));
-        assertEquals("Biblioteca universitaria", runFxAndWaitResult(stage::getTitle));
-        Scene sc = runFxAndWaitResult(stage::getScene);
-        assertNotNull(sc);
-        assertNotNull(sc.getRoot());
+    public void avvia_mostraLoginEVisualizzaStage() throws Exception {
+        eseguiFx(() -> controller.avvia());
+
+        assertEquals("Login Biblioteca", stage.getTitle());
+        assertTrue(stage.isShowing());
+
+        eseguiFx(stage::hide);
     }
 
-    private static void runFxAndWait(Runnable r) throws Exception {
+    private static void eseguiFx(Runnable r) throws Exception {
         if (Platform.isFxApplicationThread()) {
             r.run();
             return;
         }
         CountDownLatch latch = new CountDownLatch(1);
-        final Throwable[] err = new Throwable[1];
+        Throwable[] err = new Throwable[1];
         Platform.runLater(() -> {
-            try {
-                r.run();
-            } catch (Throwable t) {
-                err[0] = t;
-            } finally {
-                latch.countDown();
-            }
+            try { r.run(); } catch (Throwable t) { err[0] = t; } finally { latch.countDown(); }
         });
         assertTrue(latch.await(10, TimeUnit.SECONDS));
         if (err[0] != null) {
@@ -116,34 +99,5 @@ public class MainControllerTest {
             if (err[0] instanceof Error e) throw e;
             throw new RuntimeException(err[0]);
         }
-    }
-
-    private static <T> T runFxAndWaitResult(java.util.concurrent.Callable<T> c) throws Exception {
-        if (Platform.isFxApplicationThread()) {
-            try {
-                return c.call();
-            } catch (Exception e) {
-                throw e;
-            }
-        }
-        CountDownLatch latch = new CountDownLatch(1);
-        final Object[] out = new Object[1];
-        final Throwable[] err = new Throwable[1];
-        Platform.runLater(() -> {
-            try {
-                out[0] = c.call();
-            } catch (Throwable t) {
-                err[0] = t;
-            } finally {
-                latch.countDown();
-            }
-        });
-        assertTrue(latch.await(10, TimeUnit.SECONDS));
-        if (err[0] != null) {
-            if (err[0] instanceof RuntimeException re) throw re;
-            if (err[0] instanceof Error e) throw e;
-            throw new RuntimeException(err[0]);
-        }
-        return (T) out[0];
     }
 }

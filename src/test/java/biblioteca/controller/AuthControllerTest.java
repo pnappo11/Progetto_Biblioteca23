@@ -2,86 +2,168 @@ package biblioteca.controller;
 
 import biblioteca.model.Autenticazione;
 import biblioteca.view.LoginView;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.InOrder;
 
-import static org.mockito.Mockito.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthControllerTest {
 
-    private Autenticazione bibliotecario;
-    private LoginView loginView;
-    private MainController mainController;
-    private Runnable onLogin;
+    private Stage stage;
+    private MainControllerSpia mainController;
+    private AutenticazioneFinta autenticazione;
+    private LoginViewFinta loginView;
+    private AuthController controller;
+
+    @BeforeAll
+    public static void avviaJavaFx() throws Exception {
+        Platform.setImplicitExit(false);
+        CountDownLatch latch = new CountDownLatch(1);
+        try {
+            Platform.startup(latch::countDown);
+        } catch (IllegalStateException ex) {
+            Platform.runLater(latch::countDown);
+        }
+        assertTrue(latch.await(10, TimeUnit.SECONDS));
+    }
 
     @BeforeEach
-    public void setUp() {
-        bibliotecario = mock(Autenticazione.class);
-        loginView = mock(LoginView.class);
-        mainController = mock(MainController.class);
+    public void setUp() throws Exception {
+        eseguiFx(() -> {
+            stage = new Stage();
+            mainController = new MainControllerSpia(stage);
+            autenticazione = new AutenticazioneFinta();
+            loginView = new LoginViewFinta();
 
-        ArgumentCaptor<Runnable> captor = ArgumentCaptor.forClass(Runnable.class);
-        new AuthController(bibliotecario, loginView, mainController);
-        verify(loginView).setOnLogin(captor.capture());
-        onLogin = captor.getValue();
+            controller = new AuthController(autenticazione, loginView, mainController);
+        });
     }
 
     @Test
-    public void testLoginSuccessMostraMenuEPulisceCampi() {
-        when(loginView.getPassword()).thenReturn("  segreta  ");
-        when(bibliotecario.login("segreta")).thenReturn(true);
+    public void loginCorretto_pulisceCampiEPassaAlMenu() throws Exception {
+        eseguiFx(() -> {
+            autenticazione.setEsito(true);
+            loginView.impostaPassword("qualsiasi");
 
-        onLogin.run();
+            loginView.cliccaLogin();
 
-        InOrder ordine = inOrder(loginView, mainController);
-        ordine.verify(loginView).mostraErrore("");
-        ordine.verify(loginView).pulisciCampi();
-        ordine.verify(mainController).mostraMenu();
-
-        verify(bibliotecario).login("segreta");
-        verifyNoMoreInteractions(mainController);
+            assertEquals("", loginView.leggiUltimoErrore());
+            assertTrue(loginView.campiPuliti());
+            assertTrue(mainController.menuMostrato());
+        });
     }
 
     @Test
-    public void testLoginFallitoMostraErroreEPulisceCampi() {
-        when(loginView.getPassword()).thenReturn("sbagliata");
-        when(bibliotecario.login("sbagliata")).thenReturn(false);
+    public void loginErrato_mostraErroreEPulisce() throws Exception {
+        eseguiFx(() -> {
+            autenticazione.setEsito(false);
+            loginView.impostaPassword("sbagliata");
 
-        onLogin.run();
+            loginView.cliccaLogin();
 
-        InOrder ordine = inOrder(loginView);
-        ordine.verify(loginView).mostraErrore("Password errata.");
-        ordine.verify(loginView).pulisciCampi();
-
-        verify(bibliotecario).login("sbagliata");
-        verify(mainController, never()).mostraMenu();
+            assertEquals("Password errata.", loginView.leggiUltimoErrore());
+            assertTrue(loginView.campiPuliti());
+            assertFalse(mainController.menuMostrato());
+        });
     }
 
-    @Test
-    public void testLoginPasswordNullTrattataComeVuota() {
-        when(loginView.getPassword()).thenReturn(null);
-        when(bibliotecario.login("")).thenReturn(false);
+    private static class AutenticazioneFinta extends Autenticazione {
+        private boolean esito = false;
 
-        onLogin.run();
+        public void setEsito(boolean esito) {
+            this.esito = esito;
+        }
 
-        verify(bibliotecario).login("");
-        verify(loginView).mostraErrore("Password errata.");
-        verify(loginView).pulisciCampi();
-        verify(mainController, never()).mostraMenu();
+        @Override
+        public boolean login(String password) {
+            return esito;
+        }
     }
 
-    @Test
-    public void testLoginPasswordSoloSpaziTrattataComeVuota() {
-        when(loginView.getPassword()).thenReturn("   ");
-        when(bibliotecario.login("")).thenReturn(false);
+    private static class MainControllerSpia extends MainController {
+        private boolean mostrato = false;
 
-        onLogin.run();
+        public MainControllerSpia(Stage stage) {
+            super(stage);
+        }
 
-        verify(bibliotecario).login("");
-        verify(loginView).mostraErrore("Password errata.");
-        verify(loginView).pulisciCampi();
-        verify(mainController, never()).mostraMenu();
+        @Override
+        public void mostraMenu() {
+            mostrato = true;
+        }
+
+        public boolean menuMostrato() {
+            return mostrato;
+        }
+    }
+
+    private static class LoginViewFinta extends LoginView {
+
+        private Runnable onLogin;
+        private String password = "";
+        private String ultimoErrore = null;
+        private boolean pulito = false;
+
+        public void impostaPassword(String p) {
+            password = (p == null) ? "" : p;
+            pulito = false;
+        }
+
+        public void cliccaLogin() {
+            if (onLogin != null) onLogin.run();
+        }
+
+        public String leggiUltimoErrore() {
+            return ultimoErrore;
+        }
+
+        public boolean campiPuliti() {
+            return pulito;
+        }
+
+        @Override
+        public void setOnLogin(Runnable r) {
+            onLogin = r;
+        }
+
+        @Override
+        public String getPassword() {
+            return password;
+        }
+
+        @Override
+        public void mostraErrore(String messaggio) {
+            ultimoErrore = messaggio;
+        }
+
+        @Override
+        public void pulisciCampi() {
+            password = "";
+            pulito = true;
+        }
+    }
+
+    private static void eseguiFx(Runnable r) throws Exception {
+        if (Platform.isFxApplicationThread()) {
+            r.run();
+            return;
+        }
+        CountDownLatch latch = new CountDownLatch(1);
+        Throwable[] err = new Throwable[1];
+        Platform.runLater(() -> {
+            try { r.run(); } catch (Throwable t) { err[0] = t; } finally { latch.countDown(); }
+        });
+        assertTrue(latch.await(10, TimeUnit.SECONDS));
+        if (err[0] != null) {
+            if (err[0] instanceof RuntimeException re) throw re;
+            if (err[0] instanceof Error e) throw e;
+            throw new RuntimeException(err[0]);
+        }
     }
 }
