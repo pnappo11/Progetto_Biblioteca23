@@ -16,10 +16,10 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * @brief Controller per la gestione dell'anagrafica utenti.
+ * @brief Controller per la gestione degli utenti.
  * 
- * Questa classe gestisce le operazioni CRUD (Create, Read, Update, Delete) sugli utenti,
- * la gestione della blacklist e la ricerca. Coordina l'interazione tra la vista (UtentiPanel)
+ * Questa classe gestisce le operazioni di creazione, lettura, aggiornamento ed eliminazione sugli utenti,
+ * la gestione della blacklist e la ricerca. Coordina l'interazione tra la view (UtentiPanel)
  * e il modello (GestioneUtenti).
  */
 public class UtentiController {
@@ -36,13 +36,12 @@ public class UtentiController {
     /**
      * @brief Costruttore della classe UtentiController.
      * 
-     * Inizializza le dipendenze, popola la tabella con gli utenti esistenti e configura
-     * i listener per gli eventi della vista.
+     * Inizializza le dipendenze, popola la tabella con gli utenti esistenti.
      * 
-     * @param gestioneUtenti   Il modello che gestisce la lista degli utenti.
-     * @param gestionePrestiti Il modello dei prestiti (utile per visualizzare il numero di prestiti attivi).
-     * @param view             La vista del pannello di gestione utenti.
-     * @param archivio         Il gestore per il salvataggio dei dati su file.
+     * @param gestioneUtenti   gestisce la lista degli utenti.
+     * @param gestionePrestiti modello dei prestiti (utile per visualizzare il numero di prestiti attivi).
+     * @param view             view del pannello di gestione utenti.
+     * @param archivio         per il salvataggio dei dati su file.
      */
     public UtentiController(GestioneUtenti gestioneUtenti,
                             GestionePrestiti gestionePrestiti,
@@ -61,8 +60,7 @@ public class UtentiController {
     /**
      * @brief Imposta il controller dei prestiti.
      * 
-     * Necessario per notificare aggiornamenti alla vista prestiti quando lo stato di un utente
-     * (es. blacklist) cambia.
+     * Necessario per notificare aggiornamenti alla view prestiti quando lo stato di un utente cambia.
      * 
      * @param prestitiController Il controller della gestione prestiti.
      */
@@ -70,18 +68,12 @@ public class UtentiController {
         this.prestitiController = prestitiController;
     }
 
-    /**
-     * @brief Inizializza la tabella caricando tutti gli utenti dal modello.
-     */
+    
     private void inizializzaTabella() {
         aggiornaTabella(gestioneUtenti.getUtenti());
     }
 
-    /**
-     * @brief Collega i metodi del controller agli eventi dei pulsanti della vista.
-     * 
-     * Configura anche il listener per la selezione delle righe della tabella per riempire i campi del form.
-     */
+    
     private void collegaEventi() {
         view.getBottoneInserisci().setOnAction(e -> gestisciInserisci());
         view.getBottoneModifica().setOnAction(e -> gestisciModifica());
@@ -98,12 +90,7 @@ public class UtentiController {
                 });
     }
 
-    /**
-     * @brief Gestisce l'inserimento di un nuovo utente.
-     * 
-     * Valida i campi obbligatori, verifica l'unicità della matricola, crea il nuovo utente
-     * e salva le modifiche su file.
-     */
+    
     private void gestisciInserisci() {
         String matricola = view.getMatricolaInserita();
         String nome      = view.getNomeInserito();
@@ -132,12 +119,7 @@ public class UtentiController {
         aggiornaTabella(gestioneUtenti.getUtenti());
     }
 
-    /**
-     * @brief Gestisce la modifica dei dati di un utente esistente.
-     * 
-     * Identifica l'utente tramite matricola, aggiorna i campi modificati (Nome, Cognome, Email)
-     * e salva le modifiche.
-     */
+   
     private void gestisciModifica() {
         String matricola = view.getMatricolaInserita();
 
@@ -176,11 +158,7 @@ public class UtentiController {
         aggiornaTabella(gestioneUtenti.getUtenti());
     }
 
-    /**
-     * @brief Gestisce l'eliminazione di un utente.
-     * 
-     * Rimuove l'utente identificato dalla matricola dal sistema e aggiorna il file di persistenza.
-     */
+    
     private void gestisciElimina() {
         String matricola = view.getMatricolaInserita();
 
@@ -207,12 +185,7 @@ public class UtentiController {
         aggiornaTabella(gestioneUtenti.getUtenti());
     }
 
-    /**
-     * @brief Inverte lo stato di Blacklist per l'utente selezionato.
-     * 
-     * Se l'utente è in blacklist viene rimosso, altrimenti viene aggiunto. Le modifiche
-     * vengono salvate e notificate al controller dei prestiti.
-     */
+    
     private void gestisciToggleBlacklist() {
         ObservableList<String> selezionato =
                 view.getTabellaUtenti().getSelectionModel().getSelectedItem();
@@ -244,12 +217,7 @@ public class UtentiController {
         }
     }
 
-    /**
-     * @brief Gestisce la funzionalità del pulsante Cerca/Indietro.
-     * 
-     * Alterna tra la visualizzazione dei risultati di ricerca (filtrati per Matricola, Nome, Cognome)
-     * e la visualizzazione completa di tutti gli utenti.
-     */
+    
     private void gestisciCercaOIndietro() {
         if (!inModalitaRicerca) {
             String matricola = view.getMatricolaInserita();
@@ -278,14 +246,7 @@ public class UtentiController {
         }
     }
 
-    /**
-     * @brief Aggiorna la tabella visualizzando la collezione di utenti fornita.
-     * 
-     * Converte la lista di oggetti Utente in ObservableList, calcolando dati derivati
-     * come il numero di prestiti attivi. Ordina la lista per Cognome e Nome.
-     * 
-     * @param utentiDaMostrare La collezione di utenti da visualizzare.
-     */
+    
     private void aggiornaTabella(Collection<Utente> utentiDaMostrare) {
         List<Utente> lista = new ArrayList<>(utentiDaMostrare);
 
@@ -318,28 +279,17 @@ public class UtentiController {
         view.getTabellaUtenti().setItems(righe);
     }
 
-    /**
-     * @brief Converte una stringa in minuscolo gestendo i valori null.
-     * @param s La stringa da convertire.
-     * @return La stringa in minuscolo o una stringa vuota se l'input è null.
-     */
+    
     private String safeLower(String s) {
         return (s == null) ? "" : s.toLowerCase();
     }
 
-    /**
-     * @brief Verifica se una stringa è nulla o vuota.
-     * @param s La stringa da verificare.
-     * @return true se la stringa è null o vuota, false altrimenti.
-     */
+  
     private boolean isVuoto(String s) {
         return s == null || s.trim().isEmpty();
     }
 
-    /**
-     * @brief Mostra un messaggio di errore all'utente tramite Alert.
-     * @param messaggio Il testo dell'errore.
-     */
+    
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -347,10 +297,7 @@ public class UtentiController {
         alert.showAndWait();
     }
 
-    /**
-     * @brief Mostra un messaggio informativo all'utente tramite Alert.
-     * @param messaggio Il testo dell'informazione.
-     */
+    
     private void mostraInfo(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -358,17 +305,13 @@ public class UtentiController {
         alert.showAndWait();
     }
 
-    /**
-     * @brief Resetta i campi del form e deseleziona la tabella.
-     */
+    
     private void resetFormESelezione() {
         view.pulisciCampi();
         view.getTabellaUtenti().getSelectionModel().clearSelection();
     }
 
-    /**
-     * @brief Reimposta lo stato di ricerca alla visualizzazione predefinita.
-     */
+    
     private void resetModalitaRicerca() {
         inModalitaRicerca = false;
         view.getBottoneCerca().setText("Cerca");
@@ -376,7 +319,7 @@ public class UtentiController {
 
     /**
      * @brief Forza l'aggiornamento della tabella utenti recuperando i dati dal modello.
-     * Utile per sincronizzare la vista dopo modifiche esterne.
+     * Utile per sincronizzare la view dopo modifiche esterne.
      */
     public void aggiornaDaModel() {
         resetFormESelezione();

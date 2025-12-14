@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 /**
- * @brief Classe principale dell'applicazione (Entry Point).
- * * Questa classe estende Application di JavaFX e gestisce il ciclo di vita dell'applicazione.
+ * @brief Classe principale dell'applicazione.
+ * Questa classe estende Application di JavaFX e gestisce il ciclo di vita dell'applicazione.
  * Si occupa di caricare i dati all'avvio, inizializzare i modelli e gestire la navigazione
  * tra le diverse scene (Login, Menu, Schermata Principale).
  */
@@ -34,7 +34,7 @@ public class Main extends Application {
 
     /**
      * @brief Metodo di avvio dell'applicazione JavaFX.
-     *  Inizializza il layer di persistenza, carica i dati dai file, imposta l'icona dell'applicazione
+     *  Inizializza la persistenza, carica i dati dai file, imposta l'icona dell'applicazione
      * e mostra la schermata di login iniziale.
      * * @param primaryStage Lo stage primario fornito dalla piattaforma JavaFX.
      */
@@ -58,11 +58,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    /**
-     * @brief Applica lo stile CSS alla scena specificata.
-     * * Tenta di caricare il file "file.css" e di aggiungerlo alla lista degli stili della scena, per rendere il layout più piacevole.
-     * * @param scene La scena a cui applicare il tema grafico.
-     */
     private void applicaTema(Scene scene) {
         try {
             URL css = Main.class.getResource("/biblioteca/view/file.css");
@@ -77,12 +72,6 @@ public class Main extends Application {
         }
     }
 
-    /**
-     * @brief Configura e mostra la schermata di Login.
-     * * Crea la vista di login, imposta la scena e definisce la logica di callback
-     * per il tentativo di accesso (verifica password e transizione al menu).
-     * * @param stage Lo stage su cui visualizzare la scena di login.
-     */
     private void mostraLogin(Stage stage) {
         LoginView loginView = new LoginView();
         Scene loginScene = new Scene(loginView.getRoot(), 400, 200);
@@ -113,12 +102,7 @@ public class Main extends Application {
         });
     }
 
-    /**
-     * @brief Configura e mostra la schermata del Menu principale.
-     * Crea la vista del menu e definisce le azioni di navigazione verso le diverse sezioni
-     * (Libri, Utenti, Prestiti) o il logout.
-     * @param stage Lo stage su cui visualizzare la scena del menu.
-     */
+
     private void mostraMenu(Stage stage) {
         try {
             MenuView menu = new MenuView("Bibliotecario");
@@ -139,13 +123,6 @@ public class Main extends Application {
         }
     }
 
-    /**
-     * @brief Configura e mostra la schermata principale operativa .
-     * Inizializza i controller (LibriController, UtentiController, PrestitiController),
-     * collega le dipendenze tra di essi e imposta la tab selezionata.
-     * @param stage rappresenta lo stage su cui visualizzare l'applicazione principale.
-     * @param tabIndex L'indice della scheda (tab) da aprire inizialmente (0=Libri, 1=Utenti, 2=Prestiti).
-     */
     private void mostraMain(Stage stage, int tabIndex) {
         try {
             MainFrame mainView = new MainFrame(tabIndex);

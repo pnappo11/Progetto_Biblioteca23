@@ -12,9 +12,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * @brief Controller principale dell'applicazione (Main Controller).
- * * Questa classe funge da punto di ingresso e orchestratore per l'intera applicazione.
- * Gestisce il ciclo di vita della finestra principale (Stage), inizializza i modelli e
+ * @brief Controller principale dell'applicazione.
+ * Questa classe funge da punto di ingresso e gestore dell'intera applicazione.
+ * Gestisce il ciclo di vita della finestra principale, inizializza i modelli e
  * gestisce la navigazione tra le diverse scene (Login, Menu, Gestione principale).
  */
 public class MainController {
@@ -35,9 +35,9 @@ public class MainController {
 
     /**
      * @brief Costruttore della classe MainController.
-     * * Inizializza lo stage, il sistema di persistenza (ArchivioFile) e i modelli
+     * Inizializza lo stage, il sistema di persistenza (ArchivioFile) e i modelli
      * principali (Libri, Utenti, Prestiti, Autenticazione).
-     * * @param stage Lo stage primario di JavaFX su cui vengono caricate le scene.
+     * @param stage Rappresenta lo stage primario di JavaFX su cui vengono caricate le scene.
      */
     public MainController(Stage stage) {
         this.stage = stage;
@@ -59,8 +59,7 @@ public class MainController {
 
     /**
      * @brief Imposta il controller dei prestiti.
-     * * Permette l'iniezione del controller dei prestiti dopo l'inizializzazione.
-     * * @param prestitiController L'istanza del controller per la gestione dei prestiti.
+     * @param prestitiController L'istanza del controller per la gestione dei prestiti.
      */
     public void setPrestitiController(PrestitiController prestitiController) {
         this.prestitiController = prestitiController;
@@ -95,33 +94,27 @@ public class MainController {
 
     /**
      * @brief Configura e mostra la scena del Menu principale.
-     * Crea la vista del menu intermedio, collegando i pulsanti alle relative funzioni
-     * di navigazione (verso le gestioni specifiche o il logout).
+     * Crea la view del menu intermedio, collegando i pulsanti alle relative funzioni
+     * di navigazione.
      */
     public void mostraMenu() {
-        // nome che appare nel "Benvenuto, ...".
+        
         MenuView menu = new MenuView("Bibliotecario");
-
         Scene menuScene = new Scene(menu.getRoot(), 500, 400);
-
         stage.setTitle("Menu Biblioteca");
         stage.setScene(menuScene);
         stage.centerOnScreen();
-
-        // dai bottoni grandi vai alle varie sezioni (MainFrame con tab)
         menu.setOnGestioneLibri(()    -> mostraMain(0));
         menu.setOnGestioneUtenti(()   -> mostraMain(1));
         menu.setOnGestionePrestiti(() -> mostraMain(2));
-
-        // logout dal menu → torni al login
         menu.setOnLogout(this::mostraLogin);
     }
 
     /**
      * @brief Configura e mostra la finestra operativa principale (MainFrame).
      * Inizializza i controller specifici (Libri, Utenti, Prestiti), gestisce le dipendenze
-     * incrociate tra di essi e seleziona il tab specificato.
-     * * @param tabIndex L'indice del tab da aprire inizialmente (0=Libri, 1=Utenti, 2=Prestiti).
+     * incrociate tra essi e seleziona il tab specificato.
+     * @param tabIndex L'indice del tab da aprire inizialmente (0=Libri, 1=Utenti, 2=Prestiti).
      */
    public void mostraMain(int tabIndex) {
     MainFrame mainView = new MainFrame(tabIndex);

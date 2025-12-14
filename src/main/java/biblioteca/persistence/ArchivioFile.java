@@ -23,7 +23,7 @@ public class ArchivioFile {
 
     /**
      * @brief Costruttore della classe.
-     * @param percorsoBase Il percorso della cartella dove verranno salvati/letti i file.
+     * @param percorsoBase Il percorso della cartella dove verranno salvati oppure letti i file.
      */
     public ArchivioFile(String percorsoBase) {
         this.percorsoBase = percorsoBase;
@@ -109,13 +109,6 @@ public class ArchivioFile {
         salvaOggetto(FILE_LOGIN, a);
     }
 
-    /**
-     * @brief Metodo generico privato per la lettura di un oggetto serializzato.
-     * @param <T> Tipo dell'oggetto atteso.
-     * @param nomeFile Nome del file da leggere.
-     * @param tipo Classe di riferimento per il casting sicuro.
-     * @return L'oggetto deserializzato di tipo T, oppure null in caso di errore o file non trovato.
-     */
     private <T> T caricaOggetto(String nomeFile, Class<T> tipo) {
         File file = new File(percorsoBase, nomeFile);
         if (!file.exists()) {
@@ -134,12 +127,6 @@ public class ArchivioFile {
         return null;
     }
 
-    /**
-     * @brief Metodo generico privato per la scrittura di un oggetto su file,
-     * crea automaticamente la directory di destinazione se non esistente.
-     * @param nomeFile Nome del file da creare/sovrascrivere.
-     * @param obj L'oggetto da serializzare.
-     */
     private void salvaOggetto(String nomeFile, Object obj) {
         if (obj == null) return;
 

@@ -24,11 +24,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
- * @brief Pannello per la gestione del catalogo libri (Inventario).
- *
+ * @brief Pannello per la gestione del catalogo libri .
  * Questa classe rappresenta la "View" per le operazioni di create, read, update e delete sui libri.
  * Utilizza una struttura dati generica (ObservableList<String>) per rappresentare le righe della tabella.
- *
  * Struttura:
  * - Top: Form di inserimento e modifica.
  * - Center: Tabella riepilogativa dei libri.
@@ -36,71 +34,32 @@ import javafx.scene.layout.VBox;
  */
 public class LibriPanel {
 
-    /**
-     * @brief Layout principale (BorderPane) del pannello libri.
-     */
     private final BorderPane root;
 
-    // ===== Campi di Input =====
-    /**
-     * @brief Campo per l'inserimento dell'ISBN.
-     */
     private final TextField campoIsbn;
-    /**
-     * @brief Campo per l'inserimento del Titolo.
-     */
     private final TextField campoTitolo;
-    /**
-     * @brief Campo per l'inserimento dell'Autore o lista di autori.
-     */
     private final TextField campoAutore;
-    /**
-     * @brief Campo per l'inserimento dell'Anno di pubblicazione.
-     */
+   
     private final TextField campoAnno;
-    /**
-     * @brief Campo per l'inserimento del numero di copie totali.
-     */
+    
     private final TextField campoCopieTotali;
-
-    /**
-     * @brief Tabella per la visualizzazione dei libri.
-     *
-     * Ogni riga è una ObservableList<String> con il seguente schema:
-     * - indice 0: ISBN
-     * - indice 1: Titolo
-     * - indice 2: Autore/i
-     * - indice 3: Anno di pubblicazione
-     * - indice 4: Copie totali
-     * - indice 5: Copie disponibili
-     */
     private final TableView<ObservableList<String>> tabellaLibri;
 
-    // ===== Pulsanti Azione =====
-    /**
-     * @brief Pulsante per l'inserimento di un nuovo libro.
-     */
     private final Button bottoneInserisci;
-    /**
-     * @brief Pulsante per la modifica del libro selezionato.
-     */
     private final Button bottoneModifica;
-    /**
-     * @brief Pulsante per l'eliminazione del libro selezionato.
-     */
+  
     private final Button bottoneElimina;
-    /**
-     * @brief Pulsante per la ricerca dei libri.
-     */
+    
+    
     private final Button bottoneCerca;
 
     /**
      * @brief Costruttore del pannello Libri.
      *
      * Inizializza:
-     * - il form di input (parte superiore),
-     * - la tabella dei libri (parte centrale),
-     * - la barra dei pulsanti (parte inferiore).
+     * -il form di input (parte superiore),
+     * -la tabella dei libri (parte centrale),
+     * -la barra dei pulsanti (parte inferiore).
      */
     public LibriPanel() {
         root = new BorderPane();
@@ -180,10 +139,6 @@ public class LibriPanel {
 
         tabellaLibri.getColumns().addAll(colIsbn, colTitolo, colAutori, colAnno, colCopieTot, colCopieDisp);
 
-        /**
-         * @note I dati di esempio sono solo segnaposto; verranno sovrascritti
-         *       dal controller tramite il modello (Biblioteca2).
-         */
         ObservableList<ObservableList<String>> datiFinti = FXCollections.observableArrayList();
         datiFinti.add(FXCollections.observableArrayList("9788800000001","Programmazione in Java","Rossi","2020","10","7"));
         datiFinti.add(FXCollections.observableArrayList("9788800000002","Basi di Dati","Verdi","2019","5","2"));
@@ -214,19 +169,18 @@ public class LibriPanel {
 
     /**
      * @brief Restituisce il nodo radice del pannello libri.
-     * @return Nodo Parent (BorderPane) da usare nella scena.
+     * @return Nodo Parent da usare nella scena.
      */
     public Parent getRoot() { return root; }
 
-    // ===== Getter per l'input utente =====
     /**
      * @brief Recupera l'ISBN inserito nel form.
-     * @return ISBN senza spazi iniziali/finali.
+     * @return ISBN senza spazi iniziali o finali.
      */
     public String getCodiceIsbnInserito() { return campoIsbn.getText().trim(); }
     /**
      * @brief Recupera il titolo inserito nel form.
-     * @return Titolo senza spazi iniziali/finali.
+     * @return Titolo senza spazi iniziali o finali.
      */
     public String getTitoloInserito() { return campoTitolo.getText().trim(); }
     /**
@@ -250,7 +204,6 @@ public class LibriPanel {
      */
     public void pulisciCampi() { campoIsbn.clear(); campoTitolo.clear(); campoAutore.clear(); campoAnno.clear(); campoCopieTotali.clear(); }
 
-    // ===== Getter componenti UI (per il Controller) =====
     /**
      * @brief Restituisce la TableView contenente i libri.
      * @return TableView con righe rappresentate da ObservableList<String>.
@@ -258,22 +211,22 @@ public class LibriPanel {
     public TableView<ObservableList<String>> getTabellaLibri() { return tabellaLibri; }
     /**
      * @brief Restituisce il pulsante di inserimento libro.
-     * @return Bottone "Inserisci".
+     * @return tasto "Inserisci".
      */
     public Button getBottoneInserisci() { return bottoneInserisci; }
     /**
      * @brief Restituisce il pulsante di modifica libro.
-     * @return Bottone "Modifica".
+     * @return tasto "Modifica".
      */
     public Button getBottoneModifica() { return bottoneModifica; }
     /**
      * @brief Restituisce il pulsante di eliminazione libro.
-     * @return Bottone "Elimina".
+     * @return tasto "Elimina".
      */
     public Button getBottoneElimina() { return bottoneElimina; }
     /**
      * @brief Restituisce il pulsante di ricerca libro.
-     * @return Bottone "Cerca".
+     * @return tasto "Cerca".
      */
     public Button getBottoneCerca() { return bottoneCerca; }
 
@@ -281,14 +234,14 @@ public class LibriPanel {
      * @brief Imposta i campi di input del form a partire da una riga della tabella.
      *
      * La riga deve rispettare la struttura della TableView:
-     * - indice 0: ISBN
-     * - indice 1: Titolo
-     * - indice 2: Autore/i
-     * - indice 3: Anno
-     * - indice 4: Copie totali
-     * - indice 5: Copie disponibili
+     * -indice 0: ISBN
+     * -indice 1: Titolo
+     * -indice 2: Autore/i
+     * -indice 3: Anno
+     * -indice 4: Copie totali
+     * -indice 5: Copie disponibili
      *
-     * @param riga Riga selezionata nella tabella libri.
+     * @param riga corrisponde alla riga selezionata nella tabella libri.
      */
     public void setCampiDaRiga(ObservableList<String> riga) {
         if (riga == null || riga.size() < 6) return;

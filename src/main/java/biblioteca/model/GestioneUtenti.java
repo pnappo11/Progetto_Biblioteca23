@@ -11,10 +11,9 @@ public class GestioneUtenti implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** Insieme ordinato degli utenti (ordinati per matricola). */
+    
     private final TreeSet<Utente> utenti;
 
-    /** Riferimento ai prestiti, usato per controllare prestiti attivi quando elimino un utente. */
     private transient GestionePrestiti gestionePrestiti;
     
 /**

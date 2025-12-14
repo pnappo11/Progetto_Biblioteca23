@@ -92,7 +92,7 @@ $(function(){initNavTree('classbiblioteca_1_1view_1_1_libri_panel.html','','clas
 </div><!--header-->
 <div class="contents">
 
-<p>Pannello per la gestione del catalogo libri (Inventario).  
+<p>Pannello per la gestione del catalogo libri . Questa classe rappresenta la "View" per le operazioni di create, read, update e delete sui libri. Utilizza una struttura dati generica (ObservableList&lt;String&gt;) per rappresentare le righe della tabella. Struttura:  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -128,9 +128,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 <tr class="memdesc:ad5058b0f13b1ca0edcfeaa5398238b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imposta i campi di input del form a partire da una riga della tabella.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Pannello per la gestione del catalogo libri (Inventario). </p>
-<p>Questa classe rappresenta la "View" per le operazioni di create, read, update e delete sui libri. Utilizza una struttura dati generica (ObservableList&lt;String&gt;) per rappresentare le righe della tabella.</p>
-<p>Struttura:</p><ul>
+<div class="textblock"><p>Pannello per la gestione del catalogo libri . Questa classe rappresenta la "View" per le operazioni di create, read, update e delete sui libri. Utilizza una struttura dati generica (ObservableList&lt;String&gt;) per rappresentare le righe della tabella. Struttura: </p>
+<ul>
 <li>Top: Form di inserimento e modifica.</li>
 <li>Center: Tabella riepilogativa dei libri.</li>
 <li>Bottom: Pulsanti di controllo (CRUD + ricerca). </li>
@@ -152,12 +151,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Costruttore del pannello Libri. </p>
-<p>Inizializza:</p><ul>
-<li>il form di input (parte superiore),</li>
-<li>la tabella dei libri (parte centrale),</li>
-<li>la barra dei pulsanti (parte inferiore). </li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>I dati di esempio sono solo segnaposto; verranno sovrascritti dal controller tramite il modello (Biblioteca2).</dd></dl>
+<p>Inizializza: -il form di input (parte superiore), -la tabella dei libri (parte centrale), -la barra dei pulsanti (parte inferiore). </p>
 
 </div>
 </div>
@@ -218,7 +212,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Restituisce il pulsante di ricerca libro. </p>
-<dl class="section return"><dt>Returns</dt><dd>Bottone "Cerca". </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>tasto "Cerca". </dd></dl>
 
 </div>
 </div>
@@ -238,7 +232,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Restituisce il pulsante di eliminazione libro. </p>
-<dl class="section return"><dt>Returns</dt><dd>Bottone "Elimina". </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>tasto "Elimina". </dd></dl>
 
 </div>
 </div>
@@ -258,7 +252,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Restituisce il pulsante di inserimento libro. </p>
-<dl class="section return"><dt>Returns</dt><dd>Bottone "Inserisci". </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>tasto "Inserisci". </dd></dl>
 
 </div>
 </div>
@@ -278,7 +272,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Restituisce il pulsante di modifica libro. </p>
-<dl class="section return"><dt>Returns</dt><dd>Bottone "Modifica". </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>tasto "Modifica". </dd></dl>
 
 </div>
 </div>
@@ -298,7 +292,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Recupera l'ISBN inserito nel form. </p>
-<dl class="section return"><dt>Returns</dt><dd>ISBN senza spazi iniziali/finali. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ISBN senza spazi iniziali o finali. </dd></dl>
 
 </div>
 </div>
@@ -338,7 +332,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Restituisce il nodo radice del pannello libri. </p>
-<dl class="section return"><dt>Returns</dt><dd>Nodo Parent (BorderPane) da usare nella scena. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Nodo Parent da usare nella scena. </dd></dl>
 
 </div>
 </div>
@@ -378,7 +372,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Recupera il titolo inserito nel form. </p>
-<dl class="section return"><dt>Returns</dt><dd>Titolo senza spazi iniziali/finali. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Titolo senza spazi iniziali o finali. </dd></dl>
 
 </div>
 </div>
@@ -398,17 +392,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>pulisciCampi</b> ()</
 </div><div class="memdoc">
 
 <p>Imposta i campi di input del form a partire da una riga della tabella. </p>
-<p>La riga deve rispettare la struttura della TableView:</p><ul>
-<li>indice 0: ISBN</li>
-<li>indice 1: Titolo</li>
-<li>indice 2: Autore/i</li>
-<li>indice 3: Anno</li>
-<li>indice 4: Copie totali</li>
-<li>indice 5: Copie disponibili</li>
-</ul>
+<p>La riga deve rispettare la struttura della TableView: -indice 0: ISBN -indice 1: Titolo -indice 2: Autore/i -indice 3: Anno -indice 4: Copie totali -indice 5: Copie disponibili</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">riga</td><td>Riga selezionata nella tabella libri. </td></tr>
+    <tr><td class="paramname">riga</td><td>corrisponde alla riga selezionata nella tabella libri. </td></tr>
   </table>
   </dd>
 </dl>

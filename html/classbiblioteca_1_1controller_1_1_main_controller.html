@@ -92,13 +92,13 @@ $(function(){initNavTree('classbiblioteca_1_1controller_1_1_main_controller.html
 </div><!--header-->
 <div class="contents">
 
-<p>Controller principale dell'applicazione (<a class="el" href="class_main.html">Main</a> Controller).  
+<p>Controller principale dell'applicazione. Questa classe funge da punto di ingresso e gestore dell'intera applicazione. Gestisce il ciclo di vita della finestra principale, inizializza i modelli e gestisce la navigazione tra le diverse scene (Login, Menu, Gestione principale).  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9b390df8f4f4c1d4f32b87a21755a406" id="r_a9b390df8f4f4c1d4f32b87a21755a406"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b390df8f4f4c1d4f32b87a21755a406">MainController</a> (Stage stage)</td></tr>
-<tr class="memdesc:a9b390df8f4f4c1d4f32b87a21755a406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe <a class="el" href="classbiblioteca_1_1controller_1_1_main_controller.html" title="Controller principale dell&#39;applicazione (Main Controller).">MainController</a>.  <br /></td></tr>
+<tr class="memdesc:a9b390df8f4f4c1d4f32b87a21755a406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe <a class="el" href="classbiblioteca_1_1controller_1_1_main_controller.html" title="Controller principale dell&#39;applicazione. Questa classe funge da punto di ingresso e gestore dell&#39;inte...">MainController</a>. Inizializza lo stage, il sistema di persistenza (<a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html" title="Gestisce la persistenza dei dati del sistema bibliotecario su file binari. Questa classe si occupa di...">ArchivioFile</a>) e i modelli principali (Libri, Utenti, Prestiti, <a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html" title="classe Autenticazione relativa all&#39;accesso da parte del bibliotecario al sistema permette di fare log...">Autenticazione</a>).  <br /></td></tr>
 <tr class="memitem:a173b5e4645392e2f947121a8ebe29347" id="r_a173b5e4645392e2f947121a8ebe29347"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a173b5e4645392e2f947121a8ebe29347">setPrestitiController</a> (<a class="el" href="classbiblioteca_1_1controller_1_1_prestiti_controller.html">PrestitiController</a> prestitiController)</td></tr>
 <tr class="memdesc:a173b5e4645392e2f947121a8ebe29347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imposta il controller dei prestiti.  <br /></td></tr>
 <tr class="memitem:a7f635d966ce86ddc70cbcfb8120335fb" id="r_a7f635d966ce86ddc70cbcfb8120335fb"><td class="memItemLeft" align="right" valign="top"><a id="a7f635d966ce86ddc70cbcfb8120335fb" name="a7f635d966ce86ddc70cbcfb8120335fb"></a>
@@ -109,15 +109,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mostraLogin</b> ()</t
 <tr class="memdesc:aa31e76acaf5007fcd3fecf385c063926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configura e mostra la scena di Login. Istanzia la vista di login e il relativo controller di autenticazione, impostando la scena sullo stage. <br /></td></tr>
 <tr class="memitem:af4b62bfe9ecdac6a027cd4909008abac" id="r_af4b62bfe9ecdac6a027cd4909008abac"><td class="memItemLeft" align="right" valign="top"><a id="af4b62bfe9ecdac6a027cd4909008abac" name="af4b62bfe9ecdac6a027cd4909008abac"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>mostraMenu</b> ()</td></tr>
-<tr class="memdesc:af4b62bfe9ecdac6a027cd4909008abac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configura e mostra la scena del Menu principale. Crea la vista del menu intermedio, collegando i pulsanti alle relative funzioni di navigazione (verso le gestioni specifiche o il logout). <br /></td></tr>
+<tr class="memdesc:af4b62bfe9ecdac6a027cd4909008abac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configura e mostra la scena del Menu principale. Crea la view del menu intermedio, collegando i pulsanti alle relative funzioni di navigazione. <br /></td></tr>
 <tr class="memitem:a542e0d0141557ec21c0eb7572d3e8527" id="r_a542e0d0141557ec21c0eb7572d3e8527"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a542e0d0141557ec21c0eb7572d3e8527">mostraMain</a> (int tabIndex)</td></tr>
-<tr class="memdesc:a542e0d0141557ec21c0eb7572d3e8527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configura e mostra la finestra operativa principale (<a class="el" href="classbiblioteca_1_1view_1_1_main_frame.html" title="Contenitore principale dell&#39;interfaccia grafica dell&#39;applicazione.">MainFrame</a>). Inizializza i controller specifici (Libri, Utenti, Prestiti), gestisce le dipendenze incrociate tra di essi e seleziona il tab specificato.  <br /></td></tr>
+<tr class="memdesc:a542e0d0141557ec21c0eb7572d3e8527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configura e mostra la finestra operativa principale (<a class="el" href="classbiblioteca_1_1view_1_1_main_frame.html" title="Contenitore principale dell&#39;interfaccia grafica dell&#39;applicazione.">MainFrame</a>). Inizializza i controller specifici (Libri, Utenti, Prestiti), gestisce le dipendenze incrociate tra essi e seleziona il tab specificato.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Controller principale dell'applicazione (<a class="el" href="class_main.html">Main</a> Controller). </p>
-<ul>
-<li>Questa classe funge da punto di ingresso e orchestratore per l'intera applicazione. Gestisce il ciclo di vita della finestra principale (Stage), inizializza i modelli e gestisce la navigazione tra le diverse scene (Login, Menu, Gestione principale). </li>
-</ul>
+<div class="textblock"><p>Controller principale dell'applicazione. Questa classe funge da punto di ingresso e gestore dell'intera applicazione. Gestisce il ciclo di vita della finestra principale, inizializza i modelli e gestisce la navigazione tra le diverse scene (Login, Menu, Gestione principale). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9b390df8f4f4c1d4f32b87a21755a406" name="a9b390df8f4f4c1d4f32b87a21755a406"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9b390df8f4f4c1d4f32b87a21755a406">&#9670;&#160;</a></span>MainController()</h2>
@@ -134,17 +131,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mostraMenu</b> ()</td
       </table>
 </div><div class="memdoc">
 
-<p>Costruttore della classe <a class="el" href="classbiblioteca_1_1controller_1_1_main_controller.html" title="Controller principale dell&#39;applicazione (Main Controller).">MainController</a>. </p>
-<ul>
-<li>Inizializza lo stage, il sistema di persistenza (<a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html" title="Gestisce la persistenza dei dati del sistema bibliotecario su file binari. Questa classe si occupa di...">ArchivioFile</a>) e i modelli principali (Libri, Utenti, Prestiti, <a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html" title="classe Autenticazione relativa all&#39;accesso da parte del bibliotecario al sistema permette di fare log...">Autenticazione</a>).</li>
-<li><dl class="params"><dt>Parameters</dt><dd>
+<p>Costruttore della classe <a class="el" href="classbiblioteca_1_1controller_1_1_main_controller.html" title="Controller principale dell&#39;applicazione. Questa classe funge da punto di ingresso e gestore dell&#39;inte...">MainController</a>. Inizializza lo stage, il sistema di persistenza (<a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html" title="Gestisce la persistenza dei dati del sistema bibliotecario su file binari. Questa classe si occupa di...">ArchivioFile</a>) e i modelli principali (Libri, Utenti, Prestiti, <a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html" title="classe Autenticazione relativa all&#39;accesso da parte del bibliotecario al sistema permette di fare log...">Autenticazione</a>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stage</td><td>Lo stage primario di JavaFX su cui vengono caricate le scene. </td></tr>
+    <tr><td class="paramname">stage</td><td>Rappresenta lo stage primario di JavaFX su cui vengono caricate le scene. </td></tr>
   </table>
   </dd>
 </dl>
-</li>
-</ul>
 
 </div>
 </div>
@@ -164,16 +157,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mostraMenu</b> ()</td
       </table>
 </div><div class="memdoc">
 
-<p>Configura e mostra la finestra operativa principale (<a class="el" href="classbiblioteca_1_1view_1_1_main_frame.html" title="Contenitore principale dell&#39;interfaccia grafica dell&#39;applicazione.">MainFrame</a>). Inizializza i controller specifici (Libri, Utenti, Prestiti), gestisce le dipendenze incrociate tra di essi e seleziona il tab specificato. </p>
-<ul>
-<li><dl class="params"><dt>Parameters</dt><dd>
+<p>Configura e mostra la finestra operativa principale (<a class="el" href="classbiblioteca_1_1view_1_1_main_frame.html" title="Contenitore principale dell&#39;interfaccia grafica dell&#39;applicazione.">MainFrame</a>). Inizializza i controller specifici (Libri, Utenti, Prestiti), gestisce le dipendenze incrociate tra essi e seleziona il tab specificato. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tabIndex</td><td>L'indice del tab da aprire inizialmente (0=Libri, 1=Utenti, 2=Prestiti). </td></tr>
   </table>
   </dd>
 </dl>
-</li>
-</ul>
 
 </div>
 </div>
@@ -193,16 +183,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mostraMenu</b> ()</td
 </div><div class="memdoc">
 
 <p>Imposta il controller dei prestiti. </p>
-<ul>
-<li>Permette l'iniezione del controller dei prestiti dopo l'inizializzazione.</li>
-<li><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">prestitiController</td><td>L'istanza del controller per la gestione dei prestiti. </td></tr>
   </table>
   </dd>
 </dl>
-</li>
-</ul>
 
 </div>
 </div>

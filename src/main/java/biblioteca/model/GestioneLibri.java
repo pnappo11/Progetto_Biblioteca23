@@ -11,7 +11,6 @@ public class GestioneLibri implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** Insieme ordinato dei libri (ordinati per ISBN: ordinamento naturale di Libro2). */
     private final TreeSet<Libro> libri;
 
     /**
@@ -23,7 +22,7 @@ public class GestioneLibri implements Serializable {
     }
 
     /**
-     * @brief Costruttore vuoto di comodo: crea un nuovo TreeSet.
+     * @brief Costruttore senza paramteri di ingresso: crea un nuovo TreeSet.
      */
     public GestioneLibri() {
         this(new TreeSet<Libro>());

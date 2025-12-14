@@ -26,9 +26,6 @@ import javafx.scene.layout.VBox;
  */
 public class UtentiPanel {
 
-    /**
-     * @brief Contenitore principale del layout.
-     */
     private final BorderPane root;
 
     private final TextField campoMatricola;
@@ -36,12 +33,6 @@ public class UtentiPanel {
     private final TextField campoCognome;
     private final TextField campoEmail;
 
-    /**
-     * @brief Tabella per visualizzare la lista degli utenti.
-     *
-     * Ogni riga è rappresentata da una ObservableList<String> indicizzata.
-     * 0: Matricola, 1: Nome, 2: cognome, 3: email, 4: prestiti attivi, 5: blacklist.
-     */
     private final TableView<ObservableList<String>> tabellaUtenti;
 
     //  Pulsanti Azione
@@ -163,11 +154,25 @@ public class UtentiPanel {
      * @return L'oggetto Parent da inserire nella scena principale.
      */
     public Parent getRoot() { return root; }
-
-    // Getter dei dati inseriti (Input)
+    /**
+     * @brief getter per la matricola
+     * @return campo matricola
+     */
     public String getMatricolaInserita() { return campoMatricola.getText().trim(); }
+    /**
+     * @brief getter per il nome dell'utente
+     * @return campo nome
+     */
     public String getNomeInserito() { return campoNome.getText().trim(); }
+    /**
+     * @brief getter per il cognome
+     * @return campo cognome
+     */
     public String getCognomeInserito() { return campoCognome.getText().trim(); }
+    /**
+     * @brief getter per l'email
+     * @return campo email
+     */
     public String getEmailInserita() { return campoEmail.getText().trim(); }
 
     /**
@@ -175,21 +180,41 @@ public class UtentiPanel {
      * Da chiamare dopo un inserimento avvenuto con successo per resettare i campi .
      */
     public void pulisciCampi() { campoMatricola.clear(); campoNome.clear(); campoCognome.clear(); campoEmail.clear(); }
-
-    // Getter Componenti UI (per i Controller)
+/**
+ * @brief getter per la tabella utenti
+ * @return tabella utenti
+ */
     public TableView<ObservableList<String>> getTabellaUtenti() { return tabellaUtenti; }
+    /**
+     * @brief getter per il tasto inserisci
+     * @return tasto inserisci
+     */
     public Button getBottoneInserisci() { return bottoneInserisci; }
+    /**
+     * @brief metodo getter per il tasto modifica
+     * @return tasto modifica
+     */
     public Button getBottoneModifica() { return bottoneModifica; }
+    /**
+     * @brief metodo getter per il tasto elimina
+     * @return tasto elimina
+     */
     public Button getBottoneElimina() { return bottoneElimina; }
+    /**
+     * @brief metofo getter per il tasto blacklist
+     * @return tasto blacklist
+     */
     public Button getBottoneBlacklist() { return bottoneBlacklist; }
+    /**
+     * @brief metodo getter tasto cerca
+     * @return tasto cerca
+     */
     public Button getBottoneCerca() { return bottoneCerca; }
 
     /**
      * @brief Imposta i campi del form a partire da una riga selezionata nella tabella.
-     *
      * Struttura riga:
      * 0 = Matricola, 1 = Nome, 2 = Cognome, 3 = Email, 4 = Prestiti attivi, 5 = Blacklist.
-     *
      * @param riga Riga selezionata nella TableView utenti.
      */
     public void setCampiDaRiga(ObservableList<String> riga) {

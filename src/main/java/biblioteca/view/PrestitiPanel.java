@@ -164,24 +164,36 @@ public class PrestitiPanel {
      */
     public String getMatricolaInserita() { return campoMatricola.getText().trim(); }
 
-    /** @return isbn inserito */
+    /**
+     * @brief metodo getter sull'isbn
+     * @return isbn inserito */
     public String getIsbnInserito() { return campoIsbn.getText().trim(); }
 
-    /** @return data prevista per la restituzione */
+    /** 
+     * @brief metodo getter sulla data prevista per la restituzione 
+     * @return data prevista per la restituzione */
     public String getDataPrevistaInserita() { return campoDataPrevista.getText().trim(); }
 
     /** @brief resetta i textfield */
     public void pulisciCampi() { campoMatricola.clear(); campoIsbn.clear(); campoDataPrevista.clear(); }
 
-    /** @return la tabella dei prestiti. */
+    /**
+     * @brief getter per la tabella dei prestiti.
+     * @return la tabella dei prestiti. */
     public TableView<ObservableList<String>> getTabellaPrestiti() { return tabellaPrestiti; }
 
-    /** @return tasto nuovo prestito */
+    /** 
+     * @brief getter per il tasto nuovo prestito
+     * @return tasto nuovo prestito */
     public Button getBottoneNuovoPrestito() { return bottoneNuovoPrestito; }
 
-    /** @return tasto restituzione */
+    /** 
+     * @brief getter per il bottone registra restituzione
+     * @return tasto restituzione */
     public Button getBottoneRestituzione() { return bottoneRestituzione; }
 
-    /** @return tasto blacklist */
+    /** 
+     * @brief getter per il bottone inserimento nella blacklist.
+     * @return tasto blacklist */
     public Button getBottoneBlacklist() { return bottoneBlacklist; }
 }

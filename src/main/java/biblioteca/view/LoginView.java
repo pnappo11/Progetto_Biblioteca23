@@ -20,53 +20,32 @@ import javafx.scene.layout.VBox;
  * @brief Classe che gestisce l'interfaccia grafica relativa all' Autenticazione .
  *
  * Questa classe rappresenta la "View" iniziale dell'applicazione.
- * Si occupa di mostrare il campo per l'inserimento della password e il pulsante di accesso(login).
+ * Si occupa di mostrare il campo per l'inserimento della password e il pulsante di accesso.
  */
 public class LoginView {
 
-    /**
-     * @brief Contenitore principale con layout verticale(VBox) che raggruppa gli elementi della schermata.
-     */
     private final VBox root;
 
-    /**
-     * @brief Campo di input mascherato per la password.
-     */
     private final PasswordField campoPassword;
 
-    /**
-     * @brief Campo di input NON mascherato (per mostrare la password).
-     */
     private final TextField campoPasswordVisibile;
 
-    /**
-     * @brief Checkbox per mostrare/nascondere la password.
-     */
     private final CheckBox checkMostraPassword;
 
-    /**
-     * @brief tasto per inviare la richiesta di login.
-     */
     private final Button bottoneLogin;
 
-    /**
-     * @brief Etichetta per mostrare messaggi di feedback sull'esito del login (es. "Password errata").
-     */
     private final Label etichettaMessaggio;
 
     /**
      * @brief Costruttore della LoginView.
-     *
      * Inizializza i componenti grafici e definisce il layout della schermata di login.
      */
     public LoginView() {
         campoPassword = new PasswordField();
         campoPasswordVisibile = new TextField();
 
-        // stessa password in entrambi i campi
         campoPasswordVisibile.textProperty().bindBidirectional(campoPassword.textProperty());
 
-        // di default si vede solo il PasswordField (mascherato)
         campoPasswordVisibile.setVisible(false);
         campoPasswordVisibile.setManaged(false);
 
@@ -79,7 +58,6 @@ public class LoginView {
             campoPassword.setVisible(!mostra);
             campoPassword.setManaged(!mostra);
 
-            // focus sul campo corretto (solo UX, non tocca il messaggio errore)
             if (mostra) {
                 campoPasswordVisibile.requestFocus();
                 campoPasswordVisibile.positionCaret(campoPasswordVisibile.getText().length());
@@ -97,15 +75,12 @@ public class LoginView {
 
         Label labelPassword = new Label("Password:");
 
-        // riga password: label + (uno dei due campi, che si alternano)
         HBox riga1 = new HBox(10, labelPassword, campoPassword, campoPasswordVisibile);
         riga1.setAlignment(Pos.CENTER);
 
-        // riga toggle (sotto)
         HBox rigaToggle = new HBox(checkMostraPassword);
         rigaToggle.setAlignment(Pos.CENTER_LEFT);
 
-        // riga bottone
         HBox riga2 = new HBox(bottoneLogin);
         riga2.setAlignment(Pos.CENTER);
 
@@ -127,7 +102,6 @@ public class LoginView {
      * @return La password digitata dall'utente.
      */
     public String getPassword() {
-        // sono sempre uguali grazie al bind
         return campoPassword.getText();
     }
 
@@ -143,8 +117,8 @@ public class LoginView {
      * @brief Pulisce il campo password.
      */
     public void pulisciCampi() {
-        campoPassword.clear(); // l'altro si svuota da solo (bind)
-        checkMostraPassword.setSelected(false); // torna mascherata
+        campoPassword.clear(); 
+        checkMostraPassword.setSelected(false); 
     }
 
     /**
@@ -154,7 +128,7 @@ public class LoginView {
     public void setOnLogin(Runnable azioneLogin) {
         bottoneLogin.setOnAction(e -> {
             if (azioneLogin != null) {
-                azioneLogin.run();   // il controller farà il resto
+                azioneLogin.run();   
             }
         });
     }

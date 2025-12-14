@@ -32,7 +32,7 @@ public class LibriController {
      * @brief Costruttore della classe LibriController.
      * Inizializza il controller, popola la tabella con i dati iniziali e collega
      * gli eventi dei pulsanti e della tabella.
-     * @param gestioneLibri Il modello per la gestione logica dei libri.
+     * @param gestioneLibri per la gestione logica dei libri.
      * @param view          La view che contiene il pannello di gestione libri.
      * @param archivio      Il gestore della persistenza su file.
      */
@@ -47,18 +47,10 @@ public class LibriController {
         collegaEventi();
     }
 
-    /**
-     * @brief Inizializza la tabella con l'elenco dei libri.
-     * Recupera i libri dal modello ordinati per titolo e aggiorna la tabella.
-     */
     private void inizializzaTabella() {
         aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
     }
 
-    /**
-     * @brief Collega gli handler agli eventi della vista.
-     * Imposta le azioni per i pulsanti (Inserisci, Modifica, Elimina, Cerca) e aggiunge un listener per la selezione delle righe nella tabella.
-     */
     private void collegaEventi() {
         view.getBottoneInserisci().setOnAction(e -> gestisciInserisci());
         view.getBottoneModifica().setOnAction(e -> gestisciModifica());
@@ -76,11 +68,7 @@ public class LibriController {
                 });
     }
 
-    /**
-     * @brief Gestisce l'inserimento di un nuovo libro.
-     * Valida i campi di input, crea un nuovo libro nel modello e salva le modifiche su file.
-     * In caso di successo, resetta il form e aggiorna la tabella.
-     */
+    
     private void gestisciInserisci() {
         String isbnStr    = view.getCodiceIsbnInserito();
         String titolo     = view.getTitoloInserito();
@@ -112,11 +100,7 @@ public class LibriController {
         aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
     }
 
-    /**
-     * @brief Gestisce la modifica di un libro esistente.
-     * Identifica il libro tramite ISBN (da input o selezione), valida i nuovi dati
-     * (controllando la coerenza delle copie in prestito) e aggiorna modello e file.
-     */
+    
     private void gestisciModifica() {
         String isbnStr    = view.getCodiceIsbnInserito();
         String titolo     = view.getTitoloInserito();
@@ -187,10 +171,6 @@ public class LibriController {
         aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
     }
 
-    /**
-     * @brief Gestisce l'eliminazione di un libro selezionato.
-     * Rimuove il libro selezionato nella tabella dal modello e aggiorna il file di salvataggio.
-     */
     private void gestisciElimina() {
         ObservableList<String> selezionata =
                 view.getTabellaLibri().getSelectionModel().getSelectedItem();
@@ -209,11 +189,7 @@ public class LibriController {
         aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
     }
 
-    /**
-     * @brief Gestisce la logica del pulsante Cerca/Indietro.
-     * Alterna tra la modalità di ricerca (filtrando i libri) e la visualizzazione completa.
-     * Cambia il testo del pulsante in base allo stato corrente.
-     */
+
     private void gestisciCercaOIndietro() {
         if (!inModalitaRicerca) {
             // --- CERCA ---
@@ -244,12 +220,7 @@ public class LibriController {
         }
     }
 
-    /**
-     * @brief Aggiorna la tabella della vista con una collezione di libri.
-     * Converte la collezione di oggetti Libro in ObservableList compatibile con JavaFX,
-     * ordinandoli alfabeticamente per titolo.
-     * * @param libriDaMostrare La collezione di libri da visualizzare in tabella.
-     */
+
     private void aggiornaTabella(Collection<Libro> libriDaMostrare) {
         List<Libro> lista = new ArrayList<>(libriDaMostrare);
         lista.sort(Comparator.comparing(
@@ -273,39 +244,24 @@ public class LibriController {
         view.getTabellaLibri().setItems(righe);
     }
 
-    /**
-     * @brief Resetta i campi del form e la selezione della tabella.
-     */
+    
     private void resetFormESelezione() {
         view.pulisciCampi();
         view.getTabellaLibri().getSelectionModel().clearSelection();
     }
 
-    /**
-     * @brief Resetta lo stato di ricerca.
-     * Imposta il flag di ricerca a false e ripristina il testo del pulsante a "Cerca".
-     */
+   
     private void resetModalitaRicerca() {
         inModalitaRicerca = false;
         view.getBottoneCerca().setText("Cerca");
     }
 
-    /**
-     * @brief Verifica se una stringa è nulla o vuota.
-     * @param s La stringa da controllare.
-     * @return true se la stringa è null o vuota (dopo il trim), false altrimenti.
-     */
+    
     private boolean isVuoto(String s) {
         return s == null || s.trim().isEmpty();
     }
 
-    /**
-     * @brief Converte una stringa in Integer gestendo le eccezioni.
-     * Mostra un errore se il formato non è valido.
-     * @param s          La stringa da convertire.
-     * @param nomeCampo  Il nome del campo (per il messaggio di errore).
-     * @return L'Integer convertito o null se la conversione fallisce.
-     */
+    
     private Integer parseInt(String s, String nomeCampo) {
         try {
             return Integer.valueOf(s.trim());
@@ -315,13 +271,7 @@ public class LibriController {
         }
     }
 
-    /**
-     * @brief Converte una stringa in Long gestendo le eccezioni.
-     * Mostra un errore se il formato non è valido.
-     * @param s          La stringa da convertire.
-     * @param nomeCampo  Il nome del campo (per il messaggio di errore).
-     * @return Il Long convertito o null se la conversione fallisce.
-     */
+    
     private Long parseLong(String s, String nomeCampo) {
         try {
             return Long.valueOf(s.trim());
@@ -331,11 +281,7 @@ public class LibriController {
         }
     }
 
-    /**
-     * @brief Parsa una stringa di autori separati da virgola in una lista.
-     * @param testo La stringa contenente gli autori.
-     * @return Una lista di stringhe con i nomi degli autori puliti dagli spazi.
-     */
+    
     private List<String> parseAutori(String testo) {
         List<String> lista = new ArrayList<>();
         if (testo == null) return lista;
@@ -353,11 +299,7 @@ public class LibriController {
         return lista;
     }
 
-    /**
-     * @brief Unisce una lista di autori in un'unica stringa separata da virgole.
-     * @param autori La lista degli autori.
-     * @return Una stringa formattata con i nomi degli autori.
-     */
+    
     private String joinAutori(List<String> autori) {
         if (autori == null || autori.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
@@ -368,11 +310,7 @@ public class LibriController {
         return sb.toString();
     }
 
-    /**
-     * @brief Cerca un oggetto Libro nel modello tramite il suo ISBN.
-     * @param isbn L'ISBN del libro da cercare.
-     * @return L'oggetto Libro corrispondente, oppure null se non trovato.
-     */
+    
     private Libro trovaLibroPerIsbn(Long isbn) {
         for (Libro l : gestioneLibri.getLibri()) {
             if (l.getIsbn() == isbn) {
@@ -382,10 +320,7 @@ public class LibriController {
         return null;
     }
 
-    /**
-     * @brief Mostra una finestra di dialogo di errore.
-     * @param messaggio Il testo dell'errore da visualizzare.
-     */
+    
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -393,10 +328,7 @@ public class LibriController {
         alert.showAndWait();
     }
 
-    /**
-     * @brief Mostra una finestra di dialogo informativa.
-     * @param messaggio Il testo informativo da visualizzare.
-     */
+    
     private void mostraInfo(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -405,8 +337,8 @@ public class LibriController {
     }
 
     /**
-     * @brief Forza l'aggiornamento della vista recuperando i dati dal modello.
-     * Utile per sincronizzare la vista dopo operazioni esterne o cambi di pannello.
+     * @brief Forza l'aggiornamento della view recuperando i dati dal modello.
+     * Utile per sincronizzare la view dopo operazioni esterne o cambi di pannello.
      */
     public void aggiornaDaModel() {
         resetModalitaRicerca();

@@ -35,7 +35,7 @@ public class MainFrame {
 
     /**
      * @brief Costruttore di default.
-     * * Inizializza l'interfaccia selezionando automaticamente il primo tab (indice 0).
+     * Inizializza l'interfaccia selezionando automaticamente il primo tab (indice 0).
      */
     public MainFrame() { this(0); }
 
@@ -136,44 +136,44 @@ public class MainFrame {
 
     /**
      * @brief Restituisce il nodo radice dell'interfaccia grafica.
-     * * @return Il BorderPane principale che contiene tutta la struttura della finestra.
+     * @return Il BorderPane principale che contiene tutta la struttura della finestra.
      */
     public Parent getRoot() { return root; }
 
     /**
      * @brief Restituisce il pannello dedicato alla gestione dei libri.
-     * * @return L'oggetto LibriPanel istanziato.
+     * @return L'oggetto LibriPanel istanziato.
      */
     public LibriPanel getLibriView() { return libriView; }
 
     /**
      * @brief Restituisce il pannello dedicato alla gestione degli utenti.
-     * * @return L'oggetto UtentiPanel istanziato.
+     * @return L'oggetto UtentiPanel istanziato.
      */
     public UtentiPanel getUtentiView() { return utentiView; }
 
     /**
      * @brief Restituisce il pannello dedicato alla gestione dei prestiti.
-     * * @return L'oggetto PrestitiPanel istanziato.
+     * @return L'oggetto PrestitiPanel istanziato.
      */
     public PrestitiPanel getPrestitiView() { return prestitiView; }
 
     /**
      * @brief Restituisce il pulsante di Logout presente nella barra superiore.
-     * * @return Il Button per effettuare il logout.
+     * @return Il tasto per effettuare il logout.
      */
     public Button getBtnLogout() { return btnLogout; }
 
     /**
      * @brief Restituisce il pulsante Menu presente nella barra superiore.
-     * * @return Il Button del menu.
+     * @return Il tasto del menu.
      */
     public Button getBtnMenu() { return btnMenu; }
 
     /**
      * @brief Imposta un'azione da eseguire quando viene selezionato il tab "Prestiti".
-     * * Utile per aggiornare la vista dei prestiti quando l'utente passa a questa scheda.
-     * * @param action Un Runnable contenente la logica da eseguire al cambio tab.
+     * Utile per aggiornare la view dei prestiti quando l'utente passa a questa scheda.
+     * @param action Un Runnable contenente la logica da eseguire al cambio tab.
      */
     public void setOnTabPrestitiSelected(Runnable action) {
         tabPane.getSelectionModel().selectedItemProperty().addListener((o, oldT, newT) -> {

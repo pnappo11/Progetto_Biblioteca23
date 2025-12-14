@@ -98,7 +98,7 @@ $(function(){initNavTree('classbiblioteca_1_1controller_1_1_auth_controller.html
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a78ee93d44b4d6b9c0c5508f499e16f83" id="r_a78ee93d44b4d6b9c0c5508f499e16f83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78ee93d44b4d6b9c0c5508f499e16f83">AuthController</a> (<a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html">Autenticazione</a> bibliotecario, <a class="el" href="classbiblioteca_1_1view_1_1_login_view.html">LoginView</a> loginView, <a class="el" href="classbiblioteca_1_1controller_1_1_main_controller.html">MainController</a> mainController)</td></tr>
-<tr class="memdesc:a78ee93d44b4d6b9c0c5508f499e16f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe Authcontroller2. Inizializza il controller con le dipendenze necessarie e imposta il listener per l'evento di login sulla vista.  <br /></td></tr>
+<tr class="memdesc:a78ee93d44b4d6b9c0c5508f499e16f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe Authcontroller. Inizializza il controller e fa da ponte verso la view.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Controller per la gestione del processo di autenticazione. Questa classe gestisce la logica di interazione tra la vista di login e il modello di autenticazione, coordinando l'accesso al menu principale. </p>
@@ -127,12 +127,12 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Costruttore della classe Authcontroller2. Inizializza il controller con le dipendenze necessarie e imposta il listener per l'evento di login sulla vista. </p>
+<p>Costruttore della classe Authcontroller. Inizializza il controller e fa da ponte verso la view. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bibliotecario</td><td>Il modello che gestisce la verifica delle credenziali. </td></tr>
-    <tr><td class="paramname">loginView</td><td>La vista che fornisce l'interfaccia utente per il login. </td></tr>
-    <tr><td class="paramname">mainController</td><td>Il controller principale per la navigazione tra le viste. </td></tr>
+    <tr><td class="paramname">bibliotecario</td><td>gestisce la verifica delle credenziali. </td></tr>
+    <tr><td class="paramname">loginView</td><td>fornisce l'interfaccia utente per il login. </td></tr>
+    <tr><td class="paramname">mainController</td><td>Il controller principale per la navigazione tra le view. </td></tr>
   </table>
   </dd>
 </dl>

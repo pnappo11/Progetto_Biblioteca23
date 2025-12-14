@@ -14,7 +14,6 @@ public class GestionePrestiti implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** Elenco di tutti i prestiti (attivi e storici). */
     private final List<Prestito> prestiti;
     
 /**
@@ -26,7 +25,7 @@ public class GestionePrestiti implements Serializable {
     }
     
 /**
- * @brief istanzia un nuovo array list di prestiti.
+ * @brief costruttore senza parametri di ingresso, istanzia un nuovo array list di prestiti.
  */
     public GestionePrestiti() {
         this(new ArrayList<Prestito>());

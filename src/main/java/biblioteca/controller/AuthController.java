@@ -15,12 +15,11 @@ public class AuthController {
     private final MainController mainController;
 
     /**
-     * @brief Costruttore della classe Authcontroller2.
-     * Inizializza il controller con le dipendenze necessarie e imposta il listener
-     * per l'evento di login sulla vista.
-     * @param bibliotecario   Il modello che gestisce la verifica delle credenziali.
-     * @param loginView       La vista che fornisce l'interfaccia utente per il login.
-     * @param mainController  Il controller principale per la navigazione tra le viste.
+     * @brief Costruttore della classe Authcontroller.
+     * Inizializza il controller e fa da ponte verso la view.
+     * @param bibliotecario   gestisce la verifica delle credenziali.
+     * @param loginView       fornisce l'interfaccia utente per il login.
+     * @param mainController  Il controller principale per la navigazione tra le view.
      */
     public AuthController(Autenticazione bibliotecario,
                            LoginView loginView,
@@ -32,12 +31,7 @@ public class AuthController {
         this.loginView.setOnLogin(() -> login(this.loginView.getPassword()));
     }
 
-    /**
-     * @brief Esegue il tentativo di login verificando la password inserita.
-     * * Se la password è corretta, pulisce i campi e passa al menu principale.
-     * In caso contrario, mostra un messaggio di errore.
-     * * @param passwordInserita La password fornita dall'utente.
-     */
+    
     private void login(String passwordInserita) {
         if (passwordInserita == null) {
             passwordInserita = "";

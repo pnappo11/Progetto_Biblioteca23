@@ -25,23 +25,15 @@ import javafx.scene.layout.VBox;
  */
 public class MenuView {
 
-    /**
-     * @brief Nodo radice del layout .
-     */
     private final BorderPane root;
 
     private final Button btnLibri;
     private final Button btnUtenti;
     private final Button btnPrestiti;
-    /** Bottone di logout posizionato nella barra superiore in alto a destra. */
     private final Button btnLogout;
-    /** Azione da eseguire quando si clicca su Gestione Libri. */
     private Runnable onGestioneLibri;
-    /** Azione da eseguire quando si clicca su Gestione Utenti. */
     private Runnable onGestioneUtenti;
-    /** Azione da eseguire quando si clicca su Gestione Prestiti. */
     private Runnable onGestionePrestiti;
-    /** Azione da eseguire quando si clicca su Logout. */
     private Runnable onLogout;
 
     /**

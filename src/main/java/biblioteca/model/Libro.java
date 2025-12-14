@@ -18,25 +18,13 @@ import java.util.Objects;
  * @author tommy
  */
 public class Libro implements Serializable, Comparable<Libro> {
-
+    
     private static final long serialVersionUID = 1L;
-
-    /** Codice ISBN univoco del libro (può avere 13 cifre). */
     private final long isbn;
-
-    /** Titolo del libro. */
     private String titolo;
-
-    /** Elenco degli autori. */
     private List<String> autori;
-
-    /** Anno di pubblicazione. */
     private int annoPubblicazione;
-
-    /** Numero totale di copie possedute dalla biblioteca. */
     private int copieTotali;
-
-    /** Numero di copie attualmente disponibili al prestito. */
     private int copieDisponibili;
 
     /**
@@ -110,7 +98,7 @@ public class Libro implements Serializable, Comparable<Libro> {
         );
     }
 /**
- * @brief metodo getter
+ * @brief metodo getter sull'anno di pubblicazione del libro.
  * @return anno di pubblicazione del libro
  */
     public int getAnnoPubblicazione() {
