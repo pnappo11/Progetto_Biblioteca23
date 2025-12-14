@@ -92,33 +92,60 @@ $(function(){initNavTree('classbiblioteca_1_1view_1_1_main_frame.html','','class
 </div><!--header-->
 <div class="contents">
 
-<p>Finestra operativa principale dell'applicazione.  
+<p>Contenitore principale dell'interfaccia grafica dell'applicazione.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a63a67ffe7c5a541395310270cd64dd12" id="r_a63a67ffe7c5a541395310270cd64dd12"><td class="memItemLeft" align="right" valign="top"><a id="a63a67ffe7c5a541395310270cd64dd12" name="a63a67ffe7c5a541395310270cd64dd12"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>MainFrame</b> ()</td></tr>
-<tr class="memdesc:a63a67ffe7c5a541395310270cd64dd12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore di default. Strutturato in modo che la prima finestra ad essere visualizzata è quella relativa ai libri. <br /></td></tr>
+<tr class="memitem:a63a67ffe7c5a541395310270cd64dd12" id="r_a63a67ffe7c5a541395310270cd64dd12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63a67ffe7c5a541395310270cd64dd12">MainFrame</a> ()</td></tr>
+<tr class="memdesc:a63a67ffe7c5a541395310270cd64dd12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore di default.  <br /></td></tr>
 <tr class="memitem:a6b2e377d011ef0f1a223a723841d0b5c" id="r_a6b2e377d011ef0f1a223a723841d0b5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b2e377d011ef0f1a223a723841d0b5c">MainFrame</a> (int tabIndex)</td></tr>
-<tr class="memdesc:a6b2e377d011ef0f1a223a723841d0b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore principale con selezione della scheda iniziale.  <br /></td></tr>
+<tr class="memdesc:a6b2e377d011ef0f1a223a723841d0b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore principale che inizializza la struttura completa della UI. Configura il layout principale, carica gli stili CSS, crea i pannelli figli (Libri, Utenti, Prestiti), imposta la barra superiore con logo e bottoni, e gestisce il ridimensionamento dei tab.  <br /></td></tr>
 <tr class="memitem:a657e65c9114bba9942020f4dc63f9f0a" id="r_a657e65c9114bba9942020f4dc63f9f0a"><td class="memItemLeft" align="right" valign="top">Parent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a657e65c9114bba9942020f4dc63f9f0a">getRoot</a> ()</td></tr>
-<tr class="memdesc:a657e65c9114bba9942020f4dc63f9f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il nodo radice dell'interfaccia.  <br /></td></tr>
+<tr class="memdesc:a657e65c9114bba9942020f4dc63f9f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il nodo radice dell'interfaccia grafica.  <br /></td></tr>
 <tr class="memitem:aa9f61f856516f7b0bb762371c25ff1b0" id="r_aa9f61f856516f7b0bb762371c25ff1b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1view_1_1_libri_panel.html">LibriPanel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9f61f856516f7b0bb762371c25ff1b0">getLibriView</a> ()</td></tr>
+<tr class="memdesc:aa9f61f856516f7b0bb762371c25ff1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il pannello dedicato alla gestione dei libri.  <br /></td></tr>
 <tr class="memitem:a041cb8ce38025ac66e28b1d7bd63b618" id="r_a041cb8ce38025ac66e28b1d7bd63b618"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1view_1_1_utenti_panel.html">UtentiPanel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a041cb8ce38025ac66e28b1d7bd63b618">getUtentiView</a> ()</td></tr>
+<tr class="memdesc:a041cb8ce38025ac66e28b1d7bd63b618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il pannello dedicato alla gestione degli utenti.  <br /></td></tr>
 <tr class="memitem:a9a830271a078fa9aaffe4d2a787fc684" id="r_a9a830271a078fa9aaffe4d2a787fc684"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1view_1_1_prestiti_panel.html">PrestitiPanel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a830271a078fa9aaffe4d2a787fc684">getPrestitiView</a> ()</td></tr>
+<tr class="memdesc:a9a830271a078fa9aaffe4d2a787fc684"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il pannello dedicato alla gestione dei prestiti.  <br /></td></tr>
 <tr class="memitem:aa12d3a88ac227f706b700e1c97cb6f70" id="r_aa12d3a88ac227f706b700e1c97cb6f70"><td class="memItemLeft" align="right" valign="top">Button&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa12d3a88ac227f706b700e1c97cb6f70">getBtnLogout</a> ()</td></tr>
-<tr class="memdesc:aa12d3a88ac227f706b700e1c97cb6f70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il bottone di Logout. Utile per assegnare l'azione di ritorno al Login.  <br /></td></tr>
+<tr class="memdesc:aa12d3a88ac227f706b700e1c97cb6f70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il pulsante di Logout presente nella barra superiore.  <br /></td></tr>
 <tr class="memitem:a784cf1e0e76616d2e7ecbbc19ef0138e" id="r_a784cf1e0e76616d2e7ecbbc19ef0138e"><td class="memItemLeft" align="right" valign="top">Button&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a784cf1e0e76616d2e7ecbbc19ef0138e">getBtnMenu</a> ()</td></tr>
-<tr class="memdesc:a784cf1e0e76616d2e7ecbbc19ef0138e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il tasto Menu. Utile per assegnare l'azione di ritorno al Menu principale.  <br /></td></tr>
+<tr class="memdesc:a784cf1e0e76616d2e7ecbbc19ef0138e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce il pulsante Menu presente nella barra superiore.  <br /></td></tr>
+<tr class="memitem:aa47b813fcce5c10c96ba8b7e222c6054" id="r_aa47b813fcce5c10c96ba8b7e222c6054"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa47b813fcce5c10c96ba8b7e222c6054">setOnTabPrestitiSelected</a> (Runnable action)</td></tr>
+<tr class="memdesc:aa47b813fcce5c10c96ba8b7e222c6054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imposta un'azione da eseguire quando viene selezionato il tab "Prestiti".  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Finestra operativa principale dell'applicazione. </p>
-<p>Questa classe rappresenta il contenitore generale che ospita le funzionalità di gestione per Libri, Utenti, Prestiti il tutto organizzato in Tab. Include anche una barra superiore di navigazione per tornare al Menu principale o effettuare il Logout.</p>
-<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+<div class="textblock"><p>Contenitore principale dell'interfaccia grafica dell'applicazione. </p>
+<ul>
+<li>Questa classe costruisce la struttura visiva generale (Layout), includendo la barra superiore con il logo e i pulsanti di sistema, e un TabPane centrale che ospita le viste specifiche per Libri, Utenti e Prestiti. </li>
+</ul>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a63a67ffe7c5a541395310270cd64dd12" name="a63a67ffe7c5a541395310270cd64dd12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63a67ffe7c5a541395310270cd64dd12">&#9670;&#160;</a></span>MainFrame() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">biblioteca.view.MainFrame.MainFrame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Costruttore di default. </p>
+<ul>
+<li>Inizializza l'interfaccia selezionando automaticamente il primo tab (indice 0). </li>
+</ul>
+
+</div>
+</div>
 <a id="a6b2e377d011ef0f1a223a723841d0b5c" name="a6b2e377d011ef0f1a223a723841d0b5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b2e377d011ef0f1a223a723841d0b5c">&#9670;&#160;</a></span>MainFrame()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b2e377d011ef0f1a223a723841d0b5c">&#9670;&#160;</a></span>MainFrame() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -132,11 +159,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Costruttore principale con selezione della scheda iniziale. </p>
-<p>Questo costruttore permette di avviare il <a class="el" href="classbiblioteca_1_1view_1_1_main_frame.html" title="Finestra operativa principale dell&#39;applicazione.">MainFrame</a> focalizzando subito l'attenzione dell'utente sulla sezione scelta nel Menu precedente.</p>
+<p>Costruttore principale che inizializza la struttura completa della UI. Configura il layout principale, carica gli stili CSS, crea i pannelli figli (Libri, Utenti, Prestiti), imposta la barra superiore con logo e bottoni, e gestisce il ridimensionamento dei tab. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tabIndex</td><td>L'indice della scheda da selezionare all'avvio: 0 per la gestione libri, 1 per la gestione utenti e 2 per la gestiione prestiti. </td></tr>
+    <tr><td class="paramname">tabIndex</td><td>L'indice del tab da selezionare all'apertura dell'applicazione. </td></tr>
   </table>
   </dd>
 </dl>
@@ -159,8 +185,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Restituisce il bottone di Logout. Utile per assegnare l'azione di ritorno al Login. </p>
-<dl class="section return"><dt>Returns</dt><dd>Il tasto Logout. </dd></dl>
+<p>Restituisce il pulsante di Logout presente nella barra superiore. </p>
+<ul>
+<li><dl class="section return"><dt>Returns</dt><dd>Il Button per effettuare il logout. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -179,8 +208,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Restituisce il tasto Menu. Utile per assegnare l'azione di ritorno al Menu principale. </p>
-<dl class="section return"><dt>Returns</dt><dd>Il tasto Menu. </dd></dl>
+<p>Restituisce il pulsante Menu presente nella barra superiore. </p>
+<ul>
+<li><dl class="section return"><dt>Returns</dt><dd>Il Button del menu. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -198,7 +230,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Il pannello per la gestione libri. </dd></dl>
+
+<p>Restituisce il pannello dedicato alla gestione dei libri. </p>
+<ul>
+<li><dl class="section return"><dt>Returns</dt><dd>L'oggetto <a class="el" href="classbiblioteca_1_1view_1_1_libri_panel.html" title="Pannello per la gestione del catalogo libri (Inventario).">LibriPanel</a> istanziato. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -216,7 +253,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Il pannello per la gestione prestiti. </dd></dl>
+
+<p>Restituisce il pannello dedicato alla gestione dei prestiti. </p>
+<ul>
+<li><dl class="section return"><dt>Returns</dt><dd>L'oggetto <a class="el" href="classbiblioteca_1_1view_1_1_prestiti_panel.html" title="Pannello per la gestione delle operazioni di prestito. Permette agli operatori di visualizzare l&#39;elen...">PrestitiPanel</a> istanziato. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -235,8 +277,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Restituisce il nodo radice dell'interfaccia. </p>
-<dl class="section return"><dt>Returns</dt><dd>L'oggetto Parent da inserire nella scene. </dd></dl>
+<p>Restituisce il nodo radice dell'interfaccia grafica. </p>
+<ul>
+<li><dl class="section return"><dt>Returns</dt><dd>Il BorderPane principale che contiene tutta la struttura della finestra. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -254,7 +299,41 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Il pannello per la gestione utenti. </dd></dl>
+
+<p>Restituisce il pannello dedicato alla gestione degli utenti. </p>
+<ul>
+<li><dl class="section return"><dt>Returns</dt><dd>L'oggetto <a class="el" href="classbiblioteca_1_1view_1_1_utenti_panel.html" title="Pannello per la gestione dell&#39;anagrafica utenti.">UtentiPanel</a> istanziato. </dd></dl>
+</li>
+</ul>
+
+</div>
+</div>
+<a id="aa47b813fcce5c10c96ba8b7e222c6054" name="aa47b813fcce5c10c96ba8b7e222c6054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa47b813fcce5c10c96ba8b7e222c6054">&#9670;&#160;</a></span>setOnTabPrestitiSelected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.view.MainFrame.setOnTabPrestitiSelected </td>
+          <td>(</td>
+          <td class="paramtype">Runnable</td>          <td class="paramname"><span class="paramname"><em>action</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Imposta un'azione da eseguire quando viene selezionato il tab "Prestiti". </p>
+<ul>
+<li>Utile per aggiornare la vista dei prestiti quando l'utente passa a questa scheda.</li>
+<li><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">action</td><td>Un Runnable contenente la logica da eseguire al cambio tab. </td></tr>
+  </table>
+  </dd>
+</dl>
+</li>
+</ul>
 
 </div>
 </div>

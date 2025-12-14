@@ -16,6 +16,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * @brief Contenitore principale dell'interfaccia grafica dell'applicazione.
+ * * Questa classe costruisce la struttura visiva generale (Layout), includendo la barra superiore
+ * con il logo e i pulsanti di sistema, e un TabPane centrale che ospita le viste specifiche
+ * per Libri, Utenti e Prestiti.
+ */
 public class MainFrame {
 
     private final BorderPane root;
@@ -27,8 +33,18 @@ public class MainFrame {
     private final Button btnLogout;
     private final Tab tabPrestiti;
 
+    /**
+     * @brief Costruttore di default.
+     * * Inizializza l'interfaccia selezionando automaticamente il primo tab (indice 0).
+     */
     public MainFrame() { this(0); }
 
+    /**
+     * @brief Costruttore principale che inizializza la struttura completa della UI.
+     * Configura il layout principale, carica gli stili CSS, crea i pannelli figli (Libri, Utenti, Prestiti),
+     * imposta la barra superiore con logo e bottoni, e gestisce il ridimensionamento dei tab.
+     * @param tabIndex L'indice del tab da selezionare all'apertura dell'applicazione.
+     */
     public MainFrame(int tabIndex) {
         root = new BorderPane();
         root.getStyleClass().add("app-wood");
@@ -118,13 +134,47 @@ public class MainFrame {
         BorderPane.setMargin(shell, new Insets(12));
     }
 
+    /**
+     * @brief Restituisce il nodo radice dell'interfaccia grafica.
+     * * @return Il BorderPane principale che contiene tutta la struttura della finestra.
+     */
     public Parent getRoot() { return root; }
+
+    /**
+     * @brief Restituisce il pannello dedicato alla gestione dei libri.
+     * * @return L'oggetto LibriPanel istanziato.
+     */
     public LibriPanel getLibriView() { return libriView; }
+
+    /**
+     * @brief Restituisce il pannello dedicato alla gestione degli utenti.
+     * * @return L'oggetto UtentiPanel istanziato.
+     */
     public UtentiPanel getUtentiView() { return utentiView; }
+
+    /**
+     * @brief Restituisce il pannello dedicato alla gestione dei prestiti.
+     * * @return L'oggetto PrestitiPanel istanziato.
+     */
     public PrestitiPanel getPrestitiView() { return prestitiView; }
+
+    /**
+     * @brief Restituisce il pulsante di Logout presente nella barra superiore.
+     * * @return Il Button per effettuare il logout.
+     */
     public Button getBtnLogout() { return btnLogout; }
+
+    /**
+     * @brief Restituisce il pulsante Menu presente nella barra superiore.
+     * * @return Il Button del menu.
+     */
     public Button getBtnMenu() { return btnMenu; }
 
+    /**
+     * @brief Imposta un'azione da eseguire quando viene selezionato il tab "Prestiti".
+     * * Utile per aggiornare la vista dei prestiti quando l'utente passa a questa scheda.
+     * * @param action Un Runnable contenente la logica da eseguire al cambio tab.
+     */
     public void setOnTabPrestitiSelected(Runnable action) {
         tabPane.getSelectionModel().selectedItemProperty().addListener((o, oldT, newT) -> {
             if (newT == tabPrestiti && action != null) action.run();

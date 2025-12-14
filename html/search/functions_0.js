@@ -4,6 +4,6 @@ var searchData=
   ['aggiungiprestito_1',['aggiungiPrestito',['../classbiblioteca_1_1model_1_1_utente.html#abe86b60b7f3ea6b40f552233ffef3b9b',1,'biblioteca::model::Utente']]],
   ['archiviofile_2',['ArchivioFile',['../classbiblioteca_1_1persistence_1_1_archivio_file.html#a14e0220e519fc4b4433ffcbce9b37b0e',1,'biblioteca::persistence::ArchivioFile']]],
   ['autenticazione_3',['Autenticazione',['../classbiblioteca_1_1model_1_1_autenticazione.html#a4641c7a44c3f26151417629e716f6a31',1,'biblioteca::model::Autenticazione']]],
-  ['authcontroller2_4',['Authcontroller2',['../classbiblioteca_1_1controller_1_1_authcontroller.html#aa8ae66125eebece7bbbd3f41e3e2226d',1,'biblioteca::controller::Authcontroller']]],
+  ['authcontroller_4',['AuthController',['../classbiblioteca_1_1controller_1_1_auth_controller.html#a78ee93d44b4d6b9c0c5508f499e16f83',1,'biblioteca::controller::AuthController']]],
   ['avvia_5',['avvia',['../classbiblioteca_1_1controller_1_1_main_controller.html#a7f635d966ce86ddc70cbcfb8120335fb',1,'biblioteca::controller::MainController']]]
 ];

@@ -92,34 +92,32 @@ $(function(){initNavTree('classbiblioteca_1_1persistence_1_1_archivio_file.html'
 </div><!--header-->
 <div class="contents">
 
-<p>Classe responsabile della persistenza dei dati su file system.  
+<p>Gestisce la persistenza dei dati del sistema bibliotecario su file binari. Questa classe si occupa di serializzare e deserializzare gli oggetti principali del modello (libri, utenti, prestiti e credenziali) utilizzando gli stream di oggetti Java.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a14e0220e519fc4b4433ffcbce9b37b0e" id="r_a14e0220e519fc4b4433ffcbce9b37b0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14e0220e519fc4b4433ffcbce9b37b0e">ArchivioFile</a> (String percorsoBase)</td></tr>
-<tr class="memdesc:a14e0220e519fc4b4433ffcbce9b37b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore.  <br /></td></tr>
+<tr class="memdesc:a14e0220e519fc4b4433ffcbce9b37b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe.  <br /></td></tr>
 <tr class="memitem:abe31177c53552997ec65d7fc3b5bc423" id="r_abe31177c53552997ec65d7fc3b5bc423"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe31177c53552997ec65d7fc3b5bc423">caricaLibri</a> ()</td></tr>
-<tr class="memdesc:abe31177c53552997ec65d7fc3b5bc423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica l'archivio dei libri dal file su disco.  <br /></td></tr>
+<tr class="memdesc:abe31177c53552997ec65d7fc3b5bc423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica l'elenco dei libri dal file locale.  <br /></td></tr>
 <tr class="memitem:a3a28e8dfe8b6a980b89eb8bb94de6caa" id="r_a3a28e8dfe8b6a980b89eb8bb94de6caa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a28e8dfe8b6a980b89eb8bb94de6caa">salvaLibri</a> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a> gl)</td></tr>
-<tr class="memdesc:a3a28e8dfe8b6a980b89eb8bb94de6caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva lo stato corrente dei libri su file.  <br /></td></tr>
+<tr class="memdesc:a3a28e8dfe8b6a980b89eb8bb94de6caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva lo stato attuale della gestione libri su file.  <br /></td></tr>
 <tr class="memitem:abebb3107bddc56c7536c5056abdaf29e" id="r_abebb3107bddc56c7536c5056abdaf29e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abebb3107bddc56c7536c5056abdaf29e">caricaUtenti</a> ()</td></tr>
-<tr class="memdesc:abebb3107bddc56c7536c5056abdaf29e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica l'anagrafica utenti dal file su disco.  <br /></td></tr>
+<tr class="memdesc:abebb3107bddc56c7536c5056abdaf29e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica l'elenco degli utenti dal file locale.  <br /></td></tr>
 <tr class="memitem:a97eec3549ef558c6f385357443a11901" id="r_a97eec3549ef558c6f385357443a11901"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97eec3549ef558c6f385357443a11901">salvaUtenti</a> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a> gu)</td></tr>
-<tr class="memdesc:a97eec3549ef558c6f385357443a11901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva l'elenco degli utenti su file.  <br /></td></tr>
+<tr class="memdesc:a97eec3549ef558c6f385357443a11901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva lo stato attuale della gestione utenti su file.  <br /></td></tr>
 <tr class="memitem:ac398f8618119a20a0efadf6e0913d6bf" id="r_ac398f8618119a20a0efadf6e0913d6bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac398f8618119a20a0efadf6e0913d6bf">caricaPrestiti</a> ()</td></tr>
-<tr class="memdesc:ac398f8618119a20a0efadf6e0913d6bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica lo storico dei prestiti dal file su disco.  <br /></td></tr>
+<tr class="memdesc:ac398f8618119a20a0efadf6e0913d6bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica l'elenco dei prestiti dal file locale.  <br /></td></tr>
 <tr class="memitem:aca4e9a3f5710b9aba49e46f341878fc6" id="r_aca4e9a3f5710b9aba49e46f341878fc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca4e9a3f5710b9aba49e46f341878fc6">salvaPrestiti</a> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a> gp)</td></tr>
-<tr class="memdesc:aca4e9a3f5710b9aba49e46f341878fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva la situazione dei prestiti su file.  <br /></td></tr>
+<tr class="memdesc:aca4e9a3f5710b9aba49e46f341878fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva lo stato attuale dei prestiti su file.  <br /></td></tr>
 <tr class="memitem:a051e398a7d11e11fa4285a5f1ad155bd" id="r_a051e398a7d11e11fa4285a5f1ad155bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html">Autenticazione</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a051e398a7d11e11fa4285a5f1ad155bd">caricaAutenticazione</a> ()</td></tr>
-<tr class="memdesc:a051e398a7d11e11fa4285a5f1ad155bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica i dati di autenticazione (hash password) dal file.  <br /></td></tr>
+<tr class="memdesc:a051e398a7d11e11fa4285a5f1ad155bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica i dati di autenticazione (credenziali admin) dal file locale.  <br /></td></tr>
 <tr class="memitem:a4d003a7587f7f1f773daf53443e1b8aa" id="r_a4d003a7587f7f1f773daf53443e1b8aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d003a7587f7f1f773daf53443e1b8aa">salvaAutenticazione</a> (<a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html">Autenticazione</a> a)</td></tr>
-<tr class="memdesc:a4d003a7587f7f1f773daf53443e1b8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva le nuove credenziali di accesso su file.  <br /></td></tr>
+<tr class="memdesc:a4d003a7587f7f1f773daf53443e1b8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva le credenziali di autenticazione su file.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Classe responsabile della persistenza dei dati su file system. </p>
-<p>La classe <code class="JavaDocCode">ArchivioFile</code> implementa il meccanismo di salvataggio e caricamento dei dati dell'applicazione. Utilizza la <b>Serializzazione Java</b> per scrivere interi oggetti (i Model) su file binari (<span class="tt">.dat</span>). Questo permette di mantenere lo stato dell'applicazione (libri, utenti, prestiti) tra un avvio e l'altro.</p>
-<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+<div class="textblock"><p>Gestisce la persistenza dei dati del sistema bibliotecario su file binari. Questa classe si occupa di serializzare e deserializzare gli oggetti principali del modello (libri, utenti, prestiti e credenziali) utilizzando gli stream di oggetti Java. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a14e0220e519fc4b4433ffcbce9b37b0e" name="a14e0220e519fc4b4433ffcbce9b37b0e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14e0220e519fc4b4433ffcbce9b37b0e">&#9670;&#160;</a></span>ArchivioFile()</h2>
@@ -136,10 +134,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Costruttore. </p>
+<p>Costruttore della classe. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">percorsoBase</td><td>Il percorso della directory nel file system dove leggere/scrivere i file. Se la stringa è vuota, usa la directory corrente del progetto. </td></tr>
+    <tr><td class="paramname">percorsoBase</td><td>Il percorso della cartella dove verranno salvati/letti i file. </td></tr>
   </table>
   </dd>
 </dl>
@@ -162,8 +160,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Carica i dati di autenticazione (hash password) dal file. </p>
-<dl class="section return"><dt>Returns</dt><dd>L'oggetto <code><a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html">Autenticazione</a></code> contenente le credenziali. </dd></dl>
+<p>Carica i dati di autenticazione (credenziali admin) dal file locale. </p>
+<dl class="section return"><dt>Returns</dt><dd>Un'istanza di <a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html" title="classe Autenticazione relativa all&#39;accesso da parte del bibliotecario al sistema permette di fare log...">Autenticazione</a>. Se il file non esiste, ritorna un'istanza con valori predefiniti. </dd></dl>
 
 </div>
 </div>
@@ -182,8 +180,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Carica l'archivio dei libri dal file su disco. </p>
-<dl class="section return"><dt>Returns</dt><dd>L'oggetto <code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a></code> recuperato dal file, oppure una nuova istanza vuota se il file non esiste o è corrotto. </dd></dl>
+<p>Carica l'elenco dei libri dal file locale. </p>
+<dl class="section return"><dt>Returns</dt><dd>Un'istanza di <a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html" title="Gestore dei libri della biblioteca. Incapsula il TreeSet&lt;Libro2&gt; .">GestioneLibri</a>. Se il file non esiste, ritorna un nuovo oggetto vuoto. </dd></dl>
 
 </div>
 </div>
@@ -202,8 +200,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Carica lo storico dei prestiti dal file su disco. </p>
-<dl class="section return"><dt>Returns</dt><dd>L'oggetto <code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a></code> recuperato. </dd></dl>
+<p>Carica l'elenco dei prestiti dal file locale. </p>
+<dl class="section return"><dt>Returns</dt><dd>Un'istanza di <a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html" title="classe che si occupa di gestire i prestiti di libri permette di registrare nuovi prestiti,...">GestionePrestiti</a>. Se il file non esiste, ritorna un nuovo oggetto vuoto. </dd></dl>
 
 </div>
 </div>
@@ -222,8 +220,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Carica l'anagrafica utenti dal file su disco. </p>
-<dl class="section return"><dt>Returns</dt><dd>L'oggetto <code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a></code> recuperato, o una nuova istanza se non presente. </dd></dl>
+<p>Carica l'elenco degli utenti dal file locale. </p>
+<dl class="section return"><dt>Returns</dt><dd>Un'istanza di <a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html" title="gestisce gli utenti: inserisce, modifica, elimina e trova un utente nel sistema.">GestioneUtenti</a>. Se il file non esiste, ritorna un nuovo oggetto vuoto. </dd></dl>
 
 </div>
 </div>
@@ -242,11 +240,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Salva le nuove credenziali di accesso su file. </p>
-<p>Da invocare quando viene cambiata la password.</p>
+<p>Salva le credenziali di autenticazione su file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">a</td><td>L'oggetto <code><a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html">Autenticazione</a></code> da salvare. </td></tr>
+    <tr><td class="paramname">a</td><td>L'oggetto <a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html" title="classe Autenticazione relativa all&#39;accesso da parte del bibliotecario al sistema permette di fare log...">Autenticazione</a> da serializzare. </td></tr>
   </table>
   </dd>
 </dl>
@@ -268,10 +265,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Salva lo stato corrente dei libri su file. </p>
+<p>Salva lo stato attuale della gestione libri su file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gl</td><td>L'oggetto <code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a></code> da serializzare e salvare. </td></tr>
+    <tr><td class="paramname">gl</td><td>L'oggetto <a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html" title="Gestore dei libri della biblioteca. Incapsula il TreeSet&lt;Libro2&gt; .">GestioneLibri</a> da serializzare. </td></tr>
   </table>
   </dd>
 </dl>
@@ -293,10 +290,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Salva la situazione dei prestiti su file. </p>
+<p>Salva lo stato attuale dei prestiti su file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gp</td><td>L'oggetto <code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a></code> da serializzare. </td></tr>
+    <tr><td class="paramname">gp</td><td>L'oggetto <a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html" title="classe che si occupa di gestire i prestiti di libri permette di registrare nuovi prestiti,...">GestionePrestiti</a> da serializzare. </td></tr>
   </table>
   </dd>
 </dl>
@@ -318,10 +315,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Salva l'elenco degli utenti su file. </p>
+<p>Salva lo stato attuale della gestione utenti su file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gu</td><td>L'oggetto <code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a></code> da serializzare. </td></tr>
+    <tr><td class="paramname">gu</td><td>L'oggetto <a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html" title="gestisce gli utenti: inserisce, modifica, elimina e trova un utente nel sistema.">GestioneUtenti</a> da serializzare. </td></tr>
   </table>
   </dd>
 </dl>

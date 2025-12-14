@@ -92,18 +92,16 @@ $(function(){initNavTree('classbiblioteca_1_1controller_1_1_auth_controller.html
 </div><!--header-->
 <div class="contents">
 
-<p>Controller responsabile della gestione del flusso di autenticazione.  
+<p>Controller per la gestione del processo di autenticazione. Questa classe gestisce la logica di interazione tra la vista di login e il modello di autenticazione, coordinando l'accesso al menu principale.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a78ee93d44b4d6b9c0c5508f499e16f83" id="r_a78ee93d44b4d6b9c0c5508f499e16f83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78ee93d44b4d6b9c0c5508f499e16f83">AuthController</a> (<a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html">Autenticazione</a> bibliotecario, <a class="el" href="classbiblioteca_1_1view_1_1_login_view.html">LoginView</a> loginView, <a class="el" href="classbiblioteca_1_1controller_1_1_main_controller.html">MainController</a> mainController)</td></tr>
-<tr class="memdesc:a78ee93d44b4d6b9c0c5508f499e16f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe <a class="el" href="classbiblioteca_1_1controller_1_1_auth_controller.html" title="Controller responsabile della gestione del flusso di autenticazione.">AuthController</a>.  <br /></td></tr>
+<tr class="memdesc:a78ee93d44b4d6b9c0c5508f499e16f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe Authcontroller2. Inizializza il controller con le dipendenze necessarie e imposta il listener per l'evento di login sulla vista.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Controller responsabile della gestione del flusso di autenticazione. </p>
-<p>La classe <code class="JavaDocCode">AuthController</code> funge da intermediario tra la vista di login (<code><a class="el" href="classbiblioteca_1_1view_1_1_login_view.html">LoginView</a></code>) e il modello di autenticazione (<code><a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html">Autenticazione</a></code>). Si occupa di catturare l'input dell'utente, verificare le credenziali tramite il modello e, in caso di successo, delegare la navigazione al <code><a class="el" href="classbiblioteca_1_1controller_1_1_main_controller.html">MainController</a></code>.</p>
-<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+<div class="textblock"><p>Controller per la gestione del processo di autenticazione. Questa classe gestisce la logica di interazione tra la vista di login e il modello di autenticazione, coordinando l'accesso al menu principale. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a78ee93d44b4d6b9c0c5508f499e16f83" name="a78ee93d44b4d6b9c0c5508f499e16f83"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78ee93d44b4d6b9c0c5508f499e16f83">&#9670;&#160;</a></span>AuthController()</h2>
@@ -129,13 +127,12 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Costruttore della classe <a class="el" href="classbiblioteca_1_1controller_1_1_auth_controller.html" title="Controller responsabile della gestione del flusso di autenticazione.">AuthController</a>. </p>
-<p>Inizializza il controller con le dipendenze necessarie e configura i listener sulla vista per intercettare le azioni dell'utente (es. click sul bottone di login).</p>
+<p>Costruttore della classe Authcontroller2. Inizializza il controller con le dipendenze necessarie e imposta il listener per l'evento di login sulla vista. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bibliotecario</td><td>Istanza del modello <code><a class="el" href="classbiblioteca_1_1model_1_1_autenticazione.html">Autenticazione</a></code> per verificare la password. </td></tr>
-    <tr><td class="paramname">loginView</td><td>Istanza della vista <code><a class="el" href="classbiblioteca_1_1view_1_1_login_view.html">LoginView</a></code> per interagire con l'utente. </td></tr>
-    <tr><td class="paramname">mainController</td><td>Istanza del <code><a class="el" href="classbiblioteca_1_1controller_1_1_main_controller.html">MainController</a></code> per la navigazione tra le viste. </td></tr>
+    <tr><td class="paramname">bibliotecario</td><td>Il modello che gestisce la verifica delle credenziali. </td></tr>
+    <tr><td class="paramname">loginView</td><td>La vista che fornisce l'interfaccia utente per il login. </td></tr>
+    <tr><td class="paramname">mainController</td><td>Il controller principale per la navigazione tra le viste. </td></tr>
   </table>
   </dd>
 </dl>

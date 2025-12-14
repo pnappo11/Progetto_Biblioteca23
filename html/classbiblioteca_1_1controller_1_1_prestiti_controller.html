@@ -92,29 +92,21 @@ $(function(){initNavTree('classbiblioteca_1_1controller_1_1_prestiti_controller.
 </div><!--header-->
 <div class="contents">
 
-<p>Controller responsabile della gestione dei prestiti e delle restituzioni.  
+<p>Controller responsabile della gestione della logica relativa ai prestiti.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5ba6a8ff5bfcbed910400568f909e551" id="r_a5ba6a8ff5bfcbed910400568f909e551"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ba6a8ff5bfcbed910400568f909e551">PrestitiController</a> (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a> gestionePrestiti, <a class="el" href="classbiblioteca_1_1view_1_1_prestiti_panel.html">PrestitiPanel</a> view, <a class="el" href="classbiblioteca_1_1persistence_1_1_archivio_file.html">ArchivioFile</a> archivio, <a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a> gestioneLibri, <a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a> gestioneUtenti, <a class="el" href="classbiblioteca_1_1controller_1_1_libri_controller.html">LibriController</a> libriController, <a class="el" href="classbiblioteca_1_1controller_1_1_utenti_controller.html">UtentiController</a> utentiController)</td></tr>
-<tr class="memdesc:a5ba6a8ff5bfcbed910400568f909e551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore del controller Prestiti.  <br /></td></tr>
-<tr class="memitem:ab816e9b6bf1a1485e5822f4d5d829ee7" id="r_ab816e9b6bf1a1485e5822f4d5d829ee7"><td class="memItemLeft" align="right" valign="top"><a id="ab816e9b6bf1a1485e5822f4d5d829ee7" name="ab816e9b6bf1a1485e5822f4d5d829ee7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>aggiornaDaModel</b> ()</td></tr>
-<tr class="memdesc:ab816e9b6bf1a1485e5822f4d5d829ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ricarica i dati nella vista prendendoli dal modello aggiornato. <br /></td></tr>
+<tr class="memdesc:a5ba6a8ff5bfcbed910400568f909e551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Costruttore della classe <a class="el" href="classbiblioteca_1_1controller_1_1_prestiti_controller.html" title="Controller responsabile della gestione della logica relativa ai prestiti.">PrestitiController</a>.  <br /></td></tr>
+<tr class="memitem:ab816e9b6bf1a1485e5822f4d5d829ee7" id="r_ab816e9b6bf1a1485e5822f4d5d829ee7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab816e9b6bf1a1485e5822f4d5d829ee7">aggiornaDaModel</a> ()</td></tr>
+<tr class="memdesc:ab816e9b6bf1a1485e5822f4d5d829ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aggiorna la vista recuperando i dati più recenti dal modello.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Controller responsabile della gestione dei prestiti e delle restituzioni. </p>
-<p>La classe <code class="JavaDocCode">PrestitiController</code> è il cuore operativo della biblioteca. A differenza degli altri controller, questo deve interagire con più modelli contemporaneamente: </p><ul>
-<li>
-<code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html">GestionePrestiti</a></code>: per creare e archiviare i movimenti. </li>
-<li>
-<code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_libri.html">GestioneLibri</a></code>: per verificare se un libro esiste ed è disponibile. </li>
-<li>
-<code><a class="el" href="classbiblioteca_1_1model_1_1_gestione_utenti.html">GestioneUtenti</a></code>: per verificare se un utente esiste ed è abilitato al prestito. </li>
+<div class="textblock"><p>Controller responsabile della gestione della logica relativa ai prestiti. </p>
+<ul>
+<li>Questa classe gestisce l'interazione tra la vista (<a class="el" href="classbiblioteca_1_1view_1_1_prestiti_panel.html" title="Pannello per la gestione delle operazioni di prestito. Permette agli operatori di visualizzare l&#39;elen...">PrestitiPanel</a>) e il modello (<a class="el" href="classbiblioteca_1_1model_1_1_gestione_prestiti.html" title="classe che si occupa di gestire i prestiti di libri permette di registrare nuovi prestiti,...">GestionePrestiti</a>), occupandosi della creazione di nuovi prestiti, delle restituzioni e della gestione della blacklist. </li>
 </ul>
-<p>Inoltre, gestisce la persistenza e aggiorna la vista <code><a class="el" href="classbiblioteca_1_1view_1_1_prestiti_panel.html">PrestitiPanel</a></code>.</p>
-<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5ba6a8ff5bfcbed910400568f909e551" name="a5ba6a8ff5bfcbed910400568f909e551"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ba6a8ff5bfcbed910400568f909e551">&#9670;&#160;</a></span>PrestitiController()</h2>
@@ -160,20 +152,46 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>aggiornaDaModel</b> (
       </table>
 </div><div class="memdoc">
 
-<p>Costruttore del controller Prestiti. </p>
-<p>Inizializza il controller con tutte le dipendenze necessarie. Dato che un prestito collega un <a class="el" href="classbiblioteca_1_1model_1_1_libro.html" title="classe libro permette di personalizzare libro in base ai suoi attributi contiene tutti i getter e set...">Libro</a> a un <a class="el" href="classbiblioteca_1_1model_1_1_utente.html" title="classe che contiene tutte le informazioni relative ad un utente: nome, cognome, matricola,...">Utente</a>, è necessario passare i riferimenti a tutti i gestori dati.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Costruttore della classe <a class="el" href="classbiblioteca_1_1controller_1_1_prestiti_controller.html" title="Controller responsabile della gestione della logica relativa ai prestiti.">PrestitiController</a>. </p>
+<ul>
+<li>Inizializza il controller con le dipendenze necessarie, popola la tabella iniziale e collega gli eventi ai bottoni della vista.</li>
+<li><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gestionePrestiti</td><td>Model principale dei prestiti. </td></tr>
-    <tr><td class="paramname">view</td><td>Pannello grafico dei prestiti. </td></tr>
-    <tr><td class="paramname">archivio</td><td>Gestore del salvataggio su file. </td></tr>
-    <tr><td class="paramname">gestioneLibri</td><td>Model dei libri (per decrementare copie disponibili, ecc.). </td></tr>
-    <tr><td class="paramname">gestioneUtenti</td><td>Model degli utenti (per associare il prestito all'utente). </td></tr>
-    <tr><td class="paramname">libriController</td><td>Controller libri (per notificare aggiornamenti stato libri). </td></tr>
-    <tr><td class="paramname">utentiController</td><td>Controller utenti (per notificare aggiornamenti stato utenti). </td></tr>
+    <tr><td class="paramname">gestionePrestiti</td><td>Gestore della logica di business dei prestiti. </td></tr>
+    <tr><td class="paramname">view</td><td>Pannello della vista dedicato ai prestiti. </td></tr>
+    <tr><td class="paramname">archivio</td><td>Gestore per il salvataggio e caricamento dati su file. </td></tr>
+    <tr><td class="paramname">gestioneLibri</td><td>Gestore della logica di business dei libri. </td></tr>
+    <tr><td class="paramname">gestioneUtenti</td><td>Gestore della logica di business degli utenti. </td></tr>
+    <tr><td class="paramname">libriController</td><td>Riferimento al controller dei libri per aggiornamenti incrociati. </td></tr>
+    <tr><td class="paramname">utentiController</td><td>Riferimento al controller degli utenti per aggiornamenti incrociati. </td></tr>
   </table>
   </dd>
 </dl>
+</li>
+</ul>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="ab816e9b6bf1a1485e5822f4d5d829ee7" name="ab816e9b6bf1a1485e5822f4d5d829ee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab816e9b6bf1a1485e5822f4d5d829ee7">&#9670;&#160;</a></span>aggiornaDaModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biblioteca.controller.PrestitiController.aggiornaDaModel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Aggiorna la vista recuperando i dati più recenti dal modello. </p>
+<ul>
+<li>Questo metodo è pubblico per permettere ad altri controller di forzare un refresh della tabella prestiti quando avvengono modifiche esterne. </li>
+</ul>
 
 </div>
 </div>

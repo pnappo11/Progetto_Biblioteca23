@@ -104,17 +104,18 @@ Inheritance diagram for biblioteca.main.Main:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4a256808ee5aab84d8068ee766b821ac" id="r_a4a256808ee5aab84d8068ee766b821ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a256808ee5aab84d8068ee766b821ac">start</a> (Stage primaryStage)</td></tr>
-<tr class="memdesc:a4a256808ee5aab84d8068ee766b821ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metodo di avvio dell'applicazione JavaFX.  <br /></td></tr>
+<tr class="memdesc:a4a256808ee5aab84d8068ee766b821ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metodo di avvio dell'applicazione JavaFX. Inizializza il layer di persistenza, carica i dati dai file, imposta l'icona dell'applicazione e mostra la schermata di login iniziale.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a6b4b1750a0ddd839313c91106ef896d9" id="r_a6b4b1750a0ddd839313c91106ef896d9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b4b1750a0ddd839313c91106ef896d9">main</a> (String[] args)</td></tr>
-<tr class="memdesc:a6b4b1750a0ddd839313c91106ef896d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Punto di ingresso standard per applicazioni Java.  <br /></td></tr>
+<tr class="memdesc:a6b4b1750a0ddd839313c91106ef896d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Metodo main standard di Java. Lancia l'applicazione .  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Classe principale dell'applicazione (Entry Point). </p>
-<p>Agisce come un "Router" di alto livello, decidendo quale schermata mostrare in base agli eventi (login effettuato, click su un bottone del menu, logout).</p>
-<dl class="section author"><dt>Author</dt><dd>tommy </dd></dl>
+<ul>
+<li>Questa classe estende Application di JavaFX e gestisce il ciclo di vita dell'applicazione. Si occupa di caricare i dati all'avvio, inizializzare i modelli e gestire la navigazione tra le diverse scene (Login, Menu, Schermata Principale). </li>
+</ul>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a6b4b1750a0ddd839313c91106ef896d9" name="a6b4b1750a0ddd839313c91106ef896d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b4b1750a0ddd839313c91106ef896d9">&#9670;&#160;</a></span>main()</h2>
@@ -139,11 +140,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Punto di ingresso standard per applicazioni Java. </p>
-<p>Lancia il runtime JavaFX invocando il metodo <code><a class="el" href="">launch(String...)</a></code>.</p>
+<p>Metodo main standard di Java. Lancia l'applicazione . </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">args</td><td>Argomenti da riga di comando. </td></tr>
+    <tr><td class="paramname">args</td><td>sono gli argomenti da riga di comando. </td></tr>
   </table>
   </dd>
 </dl>
@@ -165,14 +165,16 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Metodo di avvio dell'applicazione JavaFX. </p>
-<p>Viene chiamato automaticamente dal launcher JavaFX. Imposta la prima schermata visibile, che è quella di Login.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Metodo di avvio dell'applicazione JavaFX. Inizializza il layer di persistenza, carica i dati dai file, imposta l'icona dell'applicazione e mostra la schermata di login iniziale. </p>
+<ul>
+<li><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">primaryStage</td><td>La finestra principale creata dal runtime JavaFX. </td></tr>
+    <tr><td class="paramname">primaryStage</td><td>Lo stage primario fornito dalla piattaforma JavaFX. </td></tr>
   </table>
   </dd>
 </dl>
+</li>
+</ul>
 
 </div>
 </div>

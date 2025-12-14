@@ -21,7 +21,8 @@ var searchData=
   ['setongestioneutenti_18',['setOnGestioneUtenti',['../classbiblioteca_1_1view_1_1_menu_view.html#a2f1d042114ca5a9df5b9003784ed8c63',1,'biblioteca::view::MenuView']]],
   ['setonlogin_19',['setOnLogin',['../classbiblioteca_1_1view_1_1_login_view.html#a5dcfb54a13235a435a5803b5feb26958',1,'biblioteca::view::LoginView']]],
   ['setonlogout_20',['setOnLogout',['../classbiblioteca_1_1view_1_1_menu_view.html#a9ca0a4697454f125b5ba0e8833402c79',1,'biblioteca::view::MenuView']]],
-  ['setprestiticontroller_21',['setPrestitiController',['../classbiblioteca_1_1controller_1_1_main_controller.html#a173b5e4645392e2f947121a8ebe29347',1,'biblioteca.controller.MainController.setPrestitiController()'],['../classbiblioteca_1_1controller_1_1_utenti_controller.html#a7cf915eb3b1d80881fde2c269eb401b1',1,'biblioteca.controller.UtentiController.setPrestitiController()']]],
-  ['settitolo_22',['setTitolo',['../classbiblioteca_1_1model_1_1_libro.html#a5fadebffc37a9901c99fbacde1cef5a5',1,'biblioteca::model::Libro']]],
-  ['start_23',['start',['../classbiblioteca_1_1main_1_1_main.html#a4a256808ee5aab84d8068ee766b821ac',1,'biblioteca::main::Main']]]
+  ['setontabprestitiselected_21',['setOnTabPrestitiSelected',['../classbiblioteca_1_1view_1_1_main_frame.html#aa47b813fcce5c10c96ba8b7e222c6054',1,'biblioteca::view::MainFrame']]],
+  ['setprestiticontroller_22',['setPrestitiController',['../classbiblioteca_1_1controller_1_1_main_controller.html#a173b5e4645392e2f947121a8ebe29347',1,'biblioteca.controller.MainController.setPrestitiController()'],['../classbiblioteca_1_1controller_1_1_utenti_controller.html#a7cf915eb3b1d80881fde2c269eb401b1',1,'biblioteca.controller.UtentiController.setPrestitiController()']]],
+  ['settitolo_23',['setTitolo',['../classbiblioteca_1_1model_1_1_libro.html#a5fadebffc37a9901c99fbacde1cef5a5',1,'biblioteca::model::Libro']]],
+  ['start_24',['start',['../classbiblioteca_1_1main_1_1_main.html#a4a256808ee5aab84d8068ee766b821ac',1,'biblioteca::main::Main']]]
 ];

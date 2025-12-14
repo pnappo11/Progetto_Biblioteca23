@@ -20,6 +20,11 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * @brief Controller responsabile della gestione della logica relativa ai prestiti.
+ * * Questa classe gestisce l'interazione tra la vista (PrestitiPanel) e il modello (GestionePrestiti),
+ * occupandosi della creazione di nuovi prestiti, delle restituzioni e della gestione della blacklist.
+ */
 public class PrestitiController {
 
     private final GestionePrestiti gestionePrestiti;
@@ -32,6 +37,18 @@ public class PrestitiController {
     private final LibriController libriController;
     private final UtentiController utentiController;
 
+    /**
+     * @brief Costruttore della classe PrestitiController.
+     * * Inizializza il controller con le dipendenze necessarie, popola la tabella iniziale
+     * e collega gli eventi ai bottoni della vista.
+     * * @param gestionePrestiti Gestore della logica di business dei prestiti.
+     * @param view Pannello della vista dedicato ai prestiti.
+     * @param archivio Gestore per il salvataggio e caricamento dati su file.
+     * @param gestioneLibri Gestore della logica di business dei libri.
+     * @param gestioneUtenti Gestore della logica di business degli utenti.
+     * @param libriController Riferimento al controller dei libri per aggiornamenti incrociati.
+     * @param utentiController Riferimento al controller degli utenti per aggiornamenti incrociati.
+     */
     public PrestitiController(GestionePrestiti gestionePrestiti,
                               PrestitiPanel view,
                               ArchivioFile archivio,
@@ -52,16 +69,27 @@ public class PrestitiController {
         collegaEventi();
     }
 
+    /**
+     * @brief Inizializza la tabella della vista con i dati correnti.
+     */
     private void inizializzaTabella() {
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
     }
 
+    /**
+     * @brief Collega i metodi di gestione agli eventi dei bottoni nella vista.
+     */
     private void collegaEventi() {
         view.getBottoneNuovoPrestito().setOnAction(e -> gestisciNuovoPrestito());
         view.getBottoneRestituzione().setOnAction(e -> gestisciRestituzione());
         view.getBottoneBlacklist().setOnAction(e -> gestisciBlacklist());
     }
 
+    /**
+     * @brief Gestisce la logica per la creazione di un nuovo prestito.
+     * * Recupera i dati dalla vista, effettua le validazioni (campi vuoti, date, 
+     * esistenza utente/libro, stato blacklist, limite prestiti) e registra il prestito.
+     */
     private void gestisciNuovoPrestito() {
         String matricolaStr = view.getMatricolaInserita();
         String isbnStr = view.getIsbnInserito();
@@ -127,6 +155,11 @@ public class PrestitiController {
         if (utentiController != null) utentiController.aggiornaDaModel();
     }
 
+    /**
+     * @brief Gestisce la logica per la restituzione di un libro.
+     * * Identifica il prestito selezionato nella tabella, registra la restituzione 
+     * e aggiorna gli archivi e le viste.
+     */
     private void gestisciRestituzione() {
         ObservableList<String> rigaSel = view.getTabellaPrestiti().getSelectionModel().getSelectedItem();
         if (rigaSel == null) {
@@ -160,6 +193,9 @@ public class PrestitiController {
         if (utentiController != null) utentiController.aggiornaDaModel();
     }
 
+    /**
+     * @brief Inserisce l'utente associato al prestito selezionato nella blacklist.
+     */
     private void gestisciBlacklist() {
         ObservableList<String> rigaSel = view.getTabellaPrestiti().getSelectionModel().getSelectedItem();
         if (rigaSel == null) {
@@ -185,6 +221,12 @@ public class PrestitiController {
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
     }
 
+    /**
+     * @brief Aggiorna i dati mostrati nella tabella dei prestiti.
+     * * Converte la collezione di prestiti in un formato visualizzabile dalla TableView,
+     * ordinandoli per data prevista di restituzione e calcolando stati derivati (ritardo, blacklist).
+     * * @param prestitiDaMostrare Collezione dei prestiti da visualizzare.
+     */
     private void aggiornaTabella(Collection<Prestito> prestitiDaMostrare) {
         List<Prestito> lista = new ArrayList<>(prestitiDaMostrare);
         lista.sort(Comparator.comparing(Prestito::getDataPrevistaRestituzione));
@@ -227,10 +269,21 @@ public class PrestitiController {
         view.getTabellaPrestiti().setItems(righe);
     }
 
+    /**
+     * @brief Verifica se una stringa è nulla o vuota.
+     * * @param s La stringa da verificare.
+     * @return True se la stringa è null o contiene solo spazi bianchi, altrimenti False.
+     */
     private boolean isVuoto(String s) {
         return s == null || s.trim().isEmpty();
     }
 
+    /**
+     * @brief Tenta di convertire una stringa in un numero Long.
+     * * @param s La stringa da convertire.
+     * @param nomeCampo Il nome del campo per il messaggio di errore.
+     * @return Il valore Long convertito, oppure null se la conversione fallisce.
+     */
     private Long parseLong(String s, String nomeCampo) {
         try {
             return Long.valueOf(s.trim());
@@ -240,6 +293,12 @@ public class PrestitiController {
         }
     }
 
+    /**
+     * @brief Tenta di convertire una stringa in un oggetto LocalDate.
+     * @param s La stringa da convertire.
+     * @param nomeCampo Il nome del campo per il messaggio di errore.
+     * @return L'oggetto LocalDate, oppure null se il parsing fallisce.
+     */
     private LocalDate parseData(String s, String nomeCampo) {
         try {
             return LocalDate.parse(s.trim());
@@ -249,6 +308,10 @@ public class PrestitiController {
         }
     }
 
+    /**
+     * @brief Mostra una finestra di dialogo di errore.
+     * @param messaggio Il testo dell'errore da visualizzare.
+     */
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -256,6 +319,10 @@ public class PrestitiController {
         alert.showAndWait();
     }
 
+    /**
+     * @brief Mostra una finestra di dialogo informativa.
+     * @param messaggio Il testo da visualizzare.
+     */
     private void mostraInfo(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -263,6 +330,11 @@ public class PrestitiController {
         alert.showAndWait();
     }
 
+    /**
+     * @brief Aggiorna la vista recuperando i dati più recenti dal modello.
+     * * Questo metodo è pubblico per permettere ad altri controller di forzare un refresh
+     * della tabella prestiti quando avvengono modifiche esterne.
+     */
     public void aggiornaDaModel() {
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
     }

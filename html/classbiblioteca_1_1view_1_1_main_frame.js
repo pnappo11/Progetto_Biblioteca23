@@ -7,5 +7,6 @@ var classbiblioteca_1_1view_1_1_main_frame =
     [ "getLibriView", "classbiblioteca_1_1view_1_1_main_frame.html#aa9f61f856516f7b0bb762371c25ff1b0", null ],
     [ "getPrestitiView", "classbiblioteca_1_1view_1_1_main_frame.html#a9a830271a078fa9aaffe4d2a787fc684", null ],
     [ "getRoot", "classbiblioteca_1_1view_1_1_main_frame.html#a657e65c9114bba9942020f4dc63f9f0a", null ],
-    [ "getUtentiView", "classbiblioteca_1_1view_1_1_main_frame.html#a041cb8ce38025ac66e28b1d7bd63b618", null ]
+    [ "getUtentiView", "classbiblioteca_1_1view_1_1_main_frame.html#a041cb8ce38025ac66e28b1d7bd63b618", null ],
+    [ "setOnTabPrestitiSelected", "classbiblioteca_1_1view_1_1_main_frame.html#aa47b813fcce5c10c96ba8b7e222c6054", null ]
 ];
