@@ -18,10 +18,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-/**
- * @brief Classe principale.
- * Gestisce il ciclo di vita JavaFX e la navigazione: Login -> Menu -> MainFrame.
- */
 public class Main extends Application {
 
     private GestioneLibri gestioneLibri;
@@ -32,19 +28,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         archivio = new ArchivioFile(".");
-
-        gestioneLibri    = archivio.caricaLibri();
-        gestioneUtenti   = archivio.caricaUtenti();
+        gestioneLibri = archivio.caricaLibri();
+        gestioneUtenti = archivio.caricaUtenti();
         gestionePrestiti = archivio.caricaPrestiti();
-        bibliotecario    = archivio.caricaAutenticazione();
+        bibliotecario = archivio.caricaAutenticazione();
+        if (gestioneUtenti != null && gestionePrestiti != null) gestioneUtenti.setGestionePrestiti(gestionePrestiti);
 
-        if (gestioneUtenti != null && gestionePrestiti != null) {
-            gestioneUtenti.setGestionePrestiti(gestionePrestiti);
-        }
-
-        // icona (una sola volta)
         try {
             Image ico = new Image(getClass().getResourceAsStream("/biblioteca/view/img/logo.png"));
             primaryStage.getIcons().add(ico);
@@ -83,17 +73,11 @@ public class Main extends Application {
             try {
                 String password = loginView.getPassword().trim();
                 boolean ok = bibliotecario != null && bibliotecario.login(password);
-
                 System.out.println("LOGIN premuto - ok=" + ok);
-
                 if (ok) {
                     loginView.mostraErrore("");
                     loginView.pulisciCampi();
-
-                    if (archivio != null && bibliotecario != null) {
-                        archivio.salvaAutenticazione(bibliotecario);
-                    }
-
+                    if (archivio != null && bibliotecario != null) archivio.salvaAutenticazione(bibliotecario);
                     mostraMenu(stage);
                 } else {
                     loginView.mostraErrore("Password errata.");
@@ -116,14 +100,12 @@ public class Main extends Application {
             stage.setScene(menuScene);
             stage.centerOnScreen();
 
-            menu.setOnGestioneLibri(()    -> mostraMain(stage, 0));
-            menu.setOnGestioneUtenti(()   -> mostraMain(stage, 1));
+            menu.setOnGestioneLibri(() -> mostraMain(stage, 0));
+            menu.setOnGestioneUtenti(() -> mostraMain(stage, 1));
             menu.setOnGestionePrestiti(() -> mostraMain(stage, 2));
             menu.setOnLogout(() -> mostraLogin(stage));
-
         } catch (Exception ex) {
             ex.printStackTrace();
-            // se fallisce il menu, torno al login con messaggio
             mostraLogin(stage);
         }
     }
@@ -138,27 +120,14 @@ public class Main extends Application {
             stage.setScene(mainScene);
             stage.centerOnScreen();
 
-            LibriController libriCtrl =
-                    new LibriController(gestioneLibri, mainView.getLibriView(), archivio);
+            LibriController libriCtrl = new LibriController(gestioneLibri, mainView.getLibriView(), archivio);
+            UtentiController utentiCtrl = new UtentiController(gestioneUtenti, gestionePrestiti, mainView.getUtentiView(), archivio);
+            PrestitiController prestitiCtrl = new PrestitiController(gestionePrestiti, mainView.getPrestitiView(), archivio, gestioneLibri, gestioneUtenti, libriCtrl, utentiCtrl);
 
-            UtentiController utentiCtrl =
-                    new UtentiController(gestioneUtenti, gestionePrestiti,
-                            mainView.getUtentiView(), archivio);
-
-            PrestitiController prestitiCtrl =
-                    new PrestitiController(gestionePrestiti,
-                            mainView.getPrestitiView(),
-                            archivio,
-                            gestioneLibri,
-                            gestioneUtenti,
-                            libriCtrl,
-                            utentiCtrl);
-
-            utentiCtrl.setPrestitiController(prestitiCtrl);
+            mainView.setOnTabPrestitiSelected(prestitiCtrl::aggiornaDaModel);
 
             mainView.getBtnMenu().setOnAction(e -> mostraMenu(stage));
             mainView.getBtnLogout().setOnAction(e -> mostraLogin(stage));
-
         } catch (Exception ex) {
             ex.printStackTrace();
             mostraMenu(stage);

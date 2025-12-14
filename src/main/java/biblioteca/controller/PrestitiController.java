@@ -15,14 +15,11 @@ import javafx.scene.control.ButtonType;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
-/**
- * @brief Controller per la gestione dei prestiti.
- * Questa classe coordina le operazioni relative ai prestiti, collegando la logica di business
- * (GestionePrestiti) con la vista (PrestitiPanel) e interagendo con i controller di Libri e Utenti
- * per mantenere la consistenza dei dati.
- */
 public class PrestitiController {
 
     private final GestionePrestiti gestionePrestiti;
@@ -35,18 +32,6 @@ public class PrestitiController {
     private final LibriController libriController;
     private final UtentiController utentiController;
 
-    /**
-     * @brief Costruttore della classe PrestitiController.
-     * Inizializza il controller con tutte le dipendenze necessarie, popola la tabella iniziale
-     * e collega gli eventi della vista.
-     * @param gestionePrestiti  Il modello per la gestione dei prestiti.
-     * @param view              La vista del pannello prestiti.
-     * @param archivio          Il gestore della persistenza su file.
-     * @param gestioneLibri     Il modello dei libri (necessario per verificare disponibilità).
-     * @param gestioneUtenti    Il modello degli utenti (necessario per associare il prestito).
-     * @param libriController   Controller dei libri per notificare aggiornamenti (es. copie disponibili).
-     * @param utentiController  Controller degli utenti per notificare aggiornamenti (es. stato blacklist).
-     */
     public PrestitiController(GestionePrestiti gestionePrestiti,
                               PrestitiPanel view,
                               ArchivioFile archivio,
@@ -67,27 +52,19 @@ public class PrestitiController {
         collegaEventi();
     }
 
-    /** @brief Inizializza la tabella visualizzando i prestiti attivi. */
     private void inizializzaTabella() {
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
     }
 
-    /** @brief Collega i metodi di gestione agli eventi dei pulsanti della vista. */
     private void collegaEventi() {
         view.getBottoneNuovoPrestito().setOnAction(e -> gestisciNuovoPrestito());
         view.getBottoneRestituzione().setOnAction(e -> gestisciRestituzione());
         view.getBottoneBlacklist().setOnAction(e -> gestisciBlacklist());
     }
 
-    /**
-     * @brief Gestisce la creazione di un nuovo prestito.
-     * Valida gli input (Matricola, ISBN, Data), verifica l'esistenza di utente e libro,
-     * controlla lo stato di blacklist e la disponibilità del libro. Se tutto è valido,
-     * registra il prestito, salva su file e aggiorna le viste collegate.
-     */
     private void gestisciNuovoPrestito() {
-        String matricolaStr    = view.getMatricolaInserita();
-        String isbnStr         = view.getIsbnInserito();
+        String matricolaStr = view.getMatricolaInserita();
+        String isbnStr = view.getIsbnInserito();
         String dataPrevistaStr = view.getDataPrevistaInserita();
 
         if (isVuoto(matricolaStr) || isVuoto(isbnStr) || isVuoto(dataPrevistaStr)) {
@@ -98,8 +75,13 @@ public class PrestitiController {
         String matricola = matricolaStr.trim();
         Long isbn = parseLong(isbnStr, "ISBN");
         LocalDate dataPrevista = parseData(dataPrevistaStr, "Data prevista");
-
         if (isbn == null || dataPrevista == null) return;
+
+        LocalDate oggi = LocalDate.now();
+        if (!dataPrevista.isAfter(oggi)) {
+            mostraErrore("La data prevista di restituzione deve essere successiva alla data di inizio.");
+            return;
+        }
 
         Utente utente = gestioneUtenti.trovaUtente(matricola);
         if (utente == null) {
@@ -109,6 +91,15 @@ public class PrestitiController {
 
         if (utente.isInBlacklist()) {
             mostraErrore("L'utente è in blacklist e non può effettuare nuovi prestiti.");
+            return;
+        }
+
+        int attivi = 0;
+        for (Prestito p : gestionePrestiti.getPrestitiAttivi()) {
+            if (p.getUtente() != null && matricola.equals(p.getUtente().getMatricola())) attivi++;
+        }
+        if (attivi >= 3) {
+            mostraErrore("Impossibile registrare il prestito: l'utente ha già 3 prestiti attivi.");
             return;
         }
 
@@ -136,37 +127,28 @@ public class PrestitiController {
         if (utentiController != null) utentiController.aggiornaDaModel();
     }
 
-    /**
-     * @brief Gestisce la restituzione di un libro.
-     * Identifica il prestito selezionato nella tabella e registra la restituzione
-     * con la data odierna. Aggiorna successivamente file e viste.
-     */
     private void gestisciRestituzione() {
-        ObservableList<String> rigaSel =
-                view.getTabellaPrestiti().getSelectionModel().getSelectedItem();
-
+        ObservableList<String> rigaSel = view.getTabellaPrestiti().getSelectionModel().getSelectedItem();
         if (rigaSel == null) {
             mostraErrore("Seleziona un prestito dalla tabella.");
             return;
         }
 
         String matricola = rigaSel.get(0).trim();
-        String isbnStr    = rigaSel.get(3);
+        String isbnStr = rigaSel.get(3);
         String dataInizioStr = rigaSel.get(5);
 
         Long isbn = parseLong(isbnStr, "ISBN");
         LocalDate dataInizio = parseData(dataInizioStr, "Data inizio");
         if (isbn == null || dataInizio == null) return;
 
-        Prestito daRestituire =
-                gestionePrestiti.trovaPrestitoAttivo(matricola, isbn, dataInizio);
-
+        Prestito daRestituire = gestionePrestiti.trovaPrestitoAttivo(matricola, isbn, dataInizio);
         if (daRestituire == null) {
             mostraErrore("Prestito selezionato non trovato.");
             return;
         }
 
-        gestionePrestiti.registraRestituzione(daRestituire, null); // oggi
+        gestionePrestiti.registraRestituzione(daRestituire, null);
 
         archivio.salvaPrestiti(gestionePrestiti);
         archivio.salvaLibri(gestioneLibri);
@@ -178,14 +160,8 @@ public class PrestitiController {
         if (utentiController != null) utentiController.aggiornaDaModel();
     }
 
-    /**
-     * @brief Aggiunge l'utente associato al prestito selezionato alla blacklist.
-     * Imposta il flag blacklist dell'utente a true e salva le modifiche.
-     */
     private void gestisciBlacklist() {
-        ObservableList<String> rigaSel =
-                view.getTabellaPrestiti().getSelectionModel().getSelectedItem();
-
+        ObservableList<String> rigaSel = view.getTabellaPrestiti().getSelectionModel().getSelectedItem();
         if (rigaSel == null) {
             mostraErrore("Seleziona un prestito per mettere in blacklist l'utente.");
             return;
@@ -203,34 +179,32 @@ public class PrestitiController {
 
         archivio.salvaUtenti(gestioneUtenti);
 
-        mostraInfo("Utente " + utente.getNome() + " " + utente.getCognome()
-                + " inserito in blacklist.");
+        mostraInfo("Utente " + utente.getNome() + " " + utente.getCognome() + " inserito in blacklist.");
 
         if (utentiController != null) utentiController.aggiornaDaModel();
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
     }
 
-    /**
-     * @brief Aggiorna la visualizzazione della tabella con l'elenco dei prestiti fornito.
-     * Costruisce le righe della tabella combinando dati dal prestito, dall'utente e dal libro.
-     * Calcola dinamicamente se il prestito è in ritardo.
-     * @param prestitiDaMostrare La collezione di prestiti da visualizzare.
-     */
     private void aggiornaTabella(Collection<Prestito> prestitiDaMostrare) {
+        List<Prestito> lista = new ArrayList<>(prestitiDaMostrare);
+        lista.sort(Comparator.comparing(Prestito::getDataPrevistaRestituzione));
+
         ObservableList<ObservableList<String>> righe = FXCollections.observableArrayList();
 
-        for (Prestito p : prestitiDaMostrare) {
-
+        for (Prestito p : lista) {
             Utente uPrestito = p.getUtente();
             Utente u = null;
             if (uPrestito != null && uPrestito.getMatricola() != null) {
                 u = gestioneUtenti.trovaUtente(uPrestito.getMatricola());
             }
-            if (u == null) {
-                u = uPrestito; // fallback
-            }
+            if (u == null) u = uPrestito;
 
-            Libro l = p.getLibro();
+            Libro lPrestito = p.getLibro();
+            Libro l = null;
+            if (lPrestito != null) {
+                l = gestioneLibri.trovaLibro(lPrestito.getIsbn());
+            }
+            if (l == null) l = lPrestito;
 
             ObservableList<String> riga = FXCollections.observableArrayList();
             riga.add(u != null ? u.getMatricola() : "");
@@ -253,12 +227,10 @@ public class PrestitiController {
         view.getTabellaPrestiti().setItems(righe);
     }
 
-    /** @brief Verifica se una stringa è nulla o vuota. */
     private boolean isVuoto(String s) {
         return s == null || s.trim().isEmpty();
     }
 
-    /** @brief Converte una stringa in Long gestendo le eccezioni. */
     private Long parseLong(String s, String nomeCampo) {
         try {
             return Long.valueOf(s.trim());
@@ -268,7 +240,6 @@ public class PrestitiController {
         }
     }
 
-    /** @brief Converte una stringa in LocalDate gestendo il formato ISO (AAAA-MM-GG). */
     private LocalDate parseData(String s, String nomeCampo) {
         try {
             return LocalDate.parse(s.trim());
@@ -278,7 +249,6 @@ public class PrestitiController {
         }
     }
 
-    /** @brief Mostra una finestra di alert per segnalare un errore. */
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -286,7 +256,6 @@ public class PrestitiController {
         alert.showAndWait();
     }
 
-    /** @brief Mostra una finestra di alert per messaggi informativi. */
     private void mostraInfo(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -294,7 +263,6 @@ public class PrestitiController {
         alert.showAndWait();
     }
 
-    /** @brief Forza l'aggiornamento della vista prestiti dal modello. */
     public void aggiornaDaModel() {
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
     }
