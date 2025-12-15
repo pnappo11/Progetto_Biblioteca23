@@ -6,12 +6,7 @@ var annotated_dup =
         [ "LibriController", "classbiblioteca_1_1controller_1_1_libri_controller.html", "classbiblioteca_1_1controller_1_1_libri_controller" ],
         [ "MainController", "classbiblioteca_1_1controller_1_1_main_controller.html", "classbiblioteca_1_1controller_1_1_main_controller" ],
         [ "PrestitiController", "classbiblioteca_1_1controller_1_1_prestiti_controller.html", "classbiblioteca_1_1controller_1_1_prestiti_controller" ],
-        [ "UtentiController", "classbiblioteca_1_1controller_1_1_utenti_controller.html", "classbiblioteca_1_1controller_1_1_utenti_controller" ],
-        [ "AuthControllerTest", "classbiblioteca_1_1controller_1_1_auth_controller_test.html", null ],
-        [ "LibriControllerTest", "classbiblioteca_1_1controller_1_1_libri_controller_test.html", null ],
-        [ "MainControllerTest", "classbiblioteca_1_1controller_1_1_main_controller_test.html", null ],
-        [ "PrestitiControllerTest", "classbiblioteca_1_1controller_1_1_prestiti_controller_test.html", null ],
-        [ "UtentiControllerTest", "classbiblioteca_1_1controller_1_1_utenti_controller_test.html", null ]
+        [ "UtentiController", "classbiblioteca_1_1controller_1_1_utenti_controller.html", "classbiblioteca_1_1controller_1_1_utenti_controller" ]
       ] ],
       [ "main", null, [
         [ "Main", "classbiblioteca_1_1main_1_1_main.html", "classbiblioteca_1_1main_1_1_main" ]
@@ -37,6 +32,5 @@ var annotated_dup =
         [ "PrestitiPanel", "classbiblioteca_1_1view_1_1_prestiti_panel.html", "classbiblioteca_1_1view_1_1_prestiti_panel" ],
         [ "UtentiPanel", "classbiblioteca_1_1view_1_1_utenti_panel.html", "classbiblioteca_1_1view_1_1_utenti_panel" ]
       ] ]
-    ] ],
-    [ "Main", "class_main.html", null ]
+    ] ]
 ];
