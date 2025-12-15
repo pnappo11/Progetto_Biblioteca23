@@ -1,4 +1,4 @@
-package biblioteca.controller;
+package biblioteca.controller; 
 
 import biblioteca.model.GestioneLibri;
 import biblioteca.model.Libro;
@@ -82,6 +82,30 @@ public class LibriController {
             return;
         }
 
+        // --- VALIDAZIONE ISBN-13 (inline, senza metodi/attributi) ---
+        String isbnClean = isbnStr.replaceAll("[^0-9]", "");
+        if (isbnClean.length() != 13) {
+            mostraErrore("ISBN non valido: deve avere 13 cifre.");
+            return;
+        }
+        if (!(isbnClean.startsWith("978") || isbnClean.startsWith("979"))) {
+            mostraErrore("ISBN non valido: deve iniziare con 978 o 979.");
+            return;
+        }
+        int sum = 0;
+        for (int i = 0; i < 12; i++) {
+            int d = isbnClean.charAt(i) - '0';
+            sum += (i % 2 == 0) ? d : d * 3;
+        }
+        int check = (10 - (sum % 10)) % 10;
+        int last = isbnClean.charAt(12) - '0';
+        if (check != last) {
+            mostraErrore("ISBN non valido: cifra di controllo errata.");
+            return;
+        }
+        isbnStr = isbnClean;
+        // --- FINE VALIDAZIONE ISBN-13 ---
+
         Long isbn   = parseLong(isbnStr, "ISBN");
         Integer anno  = parseInt(annoStr, "Anno");
         Integer copie = parseInt(copieStr, "Copie totali");
@@ -120,6 +144,30 @@ public class LibriController {
             mostraErrore("Per modificare un libro inserisci l'ISBN oppure seleziona una riga dalla tabella.");
             return;
         }
+
+        // --- VALIDAZIONE ISBN-13 (inline, senza metodi/attributi) ---
+        String isbnClean = isbnStr.replaceAll("[^0-9]", "");
+        if (isbnClean.length() != 13) {
+            mostraErrore("ISBN non valido: deve avere 13 cifre.");
+            return;
+        }
+        if (!(isbnClean.startsWith("978") || isbnClean.startsWith("979"))) {
+            mostraErrore("ISBN non valido: deve iniziare con 978 o 979.");
+            return;
+        }
+        int sum = 0;
+        for (int i = 0; i < 12; i++) {
+            int d = isbnClean.charAt(i) - '0';
+            sum += (i % 2 == 0) ? d : d * 3;
+        }
+        int check = (10 - (sum % 10)) % 10;
+        int last = isbnClean.charAt(12) - '0';
+        if (check != last) {
+            mostraErrore("ISBN non valido: cifra di controllo errata.");
+            return;
+        }
+        isbnStr = isbnClean;
+        // --- FINE VALIDAZIONE ISBN-13 ---
 
         Long isbn = parseLong(isbnStr, "ISBN");
         if (isbn == null) return;
