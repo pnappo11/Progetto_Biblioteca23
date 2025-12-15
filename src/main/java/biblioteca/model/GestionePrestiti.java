@@ -91,16 +91,16 @@ public class GestionePrestiti implements Serializable {
      * @param utente utente in questione
      * @return numero di presiti attivi 
      */
-    public int contaPrestitiAttivi(Utente utente) {
-        if (utente == null) return 0;
-        int count = 0;
-        for (Prestito p : prestiti) {
-            if (p.isAttivo() && p.getUtente().equals(utente)) {
-                count++;
-            }
-        }
-        return count;
-    }
+        public int contaPrestitiAttivi(Utente u) {
+         if (u == null || u.getMatricola() == null) return 0;
+         String m = u.getMatricola();
+         int c = 0;
+         for (Prestito p : getPrestitiAttivi()) {
+             if (p.getUtente() != null && m.equals(p.getUtente().getMatricola())) c++;
+         }
+         return c;
+     }
+
     /**
      * @brief rappresenta se un utente ha o meno prestiti in corso.
      * @param utente 

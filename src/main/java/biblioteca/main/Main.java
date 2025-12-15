@@ -159,6 +159,7 @@ public class Main extends Application {
             applicaTema(menuScene);
             stage.setTitle("Menu Biblioteca");
             stage.setScene(menuScene);
+            
             stage.centerOnScreen();
             menu.setOnGestioneLibri(() -> mostraMain(stage, 0));
             menu.setOnGestioneUtenti(() -> mostraMain(stage, 1));
@@ -176,6 +177,9 @@ public class Main extends Application {
             applicaTema(mainScene);
             stage.setTitle("Biblioteca universitaria");
             stage.setScene(mainScene);
+            stage.setResizable(true);
+            stage.setMaximized(true);     
+            stage.setFullScreen(false);    
             stage.centerOnScreen();
             LibriController libriCtrl = new LibriController(gestioneLibri, mainView.getLibriView(), archivio);
             UtentiController utentiCtrl = new UtentiController(gestioneUtenti, gestionePrestiti, mainView.getUtentiView(), archivio);
