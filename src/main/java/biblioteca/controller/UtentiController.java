@@ -104,6 +104,24 @@ public class UtentiController {
 
         matricola = matricola.trim();
 
+        // --- VALIDAZIONE EMAIL UNISA (inline, senza metodi/attributi) ---
+        email = email.trim().toLowerCase();
+        int at = email.indexOf('@');
+        if (at <= 0 || at != email.lastIndexOf('@')) {
+            mostraErrore("Email non valida: formato richiesto qualcosa@unisa.it");
+            return;
+        }
+        if (!email.endsWith("@unisa.it")) {
+            mostraErrore("Email non valida: deve terminare con @unisa.it");
+            return;
+        }
+        // (opzionale ma utile) evita "qualcosa@unisa.it." o spazi
+        if (email.contains(" ")) {
+            mostraErrore("Email non valida: non deve contenere spazi.");
+            return;
+        }
+        // --- FINE VALIDAZIONE EMAIL UNISA ---
+
         if (gestioneUtenti.trovaUtente(matricola) != null) {
             mostraErrore("Esiste già un utente con matricola " + matricola + ".");
             return;
@@ -149,7 +167,27 @@ public class UtentiController {
 
         if (!isVuoto(nome))    utente.setNome(nome);
         if (!isVuoto(cognome)) utente.setCognome(cognome);
-        if (!isVuoto(email))   utente.setEmail(email);
+
+        if (!isVuoto(email)) {
+            // --- VALIDAZIONE EMAIL UNISA (inline, senza metodi/attributi) ---
+            email = email.trim().toLowerCase();
+            int at = email.indexOf('@');
+            if (at <= 0 || at != email.lastIndexOf('@')) {
+                mostraErrore("Email non valida: formato richiesto qualcosa@unisa.it");
+                return;
+            }
+            if (!email.endsWith("@unisa.it")) {
+                mostraErrore("Email non valida: deve terminare con @unisa.it");
+                return;
+            }
+            if (email.contains(" ")) {
+                mostraErrore("Email non valida: non deve contenere spazi.");
+                return;
+            }
+            // --- FINE VALIDAZIONE EMAIL UNISA ---
+
+            utente.setEmail(email);
+        }
 
         archivio.salvaUtenti(gestioneUtenti);
 
