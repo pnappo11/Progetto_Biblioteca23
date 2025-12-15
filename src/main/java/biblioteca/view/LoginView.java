@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -42,7 +43,10 @@ public class LoginView {
      */
     public LoginView() {
         campoPassword = new PasswordField();
+        campoPassword.setPromptText("Password");
+
         campoPasswordVisibile = new TextField();
+        campoPasswordVisibile.setPromptText("Password");
 
         campoPasswordVisibile.textProperty().bindBidirectional(campoPassword.textProperty());
 
@@ -50,6 +54,76 @@ public class LoginView {
         campoPasswordVisibile.setManaged(false);
 
         checkMostraPassword = new CheckBox("Mostra password");
+
+        bottoneLogin = new Button("Login");
+        bottoneLogin.getStyleClass().add("btn-primary");
+
+        etichettaMessaggio = new Label("");
+        etichettaMessaggio.getStyleClass().add("msg-error");
+        etichettaMessaggio.setWrapText(true);
+
+        // --- Password: label sopra + campo sotto (layout estetico)
+        Label labelPassword = new Label("Password");
+        labelPassword.getStyleClass().add("field-label");
+
+        // Metto entrambi i campi in colonna (uno sarà sempre nascosto/managed=false)
+        VBox gruppoPassword = new VBox(6, labelPassword, campoPassword, campoPasswordVisibile);
+        gruppoPassword.getStyleClass().add("login-field-group");
+        gruppoPassword.setFillWidth(true);
+
+        campoPassword.setMaxWidth(Double.MAX_VALUE);
+        campoPasswordVisibile.setMaxWidth(Double.MAX_VALUE);
+
+        // Toggle e bottone (come prima, ma in layout più pulito)
+        HBox rigaToggle = new HBox(checkMostraPassword);
+        rigaToggle.setAlignment(Pos.CENTER_LEFT);
+
+        bottoneLogin.setMaxWidth(Double.MAX_VALUE);
+        HBox riga2 = new HBox(bottoneLogin);
+        riga2.setAlignment(Pos.CENTER);
+
+        Hyperlink linkRecupero = new Hyperlink("Hai dimenticato la password?");
+        linkRecupero.setId("resetMode");
+        linkRecupero.setFocusTraversable(false);
+        linkRecupero.getStyleClass().add("link-reset");
+
+        Label domanda = new Label("Domanda di sicurezza: Qual è il tuo cibo preferito?");
+        domanda.getStyleClass().add("muted");
+
+        TextField campoRisposta = new TextField();
+        campoRisposta.setId("resetAnswer");
+        campoRisposta.setPromptText("Risposta");
+        campoRisposta.setMaxWidth(Double.MAX_VALUE);
+
+        PasswordField campoNuovaPassword = new PasswordField();
+        campoNuovaPassword.setId("resetNewPass");
+        campoNuovaPassword.setPromptText("Nuova password");
+        campoNuovaPassword.setMaxWidth(Double.MAX_VALUE);
+
+        TextField campoNuovaPasswordVisibile = new TextField();
+        campoNuovaPasswordVisibile.setPromptText("Nuova password");
+        campoNuovaPasswordVisibile.setMaxWidth(Double.MAX_VALUE);
+        campoNuovaPasswordVisibile.textProperty().bindBidirectional(campoNuovaPassword.textProperty());
+        campoNuovaPasswordVisibile.setVisible(false);
+        campoNuovaPasswordVisibile.setManaged(false);
+
+        Button btnCambia = new Button("Cambia password");
+        btnCambia.getStyleClass().add("btn-secondary");
+        btnCambia.setMaxWidth(Double.MAX_VALUE);
+        btnCambia.setOnAction(e -> bottoneLogin.fire());
+
+        VBox boxReset = new VBox(8, domanda, campoRisposta, campoNuovaPassword, campoNuovaPasswordVisibile, btnCambia);
+        boxReset.setVisible(false);
+        boxReset.setManaged(false);
+
+        boxReset.setAlignment(Pos.CENTER_LEFT);
+        boxReset.getStyleClass().add("reset-box");
+
+        domanda.setVisible(false); domanda.setManaged(false);
+        campoRisposta.setVisible(false); campoRisposta.setManaged(false);
+        campoNuovaPassword.setVisible(false); campoNuovaPassword.setManaged(false);
+        campoNuovaPasswordVisibile.setVisible(false); campoNuovaPasswordVisibile.setManaged(false);
+        btnCambia.setVisible(false); btnCambia.setManaged(false);
 
         checkMostraPassword.selectedProperty().addListener((obs, oldVal, mostra) -> {
             campoPasswordVisibile.setVisible(mostra);
@@ -65,28 +139,47 @@ public class LoginView {
                 campoPassword.requestFocus();
                 campoPassword.positionCaret(campoPassword.getText().length());
             }
+
+            if (domanda.isVisible()) {
+                campoNuovaPasswordVisibile.setVisible(mostra);
+                campoNuovaPasswordVisibile.setManaged(mostra);
+
+                campoNuovaPassword.setVisible(!mostra);
+                campoNuovaPassword.setManaged(!mostra);
+            }
         });
 
-        bottoneLogin = new Button("Login");
-        bottoneLogin.getStyleClass().add("btn-primary");
+        linkRecupero.setOnAction(e -> {
+            boolean open = !domanda.isVisible();
+             boxReset.setVisible(open);
+            boxReset.setManaged(open);
+            domanda.setVisible(open); domanda.setManaged(open);
+            campoRisposta.setVisible(open); campoRisposta.setManaged(open);
+            btnCambia.setVisible(open); btnCambia.setManaged(open);
 
-        etichettaMessaggio = new Label("");
-        etichettaMessaggio.getStyleClass().add("msg-error");
+            if (open) {
+                boolean mostra = checkMostraPassword.isSelected();
 
-        Label labelPassword = new Label("Password:");
+                campoNuovaPasswordVisibile.setVisible(mostra);
+                campoNuovaPasswordVisibile.setManaged(mostra);
 
-        HBox riga1 = new HBox(10, labelPassword, campoPassword, campoPasswordVisibile);
-        riga1.setAlignment(Pos.CENTER);
+                campoNuovaPassword.setVisible(!mostra);
+                campoNuovaPassword.setManaged(!mostra);
+            } else {
+                campoNuovaPassword.setVisible(false); campoNuovaPassword.setManaged(false);
+                campoNuovaPasswordVisibile.setVisible(false); campoNuovaPasswordVisibile.setManaged(false);
+            }
+        });
 
-        HBox rigaToggle = new HBox(checkMostraPassword);
-        rigaToggle.setAlignment(Pos.CENTER_LEFT);
+        // --- Card estetica (CSS-first): metto tutto dentro una "card"
+        VBox card = new VBox(12, gruppoPassword, rigaToggle, riga2, linkRecupero, boxReset, etichettaMessaggio);
+        card.getStyleClass().addAll("card", "login-card");
+        card.setFillWidth(true);
 
-        HBox riga2 = new HBox(bottoneLogin);
-        riga2.setAlignment(Pos.CENTER);
-
-        root = new VBox(10, riga1, rigaToggle, riga2, etichettaMessaggio);
+        root = new VBox(card);
         root.setPadding(new Insets(15));
         root.setAlignment(Pos.CENTER);
+        root.getStyleClass().add("login-root");
     }
 
     /**
@@ -117,8 +210,8 @@ public class LoginView {
      * @brief Pulisce il campo password.
      */
     public void pulisciCampi() {
-        campoPassword.clear(); 
-        checkMostraPassword.setSelected(false); 
+        campoPassword.clear();
+        checkMostraPassword.setSelected(false);
     }
 
     /**
@@ -128,7 +221,7 @@ public class LoginView {
     public void setOnLogin(Runnable azioneLogin) {
         bottoneLogin.setOnAction(e -> {
             if (azioneLogin != null) {
-                azioneLogin.run();   
+                azioneLogin.run();
             }
         });
     }

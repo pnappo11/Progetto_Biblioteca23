@@ -13,6 +13,9 @@ import biblioteca.view.MainFrame;
 import biblioteca.view.MenuView;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -74,18 +77,92 @@ public class Main extends Application {
 
     private void mostraLogin(Stage stage) {
         LoginView loginView = new LoginView();
-        Scene loginScene = new Scene(loginView.getRoot(), 400, 200);
+        Scene loginScene = new Scene(loginView.getRoot());
         applicaTema(loginScene);
 
         stage.setTitle("Login Biblioteca");
         stage.setScene(loginScene);
+ 
+        stage.setMaximized(false);
+        stage.setFullScreen(false);
+        stage.setResizable(false);
+
+        stage.sizeToScene();
         stage.centerOnScreen();
+
+
+        javafx.scene.control.Hyperlink cb =
+                (javafx.scene.control.Hyperlink) loginView.getRoot().lookup("#resetMode");
+        if (cb != null) {
+            cb.addEventHandler(javafx.event.ActionEvent.ACTION, e -> {
+                javafx.application.Platform.runLater(() -> {
+                    stage.sizeToScene();
+                    stage.centerOnScreen();
+                });
+            });
+        }
 
         loginView.setOnLogin(() -> {
             try {
+                PasswordField np = (PasswordField) loginView.getRoot().lookup("#resetNewPass");
+                TextField ans = (TextField) loginView.getRoot().lookup("#resetAnswer");
+
+                // ✅ FIX: reset affidabile (se il campo risposta è visibile, siamo in reset)
+                boolean reset = (ans != null && ans.isVisible());
+
+                if (reset) {
+                    String risposta = ans != null ? ans.getText().trim().toLowerCase() : "";
+
+                    // ✅ FIX: mancava la variabile "nuova"
+                    String nuova = (np != null && np.getText() != null) ? np.getText().trim() : "";
+                    if (nuova.isEmpty()) {
+                        loginView.mostraErrore("Inserisci una nuova password.");
+                        return;
+                    }
+
+                    final String RISPOSTA_ATTESA_HASH =
+                            "509f5bf1875f0450879589acdf17f77eacc217315fa1f1a9a04b9b830f2ac8b2";
+
+                    String rispostaHash = biblioteca.model.Autenticazione.calcolaHash(risposta);
+
+                    if (!RISPOSTA_ATTESA_HASH.equals(rispostaHash)) {
+                        loginView.mostraErrore("Risposta di sicurezza errata.");
+                        return;
+                    }
+
+                    if (bibliotecario == null) {
+                        loginView.mostraErrore("Autenticazione non disponibile.");
+                        return;
+                    }
+
+                    bibliotecario.cambiaPassword("", nuova);
+                    if (archivio != null) archivio.salvaAutenticazione(bibliotecario);
+
+                    Alert ok = new Alert(Alert.AlertType.INFORMATION);
+                    ok.setTitle("Password aggiornata");
+                    ok.setHeaderText(null);
+                    ok.setContentText("Password cambiata con successo.");
+                    ok.showAndWait();
+
+                    loginView.pulisciCampi();
+                    if (ans != null) ans.clear();
+                    if (np != null) np.clear();
+                    loginView.mostraErrore("");
+
+                    javafx.scene.control.Hyperlink link =
+                            (javafx.scene.control.Hyperlink) loginView.getRoot().lookup("#resetMode");
+                    if (link != null && ans != null && ans.isVisible()) {
+                        link.fire();
+                    }
+
+                    stage.sizeToScene();
+                    stage.centerOnScreen();
+                    return;
+                }
+
                 String password = loginView.getPassword().trim();
                 boolean ok = bibliotecario != null && bibliotecario.login(password);
-                System.out.println("LOGIN premuto - ok=" + ok);
+
                 if (ok) {
                     loginView.mostraErrore("");
                     loginView.pulisciCampi();
@@ -95,13 +172,15 @@ public class Main extends Application {
                     loginView.mostraErrore("Password errata.");
                     loginView.pulisciCampi();
                 }
+
+            } catch (IllegalArgumentException ex) {
+                loginView.mostraErrore(ex.getMessage());
             } catch (Exception ex) {
                 ex.printStackTrace();
-                loginView.mostraErrore("Errore login (guarda console).");
+                loginView.mostraErrore("Errore (guarda console).");
             }
         });
     }
-
 
     private void mostraMenu(Stage stage) {
         try {

@@ -42,11 +42,18 @@ public class Autenticazione implements Serializable {
      * @param nuovaPassword rappresenta la nuova password che si vuole impostare
      */
     public void cambiaPassword(String vecchiaPassword, String nuovaPassword) {
-        if (!login(vecchiaPassword)) {
-            throw new IllegalArgumentException("Vecchia password non corretta");
-        }
-        this.passwordHash = calcolaHash(nuovaPassword);
+    if (nuovaPassword == null || nuovaPassword.trim().isEmpty()) {
+        throw new IllegalArgumentException("Nuova password non valida");
     }
+    if (vecchiaPassword == null || vecchiaPassword.trim().isEmpty()) {
+        this.passwordHash = calcolaHash(nuovaPassword);
+        return;
+    }
+    if (!login(vecchiaPassword)) {
+        throw new IllegalArgumentException("Vecchia password non corretta");
+    }
+    this.passwordHash = calcolaHash(nuovaPassword);
+}
 
  /**
   * @brief metodo getter sulla passwordhash
