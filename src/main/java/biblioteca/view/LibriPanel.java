@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package biblioteca.view;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +21,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
 /**
  * @brief Pannello per la gestione del catalogo libri .
  * Questa classe rappresenta la "View" per le operazioni di create, read, update e delete sui libri.
@@ -33,26 +31,17 @@ import javafx.scene.layout.VBox;
  * - Bottom: Pulsanti di controllo (CRUD + ricerca).
  */
 public class LibriPanel {
-
     private final BorderPane root;
-
     private final TextField campoIsbn;
     private final TextField campoTitolo;
     private final TextField campoAutore;
-   
     private final TextField campoAnno;
-    
     private final TextField campoCopieTotali;
     private final TableView<ObservableList<String>> tabellaLibri;
-
     private final Button bottoneInserisci;
     private final Button bottoneModifica;
-  
     private final Button bottoneElimina;
-    
-    
     private final Button bottoneCerca;
-
     /**
      * @brief Costruttore del pannello Libri.
      *
@@ -63,46 +52,38 @@ public class LibriPanel {
      */
     public LibriPanel() {
         root = new BorderPane();
-
         campoIsbn = new TextField();
         campoTitolo = new TextField();
         campoAutore = new TextField();
         campoAnno = new TextField();
         campoCopieTotali = new TextField();
-
         campoIsbn.setMaxWidth(Double.MAX_VALUE);
         campoTitolo.setMaxWidth(Double.MAX_VALUE);
         campoAutore.setMaxWidth(Double.MAX_VALUE);
         campoAnno.setMaxWidth(Double.MAX_VALUE);
         campoCopieTotali.setMaxWidth(Double.MAX_VALUE);
-
         GridPane form = new GridPane();
         form.setHgap(8);
         form.setVgap(8);
         form.setPadding(new Insets(10));
-
         ColumnConstraints c0 = new ColumnConstraints(); c0.setMinWidth(90);
         ColumnConstraints c1 = new ColumnConstraints(); c1.setHgrow(Priority.ALWAYS);
         ColumnConstraints c2 = new ColumnConstraints(); c2.setMinWidth(70);
         ColumnConstraints c3 = new ColumnConstraints(); c3.setHgrow(Priority.ALWAYS);
         form.getColumnConstraints().addAll(c0, c1, c2, c3);
-
         int r = 0;
         form.add(new Label("ISBN:"), 0, r);
         form.add(campoIsbn, 1, r);
         form.add(new Label("Titolo:"), 2, r);
         form.add(campoTitolo, 3, r);
         r++;
-
         form.add(new Label("Autore/i:"), 0, r);
         form.add(campoAutore, 1, r);
         form.add(new Label("Anno:"), 2, r);
         form.add(campoAnno, 3, r);
         r++;
-
         form.add(new Label("Copie totali:"), 0, r);
         form.add(campoCopieTotali, 1, r, 3, 1);
-
         GridPane.setHgrow(campoIsbn, Priority.ALWAYS);
         GridPane.setHgrow(campoTitolo, Priority.ALWAYS);
         GridPane.setHgrow(campoAutore, Priority.ALWAYS);
@@ -250,5 +231,5 @@ public class LibriPanel {
         campoAutore.setText(riga.get(2));
         campoAnno.setText(riga.get(3));
         campoCopieTotali.setText(riga.get(4));
-    }
+        }
 }

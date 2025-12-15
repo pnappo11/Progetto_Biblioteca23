@@ -17,7 +17,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
 /**
  * @brief Pannello per la gestione delle operazioni di prestito.
  * Permette agli operatori di visualizzare l'elenco dei prestiti, registrarne uno nuovo, registrare una restituzione, gestire lo stato
@@ -26,17 +25,13 @@ import javafx.scene.layout.VBox;
 public class PrestitiPanel {
 
     private final BorderPane root;
-
     private final TextField campoMatricola;
     private final TextField campoIsbn;
     private final TextField campoDataPrevista;
-
     private final TableView<ObservableList<String>> tabellaPrestiti;
-
     private final Button bottoneNuovoPrestito;
     private final Button bottoneRestituzione;
     private final Button bottoneBlacklist;
-
     /**
      * @brief Costruttore del pannello Prestiti.
      */
@@ -79,15 +74,12 @@ public class PrestitiPanel {
         tabellaPrestiti = new TableView<>();
         tabellaPrestiti.getStyleClass().add("table-in-card");
         tabellaPrestiti.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
         TableColumn<ObservableList<String>, String> colMatricola = new TableColumn<>("Matricola");
         colMatricola.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(0)));
         colMatricola.setPrefWidth(120);
-
         TableColumn<ObservableList<String>, String> colNome = new TableColumn<>("Nome");
         colNome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(1)));
         colNome.setPrefWidth(120);
-
         TableColumn<ObservableList<String>, String> colCognome = new TableColumn<>("Cognome");
         colCognome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(2)));
         colCognome.setPrefWidth(150);
@@ -107,7 +99,6 @@ public class PrestitiPanel {
         TableColumn<ObservableList<String>, String> colDataPrevista = new TableColumn<>("Data prevista");
         colDataPrevista.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(6)));
         colDataPrevista.setPrefWidth(120);
-
         TableColumn<ObservableList<String>, String> colInRitardo = new TableColumn<>("In ritardo");
         colInRitardo.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(7)));
         colInRitardo.setPrefWidth(90);
@@ -163,12 +154,10 @@ public class PrestitiPanel {
      * @return la matricola senza spazi.
      */
     public String getMatricolaInserita() { return campoMatricola.getText().trim(); }
-
     /**
      * @brief metodo getter sull'isbn
      * @return isbn inserito */
     public String getIsbnInserito() { return campoIsbn.getText().trim(); }
-
     /** 
      * @brief metodo getter sulla data prevista per la restituzione 
      * @return data prevista per la restituzione */
@@ -176,22 +165,18 @@ public class PrestitiPanel {
 
     /** @brief resetta i textfield */
     public void pulisciCampi() { campoMatricola.clear(); campoIsbn.clear(); campoDataPrevista.clear(); }
-
     /**
      * @brief getter per la tabella dei prestiti.
      * @return la tabella dei prestiti. */
     public TableView<ObservableList<String>> getTabellaPrestiti() { return tabellaPrestiti; }
-
     /** 
      * @brief getter per il tasto nuovo prestito
      * @return tasto nuovo prestito */
     public Button getBottoneNuovoPrestito() { return bottoneNuovoPrestito; }
-
     /** 
      * @brief getter per il bottone registra restituzione
      * @return tasto restituzione */
     public Button getBottoneRestituzione() { return bottoneRestituzione; }
-
     /** 
      * @brief getter per il bottone inserimento nella blacklist.
      * @return tasto blacklist */

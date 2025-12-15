@@ -1,19 +1,15 @@
 package biblioteca.controller;
-
 import biblioteca.model.Autenticazione;
 import biblioteca.view.LoginView;
-
 /**
  * @brief Controller per la gestione del processo di autenticazione.
  * Questa classe gestisce la logica di interazione tra la vista di login e il modello
  * di autenticazione, coordinando l'accesso al menu principale.
  */
 public class AuthController {
-
     private final Autenticazione bibliotecario;
     private final LoginView loginView;
     private final MainController mainController;
-
     /**
      * @brief Costruttore della classe Authcontroller.
      * Inizializza il controller e fa da ponte verso la view.
@@ -30,15 +26,10 @@ public class AuthController {
 
         this.loginView.setOnLogin(() -> login(this.loginView.getPassword()));
     }
-
-    
     private void login(String passwordInserita) {
         if (passwordInserita == null) {
-            passwordInserita = "";
-        }
-
+            passwordInserita = "";}
         boolean ok = bibliotecario.login(passwordInserita.trim());
-
         if (ok) {
             loginView.mostraErrore("");
             loginView.pulisciCampi();

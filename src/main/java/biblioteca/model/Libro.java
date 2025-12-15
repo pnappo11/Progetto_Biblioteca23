@@ -18,7 +18,6 @@ import java.util.Objects;
  * @author tommy
  */
 public class Libro implements Serializable, Comparable<Libro> {
-    
     private static final long serialVersionUID = 1L;
     private final long isbn;
     private String titolo;
@@ -26,7 +25,6 @@ public class Libro implements Serializable, Comparable<Libro> {
     private int annoPubblicazione;
     private int copieTotali;
     private int copieDisponibili;
-
     /**
      * @brief costruttore per l'inizializzazione dei suoi attributi
      * @param isbn
@@ -196,7 +194,6 @@ public class Libro implements Serializable, Comparable<Libro> {
         return isbn == libro.isbn;
     }
 /**
- * 
  * @return hashcode sull'isbn
  */
     @Override

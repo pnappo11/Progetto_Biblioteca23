@@ -10,30 +10,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
 /**
  * @brief classe che contiene tutte le informazioni relative ad un utente: nome, cognome, matricola, email, se è o meno in blacklist, elenca e conta i prestiti attivi
  * Questa classe inoltre aggiunge o rimuove un prestito per un determinato utente oltre ad informare se un utente può o meno richiedere nuovi prestiti.
  * @author tommy
  */
 public class Utente implements Serializable, Comparable<Utente> {
-
-    private static final long serialVersionUID = 1L;
-
-    
+    private static final long serialVersionUID = 1L;    
     public static final int MAX_PRESTITI = 3;
-
-    
     private final String matricola;
-
     private String nome;
     private String cognome;
     private String email;
-
-
     private boolean inBlacklist;
-
-  
     private final List<Prestito> prestitiAttivi;
 /**
  * @brief costruttore per l'inizializzazione degli attributi dell'utente.
@@ -55,8 +44,7 @@ public class Utente implements Serializable, Comparable<Utente> {
  * @return matricola
  */
     public String getMatricola() {
-        return matricola;
-    }
+        return matricola;}
 /**
  * @brief metodo getter per il nome dell'utente
  * @return nome
@@ -104,8 +92,7 @@ public class Utente implements Serializable, Comparable<Utente> {
  * @return inBlacklist
  */
     public boolean isInBlacklist() {
-        return inBlacklist;
-    }
+        return inBlacklist; }
 /**
  * @brief imposta il valore di inBlacklist
  * @param valore true o false(true se è in blacklist)
@@ -141,9 +128,7 @@ public class Utente implements Serializable, Comparable<Utente> {
  */
     public void aggiungiPrestito(Prestito prestito) {
         if (prestito != null && !prestitiAttivi.contains(prestito)) {
-            prestitiAttivi.add(prestito);
-        }
-    }
+            prestitiAttivi.add(prestito);}}
 /**
  * @brief metodo che permette di rimuovere un prestito.
  * @param prestito 
@@ -160,7 +145,7 @@ public class Utente implements Serializable, Comparable<Utente> {
     public int compareTo(Utente o) {
     if (o == null || o.matricola == null) return 1;
     if (this.matricola == null) return -1;
-    return this.matricola.compareTo(o.matricola);   // confronto tra stringhe
+    return this.matricola.compareTo(o.matricola);   
 }
 /**
  * @brief override del metodo equals su due utenti.

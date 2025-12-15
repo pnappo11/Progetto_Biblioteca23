@@ -15,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
 /**
  * @brief Schermata di Menu Principale.
  *
@@ -24,9 +23,7 @@ import javafx.scene.layout.VBox;
  * @author tommy
  */
 public class MenuView {
-
     private final BorderPane root;
-
     private final Button btnLibri;
     private final Button btnUtenti;
     private final Button btnPrestiti;
@@ -35,14 +32,12 @@ public class MenuView {
     private Runnable onGestioneUtenti;
     private Runnable onGestionePrestiti;
     private Runnable onLogout;
-
     /**
      * @brief Costruttore di default.
      */
     public MenuView() {
         this("Bibliotecario");
     }
-
     /**
      * @brief Costruttore principale contiene l'intera interfaccia grafica.
      *Contiene il tasto per il logout, pulsanti di navigazione, e tutto ciò che ci permette di muoverci all'interno della nostra finestra.
@@ -53,25 +48,20 @@ public class MenuView {
         root.getStyleClass().add("app-root");
         root.getStyleClass().add("app-wood");
         root.setPadding(new Insets(16));
-
         VBox card = new VBox(20);
         card.getStyleClass().add("card");
         card.setPadding(new Insets(20));
         card.setAlignment(Pos.TOP_CENTER);
-
         Label lblTitolo = new Label("Menu Biblioteca");
         lblTitolo.getStyleClass().add("page-title");
 
         btnLogout = new Button("Logout");
         btnLogout.getStyleClass().add("btn-danger");
         btnLogout.setOnAction(e -> { if (onLogout != null) onLogout.run(); });
-
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-
         HBox topLine = new HBox(10, lblTitolo, spacer, btnLogout);
         topLine.setAlignment(Pos.CENTER_LEFT);
-
         Label lblBenvenuto = new Label("Benvenuto, " + nomeBibliotecario + "!");
         lblBenvenuto.getStyleClass().add("page-title");
 
@@ -83,7 +73,6 @@ public class MenuView {
 
         HBox row2 = new HBox(15);
         row2.setAlignment(Pos.CENTER);
-
         btnLibri = new Button("Gestione Libri");
         btnUtenti = new Button("Gestione Utenti");
         btnPrestiti = new Button("Gestione Prestiti");
@@ -91,11 +80,9 @@ public class MenuView {
         btnLibri.getStyleClass().add("tile-button");
         btnUtenti.getStyleClass().add("tile-button");
         btnPrestiti.getStyleClass().add("tile-button");
-
         btnLibri.setPrefWidth(150);
         btnUtenti.setPrefWidth(150);
         btnPrestiti.setPrefWidth(150);
-
         btnLibri.setOnAction(e -> { if (onGestioneLibri != null) onGestioneLibri.run(); });
         btnUtenti.setOnAction(e -> { if (onGestioneUtenti != null) onGestioneUtenti.run(); });
         btnPrestiti.setOnAction(e -> { if (onGestionePrestiti != null) onGestionePrestiti.run(); });
@@ -122,7 +109,6 @@ public class MenuView {
     public void setOnGestioneLibri(Runnable r) {
         this.onGestioneLibri = r;
     }
-
     /**
      * @brief Imposta l'azione da eseguire al click su "Gestione Utenti".
      * @param r rappresenta il Runnable contenente la logica di cambio scena.
@@ -130,7 +116,6 @@ public class MenuView {
     public void setOnGestioneUtenti(Runnable r) {
         this.onGestioneUtenti = r;
     }
-
     /**
      * @brief Imposta l'azione da eseguire al click su "Gestione Prestiti".
      * @param r Il Runnable contenente la logica di cambio scena.
@@ -138,7 +123,6 @@ public class MenuView {
     public void setOnGestionePrestiti(Runnable r) {
         this.onGestionePrestiti = r;
     }
-
     /**
      * @brief Imposta l'azione da eseguire al click su "Logout".
      * @param r Il Runnable che gestisce il ritorno alla schermata di Login.

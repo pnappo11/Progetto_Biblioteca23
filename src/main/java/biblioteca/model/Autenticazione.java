@@ -10,22 +10,15 @@ import java.security.NoSuchAlgorithmException;
  * @author tommy
  */
 public class Autenticazione implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     private static final String DEFAULT_HASH =
             "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
-
-
     private String passwordHash;
-
   /**
    * @brief costruttore di default inizializza l'attributo passwordHash
    */
     public Autenticazione() {
-        this.passwordHash = DEFAULT_HASH;
-    }
-
+        this.passwordHash = DEFAULT_HASH;}
    /**
     * @brief metodo che calcola l'hash sulla password inserita al momento del login e la confronta con quella già presente nel sistema.
     * @param passwordInserita rappresenta la password inserita al momento del login nel campo password.
@@ -35,7 +28,6 @@ public class Autenticazione implements Serializable {
         String hashInserita = calcolaHash(passwordInserita);
         return passwordHash.equals(hashInserita);
     }
-
     /**
      * @brief metodo per il cambio password, per poter procedere alla modifica della password bisogna comunque ricordare la vecchia
      * @param vecchiaPassword rappresenta la vecchia password 
@@ -54,15 +46,12 @@ public class Autenticazione implements Serializable {
     }
     this.passwordHash = calcolaHash(nuovaPassword);
 }
-
  /**
   * @brief metodo getter sulla passwordhash
   *  @return la password hashata.
   */
     public String getPasswordHash() {
-        return passwordHash;
-    }
-
+        return passwordHash;}
    /**
     * @brief metodo che si occupa di calcolare l'hash di una password, ovvero la versione codificata di quella password.
     * @param passwordChiaro rappresenta la password non codificata (es."supermario23").

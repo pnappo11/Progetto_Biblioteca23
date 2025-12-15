@@ -8,22 +8,15 @@ import java.io.Serializable;
  */
 
 public class DatiBiblioteca implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     public GestioneLibri gestioneLibri;
-    
     public GestioneUtenti gestioneUtenti;
-    
     public GestionePrestiti gestionePrestiti;
-    
     public Autenticazione autenticazione;
-    
 /**
  * @brief costruttere default
  */
-    public DatiBiblioteca() {
-    }
+    public DatiBiblioteca() { }
     
 /**
  *@brief costruttore che inizializza tutti i parametri da gestire, grazie ai parametri che riceve può accedere a moltissime informazioni relative

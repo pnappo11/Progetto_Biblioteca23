@@ -16,7 +16,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 /**
  * @brief Pannello per la gestione dell'anagrafica utenti.
  *
@@ -25,17 +24,12 @@ import javafx.scene.layout.VBox;
  * È composta da un form di inserimento, una tabella riepilogativa e i comandi di azione.
  */
 public class UtentiPanel {
-
     private final BorderPane root;
-
     private final TextField campoMatricola;
     private final TextField campoNome;
     private final TextField campoCognome;
     private final TextField campoEmail;
-
     private final TableView<ObservableList<String>> tabellaUtenti;
-
-    //  Pulsanti Azione
     private final Button bottoneInserisci;
     private final Button bottoneModifica;
     private final Button bottoneElimina;
@@ -49,17 +43,14 @@ public class UtentiPanel {
      */
     public UtentiPanel() {
         root = new BorderPane();
-
         campoMatricola = new TextField();
         campoNome = new TextField();
         campoCognome = new TextField();
         campoEmail = new TextField();
-
         campoMatricola.setMaxWidth(Double.MAX_VALUE);
         campoNome.setMaxWidth(Double.MAX_VALUE);
         campoCognome.setMaxWidth(Double.MAX_VALUE);
         campoEmail.setMaxWidth(Double.MAX_VALUE);
-
         GridPane form = new GridPane();
         form.setHgap(8);
         form.setVgap(8);
@@ -115,9 +106,7 @@ public class UtentiPanel {
         TableColumn<ObservableList<String>, String> colBlacklist = new TableColumn<>("Blacklist");
         colBlacklist.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().get(5)));
         colBlacklist.setPrefWidth(100);
-
         tabellaUtenti.getColumns().addAll(colMatricola, colNome, colCognome, colEmail, colPrestitiAttivi, colBlacklist);
-
         ObservableList<ObservableList<String>> datiFinti = FXCollections.observableArrayList();
         datiFinti.add(FXCollections.observableArrayList("0612700001","Mario","Rossi","m.rossi@unisa.it","1","No"));
         datiFinti.add(FXCollections.observableArrayList("0612700002","Giulia","Bianchi","g.bianchi@unisa.it","0","Sì"));
@@ -148,7 +137,6 @@ public class UtentiPanel {
         root.setCenter(contenuto);
         BorderPane.setMargin(contenuto, new Insets(12));
     }
-
     /**
      * @brief Restituisce il nodo radice dell'interfaccia.
      * @return L'oggetto Parent da inserire nella scena principale.
@@ -174,7 +162,6 @@ public class UtentiPanel {
      * @return campo email
      */
     public String getEmailInserita() { return campoEmail.getText().trim(); }
-
     /**
      * @brief Pulisce i campi di input del form.
      * Da chiamare dopo un inserimento avvenuto con successo per resettare i campi .
@@ -189,7 +176,8 @@ public class UtentiPanel {
      * @brief getter per il tasto inserisci
      * @return tasto inserisci
      */
-    public Button getBottoneInserisci() { return bottoneInserisci; }
+    public Button getBottoneInserisci() { 
+        return bottoneInserisci; }
     /**
      * @brief metodo getter per il tasto modifica
      * @return tasto modifica
@@ -204,13 +192,13 @@ public class UtentiPanel {
      * @brief metofo getter per il tasto blacklist
      * @return tasto blacklist
      */
-    public Button getBottoneBlacklist() { return bottoneBlacklist; }
+    public Button getBottoneBlacklist() {
+        return bottoneBlacklist; }
     /**
      * @brief metodo getter tasto cerca
      * @return tasto cerca
      */
     public Button getBottoneCerca() { return bottoneCerca; }
-
     /**
      * @brief Imposta i campi del form a partire da una riga selezionata nella tabella.
      * Struttura riga:
@@ -223,5 +211,5 @@ public class UtentiPanel {
         campoNome.setText(riga.get(1));
         campoCognome.setText(riga.get(2));
         campoEmail.setText(riga.get(3));
-    }
+     }
 }

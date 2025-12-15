@@ -146,9 +146,6 @@ public class LibriController {
             return;
         }
         isbnStr = isbnClean;
-        // --- FINE VALIDAZIONE ISBN ---
-
-
         Long isbn = parseLong(isbnStr, "ISBN");
         if (isbn == null) return;
 
@@ -157,7 +154,6 @@ public class LibriController {
             mostraErrore("Nessun libro trovato con ISBN " + isbn);
             return;
         }
-
         if (!isVuoto(titolo)) {
             libro.setTitolo(titolo);
         }
@@ -173,11 +169,9 @@ public class LibriController {
         if (!isVuoto(copieStr)) {
             Integer nuoveTot = parseInt(copieStr, "Copie totali");
             if (nuoveTot == null) return;
-
             int vecchieTot  = libro.getCopieTotali();
             int vecchieDisp = libro.getCopieDisponibili();
             int inPrestito  = vecchieTot - vecchieDisp;  // copie già in prestito
-
             if (nuoveTot < inPrestito) {
                 mostraErrore(
                         "Non puoi impostare le copie totali a " + nuoveTot +
@@ -202,40 +196,32 @@ public class LibriController {
             mostraErrore("Seleziona un libro dalla tabella da eliminare.");
             return;
         }
-
         String isbnStr = selezionata.get(0);
         gestioneLibri.eliminaLibro(isbnStr);
-
         archivio.salvaLibri(gestioneLibri);
-
         resetFormESelezione();
         resetModalitaRicerca();
         aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
     }
     private void gestisciCercaOIndietro() {
         if (!inModalitaRicerca) {
-            // --- CERCA ---
             String isbnStr    = view.getCodiceIsbnInserito();
             String titolo     = view.getTitoloInserito();
             String autoreStr  = view.getAutoreInserito();
             String annoStr    = view.getAnnoInserito();
             String copieStr   = view.getCopieTotaliInserite();
-
             if (!isVuoto(annoStr) || !isVuoto(copieStr)) {
                 mostraInfo(
                         "Non è possibile cercare per \"Anno\" o \"Copie totali\".\n" +
                         "La ricerca viene effettuata solo per ISBN, Titolo e Autore."
                 );
             }
-
             Collection<Libro> trovati =
                     gestioneLibri.cercaLibri(isbnStr, titolo, autoreStr);
             aggiornaTabella(trovati);
-
             inModalitaRicerca = true;
             view.getBottoneCerca().setText("Indietro");
         } else {
-            // --- INDIETRO ---
             resetFormESelezione();
             resetModalitaRicerca();
             aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
@@ -247,20 +233,17 @@ public class LibriController {
                 Libro::getTitolo,
                 String.CASE_INSENSITIVE_ORDER
         ));
-
         ObservableList<ObservableList<String>> righe = FXCollections.observableArrayList();
-
         for (Libro libro : lista) {
             ObservableList<String> riga = FXCollections.observableArrayList();
-            riga.add(String.valueOf(libro.getIsbn()));              // 0
-            riga.add(libro.getTitolo());                            // 1
-            riga.add(joinAutori(libro.getAutori()));                // 2
-            riga.add(String.valueOf(libro.getAnnoPubblicazione())); // 3
-            riga.add(String.valueOf(libro.getCopieTotali()));       // 4
-            riga.add(String.valueOf(libro.getCopieDisponibili()));  // 5
+            riga.add(String.valueOf(libro.getIsbn()));              
+            riga.add(libro.getTitolo());                            
+            riga.add(joinAutori(libro.getAutori()));                
+            riga.add(String.valueOf(libro.getAnnoPubblicazione())); 
+            riga.add(String.valueOf(libro.getCopieTotali()));       
+            riga.add(String.valueOf(libro.getCopieDisponibili()));  
             righe.add(riga);
         }
-
         view.getTabellaLibri().setItems(righe);
     }
     private void resetFormESelezione() {
@@ -270,14 +253,10 @@ public class LibriController {
     private void resetModalitaRicerca() {
         inModalitaRicerca = false;
         view.getBottoneCerca().setText("Cerca");
-    }
-
-    
+    }    
     private boolean isVuoto(String s) {
         return s == null || s.trim().isEmpty();
-    }
-
-    
+    }    
     private Integer parseInt(String s, String nomeCampo) {
         try {
             return Integer.valueOf(s.trim());

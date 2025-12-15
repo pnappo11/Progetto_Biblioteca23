@@ -11,11 +11,8 @@ import java.util.List;
  * @author tommy
  */
 public class GestionePrestiti implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     private final List<Prestito> prestiti;
-    
 /**
  * @brief costruttore che crea una nuova lista di prestiti.
  * @param prestiti parametro che contiene tutti i prestiti del sistema
@@ -23,19 +20,16 @@ public class GestionePrestiti implements Serializable {
     public GestionePrestiti(List<Prestito> prestiti) {
         this.prestiti = (prestiti != null) ? prestiti : new ArrayList<Prestito>();
     }
-    
 /**
  * @brief costruttore senza parametri di ingresso, istanzia un nuovo array list di prestiti.
  */
     public GestionePrestiti() {
         this(new ArrayList<Prestito>());
     }
-
     /** @brief Restituisce la lista di tutti i prestiti (solo lettura). */
     public List<Prestito> getPrestiti() {
         return Collections.unmodifiableList(prestiti);
     }
-
     /** @brief Restituisce solo i prestiti ancora attivi. */
     public List<Prestito> getPrestitiAttivi() {
         List<Prestito> attivi = new ArrayList<Prestito>();
@@ -46,7 +40,6 @@ public class GestionePrestiti implements Serializable {
         }
         return attivi;
     }
-
    /**
     * @brief permette di registrare un nuovo prestito.
     * @param utente colui che riceve il libro in prestito
@@ -73,13 +66,10 @@ public class GestionePrestiti implements Serializable {
                             + Utente.MAX_PRESTITI + ")."
             );
         }
-
         Prestito prestito = new Prestito(utente, libro, dataPrestito, dataPrevistaRestituzione);
         prestiti.add(prestito);
-
         libro.decrementaCopiaDisponibile();
         utente.aggiungiPrestito(prestito);
-
         return prestito;
     }
 /**
@@ -91,14 +81,11 @@ public class GestionePrestiti implements Serializable {
         if (prestito == null || !prestito.isAttivo()) {
             return;
         }
-
         LocalDate dataEffettiva = (dataRestituzione != null) ? dataRestituzione : LocalDate.now();
         prestito.setDataRestituzione(dataEffettiva);
-
         prestito.getLibro().incrementaCopiaDisponibile();
         prestito.getUtente().rimuoviPrestito(prestito);
     }
-
     /**
      * @brief conta quanti prestiti in corso ha un determinato utente
      * @param utente utente in questione
@@ -114,7 +101,6 @@ public class GestionePrestiti implements Serializable {
         }
         return count;
     }
-
     /**
      * @brief rappresenta se un utente ha o meno prestiti in corso.
      * @param utente 

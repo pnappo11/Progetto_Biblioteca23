@@ -4,18 +4,14 @@ import biblioteca.model.Autenticazione;
 import biblioteca.model.GestioneLibri;
 import biblioteca.model.GestioneUtenti;
 import biblioteca.model.GestionePrestiti;
-
 import java.io.*;
-
 /**
  * @brief Gestisce la persistenza dei dati del sistema bibliotecario su file binari.
  * Questa classe si occupa di serializzare e deserializzare gli oggetti principali del modello
  * (libri, utenti, prestiti e credenziali) utilizzando gli stream di oggetti Java.
  */
 public class ArchivioFile {
-
     private final String percorsoBase;
-
     private static final String FILE_LIBRI      = "libri.dat";
     private static final String FILE_UTENTI     = "utenti.dat";
     private static final String FILE_PRESTITI   = "prestiti.dat";
@@ -28,7 +24,6 @@ public class ArchivioFile {
     public ArchivioFile(String percorsoBase) {
         this.percorsoBase = percorsoBase;
     }
-
     /**
      * @brief Carica l'elenco dei libri dal file locale.
      * @return Un'istanza di GestioneLibri. Se il file non esiste, ritorna un nuovo oggetto vuoto.
@@ -39,16 +34,14 @@ public class ArchivioFile {
             gl = new GestioneLibri();      // nuovo se il file non esiste
         }
         return gl;
-    }
+   }
 
     /**
      * @brief Salva lo stato attuale della gestione libri su file.
      * @param gl L'oggetto GestioneLibri da serializzare.
      */
     public void salvaLibri(GestioneLibri gl) {
-        salvaOggetto(FILE_LIBRI, gl);
-    }
-
+        salvaOggetto(FILE_LIBRI, gl);}
     /**
      * @brief Carica l'elenco degli utenti dal file locale.
      * @return Un'istanza di GestioneUtenti. Se il file non esiste, ritorna un nuovo oggetto vuoto.
@@ -60,7 +53,6 @@ public class ArchivioFile {
         }
         return gu;
     }
-
     /**
      * @brief Salva lo stato attuale della gestione utenti su file.
      * @param gu L'oggetto GestioneUtenti da serializzare.
@@ -68,7 +60,6 @@ public class ArchivioFile {
     public void salvaUtenti(GestioneUtenti gu) {
         salvaOggetto(FILE_UTENTI, gu);
     }
-
     /**
      * @brief Carica l'elenco dei prestiti dal file locale.
      * @return Un'istanza di GestionePrestiti. Se il file non esiste, ritorna un nuovo oggetto vuoto.
@@ -80,7 +71,6 @@ public class ArchivioFile {
         }
         return gp;
     }
-
     /**
      * @brief Salva lo stato attuale dei prestiti su file.
      * @param gp L'oggetto GestionePrestiti da serializzare.
@@ -88,7 +78,6 @@ public class ArchivioFile {
     public void salvaPrestiti(GestionePrestiti gp) {
         salvaOggetto(FILE_PRESTITI, gp);
     }
-
     /**
      * @brief Carica i dati di autenticazione (credenziali admin) dal file locale.
      * @return Un'istanza di Autenticazione. Se il file non esiste, ritorna un'istanza con valori predefiniti.
@@ -100,7 +89,6 @@ public class ArchivioFile {
         }
         return a;
     }
-
     /**
      * @brief Salva le credenziali di autenticazione su file.
      * @param a L'oggetto Autenticazione da serializzare.
@@ -108,13 +96,11 @@ public class ArchivioFile {
     public void salvaAutenticazione(Autenticazione a) {
         salvaOggetto(FILE_LOGIN, a);
     }
-
     private <T> T caricaOggetto(String nomeFile, Class<T> tipo) {
         File file = new File(percorsoBase, nomeFile);
         if (!file.exists()) {
             return null;
         }
-
         try (ObjectInputStream ois =
                      new ObjectInputStream(new FileInputStream(file))) {
             Object obj = ois.readObject();
@@ -126,15 +112,12 @@ public class ArchivioFile {
         }
         return null;
     }
-
     private void salvaOggetto(String nomeFile, Object obj) {
         if (obj == null) return;
-
         File dir = new File(percorsoBase);
         if (!dir.exists()) {
             dir.mkdirs();
         }
-
         File file = new File(dir, nomeFile);
         try (ObjectOutputStream oos =
                      new ObjectOutputStream(new FileOutputStream(file))) {

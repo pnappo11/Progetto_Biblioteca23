@@ -23,7 +23,6 @@ public class Prestito implements Serializable {
     private final Libro libro;
     private final LocalDate dataInizio;
     private final LocalDate dataPrevistaRestituzione;
-    /** Può essere null finché il libro non viene restituito. */
     private LocalDate dataRestituzione;
 /**
  * @brief costruttore per l'inizializzazione dell'oggetto prestito con tutti i suoi attributi.
@@ -40,9 +39,6 @@ public class Prestito implements Serializable {
         this.dataPrevistaRestituzione = dataPrevistaRestituzione;
         this.dataRestituzione = null;
     }
-/**
- * metodi getter e setter. 
- */
     /**
      * @brief metodo getter dell'utente
      * @return l'utente del prestito
