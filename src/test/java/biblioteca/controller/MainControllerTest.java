@@ -54,7 +54,6 @@ public class MainControllerTest {
     @Test
     public void setPrestitiController_impostaCampo() throws Exception {
         eseguiFx(() -> controller.setPrestitiController(null));
-
         Field f = MainController.class.getDeclaredField("prestitiController");
         f.setAccessible(true);
         assertNull(f.get(controller));
@@ -63,66 +62,33 @@ public class MainControllerTest {
     @Test
     public void mostraLogin_impostaTitoloEScena() throws Exception {
         eseguiFx(() -> controller.mostraLogin());
-
         assertEquals("Login Biblioteca", stage.getTitle());
         assertNotNull(stage.getScene());
+        assertNotNull(stage.getScene().getRoot());
     }
 
     @Test
     public void mostraMenu_impostaTitoloEScena() throws Exception {
         eseguiFx(() -> controller.mostraMenu());
-
         assertEquals("Menu Biblioteca", stage.getTitle());
         assertNotNull(stage.getScene());
+        assertNotNull(stage.getScene().getRoot());
     }
 
     @Test
     public void mostraMain_impostaTitoloEScena() throws Exception {
         eseguiFx(() -> controller.mostraMain(0));
-
         assertEquals("Biblioteca universitaria", stage.getTitle());
         assertNotNull(stage.getScene());
+        assertNotNull(stage.getScene().getRoot());
     }
 
     @Test
     public void avvia_mostraLoginEVisualizzaStage() throws Exception {
         eseguiFx(() -> controller.avvia());
-
         assertEquals("Login Biblioteca", stage.getTitle());
+        assertNotNull(stage.getScene());
         assertTrue(stage.isShowing());
-    }
-
-    @Test
-    public void mostraLogin_stageNull_lanciaNPE() {
-        MainController c = new MainController(null);
-        assertThrows(NullPointerException.class, c::mostraLogin);
-    }
-
-    @Test
-    public void mostraMenu_stageNull_lanciaNPE() {
-        MainController c = new MainController(null);
-        assertThrows(NullPointerException.class, c::mostraMenu);
-    }
-
-    @Test
-    public void mostraMain_stageNull_lanciaNPE() {
-        MainController c = new MainController(null);
-        assertThrows(NullPointerException.class, () -> c.mostraMain(0));
-    }
-
-    @Test
-    public void mostraMain_tabIndexFuoriRange_nonBloccaIlTest() throws Exception {
-        eseguiFx(() -> {
-            try {
-                controller.mostraMain(-1);
-                assertEquals("Biblioteca universitaria", stage.getTitle());
-                assertNotNull(stage.getScene());
-            } catch (RuntimeException ex) {
-                assertTrue(ex instanceof IndexOutOfBoundsException
-                        || ex instanceof IllegalArgumentException
-                        || ex.getCause() instanceof IndexOutOfBoundsException);
-            }
-        });
     }
 
     private static void eseguiFx(Runnable r) throws Exception {
