@@ -10,7 +10,6 @@ import biblioteca.view.MainFrame;
 import biblioteca.view.MenuView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 /**
  * @brief Controller principale dell'applicazione.
  * Questa classe funge da punto di ingresso e gestore dell'intera applicazione.
@@ -18,21 +17,13 @@ import javafx.stage.Stage;
  * gestisce la navigazione tra le diverse scene (Login, Menu, Gestione principale).
  */
 public class MainController {
-
-
     private final Stage stage;
-
-
     private final GestioneLibri gestioneLibri;
     private final GestioneUtenti gestioneUtenti;
     private final GestionePrestiti gestionePrestiti;
     private PrestitiController prestitiController;
-
     private final Autenticazione bibliotecario;
-
-
     private final ArchivioFile archivio;
-
     /**
      * @brief Costruttore della classe MainController.
      * Inizializza lo stage, il sistema di persistenza (ArchivioFile) e i modelli
@@ -41,22 +32,13 @@ public class MainController {
      */
     public MainController(Stage stage) {
         this.stage = stage;
-
-
         this.archivio = new ArchivioFile(".");
-
-
         this.gestioneLibri    = new GestioneLibri();
         this.gestioneUtenti   = new GestioneUtenti();
         this.gestionePrestiti = new GestionePrestiti();
-
-
         this.gestioneUtenti.setGestionePrestiti(gestionePrestiti);
-
-
         this.bibliotecario = new Autenticazione();
     }
-
     /**
      * @brief Imposta il controller dei prestiti.
      * @param prestitiController L'istanza del controller per la gestione dei prestiti.
@@ -64,8 +46,6 @@ public class MainController {
     public void setPrestitiController(PrestitiController prestitiController) {
         this.prestitiController = prestitiController;
     }
-
-
     /**
      * @brief Avvia l'applicazione.
      * Mostra la schermata di login e rende visibile lo stage principale.
@@ -74,7 +54,6 @@ public class MainController {
         mostraLogin();
         stage.show();
     }
-
     /**
      * @brief Configura e mostra la scena di Login.
      * Istanzia la vista di login e il relativo controller di autenticazione,
@@ -83,15 +62,11 @@ public class MainController {
     public void mostraLogin() {
         LoginView loginView = new LoginView();
         Scene loginScene = new Scene(loginView.getRoot(), 400, 200);
-
         stage.setTitle("Login Biblioteca");
         stage.setScene(loginScene);
         stage.centerOnScreen();
-
-
         new AuthController(bibliotecario, loginView, this);
     }
-
     /**
      * @brief Configura e mostra la scena del Menu principale.
      * Crea la view del menu intermedio, collegando i pulsanti alle relative funzioni
@@ -109,7 +84,6 @@ public class MainController {
         menu.setOnGestionePrestiti(() -> mostraMain(2));
         menu.setOnLogout(this::mostraLogin);
     }
-
     /**
      * @brief Configura e mostra la finestra operativa principale (MainFrame).
      * Inizializza i controller specifici (Libri, Utenti, Prestiti), gestisce le dipendenze
@@ -119,25 +93,20 @@ public class MainController {
    public void mostraMain(int tabIndex) {
     MainFrame mainView = new MainFrame(tabIndex);
     Scene mainScene = new Scene(mainView.getRoot(), 1000, 600);
-
     stage.setTitle("Biblioteca universitaria");
     stage.setScene(mainScene);
     stage.centerOnScreen();
-
-
     LibriController libriCtrl = new LibriController(
             gestioneLibri,
             mainView.getLibriView(),
             archivio
     );
-
     UtentiController utentiCtrl = new UtentiController(
             gestioneUtenti,
             gestionePrestiti,
             mainView.getUtentiView(),
             archivio
     );
-
     PrestitiController prestitiCtrl = new PrestitiController(
             gestionePrestiti,
             mainView.getPrestitiView(),
@@ -147,14 +116,8 @@ public class MainController {
             libriCtrl,
             utentiCtrl
     );
-
-
     utentiCtrl.setPrestitiController(prestitiCtrl);
-
-
     mainView.getBtnMenu().setOnAction(e -> mostraMenu());
-
-
     mainView.getBtnLogout().setOnAction(e -> mostraLogin());
 }
 

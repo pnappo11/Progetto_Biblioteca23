@@ -56,7 +56,6 @@ public class UtentiController {
         inizializzaTabella();
         collegaEventi();
     }
-
     /**
      * @brief Imposta il controller dei prestiti.
      * 
@@ -66,13 +65,10 @@ public class UtentiController {
      */
     public void setPrestitiController(PrestitiController prestitiController) {
         this.prestitiController = prestitiController;
-    }
-
-    
+    }   
     private void inizializzaTabella() {
         aggiornaTabella(gestioneUtenti.getUtenti());
     }
-
     
     private void collegaEventi() {
         view.getBottoneInserisci().setOnAction(e -> gestisciInserisci());
@@ -88,9 +84,7 @@ public class UtentiController {
                         view.setCampiDaRiga(newSel);
                     }
                 });
-    }
-
-    
+    }  
     private void gestisciInserisci() {
         String matricola = view.getMatricolaInserita();
         String nome      = view.getNomeInserito();
@@ -101,10 +95,7 @@ public class UtentiController {
             mostraErrore("Compila tutti i campi per inserire un utente.");
             return;
         }
-
         matricola = matricola.trim();
-
-        // --- VALIDAZIONE EMAIL UNISA (inline, senza metodi/attributi) ---
         email = email.trim().toLowerCase();
         int at = email.indexOf('@');
         if (at <= 0 || at != email.lastIndexOf('@')) {
@@ -115,13 +106,10 @@ public class UtentiController {
             mostraErrore("Email non valida: deve terminare con @unisa.it");
             return;
         }
-        // (opzionale ma utile) evita "qualcosa@unisa.it." o spazi
         if (email.contains(" ")) {
             mostraErrore("Email non valida: non deve contenere spazi.");
             return;
         }
-        // --- FINE VALIDAZIONE EMAIL UNISA ---
-
         if (gestioneUtenti.trovaUtente(matricola) != null) {
             mostraErrore("Esiste già un utente con matricola " + matricola + ".");
             return;
@@ -135,9 +123,7 @@ public class UtentiController {
         resetFormESelezione();
         resetModalitaRicerca();
         aggiornaTabella(gestioneUtenti.getUtenti());
-    }
-
-   
+    }   
     private void gestisciModifica() {
         String matricola = view.getMatricolaInserita();
 
@@ -169,7 +155,6 @@ public class UtentiController {
         if (!isVuoto(cognome)) utente.setCognome(cognome);
 
         if (!isVuoto(email)) {
-            // --- VALIDAZIONE EMAIL UNISA (inline, senza metodi/attributi) ---
             email = email.trim().toLowerCase();
             int at = email.indexOf('@');
             if (at <= 0 || at != email.lastIndexOf('@')) {
@@ -184,7 +169,6 @@ public class UtentiController {
                 mostraErrore("Email non valida: non deve contenere spazi.");
                 return;
             }
-            // --- FINE VALIDAZIONE EMAIL UNISA ---
 
             utente.setEmail(email);
         }
@@ -195,8 +179,6 @@ public class UtentiController {
         resetModalitaRicerca();
         aggiornaTabella(gestioneUtenti.getUtenti());
     }
-
-    
     private void gestisciElimina() {
         String matricola = view.getMatricolaInserita();
 
@@ -207,12 +189,10 @@ public class UtentiController {
                 matricola = selezionata.get(0);
             }
         }
-
         if (isVuoto(matricola)) {
             mostraErrore("Inserisci la matricola dell'utente da eliminare o seleziona una riga.");
             return;
         }
-
         matricola = matricola.trim();
         gestioneUtenti.eliminaUtente(matricola);
 
@@ -221,9 +201,7 @@ public class UtentiController {
         resetFormESelezione();
         resetModalitaRicerca();
         aggiornaTabella(gestioneUtenti.getUtenti());
-    }
-
-    
+    } 
     private void gestisciToggleBlacklist() {
         ObservableList<String> selezionato =
                 view.getTabellaUtenti().getSelectionModel().getSelectedItem();
@@ -253,9 +231,7 @@ public class UtentiController {
         if (prestitiController != null) {
             prestitiController.aggiornaDaModel();
         }
-    }
-
-    
+    } 
     private void gestisciCercaOIndietro() {
         if (!inModalitaRicerca) {
             String matricola = view.getMatricolaInserita();
@@ -282,9 +258,7 @@ public class UtentiController {
             resetModalitaRicerca();
             aggiornaTabella(gestioneUtenti.getUtenti());
         }
-    }
-
-    
+    }  
     private void aggiornaTabella(Collection<Utente> utentiDaMostrare) {
         List<Utente> lista = new ArrayList<>(utentiDaMostrare);
 
@@ -315,27 +289,19 @@ public class UtentiController {
         }
 
         view.getTabellaUtenti().setItems(righe);
-    }
-
-    
+    } 
     private String safeLower(String s) {
         return (s == null) ? "" : s.toLowerCase();
     }
-
-  
     private boolean isVuoto(String s) {
         return s == null || s.trim().isEmpty();
     }
-
-    
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
         alert.setTitle("Errore");
         alert.showAndWait();
     }
-
-    
     private void mostraInfo(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
@@ -354,7 +320,6 @@ public class UtentiController {
         inModalitaRicerca = false;
         view.getBottoneCerca().setText("Cerca");
     }
-
     /**
      * @brief Forza l'aggiornamento della tabella utenti recuperando i dati dal modello.
      * Utile per sincronizzare la view dopo modifiche esterne.

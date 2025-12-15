@@ -29,14 +29,12 @@ public class PrestitiController {
 
     private final GestionePrestiti gestionePrestiti;
     private final GestioneLibri gestioneLibri;
+    
     private final GestioneUtenti gestioneUtenti;
-
     private final PrestitiPanel view;
     private final ArchivioFile archivio;
-
     private final LibriController libriController;
     private final UtentiController utentiController;
-
     /**
      * @brief Costruttore della classe PrestitiController.
      * Inizializza il controller con le dipendenze necessarie, popola la tabella iniziale
@@ -68,20 +66,14 @@ public class PrestitiController {
         inizializzaTabella();
         collegaEventi();
     }
-
-   
     private void inizializzaTabella() {
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
     }
-
-    
     private void collegaEventi() {
         view.getBottoneNuovoPrestito().setOnAction(e -> gestisciNuovoPrestito());
         view.getBottoneRestituzione().setOnAction(e -> gestisciRestituzione());
         view.getBottoneBlacklist().setOnAction(e -> gestisciBlacklist());
-    }
-
-    
+    } 
     private void gestisciNuovoPrestito() {
         String matricolaStr = view.getMatricolaInserita();
         String isbnStr = view.getIsbnInserito();
@@ -113,7 +105,6 @@ public class PrestitiController {
             mostraErrore("L'utente è in blacklist e non può effettuare nuovi prestiti.");
             return;
         }
-
         int attivi = 0;
         for (Prestito p : gestionePrestiti.getPrestitiAttivi()) {
             if (p.getUtente() != null && matricola.equals(p.getUtente().getMatricola())) attivi++;
@@ -122,20 +113,17 @@ public class PrestitiController {
             mostraErrore("Impossibile registrare il prestito: l'utente ha già 3 prestiti attivi.");
             return;
         }
-
         Libro libro = gestioneLibri.trovaLibro(isbn);
         if (libro == null) {
             mostraErrore("Nessun libro trovato con ISBN " + isbn);
             return;
         }
-
         try {
             gestionePrestiti.registraPrestito(utente, libro, LocalDate.now(), dataPrevista);
         } catch (Exception ex) {
             mostraErrore(ex.getMessage());
             return;
         }
-
         archivio.salvaPrestiti(gestionePrestiti);
         archivio.salvaLibri(gestioneLibri);
         archivio.salvaUtenti(gestioneUtenti);
@@ -145,9 +133,7 @@ public class PrestitiController {
 
         if (libriController != null) libriController.aggiornaDaModel();
         if (utentiController != null) utentiController.aggiornaDaModel();
-    }
-
-   
+    }   
     private void gestisciRestituzione() {
         ObservableList<String> rigaSel = view.getTabellaPrestiti().getSelectionModel().getSelectedItem();
         if (rigaSel == null) {
@@ -168,52 +154,36 @@ public class PrestitiController {
             mostraErrore("Prestito selezionato non trovato.");
             return;
         }
-
         gestionePrestiti.registraRestituzione(daRestituire, null);
-
         archivio.salvaPrestiti(gestionePrestiti);
         archivio.salvaLibri(gestioneLibri);
         archivio.salvaUtenti(gestioneUtenti);
-
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
-
         if (libriController != null) libriController.aggiornaDaModel();
         if (utentiController != null) utentiController.aggiornaDaModel();
-    }
-
-    
+    } 
     private void gestisciBlacklist() {
         ObservableList<String> rigaSel = view.getTabellaPrestiti().getSelectionModel().getSelectedItem();
         if (rigaSel == null) {
             mostraErrore("Seleziona un prestito per mettere in blacklist l'utente.");
             return;
         }
-
         String matricola = rigaSel.get(0).trim();
-
         Utente utente = gestioneUtenti.trovaUtente(matricola);
         if (utente == null) {
             mostraErrore("Utente non trovato.");
             return;
         }
-
         utente.setInBlacklist(true);
-
         archivio.salvaUtenti(gestioneUtenti);
-
         mostraInfo("Utente " + utente.getNome() + " " + utente.getCognome() + " inserito in blacklist.");
-
         if (utentiController != null) utentiController.aggiornaDaModel();
         aggiornaTabella(gestionePrestiti.getPrestitiAttivi());
-    }
-
-   
+    }  
     private void aggiornaTabella(Collection<Prestito> prestitiDaMostrare) {
         List<Prestito> lista = new ArrayList<>(prestitiDaMostrare);
         lista.sort(Comparator.comparing(Prestito::getDataPrevistaRestituzione));
-
         ObservableList<ObservableList<String>> righe = FXCollections.observableArrayList();
-
         for (Prestito p : lista) {
             Utente uPrestito = p.getUtente();
             Utente u = null;
@@ -248,14 +218,10 @@ public class PrestitiController {
         }
 
         view.getTabellaPrestiti().setItems(righe);
-    }
-
-    
+    }  
     private boolean isVuoto(String s) {
         return s == null || s.trim().isEmpty();
-    }
-
-    
+    }    
     private Long parseLong(String s, String nomeCampo) {
         try {
             return Long.valueOf(s.trim());
@@ -264,8 +230,6 @@ public class PrestitiController {
             return null;
         }
     }
-
-    
     private LocalDate parseData(String s, String nomeCampo) {
         try {
             return LocalDate.parse(s.trim());
@@ -273,24 +237,19 @@ public class PrestitiController {
             mostraErrore("Il campo \"" + nomeCampo + "\" deve essere nel formato AAAA-MM-GG.");
             return null;
         }
-    }
-
-    
+    }    
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
         alert.setTitle("Errore");
         alert.showAndWait();
-    }
-
-    
+    }  
     private void mostraInfo(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
         alert.setTitle("Informazione");
         alert.showAndWait();
     }
-
     /**
      * @brief Aggiorna la view recuperando i dati più recenti dal modello.
      */

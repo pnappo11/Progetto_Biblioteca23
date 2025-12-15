@@ -82,7 +82,7 @@ public class LibriController {
             return;
         }
 
-        // --- VALIDAZIONE ISBN-13 (inline, senza metodi/attributi) ---
+        // --- VALIDAZIONE ISBN (solo 13 cifre + prefisso 978/979) ---
         String isbnClean = isbnStr.replaceAll("[^0-9]", "");
         if (isbnClean.length() != 13) {
             mostraErrore("ISBN non valido: deve avere 13 cifre.");
@@ -92,19 +92,9 @@ public class LibriController {
             mostraErrore("ISBN non valido: deve iniziare con 978 o 979.");
             return;
         }
-        int sum = 0;
-        for (int i = 0; i < 12; i++) {
-            int d = isbnClean.charAt(i) - '0';
-            sum += (i % 2 == 0) ? d : d * 3;
-        }
-        int check = (10 - (sum % 10)) % 10;
-        int last = isbnClean.charAt(12) - '0';
-        if (check != last) {
-            mostraErrore("ISBN non valido: cifra di controllo errata.");
-            return;
-        }
         isbnStr = isbnClean;
-        // --- FINE VALIDAZIONE ISBN-13 ---
+// --- FINE VALIDAZIONE ISBN ---
+
 
         Long isbn   = parseLong(isbnStr, "ISBN");
         Integer anno  = parseInt(annoStr, "Anno");
@@ -145,7 +135,7 @@ public class LibriController {
             return;
         }
 
-        // --- VALIDAZIONE ISBN-13 (inline, senza metodi/attributi) ---
+                // --- VALIDAZIONE ISBN (solo 13 cifre + prefisso 978/979) ---
         String isbnClean = isbnStr.replaceAll("[^0-9]", "");
         if (isbnClean.length() != 13) {
             mostraErrore("ISBN non valido: deve avere 13 cifre.");
@@ -155,19 +145,9 @@ public class LibriController {
             mostraErrore("ISBN non valido: deve iniziare con 978 o 979.");
             return;
         }
-        int sum = 0;
-        for (int i = 0; i < 12; i++) {
-            int d = isbnClean.charAt(i) - '0';
-            sum += (i % 2 == 0) ? d : d * 3;
-        }
-        int check = (10 - (sum % 10)) % 10;
-        int last = isbnClean.charAt(12) - '0';
-        if (check != last) {
-            mostraErrore("ISBN non valido: cifra di controllo errata.");
-            return;
-        }
         isbnStr = isbnClean;
-        // --- FINE VALIDAZIONE ISBN-13 ---
+        // --- FINE VALIDAZIONE ISBN ---
+
 
         Long isbn = parseLong(isbnStr, "ISBN");
         if (isbn == null) return;
@@ -206,19 +186,15 @@ public class LibriController {
                 );
                 return;
             }
-
             libro.setCopieTotali(nuoveTot);
             int nuoveDisp = nuoveTot - inPrestito;
             libro.setCopieDisponibili(nuoveDisp);
         }
-
         archivio.salvaLibri(gestioneLibri);
-
         view.pulisciCampi();
         view.getTabellaLibri().getSelectionModel().clearSelection();
         aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
     }
-
     private void gestisciElimina() {
         ObservableList<String> selezionata =
                 view.getTabellaLibri().getSelectionModel().getSelectedItem();
@@ -236,8 +212,6 @@ public class LibriController {
         resetModalitaRicerca();
         aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
     }
-
-
     private void gestisciCercaOIndietro() {
         if (!inModalitaRicerca) {
             // --- CERCA ---
@@ -267,8 +241,6 @@ public class LibriController {
             aggiornaTabella(gestioneLibri.getLibriOrdinatiPerTitolo());
         }
     }
-
-
     private void aggiornaTabella(Collection<Libro> libriDaMostrare) {
         List<Libro> lista = new ArrayList<>(libriDaMostrare);
         lista.sort(Comparator.comparing(
@@ -291,14 +263,10 @@ public class LibriController {
 
         view.getTabellaLibri().setItems(righe);
     }
-
-    
     private void resetFormESelezione() {
         view.pulisciCampi();
         view.getTabellaLibri().getSelectionModel().clearSelection();
-    }
-
-   
+    }   
     private void resetModalitaRicerca() {
         inModalitaRicerca = false;
         view.getBottoneCerca().setText("Cerca");
@@ -317,9 +285,7 @@ public class LibriController {
             mostraErrore("Il campo \"" + nomeCampo + "\" deve essere un numero intero.");
             return null;
         }
-    }
-
-    
+    }    
     private Long parseLong(String s, String nomeCampo) {
         try {
             return Long.valueOf(s.trim());
@@ -327,9 +293,7 @@ public class LibriController {
             mostraErrore("Il campo \"" + nomeCampo + "\" deve essere un numero intero.");
             return null;
         }
-    }
-
-    
+    }    
     private List<String> parseAutori(String testo) {
         List<String> lista = new ArrayList<>();
         if (testo == null) return lista;
@@ -345,9 +309,7 @@ public class LibriController {
             lista.add(testo.trim());
         }
         return lista;
-    }
-
-    
+    }   
     private String joinAutori(List<String> autori) {
         if (autori == null || autori.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
@@ -356,9 +318,7 @@ public class LibriController {
             sb.append(autori.get(i));
         }
         return sb.toString();
-    }
-
-    
+    }    
     private Libro trovaLibroPerIsbn(Long isbn) {
         for (Libro l : gestioneLibri.getLibri()) {
             if (l.getIsbn() == isbn) {
@@ -366,24 +326,19 @@ public class LibriController {
             }
         }
         return null;
-    }
-
-    
+    }   
     private void mostraErrore(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.ERROR, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
         alert.setTitle("Errore");
         alert.showAndWait();
-    }
-
-    
+    }   
     private void mostraInfo(String messaggio) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, messaggio, ButtonType.OK);
         alert.setHeaderText(null);
         alert.setTitle("Informazione");
         alert.showAndWait();
     }
-
     /**
      * @brief Forza l'aggiornamento della view recuperando i dati dal modello.
      * Utile per sincronizzare la view dopo operazioni esterne o cambi di pannello.
