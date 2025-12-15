@@ -3,9 +3,10 @@ package biblioteca.controller;
 import biblioteca.model.Autenticazione;
 import biblioteca.view.LoginView;
 import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CountDownLatch;
@@ -14,12 +15,6 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthControllerTest {
-
-    private Stage stage;
-    private MainControllerSpia mainController;
-    private AutenticazioneFinta autenticazione;
-    private LoginViewFinta loginView;
-    private AuthController controller;
 
     @BeforeAll
     public static void avviaJavaFx() throws Exception {
@@ -33,120 +28,105 @@ public class AuthControllerTest {
         assertTrue(latch.await(10, TimeUnit.SECONDS));
     }
 
-    @BeforeEach
-    public void setUp() throws Exception {
+    @Test
+    public void login_ok_vaAlMenu_pulisceCampi_eAzzeraErrore() throws Exception {
         eseguiFx(() -> {
-            stage = new Stage();
-            mainController = new MainControllerSpia(stage);
-            autenticazione = new AutenticazioneFinta();
-            loginView = new LoginViewFinta();
+            Stage s = new Stage();
+            s.setScene(new Scene(new Pane(), 100, 80));
 
-            controller = new AuthController(autenticazione, loginView, mainController);
+            MainControllerSpy main = new MainControllerSpy(s);
+            LoginViewStub view = new LoginViewStub();
+            AutenticazioneStub auth = new AutenticazioneStub("pw");
+
+            new AuthController(auth, view, main);
+
+            view.password = "  pw  ";
+            view.fireLogin();
+
+            assertTrue(main.menuShown);
+            assertEquals("", view.lastError);
+            assertTrue(view.cleared);
         });
     }
 
     @Test
-    public void loginCorretto_pulisceCampiEPassaAlMenu() throws Exception {
+    public void login_error_passwordErrata_mostraErrore_ePulisceCampi() throws Exception {
         eseguiFx(() -> {
-            autenticazione.setEsito(true);
-            loginView.impostaPassword("qualsiasi");
+            Stage s = new Stage();
+            s.setScene(new Scene(new Pane(), 100, 80));
 
-            loginView.cliccaLogin();
+            MainControllerSpy main = new MainControllerSpy(s);
+            LoginViewStub view = new LoginViewStub();
+            AutenticazioneStub auth = new AutenticazioneStub("pw");
 
-            assertEquals("", loginView.leggiUltimoErrore());
-            assertTrue(loginView.campiPuliti());
-            assertTrue(mainController.menuMostrato());
+            new AuthController(auth, view, main);
+
+            view.password = "wrong";
+            view.fireLogin();
+
+            assertFalse(main.menuShown);
+            assertEquals("Password errata.", view.lastError);
+            assertTrue(view.cleared);
         });
     }
 
     @Test
-    public void loginErrato_mostraErroreEPulisce() throws Exception {
+    public void login_error_passwordNull_trattataComeVuota() throws Exception {
         eseguiFx(() -> {
-            autenticazione.setEsito(false);
-            loginView.impostaPassword("sbagliata");
+            Stage s = new Stage();
+            s.setScene(new Scene(new Pane(), 100, 80));
 
-            loginView.cliccaLogin();
+            MainControllerSpy main = new MainControllerSpy(s);
+            LoginViewStub view = new LoginViewStub();
+            AutenticazioneStub auth = new AutenticazioneStub("pw");
 
-            assertEquals("Password errata.", loginView.leggiUltimoErrore());
-            assertTrue(loginView.campiPuliti());
-            assertFalse(mainController.menuMostrato());
+            new AuthController(auth, view, main);
+
+            view.password = null;
+            view.fireLogin();
+
+            assertFalse(main.menuShown);
+            assertEquals("Password errata.", view.lastError);
+            assertTrue(view.cleared);
         });
     }
 
-    private static class AutenticazioneFinta extends Autenticazione {
-        private boolean esito = false;
-
-        public void setEsito(boolean esito) {
-            this.esito = esito;
-        }
-
+    private static class AutenticazioneStub extends Autenticazione {
+        private final String expected;
+        AutenticazioneStub(String expected) { this.expected = expected; }
         @Override
         public boolean login(String password) {
-            return esito;
+            if (password == null) password = "";
+            return expected.equals(password.trim());
         }
     }
 
-    private static class MainControllerSpia extends MainController {
-        private boolean mostrato = false;
-
-        public MainControllerSpia(Stage stage) {
-            super(stage);
-        }
-
+    private static class MainControllerSpy extends MainController {
+        boolean menuShown = false;
+        MainControllerSpy(Stage s) { super(s); }
         @Override
-        public void mostraMenu() {
-            mostrato = true;
-        }
-
-        public boolean menuMostrato() {
-            return mostrato;
-        }
+        public void mostraMenu() { menuShown = true; }
     }
 
-    private static class LoginViewFinta extends LoginView {
-
-        private Runnable onLogin;
-        private String password = "";
-        private String ultimoErrore = null;
-        private boolean pulito = false;
-
-        public void impostaPassword(String p) {
-            password = (p == null) ? "" : p;
-            pulito = false;
-        }
-
-        public void cliccaLogin() {
-            if (onLogin != null) onLogin.run();
-        }
-
-        public String leggiUltimoErrore() {
-            return ultimoErrore;
-        }
-
-        public boolean campiPuliti() {
-            return pulito;
-        }
+    private static class LoginViewStub extends LoginView {
+        Runnable onLogin;
+        String password;
+        String lastError;
+        boolean cleared = false;
 
         @Override
-        public void setOnLogin(Runnable r) {
-            onLogin = r;
-        }
+        public void setOnLogin(Runnable r) { this.onLogin = r; }
 
         @Override
-        public String getPassword() {
-            return password;
-        }
+        public String getPassword() { return password; }
 
         @Override
-        public void mostraErrore(String messaggio) {
-            ultimoErrore = messaggio;
-        }
+        public void mostraErrore(String msg) { lastError = msg; }
 
         @Override
-        public void pulisciCampi() {
-            password = "";
-            pulito = true;
-        }
+        public void pulisciCampi() { cleared = true; password = ""; }
+
+        void fireLogin() { if (onLogin != null) onLogin.run(); }
     }
 
     private static void eseguiFx(Runnable r) throws Exception {

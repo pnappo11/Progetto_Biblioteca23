@@ -1,24 +1,29 @@
 package biblioteca.controller;
 
-import biblioteca.model.*;
+import biblioteca.model.GestioneLibri;
+import biblioteca.model.GestionePrestiti;
+import biblioteca.model.GestioneUtenti;
+import biblioteca.model.Libro;
+import biblioteca.model.Prestito;
+import biblioteca.model.Utente;
+import biblioteca.persistence.ArchivioFile;
 import biblioteca.view.PrestitiPanel;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -29,8 +34,12 @@ public class PrestitiControllerTest {
     private GestionePrestiti gestionePrestiti;
     private GestioneLibri gestioneLibri;
     private GestioneUtenti gestioneUtenti;
-    private PrestitiPanelFinta vista;
+    private PrestitiPanel vista;
     private PrestitiController controller;
+    private ArchivioFile archivio;
+
+    private Utente uOk;
+    private Utente uBlack;
 
     @BeforeAll
     public static void avviaJavaFx() throws Exception {
@@ -46,140 +55,362 @@ public class PrestitiControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
+        Path tmp = Files.createTempDirectory("test-biblio-prestiti-");
+        archivio = new ArchivioFile(tmp.toAbsolutePath().toString());
+
         gestionePrestiti = new GestionePrestiti();
         gestioneLibri = new GestioneLibri();
         gestioneUtenti = new GestioneUtenti();
 
-        Utente u1 = new Utente("0612700001", "Matteo", "Menza", "m.menza@unisa.it");
-        Utente u2 = new Utente("0612700002", "Pasquale", "Sorbo", "p.sorbo@unisa.it");
-        u2.setInBlacklist(true);
-        gestioneUtenti.inserisciUtente(u1);
-        gestioneUtenti.inserisciUtente(u2);
+        uOk = new Utente("0612700001", "Mario", "Rossi", "mario.rossi@unisa.it");
+        uBlack = new Utente("0612700002", "Giulia", "Bianchi", "giulia.bianchi@unisa.it");
+        uBlack.setInBlacklist(true);
 
-        // NB: questi servono a VC-8 (trovaLibro/isbn valido)
-        gestioneLibri.inserisciLibro(9788800000000L, "Odissea", Arrays.asList("Omero"), 2020, 5);
-        gestioneLibri.inserisciLibro(9788800000001L, "Lilith", Arrays.asList("Autore"), 2018, 2);
+        gestioneUtenti.inserisciUtente(uOk);
+        gestioneUtenti.inserisciUtente(uBlack);
 
-        // prestiti iniziali (per test tabella)
-        Libro l1 = new Libro(9788800000000L, "Odissea", new ArrayList<>(), 2020, 5, 5);
-        Libro l2 = new Libro(9788800000001L, "Lilith",  new ArrayList<>(), 2018, 2, 2);
-        LocalDate inizio = LocalDate.now().minusDays(10);
-        gestionePrestiti.registraPrestito(u1, l1, inizio, LocalDate.now().minusDays(1));  // in ritardo
-        gestionePrestiti.registraPrestito(u2, l2, inizio, LocalDate.now().plusDays(5));   // non in ritardo
+        inserisciLibro(9788800000001L, "LibroA", 2020, 5);
+        inserisciLibro(9788800000002L, "LibroB", 2021, 5);
+        inserisciLibro(9788800000003L, "LibroC", 2022, 5);
+        inserisciLibro(9788800000004L, "LibroD", 2023, 5);
 
         eseguiFx(() -> {
-            vista = new PrestitiPanelFinta();
-            controller = new PrestitiController(gestionePrestiti, vista, null, gestioneLibri, gestioneUtenti, null, null);
+            vista = new PrestitiPanel();
+            controller = new PrestitiController(
+                    gestionePrestiti,
+                    vista,
+                    archivio,
+                    gestioneLibri,
+                    gestioneUtenti,
+                    null,
+                    null
+            );
+            vista.getTabellaPrestiti().getItems().clear();
         });
     }
 
     @Test
-    public void aggiornaDaModel_riempieLaTabellaConDuePrestiti() throws Exception {
+    public void nuovoPrestito_ok_registraEaggiornaTabella() throws Exception {
         eseguiFx(() -> {
+            setCampoDaGetter(vista, "getMatricolaInserita", "0612700001");
+            setCampoDaGetter(vista, "getIsbnInserito", "9788800000001");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", LocalDate.now().plusDays(7).toString());
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(1, gestionePrestiti.getPrestitiAttivi().size());
+            assertEquals(1, vista.getTabellaPrestiti().getItems().size());
+            assertEquals("", vista.getMatricolaInserita());
+            assertEquals("", vista.getIsbnInserito());
+            assertEquals("", vista.getDataPrevistaInserita());
+        });
+    }
+
+    @Test
+    public void nuovoPrestito_error_campiVuoti_nonRegistra() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            setCampoDaGetter(vista, "getMatricolaInserita", "");
+            setCampoDaGetter(vista, "getIsbnInserito", "");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", "");
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void nuovoPrestito_error_isbnNonNumero_nonRegistra() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            setCampoDaGetter(vista, "getMatricolaInserita", "0612700001");
+            setCampoDaGetter(vista, "getIsbnInserito", "ABC");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", LocalDate.now().plusDays(7).toString());
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void nuovoPrestito_error_dataNonValida_nonRegistra() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            setCampoDaGetter(vista, "getMatricolaInserita", "0612700001");
+            setCampoDaGetter(vista, "getIsbnInserito", "9788800000001");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", "12/31/2025");
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void nuovoPrestito_error_dataPrevistaNonSuccessiva_nonRegistra() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            setCampoDaGetter(vista, "getMatricolaInserita", "0612700001");
+            setCampoDaGetter(vista, "getIsbnInserito", "9788800000001");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", LocalDate.now().toString());
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void nuovoPrestito_error_utenteNonTrovato_nonRegistra() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            setCampoDaGetter(vista, "getMatricolaInserita", "0612700999");
+            setCampoDaGetter(vista, "getIsbnInserito", "9788800000001");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", LocalDate.now().plusDays(7).toString());
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void nuovoPrestito_error_utenteInBlacklist_nonRegistra() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            setCampoDaGetter(vista, "getMatricolaInserita", "0612700002");
+            setCampoDaGetter(vista, "getIsbnInserito", "9788800000001");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", LocalDate.now().plusDays(7).toString());
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void nuovoPrestito_error_limiteTrePrestiti_nonRegistra() throws Exception {
+        eseguiFx(() -> {
+            Libro a = gestioneLibri.trovaLibro(9788800000001L);
+            Libro b = gestioneLibri.trovaLibro(9788800000002L);
+            Libro c = gestioneLibri.trovaLibro(9788800000003L);
+            assertNotNull(a);
+            assertNotNull(b);
+            assertNotNull(c);
+
+            gestionePrestiti.registraPrestito(uOk, a, LocalDate.now().minusDays(3), LocalDate.now().plusDays(10));
+            gestionePrestiti.registraPrestito(uOk, b, LocalDate.now().minusDays(2), LocalDate.now().plusDays(11));
+            gestionePrestiti.registraPrestito(uOk, c, LocalDate.now().minusDays(1), LocalDate.now().plusDays(12));
+
+            chiudiFinestreDopo(80);
+            setCampoDaGetter(vista, "getMatricolaInserita", "0612700001");
+            setCampoDaGetter(vista, "getIsbnInserito", "9788800000004");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", LocalDate.now().plusDays(7).toString());
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(3, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void nuovoPrestito_error_libroNonTrovato_nonRegistra() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            setCampoDaGetter(vista, "getMatricolaInserita", "0612700001");
+            setCampoDaGetter(vista, "getIsbnInserito", "9788800009999");
+            setCampoDaGetter(vista, "getDataPrevistaInserita", LocalDate.now().plusDays(7).toString());
+
+            vista.getBottoneNuovoPrestito().fire();
+
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void restituzione_error_nessunaSelezione_nonFaNulla() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            vista.getTabellaPrestiti().getSelectionModel().clearSelection();
+            vista.getBottoneRestituzione().fire();
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void restituzione_error_isbnNonNumero_inRiga_nonFaNulla() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            ObservableList<ObservableList<String>> items = vista.getTabellaPrestiti().getItems();
+            items.setAll(
+                    javafx.collections.FXCollections.observableArrayList(
+                            javafx.collections.FXCollections.observableArrayList(
+                                    "0612700001", "Mario", "Rossi", "ABC", "X",
+                                    LocalDate.now().minusDays(1).toString(),
+                                    LocalDate.now().plusDays(1).toString(),
+                                    "No", "No"
+                            )
+                    )
+            );
+            vista.getTabellaPrestiti().getSelectionModel().select(0);
+            vista.getBottoneRestituzione().fire();
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void restituzione_error_dataInizioNonValida_inRiga_nonFaNulla() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            ObservableList<ObservableList<String>> items = vista.getTabellaPrestiti().getItems();
+            items.setAll(
+                    javafx.collections.FXCollections.observableArrayList(
+                            javafx.collections.FXCollections.observableArrayList(
+                                    "0612700001", "Mario", "Rossi", "9788800000001", "X",
+                                    "not-a-date",
+                                    LocalDate.now().plusDays(1).toString(),
+                                    "No", "No"
+                            )
+                    )
+            );
+            vista.getTabellaPrestiti().getSelectionModel().select(0);
+            vista.getBottoneRestituzione().fire();
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void restituzione_error_prestitoNonTrovato_nonFaNulla() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            ObservableList<ObservableList<String>> items = vista.getTabellaPrestiti().getItems();
+            items.setAll(
+                    javafx.collections.FXCollections.observableArrayList(
+                            javafx.collections.FXCollections.observableArrayList(
+                                    "0612700001", "Mario", "Rossi", "9788800000001", "X",
+                                    LocalDate.now().minusDays(10).toString(),
+                                    LocalDate.now().plusDays(1).toString(),
+                                    "No", "No"
+                            )
+                    )
+            );
+            vista.getTabellaPrestiti().getSelectionModel().select(0);
+            vista.getBottoneRestituzione().fire();
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void restituzione_ok_rimuoveDaAttivi() throws Exception {
+        eseguiFx(() -> {
+            Libro l = gestioneLibri.trovaLibro(9788800000001L);
+            LocalDate inizio = LocalDate.now().minusDays(1);
+            LocalDate prevista = LocalDate.now().plusDays(7);
+            gestionePrestiti.registraPrestito(uOk, l, inizio, prevista);
+
+            controller.aggiornaDaModel();
+            assertEquals(1, vista.getTabellaPrestiti().getItems().size());
+
+            vista.getTabellaPrestiti().getSelectionModel().select(0);
+            vista.getBottoneRestituzione().fire();
+
+            assertEquals(0, gestionePrestiti.getPrestitiAttivi().size());
+        });
+    }
+
+    @Test
+    public void blacklist_error_nessunaSelezione_nonCambia() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            vista.getTabellaPrestiti().getSelectionModel().clearSelection();
+            vista.getBottoneBlacklist().fire();
+            assertFalse(uOk.isInBlacklist());
+        });
+    }
+
+    @Test
+    public void blacklist_error_utenteNonTrovato_nonCambia() throws Exception {
+        eseguiFx(() -> {
+            chiudiFinestreDopo(80);
+            ObservableList<ObservableList<String>> items = vista.getTabellaPrestiti().getItems();
+            items.setAll(
+                    javafx.collections.FXCollections.observableArrayList(
+                            javafx.collections.FXCollections.observableArrayList(
+                                    "0612700999", "X", "Y", "9788800000001", "T",
+                                    LocalDate.now().minusDays(1).toString(),
+                                    LocalDate.now().plusDays(7).toString(),
+                                    "No", "No"
+                            )
+                    )
+            );
+            vista.getTabellaPrestiti().getSelectionModel().select(0);
+            vista.getBottoneBlacklist().fire();
+            assertFalse(uOk.isInBlacklist());
+        });
+    }
+
+    @Test
+    public void blacklist_ok_impostaFlagUtente() throws Exception {
+        eseguiFx(() -> {
+            Libro l = gestioneLibri.trovaLibro(9788800000001L);
+            gestionePrestiti.registraPrestito(uOk, l, LocalDate.now().minusDays(1), LocalDate.now().plusDays(7));
             controller.aggiornaDaModel();
 
-            ObservableList<ObservableList<String>> righe = vista.getTabellaPrestiti().getItems();
-            assertEquals(2, righe.size());
+            chiudiFinestreDopo(80);
+            vista.getTabellaPrestiti().getSelectionModel().select(0);
+            vista.getBottoneBlacklist().fire();
 
-            ObservableList<String> r1 = trovaRiga(righe, "0612700001");
-            assertNotNull(r1);
-            assertEquals("9788800000000", r1.get(3));
-            assertEquals("Odissea", r1.get(4));
-            assertEquals("Sì", r1.get(7));
-            assertEquals("No", r1.get(8));
-
-            ObservableList<String> r2 = trovaRiga(righe, "0612700002");
-            assertNotNull(r2);
-            assertEquals("9788800000001", r2.get(3));
-            assertEquals("Lilith", r2.get(4));
-            assertEquals("No", r2.get(7));
-            assertEquals("Sì", r2.get(8));
+            assertTrue(gestioneUtenti.trovaUtente("0612700001").isInBlacklist());
         });
     }
 
-    // -------- VC-8: Prestiti solo per soggetti registrati --------
-
-    @Test
-    public void gestisciNuovoPrestito_utenteNonRegistrato_nonRegistra() throws Exception {
-        eseguiFx(() -> {
-            int prima = gestionePrestiti.getPrestiti().size();
-
-            vista.setInput("0612709999", "9788800000000", "2025-12-20"); // utente NON registrato
-            chiudiAlertDopo(80);
-            vista.getBottoneNuovoPrestito().fire();
-
-            assertEquals(prima, gestionePrestiti.getPrestiti().size());
-        });
+    private void inserisciLibro(long isbn, String titolo, int anno, int copie) {
+        gestioneLibri.inserisciLibro(isbn, titolo, new ArrayList<>(List.of("Autore")), anno, copie);
     }
 
-    @Test
-    public void gestisciNuovoPrestito_libroNonRegistrato_nonRegistra() throws Exception {
-        eseguiFx(() -> {
-            int prima = gestionePrestiti.getPrestiti().size();
-
-            vista.setInput("0612700001", "9788809999999", "2025-12-20"); // libro NON presente
-            chiudiAlertDopo(80);
-            vista.getBottoneNuovoPrestito().fire();
-
-            assertEquals(prima, gestionePrestiti.getPrestiti().size());
-        });
-    }
-
-    // ---------------- helpers ----------------
-
-    private static ObservableList<String> trovaRiga(ObservableList<ObservableList<String>> righe, String matricola) {
-        for (ObservableList<String> r : righe) {
-            if (r != null && !r.isEmpty() && matricola.equals(r.get(0))) return r;
-        }
-        return null;
-    }
-
-    // chiude eventuali Alert.showAndWait() per non bloccare i test
-    private static void chiudiAlertDopo(int millis) {
-        PauseTransition pt = new PauseTransition(Duration.millis(millis));
+    private static void chiudiFinestreDopo(int ms) {
+        PauseTransition pt = new PauseTransition(Duration.millis(ms));
         pt.setOnFinished(e -> {
             for (Window w : Window.getWindows()) {
-                if (w instanceof Stage s && s.isShowing()
-                        && s.getScene() != null
-                        && s.getScene().getRoot() instanceof DialogPane) {
-                    s.close();
-                }
+                if (w != null && w.isShowing()) w.hide();
             }
         });
         pt.play();
     }
 
-    // view finta minimale (solo ciò che serve al controller)
-    private static class PrestitiPanelFinta extends PrestitiPanel {
-        private final Button btnNuovo = new Button();
-        private final Button btnRest = new Button();
-        private final Button btnBlack = new Button();
-        private final TableView<ObservableList<String>> tabella = new TableView<>();
-
-        private String matricola = "";
-        private String isbn = "";
-        private String dataPrevista = "";
-
-        void setInput(String m, String i, String d) { matricola = m; isbn = i; dataPrevista = d; }
-
-        @Override public Button getBottoneNuovoPrestito() { return btnNuovo; }
-        @Override public Button getBottoneRestituzione() { return btnRest; }
-        @Override public Button getBottoneBlacklist() { return btnBlack; }
-
-        @Override public String getMatricolaInserita() { return matricola; }
-        @Override public String getIsbnInserito() { return isbn; }
-        @Override public String getDataPrevistaInserita() { return dataPrevista; }
-
-        @Override public void pulisciCampi() { matricola = ""; isbn = ""; dataPrevista = ""; }
-
-        @Override public TableView<ObservableList<String>> getTabellaPrestiti() {
-            if (tabella.getItems() == null) tabella.setItems(FXCollections.observableArrayList());
-            return tabella;
+    private static void setCampoDaGetter(Object view, String getterName, String value) {
+        try {
+            Method getter = view.getClass().getMethod(getterName);
+            String probe = "PROBE_" + getterName;
+            Field[] fields = view.getClass().getDeclaredFields();
+            for (Field f : fields) {
+                if (!f.getType().getName().equals("javafx.scene.control.TextField")) continue;
+                f.setAccessible(true);
+                Object tf = f.get(view);
+                Method getText = tf.getClass().getMethod("getText");
+                Method setText = tf.getClass().getMethod("setText", String.class);
+                String old = (String) getText.invoke(tf);
+                setText.invoke(tf, probe);
+                String got = (String) getter.invoke(view);
+                if (probe.equals(got)) {
+                    setText.invoke(tf, value);
+                    return;
+                }
+                setText.invoke(tf, old);
+            }
+            throw new IllegalStateException("Campo non trovato per " + getterName);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
 
     private static void eseguiFx(Runnable r) throws Exception {
-        if (Platform.isFxApplicationThread()) { r.run(); return; }
+        if (Platform.isFxApplicationThread()) {
+            r.run();
+            return;
+        }
         CountDownLatch latch = new CountDownLatch(1);
         Throwable[] err = new Throwable[1];
         Platform.runLater(() -> {
